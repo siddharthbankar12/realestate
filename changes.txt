@@ -1,0 +1,11 @@
+responsive page
+
+navbar > search bar > add options 
+
+create insights separate component
+
+footer
+
+pg , commercial places
+
+explore popular cities
