@@ -12,124 +12,47 @@ interface Locality {
 
 const EmergingLocalities: React.FC = () => {
   const viewportRef = useRef<HTMLDivElement>(null);
-  const [disableLeft, setDisableLeft] = useState(true);
-  const [disableRight, setDisableRight] = useState(false);
   const [localities, setLocalities] = useState<Locality[]>([]);
 
-  const scrollAmount = 300;
-
-  const checkDisableButtons = () => {
-    const el = viewportRef.current;
-    if (!el) return;
-
-    setDisableLeft(el.scrollLeft <= 1);
-
-    setDisableRight(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
-  };
-
-  const scrollLeft = () => {
-    const el = viewportRef.current;
-    if (el) {
-      el.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    const el = viewportRef.current;
-    if (el) {
-      el.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
-
   useEffect(() => {
-    const fetchData = async () => {
-      const response = [
-        {
-          id: 1,
-          name: "Madhurawada",
-          rating: 4.3,
-          projects: 17,
-          imageUrl: "image.png",
-        },
-        {
-          id: 2,
-          name: "Banjara Hills",
-          rating: 4.5,
-          projects: 12,
-          imageUrl: "image.png",
-        },
-        {
-          id: 3,
-          name: "Gachibowli",
-          rating: 4.2,
-          projects: 8,
-          imageUrl: "image.png",
-        },
-        {
-          id: 4,
-          name: "Madhurawada",
-          rating: 4.3,
-          projects: 17,
-          imageUrl: "image.png",
-        },
-        {
-          id: 5,
-          name: "Banjara Hills",
-          rating: 4.5,
-          projects: 12,
-          imageUrl: "image.png",
-        },
-        {
-          id: 6,
-          name: "Gachibowli",
-          rating: 4.2,
-          projects: 8,
-          imageUrl: "image.png",
-        },
-        {
-          id: 7,
-          name: "Madhurawada",
-          rating: 4.3,
-          projects: 17,
-          imageUrl: "image.png",
-        },
-        {
-          id: 8,
-          name: "Banjara Hills",
-          rating: 4.5,
-          projects: 12,
-          imageUrl: "image.png",
-        },
-        {
-          id: 9,
-          name: "Gachibowli",
-          rating: 4.2,
-          projects: 8,
-          imageUrl: "image.png",
-        },
-        {
-          id: 10,
-          name: "Madhurawada",
-          rating: 4.3,
-          projects: 17,
-          imageUrl: "image.png",
-        },
-      ];
-
-      setLocalities(response);
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const el = viewportRef.current;
-    if (!el) return;
-
-    el.addEventListener("scroll", checkDisableButtons);
-    checkDisableButtons();
-
-    return () => el.removeEventListener("scroll", checkDisableButtons);
+    const response = [
+      {
+        id: 1,
+        name: "Madhurawada",
+        rating: 4.3,
+        projects: 17,
+        imageUrl: "image.png",
+      },
+      {
+        id: 2,
+        name: "Banjara Hills",
+        rating: 4.5,
+        projects: 12,
+        imageUrl: "image.png",
+      },
+      {
+        id: 3,
+        name: "Gachibowli",
+        rating: 4.2,
+        projects: 8,
+        imageUrl: "image.png",
+      },
+      {
+        id: 4,
+        name: "Kukatpally",
+        rating: 4.0,
+        projects: 10,
+        imageUrl: "image.png",
+      },
+      {
+        id: 5,
+        name: "Jubilee Hills",
+        rating: 4.6,
+        projects: 15,
+        imageUrl: "image.png",
+      },
+    ];
+    setLocalities(response);
   }, []);
 
   return (
@@ -140,14 +63,6 @@ const EmergingLocalities: React.FC = () => {
       </div>
 
       <div className={styles.carouselContainer}>
-        <button
-          className={styles.navButton}
-          onClick={scrollLeft}
-          disabled={disableLeft}
-        >
-          &lt;
-        </button>
-
         <div className={styles.carouselViewport} ref={viewportRef}>
           <div className={styles.carousel}>
             {localities.map((locality) => (
@@ -161,14 +76,6 @@ const EmergingLocalities: React.FC = () => {
             ))}
           </div>
         </div>
-
-        <button
-          className={styles.navButton}
-          onClick={scrollRight}
-          disabled={disableRight}
-        >
-          &gt;
-        </button>
       </div>
     </>
   );

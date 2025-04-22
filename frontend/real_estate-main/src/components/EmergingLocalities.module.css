@@ -24,12 +24,12 @@
 }
 
 .carouselViewport {
-  width: 93%;
+  width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   padding: 1vh;
   scroll-behavior: smooth;
-  scroll-snap-type: x mandatory; /* optional snap */
+  scroll-snap-type: x mandatory;
 }
 
 .carousel {
@@ -38,36 +38,36 @@
 }
 
 .carousel > * {
-  scroll-snap-align: start; /* optional snap */
+  scroll-snap-align: start;
 }
 
-.navButton {
-  background: linear-gradient(135deg, #2697e0, #a57fe0);
-  color: white;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 0.6em;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .carouselContainer {
+    width: 95vw;
+    margin-bottom: 2vh;
+  }
+
+  .carouselViewport {
+    width: 90%;
+  }
+
+  .carousel {
+    gap: 12px;
+  }
 }
 
-.navButton:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
+@media (max-width: 480px) {
+  .carouselContainer {
+    width: 100vw;
+    margin-bottom: 4vh;
+  }
 
-.navButton:first-of-type {
-  left: -20px;
-}
+  .carouselViewport {
+    width: 100%;
+  }
 
-.navButton:last-of-type {
-  right: -20px;
+  .carousel {
+    gap: 8px;
+  }
 }

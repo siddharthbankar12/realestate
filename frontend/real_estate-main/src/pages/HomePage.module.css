@@ -154,6 +154,7 @@ input {
 .listings {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 2vw;
 }
 
@@ -179,17 +180,6 @@ input {
   color: #2457c5;
 }
 
-.happycustomers {
-  background-color: var(--color-whitesmoke-100);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 6vw 8vw;
-  gap: 20px;
-}
-
 .reviews {
   width: 100%;
   display: flex;
@@ -202,8 +192,9 @@ input {
 .linkWrapper {
   flex: 1;
   display: flex;
-  min-width: 200px;
+  min-width: 250px;
   gap: 40px;
+  justify-content: center;
 }
 
 @media (max-width: 1200px) {
@@ -348,4 +339,89 @@ input {
   text-align: center;
   font-weight: 700;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.happycustomers {
+  background-color: var(--color-whitesmoke-100);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 6vw 8vw;
+  gap: 20px;
+}
+
+.happycustomers .heading {
+  font-size: 40px;
+  color: var(--color-darkblue);
+  font-weight: 700;
+}
+
+.happycustomers .subheading {
+  font-size: 25px;
+  color: #2457c5;
+  font-weight: 500;
+}
+
+.reviews {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap; /* Ensures it wraps in smaller screens */
+}
+
+.reviewCard {
+  flex: 1;
+  min-width: 250px; /* Ensures cards don't shrink too small */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reviewCard img {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.reviewCard .review {
+  font-size: 16px;
+  font-weight: 400;
+  color: #444;
+}
+
+.reviewCard .name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-darkblue);
+}
+
+@media (max-width: 768px) {
+  .happycustomers {
+    padding: 4vw 6vw;
+  }
+
+  .reviews {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .reviewCard {
+    flex: 1 1 calc(50% - 20px); /* Ensures two reviews per row */
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews {
+    gap: 15px;
+  }
+
+  .reviewCard {
+    flex: 1 1 100%; /* One review per row */
+  }
 }

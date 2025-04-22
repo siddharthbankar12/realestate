@@ -28,10 +28,8 @@ const HomePage: FunctionComponent = () => {
   const [properties, setProperties] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const recentSearchCities = useSelector(
-    (state) => state.search.recentSearchCities
+    (state: any) => state.search.recentSearchCities
   );
-
-  // console.log(recentSearchCities);
 
   const navigate = useNavigate();
 
@@ -132,7 +130,7 @@ const HomePage: FunctionComponent = () => {
       <section className={styles.popularProperties}>
         <div className={styles.heading}>POPULAR PROPERTIES</div>
         <div className={styles.listings}>
-          {properties.slice(0, 4).map((property) => (
+          {properties.slice(0, 4).map((property: any) => (
             <Link
               key={property._id}
               to={`/property-details-page/${property._id}`}
@@ -140,6 +138,7 @@ const HomePage: FunctionComponent = () => {
             >
               <PropertyCard
                 title={property.title}
+                bhk={property.Bhk}
                 city={property.city}
                 price={property.price.toString()}
                 area={property.area.toString()}
@@ -151,7 +150,7 @@ const HomePage: FunctionComponent = () => {
       <section className={styles.popularBuilders}>
         <div className={styles.heading}>POPULAR BUILDERS</div>
         <div className={styles.listings}>
-          {properties.slice(0, 1).map((builder) => (
+          {properties.slice(0, 1).map((builder: any) => (
             <Link key={builder._id} className={styles.linkWrapper}>
               <BuilderCard
                 name="MV Kiran Sooraj"
@@ -164,10 +163,15 @@ const HomePage: FunctionComponent = () => {
       </section>
       <Upcoming />
       <CityWiseReviews />
+
       <EmergingLocalities />
+
       <div
         id="insights"
-        style={{ alignSelf: "center", padding: "0", margin: "0" }}
+        style={{
+          padding: "0",
+          margin: "0",
+        }}
       >
         <CardLayout />
       </div>
@@ -192,7 +196,6 @@ const HomePage: FunctionComponent = () => {
           />
         </div>
       </div>
-      {/* <ReviewForm /> */}
       <Articles />
       <Footer />
       {isFormVisible && (

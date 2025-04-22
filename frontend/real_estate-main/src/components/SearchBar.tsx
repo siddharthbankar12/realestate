@@ -49,13 +49,13 @@ function Homepage() {
   return (
     <Box>
       <Box className={style.homepageContainer} padding={0}>
-        <Grid className={style.buyRent} templateColumns="repeat(5, 1fr)">
+        <Grid className={style.buyRent} templateColumns="repeat(2, 1fr)">
           {[
             { label: "Buy", path: "/properties/sell" },
             { label: "Rent", path: "/properties/rent" },
-            { label: "New Launch", path: "/properties/new-launch" },
-            { label: "Commercial", path: "/properties/commercial" },
-            { label: "Plots / Land", path: "/properties/land" },
+            // { label: "New Launch", path: "/properties/new-launch" },
+            // { label: "Commercial", path: "/properties/commercial" },
+            // { label: "Plots / Land", path: "/properties/land" },
           ].map((option) => (
             <Box
               key={option.label}

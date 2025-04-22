@@ -4,7 +4,7 @@
 }
 
 .propertyCard {
-  width: 18vw;
+  min-width: 250px;
   height: 40vh;
   display: flex;
   flex-direction: column;
@@ -46,10 +46,12 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 25px;
 }
 
 .title {
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 15px;
 }
 
 .frameParent {

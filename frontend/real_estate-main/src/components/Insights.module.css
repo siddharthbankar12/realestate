@@ -1,6 +1,6 @@
 .insightsContainer {
   width: 100%;
-  height: 80vh;
+  margin-top: 90px;
   display: flex;
   align-items: center;
 }
@@ -81,4 +81,87 @@ h1 {
 .card a {
   text-decoration: none;
   color: inherit;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2vw;
+    padding: 4vh 3vw;
+  }
+
+  .card {
+    width: 40%;
+    margin-bottom: 2vh;
+  }
+
+  .card img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .header h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 2vh 3vw;
+  }
+
+  .container {
+    width: 100%;
+    gap: 3vw;
+  }
+
+  .card {
+    width: 80%;
+  }
+
+  .card img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .insightsContainer {
+    height: auto;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 4vh;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .card img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1vh;
+  }
+
+  .header h1 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
 }

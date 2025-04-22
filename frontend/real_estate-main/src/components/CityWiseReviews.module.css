@@ -1,11 +1,13 @@
 .container {
   width: 100%;
   max-width: 60vw;
+
   height: fit-content;
   margin: auto;
   margin-top: 2vh;
   margin-bottom: 2vh;
   background-color: #fff;
+  /* background-color: red; */
   border-radius: 1em;
   box-shadow: 0 4px 8px rgb(0, 0, 0, 0.1);
   display: flex;
@@ -140,4 +142,97 @@ h3 {
 
 .loc p {
   padding: 0;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    max-width: 90vw;
+  }
+
+  .head {
+    max-width: 90vw;
+  }
+
+  .viewAllButton {
+    max-width: 70vw;
+    font-size: 14px;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .headerRow {
+    font-size: 14px;
+  }
+
+  .row {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerRow,
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2vw;
+    text-align: left;
+  }
+
+  .locality,
+  .rate,
+  .rentalYield,
+  .priceTrend,
+  .localityHeader,
+  .rateHeader,
+  .rentalYieldHeader,
+  .priceTrendHeader {
+    flex: none;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 10px;
+  }
+
+  .icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+  }
+
+  .loc h3 {
+    font-size: 16px;
+  }
+
+  .loc p {
+    font-size: 14px;
+  }
+
+  .viewAllButton {
+    max-width: 90vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 95vw;
+  }
+
+  .head h2 {
+    font-size: 20px;
+  }
+
+  .head p {
+    font-size: 14px;
+  }
+
+  .row {
+    padding: 3vw;
+  }
+
+  .viewAllButton {
+    font-size: 13px;
+    padding: 0.8vh;
+  }
 }

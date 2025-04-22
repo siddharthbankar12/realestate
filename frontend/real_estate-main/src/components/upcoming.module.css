@@ -1,6 +1,7 @@
 .wrapper {
   display: flex;
   flex-direction: column;
+
   gap: 2vh;
   text-align: center;
   margin: 3vh 0vw 3vh 0vw;
@@ -72,11 +73,94 @@
   text-align: start;
 }
 
-.content h3{
+.content h3 {
   margin-bottom: 1vh;
 }
 
-.content p{
+.content p {
   padding: 0;
   margin: 1vh 0vw 1vh 0vw;
+}
+
+@media (max-width: 1024px) {
+  .wrapper {
+    width: 90vw;
+    height: auto;
+    padding: 2vh 3vw;
+  }
+
+  .container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2vw;
+  }
+
+  .card {
+    width: 45%;
+    margin-bottom: 2vh;
+  }
+
+  .content {
+    margin: 1vh 1vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    width: 95vw;
+    height: auto;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .card img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .content h3 {
+    font-size: 16px;
+  }
+
+  .content p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    padding: 2vh 4vw;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1vh;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .content {
+    margin: 1vh 2vw;
+  }
+
+  .content h3 {
+    font-size: 15px;
+  }
+
+  .content p {
+    font-size: 13px;
+  }
 }
