@@ -1,0 +1,224 @@
+.formSection {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 400px;
+}
+
+.bedrooms, .bathrooms, .balconies, .areaDetails, .area, .floorDetails, .availability, .ageOfProperty, .possessionDate, .ownershipType {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* font-weight: bold; */
+}
+
+.bedrooms label, .bathrooms label, .balconies label, .areaDetails label, .areaLabel label, .floorlabel label, .availabilityLabel label, .ageLabel label, .posessionLabel label, .ownershipLabel label{
+  font-weight: bold;
+}
+
+.bedroomsInput input, .bathroomsInput input, .balconiesInput input, .areaDetailsInput input, 
+.totalFloorDetailsInput input, .propertyFloorDetailsInput input, .ageOfPropertyInput input, .possessionDateInput input, .ownershipTypeInput input {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 40px; /* Common height */
+  max-width: 500px; /* Adjust as needed */
+}
+
+.areaInput label, .availabilityInput label, .possessionDateInput label, .ownershipTypeInput label {
+  display: flex;
+  align-items: center; /* Vertically center align items */
+  gap: 10px; /* Adjust gap as needed */
+}
+
+.areaInput input[type="checkbox"], 
+.availabilityInput input[type="radio"], 
+.possessionDateInput input[type="radio"], 
+.ownershipTypeInput input[type="radio"] {
+  width: auto;
+  height: auto;
+  margin-right: 5px; /* Adjust margin for alignment */
+}
+
+h2 {
+  color: #2c3e50;
+  margin-top: 20px; /* Space between the back button and the header */
+}
+
+.bedroomsName, .bathroomsName, .balconiesName, .areaDetailsName, .areaName, .floorDetailsName, 
+.availabilityName, .ageOfPropertyName, .possessionDateName, .ownershipTypeName {
+  color: #34495e;
+  font-weight: bold;
+  
+}
+
+button {
+  align-self: flex-end;
+  background-image: linear-gradient(90deg, #2895DF, #764EC6);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nextButton {
+  margin-top: 20px; /* Space above the Next button */
+}
+
+button:hover {
+  background-color: #1f6391;
+}
+
+@media (max-width: 600px) {
+  .formSection {
+    width: 100%;
+  }
+}
+
+.areaInput,
+.availabilityInput,
+.ownershipTypeInput {
+  display: flex;
+  flex-direction: row; /* Align items in a row */
+  gap: 20px; /* Add gap between each option */
+  flex-wrap: wrap; /* Allow wrapping if more than three items */
+}
+
+.areaInput label,
+.availabilityInput label,
+.ownershipTypeInput label {
+  display: flex;
+  align-items: center; /* Align the checkbox/radio and text vertically */
+  gap: 5px; /* Space between the checkbox/radio and text */
+  margin-bottom: 0; /* Remove bottom margin */
+  
+}
+
+.areaInput input[type="checkbox"], 
+.availabilityInput input[type="radio"], 
+.ownershipTypeInput input[type="radio"] {
+  width: auto;
+  height: auto;
+  margin: 0; /* Remove any default margin */
+  vertical-align: middle; /* Align the checkbox/radio vertically */
+}
+
+@media (max-width: 600px) {
+  .areaInput,
+  .availabilityInput,
+  .ownershipTypeInput {
+    flex-direction: column; /* Stack vertically on small screens */
+    gap: 10px; /* Adjust gap for smaller screens */
+  }
+}
+
+.nextButton {
+  margin-top: 20px; /* Space above the Next button */
+  align-self: flex-end; /* Align button to the right */
+}
+
+.formSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 5px; /* Space between columns */
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 800px; /* Adjust to fit the new layout */
+  width: 100%;
+}
+
+.formSection > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input, select {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  height: 40px; /* Common height */
+  max-width: 100%; /* Full width inside the grid cell */
+}
+
+label {
+  display: flex;
+  align-items: center; /* Vertically center align items */
+  gap: 5px; /* Adjust gap as needed */
+}
+
+input[type="radio"], input[type="checkbox"] {
+  width: auto;
+  height: auto;
+  margin-right: 5px; /* Adjust margin for alignment */
+}
+
+h2 {
+  color: #2c3e50;
+  margin-top: 0%;
+  grid-column: span 2; /* Make the heading span across two columns */
+}
+
+button {
+  align-self: flex-end;
+  background-image: linear-gradient(90deg, #2895DF, #764EC6);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #1f6391;
+}
+
+.backButton, .nextButton{
+  grid-column: span 2;
+}
+
+@media (max-width: 600px) {
+  .formSection {
+    grid-template-columns: 1fr; 
+  }
+
+  button {
+    align-self: center;
+  }
+}
+
+.floorDetails .floorInput {
+  display: flex;
+  gap: 10px; 
+}
+
+.floorInput input {
+  flex: 1; 
+}
+
+.areaDetails .areaDetailsInput {
+  display: flex;
+  gap: 10px; 
+  align-items: center;
+}
+
+.unitDropdown {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+
+
+
+

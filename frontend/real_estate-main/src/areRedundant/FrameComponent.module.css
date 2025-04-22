@@ -1,0 +1,138 @@
+.similarProperties,
+.web11Icon {
+  position: relative;
+  max-width: 100%;
+}
+.similarProperties {
+  display: inline-block;
+}
+.web11Icon {
+  align-self: stretch;
+  flex: 1;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.blankLine,
+.coppermakerSquareLondon {
+  margin: 0;
+}
+.from3723month {
+  margin: 0;
+  font-size: var(--font-size-mini);
+}
+.coppermakerSquareLondonContainer {
+  align-self: stretch;
+  position: relative;
+}
+.propertyCardDetails {
+  height: 307px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-6xl);
+}
+.web31Icon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.blankLine1,
+.chapterIslingtonLondon {
+  margin: 0;
+}
+.from390week {
+  margin: 0;
+  font-size: var(--font-size-mini);
+}
+.chapterIslingtonLondonContainer {
+  align-self: stretch;
+  position: relative;
+}
+.propertyCardDetails1,
+.similarPropertyCards {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.propertyCardDetails1 {
+  height: 307px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-6xl);
+}
+.similarPropertyCards {
+  flex: 1;
+  display: grid;
+  flex-direction: row;
+  gap: var(--gap-43xl-9);
+  max-width: 100%;
+  grid-template-columns: repeat(4, minmax(188px, 1fr));
+}
+.similarPropertiesContainer,
+.similarPropertiesList {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.similarPropertiesList {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 0 0 var(--padding-3xs);
+  box-sizing: border-box;
+  font-size: var(--font-size-xl);
+}
+.similarPropertiesContainer {
+  width: 1199.1px;
+  flex-direction: column;
+  gap: var(--gap-29xl);
+}
+.similarPropertiesContainerWrapper {
+  width: 1427.1px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  box-sizing: border-box;
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-gray-300);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1200px) {
+  .similarPropertyCards {
+    gap: var(--gap-12xl);
+  }
+}
+@media screen and (max-width: 1050px) {
+  .similarProperties {
+    font-size: var(--font-size-13xl);
+  }
+  .similarPropertyCards {
+    justify-content: center;
+    grid-template-columns: repeat(2, minmax(188px, 325px));
+  }
+}
+@media screen and (max-width: 750px) {
+  .similarPropertyCards {
+    gap: var(--gap-base);
+  }
+  .similarPropertiesContainer {
+    gap: var(--gap-5xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .similarProperties {
+    font-size: var(--font-size-5xl);
+  }
+  .similarPropertyCards {
+    grid-template-columns: minmax(188px, 1fr);
+  }
+}

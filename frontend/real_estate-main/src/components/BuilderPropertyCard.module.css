@@ -1,0 +1,115 @@
+/* * { border: 1px solid green; } */
+
+* {
+    box-sizing: border-box;
+    text-decoration: none;
+  }
+  
+  .propertyCard {
+    width: 260px;
+    height: 320px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    color: black;
+    font-family: var(--font-montserrat);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 25px;
+    font-size: 18px; 
+  }
+  
+  .propertyCard > * {
+    width: 100%;
+  }
+  
+  .image {
+    width: 80%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+  }
+  
+  .information {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-top: 20px;
+    height: 100%;
+  }
+  
+  .title {
+    font-weight: 500;
+  }
+  
+  .frameParent {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 14px;
+  }
+  
+  .location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  }
+  
+  .mapPinIcon {
+    height: 25px;
+    width: 25px;
+  }
+  
+  .city {
+    width: 100px;
+  }
+  
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: end;
+  }
+  
+/* Add styles for the sold button and watermark */
+
+.soldButton1 {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .soldButton:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .sold {
+    filter: blur(2px); /* Blur the card when it's sold */
+  }
+  
+  .soldWatermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }  
+  .check{
+    padding: 5px 10px;
+    width: 50%;
+    margin-top: 10px;
+  }

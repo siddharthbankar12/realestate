@@ -1,0 +1,125 @@
+.formSection {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  margin: 10 auto;
+  max-width: 800px;
+}
+
+.twoColumnLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 10px; 
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.areagroup {
+  display: flex;
+  flex-direction: row;
+}
+
+.formLabel {
+  color: #34495e;
+  font-weight: bold;
+}
+
+.formInput {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 40px;
+}
+
+.doubleInputContainer {
+  display: flex;
+  gap: 5px;
+}
+
+.checkboxGroup, .radioGroup {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.inlineLabel {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  align-self: flex-end;
+  background-image: linear-gradient(90deg, #2895DF, #764EC6);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nextButton {
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #1f6391;
+}
+
+@media (max-width: 600px) {
+  .twoColumnLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.checkboxGroup input[type="checkbox"], 
+.radioGroup input[type="radio"] {
+  /* margin-top: 5px; */
+  width: auto;
+  height: auto;
+  margin:0;
+  vertical-align: middle; 
+}
+
+.checkboxGroup, .radioGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checkboxGroup label, .radioGroup label {
+  flex: 1 1 calc(33.333% - 20px); /* Adjusts width to fit up to three items per line */
+  box-sizing: border-box; /* Ensures padding and border are included in the width */
+}
+
+.checkboxGroup input[type="checkbox"], 
+.radioGroup input[type="radio"] {
+  margin-right: 5px;
+}
+
+.checkboxGroup:only-child, .radioGroup:only-child {
+  display: flex;
+}
+
+.checkboxGroup:only-child label, .radioGroup:only-child label {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .checkboxGroup, .radioGroup {
+    flex-direction: column; /* Stacks items vertically on smaller screens */
+  }
+
+  .checkboxGroup label, .radioGroup label {
+    flex: 1 1 100%; /* Ensures each item takes full width */
+    max-width: 100%;
+  }
+}
+

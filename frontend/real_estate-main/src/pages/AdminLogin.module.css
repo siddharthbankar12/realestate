@@ -1,0 +1,25 @@
+.adminLogin {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 var(--padding-277xl);
+  box-sizing: border-box;
+  gap: var(--gap-184xl);
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 750px) {
+  .adminLogin {
+    gap: var(--gap-82xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .adminLogin {
+    gap: var(--gap-32xl);
+  }
+}

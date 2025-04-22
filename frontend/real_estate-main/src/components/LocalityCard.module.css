@@ -1,0 +1,78 @@
+.card {
+  width: 300px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgb(0, 0, 0, 0.1);
+  background-color: white;
+  font-family: Arial, sans-serif;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.profilePic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 16px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.rating {
+  display: flex;
+  background-color: #e6f4ea;
+  color: #2e7d32;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.star {
+  margin-left: 4px;
+}
+
+.subtitle {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #c5c2c2;
+  padding-top: 8px;
+  margin-top: 16px;
+}
+
+.link {
+  color: #2697e0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.divider {
+  width: 1px;
+  height: 2vh;
+  background-color: #c5c2c2;
+}

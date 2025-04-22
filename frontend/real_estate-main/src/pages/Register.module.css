@@ -1,0 +1,35 @@
+.content,
+.register {
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+.content {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-2xl) 0 var(--padding-xl);
+  max-width: 100%;
+}
+.register {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0 0 204px;
+  gap: 95px;
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 750px) {
+  .register {
+    gap: 47px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .register {
+    gap: var(--gap-5xl);
+  }
+}

@@ -1,0 +1,96 @@
+.formSection {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  padding: 40px 20px 20px 20px; /* Added extra padding at the top */
+  border-radius: 10px;
+  position: relative;
+  width: 400px;
+  max-width: 600px;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-top: 0; /* Adjusted margin to remove space at the top */
+}
+
+input[type="file"] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.imagePreview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+}
+
+.thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.imageContainer button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.imageContainer button:hover {
+  background-color: #c0392b;
+}
+
+.backButton {
+  align-self: flex-end;
+  background-color: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer; 
+  transition: background-color 0.3s;
+}
+
+.backButton:hover {
+  background-color: #1f6391;
+}
+
+.nextButton {
+  align-self: flex-end;
+  margin-top: 10px;
+  background-color: #2980b9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer; /* Ensure cursor is set to pointer */
+  transition: background-color 0.3s;
+}
+
+.nextButton:hover {
+  background-color: #1f6391;
+}
+
+@media (max-width: 600px) {
+  .formSection {
+    width: 100%;
+  }
+}

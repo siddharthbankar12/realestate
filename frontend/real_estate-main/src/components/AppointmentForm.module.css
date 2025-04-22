@@ -1,0 +1,112 @@
+.formOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.formContainer {
+  background: white;
+  padding: 30px; /* Increased padding for more white space around the content */
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute; /* Change from relative to absolute */
+  top: 15px; /* Adjust as needed */
+  right: 15px; /* Adjust as needed */
+  background: linear-gradient(90deg, #2895DF, #764EC6);
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /* Make the button circular */
+  display: flex; /* Center the icon inside the button */
+  align-items: center; /* Center the icon vertically */
+  justify-content: center; /* Center the icon horizontally */
+  color: white; /* Icon color */
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 1.5em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.aptform {
+  display: flex;
+  flex-direction: column;
+  gap: 1em; /* Added gap between form elements for better spacing */
+}
+
+.fullname {
+  display: flex;
+  gap: 1em;
+}
+
+.fname, .lname, .email, .phno {
+  padding: 0.75em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.bookappointment {
+  padding: 0.75em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+@media (max-width: 768px) {
+  .fullname {
+    flex-direction: column;
+  }
+
+  .formContainer {
+    width: 90%;
+    padding: 1.5em;
+  }
+
+  .fname, .lname, .email, .phno {
+    font-size: 0.9em;
+    padding: 0.65em;
+  }
+
+  .bookappointment {
+    font-size: 0.9em;
+    padding: 0.65em;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading {
+    font-size: 1.2em;
+  }
+
+  .fname, .lname, .email, .phno {
+    font-size: 0.8em;
+    padding: 0.5em;
+  }
+
+  .bookappointment {
+    font-size: 0.8em;
+    padding: 0.5em;
+  }
+}

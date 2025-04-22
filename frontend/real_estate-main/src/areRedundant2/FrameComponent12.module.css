@@ -1,0 +1,318 @@
+.contactForm {
+  height: 49px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.contactForm1,
+.email {
+  font-weight: 300;
+  display: flex;
+}
+.contactForm1 {
+  border: 0;
+  background-color: var(--color-whitesmoke-100);
+  height: 180px;
+  width: auto;
+  outline: 0;
+  flex: 1;
+  border-radius: var(--br-3xs);
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-10xl) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-6xl);
+  color: var(--color-gray-300);
+  min-width: 357px;
+  max-width: 100%;
+}
+.email {
+  height: 37px;
+  position: relative;
+  align-items: center;
+}
+.basketballLabelContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-12xs);
+}
+.phone {
+  height: 37px;
+  position: relative;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+.basketballLabelContainerParent {
+  flex-direction: column;
+  gap: var(--gap-11xl);
+}
+.amenityRowOne,
+.basketballLabelContainerParent,
+.contactFormGroup {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.amenityRowOne {
+  flex-direction: column;
+  padding: var(--padding-6xs) 0 0;
+}
+.contactFormGroup {
+  width: 730px;
+  flex-direction: row;
+  gap: var(--gap-62xl);
+  min-width: 730px;
+  max-width: 100%;
+}
+.brokerEmailLabel,
+.brokergmailcom {
+  position: relative;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.brokerEmailLabel {
+  height: 37px;
+  display: flex;
+  align-items: center;
+}
+.emailParent {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-11xl);
+}
+.addressContainer,
+.emailParent,
+.mapAndAddress {
+  display: flex;
+  align-items: flex-start;
+}
+.addressContainer {
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--padding-6xs) 0 0;
+  box-sizing: border-box;
+  min-width: 296px;
+}
+.mapAndAddress {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 100%;
+  gap: var(--gap-xl);
+}
+.phoneNumberChild {
+  height: 50px;
+  width: 250px;
+  position: relative;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-whitesmoke-100);
+  display: none;
+}
+.phoneNumber1 {
+  height: 30px;
+  position: relative;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+.emailChild,
+.phoneNumber {
+  border-radius: var(--br-3xs);
+  background-color: var(--color-whitesmoke-100);
+}
+.phoneNumber {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) var(--padding-lgi);
+  box-sizing: border-box;
+  min-width: 162px;
+  white-space: nowrap;
+}
+.emailChild {
+  height: 50px;
+  width: 250px;
+  position: relative;
+  display: none;
+}
+.emailAddress {
+  height: 30px;
+  position: relative;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+.contactFormContainer,
+.email1 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.email1 {
+  flex: 1;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-whitesmoke-100);
+  padding: var(--padding-3xs) var(--padding-lgi);
+  box-sizing: border-box;
+  min-width: 162px;
+  white-space: nowrap;
+}
+.contactFormContainer {
+  align-self: stretch;
+  flex-wrap: wrap;
+  gap: var(--gap-31xl);
+}
+.submitBtnChild {
+  height: 44px;
+  width: 195px;
+  position: relative;
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  display: none;
+}
+.submit {
+  position: relative;
+  font-size: var(--font-size-xl);
+  font-family: var(--font-montserrat);
+  color: var(--color-white);
+  text-align: left;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+.emailField,
+.submitBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.submitBtn {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-3xs) var(--padding-41xl);
+  background-color: transparent;
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  justify-content: flex-start;
+}
+.emailField {
+  align-self: stretch;
+  justify-content: center;
+  padding: 0 var(--padding-xl) 0 var(--padding-2xl);
+}
+.contactFormContainerParent {
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-16xl);
+  max-width: 100%;
+  font-size: var(--font-size-6xl);
+}
+.galleryTitleAndImages {
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-9xl);
+  font-size: var(--font-size-11xl);
+}
+.contactFormParent,
+.galleryTitleAndImages,
+.propertyDetailsPageInner {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.contactFormParent {
+  width: 1165px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-23xl);
+}
+.propertyDetailsPageInner {
+  width: 1409px;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-xl) var(--padding-81xl);
+  box-sizing: border-box;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-gray-300);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1200px) {
+  .addressContainer,
+  .contactFormGroup {
+    flex: 1;
+  }
+  .mapAndAddress {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .contactForm {
+    font-size: var(--font-size-13xl);
+  }
+  .email,
+  .phone {
+    font-size: var(--font-size-5xl);
+  }
+  .contactFormGroup {
+    min-width: 100%;
+  }
+  .brokerEmailLabel,
+  .brokergmailcom {
+    font-size: var(--font-size-5xl);
+  }
+}
+@media screen and (max-width: 750px) {
+  .contactFormGroup {
+    flex-wrap: wrap;
+    gap: var(--gap-21xl);
+  }
+  .contactFormContainer {
+    gap: var(--gap-6xl);
+  }
+  .contactFormContainerParent {
+    gap: var(--gap-mid);
+  }
+  .contactFormParent {
+    gap: var(--gap-2xl);
+  }
+  .propertyDetailsPageInner {
+    padding-bottom: var(--padding-46xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .contactForm {
+    font-size: var(--font-size-5xl);
+  }
+  .contactForm1 {
+    min-width: 100%;
+  }
+  .email,
+  .phone {
+    font-size: var(--font-size-lg);
+  }
+  .contactFormGroup {
+    gap: var(--gap-xl);
+  }
+  .brokerEmailLabel,
+  .brokergmailcom {
+    font-size: var(--font-size-lg);
+  }
+  .submit {
+    font-size: var(--font-size-base);
+  }
+}

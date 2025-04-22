@@ -1,0 +1,453 @@
+.image1Icon {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  right: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.firstName {
+  position: relative;
+  display: none;
+  z-index: 1;
+}
+.buy,
+.logo {
+  display: inline-block;
+}
+.logo {
+  text-decoration: none;
+  width: 138px;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  flex-shrink: 0;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+.buy {
+  min-width: 56px;
+}
+.buy,
+.rent,
+.sell {
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 2;
+}
+.rent {
+  flex: 1;
+  display: inline-block;
+  min-width: 65px;
+}
+.sell {
+  align-self: stretch;
+}
+.sellWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-9xs) 0 0;
+}
+.login {
+  text-decoration: none;
+  flex: 1;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  display: inline-block;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  min-width: 67px;
+  cursor: pointer;
+  z-index: 2;
+}
+.actionButtons,
+.logoParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--font-size-4xl);
+  color: var(--color-white);
+  font-family: var(--font-montserrat);
+}
+.actionButtons {
+  margin: 0;
+  width: 340px;
+  justify-content: flex-start;
+  gap: var(--gap-12xl);
+}
+.logoParent {
+  width: 1273px;
+  justify-content: space-between;
+  top: 0;
+  z-index: 99;
+  position: sticky;
+  gap: var(--gap-xl);
+}
+.yourDreamHome {
+  margin: 0;
+  width: 627px;
+  font-size: inherit;
+  font-weight: 800;
+  font-family: inherit;
+  display: inline-block;
+  z-index: 2;
+}
+.bookAppointment,
+.frameChild,
+.yourDreamHome {
+  position: relative;
+  max-width: 100%;
+}
+.frameChild {
+  width: 725px;
+  height: 498px;
+  border-radius: var(--br-11xl);
+  background-color: var(--color-gainsboro-100);
+  display: none;
+}
+.bookAppointment {
+  margin: 0;
+  flex: 1;
+  font-size: var(--font-size-13xl);
+  font-weight: 400;
+  font-family: var(--font-montserrat);
+  color: var(--color-black);
+  text-align: left;
+  display: inline-block;
+  z-index: 3;
+}
+.buttonsAndMap {
+  width: 603px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-47xl);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.firstNameInput {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--color-whitesmoke-200);
+  height: 68px;
+  flex: 0.9774;
+  padding: var(--padding-xl) var(--padding-lgi) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  min-width: 194px;
+  z-index: 4;
+}
+.firstNameInput,
+.lastNameInput,
+.nameFields {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.lastNameInput {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--color-whitesmoke-200);
+  height: 68px;
+  flex: 1;
+  padding: var(--padding-xl) var(--padding-base) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  min-width: 194px;
+  z-index: 3;
+}
+.nameFields {
+  align-self: stretch;
+  padding: 0 0 var(--padding-8xs);
+  gap: var(--gap-19xl);
+}
+.emailInput {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--color-whitesmoke-200);
+  height: 68px;
+  flex: 0.9774;
+  padding: var(--padding-xl) var(--padding-lgi) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  min-width: 194px;
+  z-index: 3;
+}
+.contactFields,
+.emailInput,
+.phoneInput {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.phoneInput {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--color-whitesmoke-200);
+  height: 68px;
+  flex: 1;
+  padding: var(--padding-xl) var(--padding-base) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  min-width: 194px;
+  z-index: 3;
+}
+.contactFields {
+  align-self: stretch;
+  padding: 0 0 var(--padding-5xs);
+  gap: var(--gap-19xl);
+}
+.getAppointmentButtonChild {
+  height: 71px;
+  width: 546px;
+  position: relative;
+  border-radius: var(--br-81xl);
+  background: linear-gradient(90deg, #254a76 3.54%, #458adc 99.95%);
+  display: none;
+  max-width: 100%;
+}
+.getYourAppointment {
+  position: relative;
+  font-size: var(--font-size-13xl);
+  font-family: var(--font-montserrat);
+  color: var(--color-gray-100);
+  text-align: left;
+  z-index: 4;
+}
+.getAppointmentButton1 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-mid) var(--padding-xl) var(--padding-mini);
+  background-color: transparent;
+  width: 546px;
+  border-radius: var(--br-81xl);
+  background: linear-gradient(90deg, #254a76 3.54%, #458adc 99.95%);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  box-sizing: border-box;
+  max-width: 100%;
+  z-index: 3;
+}
+.getAppointmentButton {
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0 var(--padding-20xl);
+  box-sizing: border-box;
+}
+.formFields,
+.getAppointmentButton,
+.rectangleParent {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.rectangleParent {
+  margin: 0;
+  width: 725px;
+  border-radius: var(--br-11xl);
+  background-color: var(--color-gainsboro-100);
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--padding-24xl) var(--padding-21xl) var(--padding-20xl)
+    var(--padding-32xl);
+  box-sizing: border-box;
+  gap: var(--gap-33xl);
+  z-index: 2;
+}
+.formFields {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.appointmentContent,
+.appointmentContentWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.appointmentContent {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-11xl);
+}
+.appointmentContentWrapper {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 0 0 var(--padding-smi);
+  box-sizing: border-box;
+  font-size: var(--font-size-45xl);
+  color: var(--color-white);
+}
+.searchBarChild {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 1440px;
+  height: 1034px;
+  z-index: 1;
+}
+.searchChild {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.icbaselineSearchIcon {
+  position: absolute;
+  top: 10px;
+  left: 26px;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  z-index: 1;
+}
+.search {
+  position: absolute;
+  top: 35px;
+  left: 304px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  width: 549px;
+  height: 44px;
+  cursor: pointer;
+  z-index: 2;
+}
+.searchBar {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  right: 0;
+}
+.homePage {
+  align-self: stretch;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-24xl) var(--padding-45xl) var(--padding-135xl)
+    var(--padding-62xl);
+  box-sizing: border-box;
+  position: relative;
+  gap: var(--gap-96xl);
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1100px) {
+  .homePage {
+    padding-top: var(--padding-9xl);
+    padding-bottom: var(--padding-81xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 750px) {
+  .actionButtons {
+    display: none;
+  }
+  .logoParent {
+    width: 933px;
+  }
+  .yourDreamHome {
+    font-size: var(--font-size-32xl);
+  }
+  .bookAppointment {
+    font-size: var(--font-size-7xl);
+  }
+  .buttonsAndMap {
+    padding-left: var(--padding-14xl);
+    padding-right: var(--padding-14xl);
+    box-sizing: border-box;
+  }
+  .firstNameInput,
+  .lastNameInput {
+    flex: 1;
+  }
+  .nameFields {
+    flex-wrap: wrap;
+    gap: var(--gap-lgi);
+  }
+  .emailInput,
+  .phoneInput {
+    flex: 1;
+  }
+  .contactFields {
+    flex-wrap: wrap;
+    gap: var(--gap-lgi);
+  }
+  .getYourAppointment {
+    font-size: var(--font-size-7xl);
+  }
+  .rectangleParent {
+    gap: var(--gap-7xl);
+    padding-left: var(--padding-6xl);
+    padding-top: var(--padding-9xl);
+    padding-bottom: var(--padding-6xl);
+    box-sizing: border-box;
+  }
+  .homePage {
+    gap: var(--gap-38xl);
+    padding: var(--padding-xl) var(--padding-13xl) var(--padding-46xl)
+      var(--padding-21xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .firstName {
+    font-size: var(--font-size-lgi);
+  }
+  .actionButtons {
+    gap: var(--gap-mini);
+  }
+  .yourDreamHome {
+    font-size: var(--font-size-19xl);
+  }
+  .bookAppointment,
+  .getYourAppointment {
+    font-size: var(--font-size-lgi);
+  }
+  .homePage {
+    gap: var(--gap-10xl);
+  }
+}

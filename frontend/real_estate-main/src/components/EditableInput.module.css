@@ -1,0 +1,38 @@
+.inputField {
+    padding: 10px;
+    border: 1px solid rgb(103, 98, 98);
+    border-radius: 20px;
+    font-size: 16px;
+    width: 90%;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    font-family: var(--font-montserrat);
+}
+
+.inputField:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.readOnly {
+    background-color: #f9f9f9;
+    border:1px solid rgb(103, 98, 98, 0.8);
+    font-family: var(--font-montserrat);
+    color: #6a6a6a;
+}
+.errorContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    padding: 3px;
+    padding-left: 10px;
+}
+.errorMessage {
+    color: #ff0000;
+    font-size: 14px;
+}
+.error{
+    height: 14px;
+}

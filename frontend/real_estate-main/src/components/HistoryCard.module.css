@@ -1,0 +1,129 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 90%; /* Adjust width for responsiveness */
+    max-width: 400px; /* Set a max width */
+    height: 100%; /* Let the height be flexible */
+    border: 1px solid gray;
+    margin: 5vw auto; /* Centered with auto margins */
+    border-radius: 10px;
+    font-family: var(--font--monsterrat);
+    padding: 1em; /* Added padding */
+}
+
+.pic_name {
+    display: flex;
+    gap: 1vw;
+    padding: 1vw;
+    align-items: center;
+    font-size: large;
+}
+
+.pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #2697e0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
+}
+
+.role,
+.head {
+    color: gray;
+    font-size: 16px;
+}
+
+.head {
+    margin: 1em 0; /* Add margin for spacing */
+    font-weight: 700;
+    padding-left: 1vw;
+}
+
+.act_btn {
+    width: 60%; /* Button takes full width */
+    height: auto;
+    margin: 1vw 1vw;
+    background-color: rgba(245, 225, 162, 0.8);
+    color: black;
+    border: none;
+    border-radius: 9px;
+    text-align: left;
+    padding: 1em; /* Adjust padding */
+    font-weight: 600;
+    font-size: 1.5em;
+    display: flex;
+
+}
+
+.act_btn:hover {
+    cursor: pointer;
+    background-color: rgba(245, 225, 162, 1);
+}
+
+.btn_txt {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.3em;
+    font-size: 1.5em;
+}
+
+.btn_txt span {
+    font-weight: 500;
+    font-size: medium;
+}
+
+.activity {
+    margin: 1vw;
+    border: none;
+    height: 4vh;
+    padding: 0.5em; /* Adjust padding */
+    color: white;
+    border-radius: 6px;
+    background: linear-gradient(to right, #2697e0, #784dc6);
+    cursor: pointer;
+    text-align: center; /* Center text */
+}
+
+.ico {
+    /* left: 50%; */
+    margin-left: auto;
+    width: 30px; /* Ensure icons resize */
+    height: 30px;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+        margin: 2em auto;
+    }
+
+    .act_btn,
+    .activity {
+        font-size: 1em;
+        padding: 0.5em;
+    }
+
+    .btn_txt {
+        font-size: 1em;
+    }
+
+    .pic_name {
+        font-size: medium;
+        padding: 0.5em;
+    }
+
+    .head {
+        font-size: 1em;
+        margin-left: 0;
+    }
+}

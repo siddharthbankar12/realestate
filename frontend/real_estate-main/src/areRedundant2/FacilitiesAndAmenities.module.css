@@ -1,0 +1,140 @@
+.facilitiesAndAmenities1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: var(--font-size-21xl);
+}
+.elevator,
+.lobby {
+  position: absolute;
+  top: 300px;
+  left: 66px;
+  display: inline-block;
+  min-width: 93px;
+}
+.elevator {
+  top: 174px;
+  min-width: 122px;
+}
+.image5Icon,
+.laundryRoom {
+  position: absolute;
+  top: 111px;
+  left: 66px;
+}
+.image5Icon {
+  top: 176px;
+  left: 0;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+.image6Icon,
+.studyRoom {
+  position: absolute;
+  top: 237px;
+}
+.image6Icon {
+  left: 0;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+.studyRoom {
+  left: 66px;
+}
+.image7Icon,
+.image8Icon {
+  position: absolute;
+  top: 105px;
+  left: 637px;
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+.image8Icon {
+  top: 300px;
+  left: 0;
+}
+.reception {
+  position: absolute;
+  top: 104px;
+  left: 710px;
+}
+.basketballCourt,
+.cctv,
+.wifiConnectivity {
+  position: absolute;
+  top: 169px;
+  left: 710px;
+}
+.basketballCourt,
+.cctv {
+  top: 313px;
+}
+.cctv {
+  top: 240px;
+  display: inline-block;
+  min-width: 81px;
+}
+.image10Icon,
+.image11Icon,
+.image9Icon {
+  position: absolute;
+  top: 161px;
+  left: 634px;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.image10Icon,
+.image11Icon {
+  top: 302px;
+  left: 629px;
+  width: 50px;
+  height: 50px;
+}
+.image11Icon {
+  top: 227px;
+}
+.facilitiesAndAmenities {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  font-size: var(--font-size-11xl);
+  color: var(--color-gray-300);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 767px) {
+  .facilitiesAndAmenities1 {
+    font-size: var(--font-size-13xl);
+  }
+  .basketballCourt,
+  .cctv,
+  .elevator,
+  .laundryRoom,
+  .lobby,
+  .reception,
+  .studyRoom,
+  .wifiConnectivity {
+    font-size: var(--font-size-5xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .facilitiesAndAmenities1 {
+    font-size: var(--font-size-5xl);
+  }
+  .basketballCourt,
+  .cctv,
+  .elevator,
+  .laundryRoom,
+  .lobby,
+  .reception,
+  .studyRoom,
+  .wifiConnectivity {
+    font-size: var(--font-size-lg);
+  }
+}

@@ -1,0 +1,88 @@
+.loremIpsumHas,
+.wonderfulService {
+  position: relative;
+  display: inline-block;
+}
+.wonderfulService {
+  height: 30px;
+  font-weight: 500;
+  z-index: 1;
+}
+.loremIpsumHas {
+  height: 162px;
+  flex: 1;
+  font-style: italic;
+  z-index: 3;
+}
+.reviewDescription,
+.wonderfulServiceParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.reviewDescription {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 var(--padding-5xs) 0 var(--padding-6xs);
+  text-align: left;
+  font-size: var(--font-size-mini);
+}
+.wonderfulServiceParent {
+  width: 238px;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+.cardContentChild {
+  width: 329px;
+  height: 339px;
+  position: relative;
+  border-radius: var(--br-21xl);
+  border: 3px solid var(--color-black);
+  box-sizing: border-box;
+  display: none;
+  max-width: 100%;
+}
+.thejidmeinsDentist {
+  position: relative;
+  z-index: 1;
+}
+.cardContent,
+.reviewAuthor {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-15xl);
+  font-size: var(--font-size-mini);
+}
+.cardContent {
+  border-radius: var(--br-21xl);
+  border: 3px solid var(--color-black);
+  box-sizing: border-box;
+  flex-direction: column;
+  padding: var(--padding-17xl) var(--padding-23xl) var(--padding-27xl)
+    var(--padding-24xl);
+  gap: var(--gap-6xl);
+  max-width: calc(100% - 79px);
+  z-index: 2;
+  text-align: center;
+  font-size: var(--font-size-6xl);
+  color: var(--color-black);
+  font-family: var(--font-montserrat);
+}
+
+.cardList {
+  display: flex;
+  gap: var(--gap-6xl);
+}
+
+@media screen and (max-width: 450px) {
+  .wonderfulService {
+    font-size: var(--font-size-xl);
+  }
+  .cardContent {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+}

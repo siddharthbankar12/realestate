@@ -1,0 +1,109 @@
+/* * {border: 1px solid green;} */
+
+* {
+  font-family: var(--font-montserrat);
+}
+
+.hero {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+.content{
+  margin-top: 10px;
+}
+.container {
+  padding: 6vw 8vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4vw;
+  font-size: 20px;
+}
+
+.heading {
+  font-size: 35px;
+  font-weight: 600;
+}
+
+.visionmission {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.aboutus, 
+.vision,
+.mission {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  gap: 15px;
+  border: 3px solid var(--color-gray-500);
+  border-radius: 40px;
+  text-align: left;
+  margin-top: 10px; /* Add margin to all sections for consistency */
+  transition: transform 0.3s;
+}
+
+.aboutus {
+  width: 100%;
+}
+
+.vision, 
+.mission {
+  width: 40vw;
+}
+
+
+.aboutus:hover {
+  transform: scale(1.05);
+}
+
+.vision:hover {
+  transform: scale(1.05);
+}
+.mission:hover {
+  transform: scale(1.05);
+}  
+
+.offices {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.locations {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2vh;
+}
+
+.team {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.members {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}

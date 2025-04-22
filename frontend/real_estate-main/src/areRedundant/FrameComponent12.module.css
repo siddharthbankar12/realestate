@@ -1,0 +1,304 @@
+.contactForm {
+  position: relative;
+}
+.contactForm1 {
+  border: 0;
+  background-color: var(--color-whitesmoke-100);
+  height: 180px;
+  width: auto;
+  outline: 0;
+  flex: 1;
+  border-radius: var(--br-3xs);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-10xl) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-weight: 300;
+  font-size: var(--font-size-6xl);
+  color: var(--color-gray-300);
+  min-width: 357px;
+  max-width: 100%;
+}
+.email {
+  position: relative;
+  font-weight: 300;
+  display: inline-block;
+  min-width: 86px;
+}
+.emailLabel {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-12xs);
+}
+.phone {
+  position: relative;
+  font-weight: 300;
+  display: inline-block;
+  min-width: 99px;
+}
+.emailField {
+  flex-direction: column;
+  gap: var(--gap-11xl);
+}
+.contactFormFields,
+.emailField,
+.messageInput {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.contactFormFields {
+  flex-direction: column;
+  padding: var(--padding-6xs) 0 0;
+}
+.messageInput {
+  width: 730px;
+  flex-direction: row;
+  gap: var(--gap-62xl);
+  min-width: 730px;
+  max-width: 100%;
+}
+.brokerEmailLabel,
+.brokergmailcom {
+  position: relative;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.brokerDetails {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-11xl);
+}
+.brokerDetails,
+.brokerInfo,
+.contactInputs {
+  display: flex;
+  align-items: flex-start;
+}
+.brokerInfo {
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--padding-6xs) 0 0;
+  box-sizing: border-box;
+  min-width: 296px;
+}
+.contactInputs {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 100%;
+  gap: var(--gap-xl);
+}
+.phoneNumberChild {
+  height: 50px;
+  width: 250px;
+  position: relative;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-whitesmoke-100);
+  display: none;
+}
+.phoneNumber1 {
+  position: relative;
+  font-weight: 300;
+  z-index: 1;
+}
+.emailChild,
+.phoneNumber {
+  border-radius: var(--br-3xs);
+  background-color: var(--color-whitesmoke-100);
+}
+.phoneNumber {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) var(--padding-lgi);
+  box-sizing: border-box;
+  min-width: 162px;
+  white-space: nowrap;
+}
+.emailChild {
+  height: 50px;
+  width: 250px;
+  position: relative;
+  display: none;
+}
+.emailAddress {
+  position: relative;
+  font-weight: 300;
+  z-index: 1;
+}
+.contactLabels,
+.email1 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.email1 {
+  flex: 1;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-whitesmoke-100);
+  padding: var(--padding-3xs) var(--padding-lgi);
+  box-sizing: border-box;
+  min-width: 162px;
+  white-space: nowrap;
+}
+.contactLabels {
+  align-self: stretch;
+  flex-wrap: wrap;
+  gap: var(--gap-31xl);
+}
+.submitBtnChild {
+  height: 44px;
+  width: 195px;
+  position: relative;
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  display: none;
+}
+.submit {
+  position: relative;
+  font-size: var(--font-size-xl);
+  font-family: var(--font-montserrat);
+  color: var(--color-white);
+  text-align: left;
+  display: inline-block;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  min-width: 75px;
+  z-index: 1;
+}
+.submitBtn,
+.submitButton {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.submitBtn {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-3xs) var(--padding-41xl);
+  background-color: transparent;
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  justify-content: flex-start;
+}
+.submitButton {
+  align-self: stretch;
+  justify-content: center;
+  padding: 0 var(--padding-xl) 0 var(--padding-2xl);
+}
+.contactInfo,
+.contactInputsParent {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.contactInfo {
+  width: 550px;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--gap-16xl);
+  max-width: 100%;
+  font-size: var(--font-size-6xl);
+}
+.contactInputsParent {
+  align-self: stretch;
+  gap: var(--gap-9xl);
+  font-size: var(--font-size-11xl);
+}
+.contact,
+.contactInputsParent,
+.contactWrapper {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.contact {
+  width: 1165px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-23xl);
+}
+.contactWrapper {
+  width: 1409px;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-xl) var(--padding-81xl);
+  box-sizing: border-box;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-gray-300);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1200px) {
+  .brokerInfo,
+  .messageInput {
+    flex: 1;
+  }
+  .contactInputs {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .contactForm {
+    font-size: var(--font-size-13xl);
+  }
+  .email,
+  .phone {
+    font-size: var(--font-size-5xl);
+  }
+  .messageInput {
+    min-width: 100%;
+  }
+  .brokerEmailLabel,
+  .brokergmailcom {
+    font-size: var(--font-size-5xl);
+  }
+}
+@media screen and (max-width: 750px) {
+  .messageInput {
+    flex-wrap: wrap;
+    gap: var(--gap-21xl);
+  }
+  .contactLabels {
+    gap: var(--gap-6xl);
+  }
+  .contactInfo {
+    gap: var(--gap-mid);
+  }
+  .contact {
+    gap: var(--gap-2xl);
+  }
+  .contactWrapper {
+    padding-bottom: var(--padding-46xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .contactForm {
+    font-size: var(--font-size-5xl);
+  }
+  .contactForm1 {
+    min-width: 100%;
+  }
+  .email,
+  .phone {
+    font-size: var(--font-size-lg);
+  }
+  .messageInput {
+    gap: var(--gap-xl);
+  }
+  .brokerEmailLabel,
+  .brokergmailcom {
+    font-size: var(--font-size-lg);
+  }
+  .submit {
+    font-size: var(--font-size-base);
+  }
+}

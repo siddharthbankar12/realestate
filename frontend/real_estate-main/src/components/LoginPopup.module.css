@@ -1,0 +1,89 @@
+.popupBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.heading {
+  margin-bottom: 15px;
+}
+
+.popupContent {
+  background: #fefdfd;
+  padding: 15px 45px;
+  color: #00000c;
+  border-radius: 10px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  color: #000;
+}
+
+.submit button {
+  border: none;
+  color: white;
+  border-radius: 30px;
+  padding: 8px 30px;
+  margin: 0;
+  background-image: linear-gradient(90deg, #2895df, #764ec6);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit button:hover {
+  background-image: linear-gradient(90deg, #764ec6, #2895df);
+}
+
+.section {
+  margin: 15px 0;
+  text-align: left;
+}
+
+.section label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.section input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.error {
+  color: red;
+  margin: 10px 0;
+}
+
+.info {
+  margin: 20px 0;
+}
+
+.paragraph {
+  margin: 0;
+}
+
+.register {
+  color: green;
+  cursor: pointer;
+  font-weight: bold;
+}

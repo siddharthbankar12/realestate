@@ -1,0 +1,507 @@
+.allAwesomePopular,
+.propertyDetails {
+  width: 747px;
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+.propertyDetails {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 300;
+  font-family: inherit;
+}
+.allAwesomePopular {
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.locationHighlight {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: flex-end;
+  font-size: var(--font-size-8xl-5);
+  color: var(--color-cornflowerblue-200);
+}
+.frameWrapper,
+.locationHighlight,
+.propertyDetailsParent {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.propertyDetailsParent {
+  width: 803px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-26xl);
+}
+.frameWrapper {
+  width: 1189px;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  box-sizing: border-box;
+}
+.areaIconsChild {
+  height: 150px;
+  width: 150px;
+  position: relative;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+  display: none;
+}
+.cutPaperIcon {
+  height: 90px;
+  width: 90px;
+  position: relative;
+  object-fit: contain;
+  z-index: 1;
+}
+.areaIcons {
+  width: 150px;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xl) var(--padding-xl) var(--padding-7xl)
+    var(--padding-15xl);
+}
+.squareFeet {
+  align-self: stretch;
+  position: relative;
+  font-weight: 300;
+}
+.areaIconsParent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-sm) 0 0;
+  box-sizing: border-box;
+  gap: var(--gap-8xl);
+  min-width: 145px;
+}
+.carIconChild {
+  height: 150px;
+  width: 150px;
+  position: relative;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+  display: none;
+}
+.carIcon1 {
+  height: 90px;
+  width: 90px;
+  position: relative;
+  object-fit: contain;
+  z-index: 1;
+}
+.carIcon,
+.carIconWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.carIcon {
+  flex: 1;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  padding: var(--padding-7xl) var(--padding-8xl);
+}
+.carIconWrapper {
+  width: 158px;
+  padding: 0 var(--padding-9xs);
+  box-sizing: border-box;
+}
+.garage,
+.yes {
+  margin: 0;
+}
+.garageYesContainer {
+  align-self: stretch;
+  position: relative;
+  font-weight: 300;
+}
+.featureRowOne {
+  width: 209px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-8xl);
+}
+.bedroomChild {
+  height: 150px;
+  width: 150px;
+  position: relative;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+  display: none;
+}
+.bedroomIcon {
+  height: 90px;
+  width: 90px;
+  position: relative;
+  object-fit: contain;
+  z-index: 1;
+}
+.bedroom,
+.bedroomWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.bedroom {
+  flex: 1;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  padding: var(--padding-7xl) var(--padding-8xl);
+}
+.bedroomWrapper {
+  width: 172px;
+  padding: 0 var(--padding-2xs);
+  box-sizing: border-box;
+}
+.bedRoom,
+.p {
+  margin: 0;
+}
+.bedRoomContainer {
+  align-self: stretch;
+  position: relative;
+  font-weight: 300;
+}
+.frameGroup {
+  width: 213px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-9xs) 0 0;
+  box-sizing: border-box;
+  gap: var(--gap-8xl);
+}
+.swimmingPoolIconChild {
+  height: 150px;
+  width: 150px;
+  position: relative;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+  display: none;
+}
+.swimmingPoolIcon1 {
+  height: 90px;
+  width: 90px;
+  position: relative;
+  object-fit: contain;
+  z-index: 1;
+}
+.swimmingPoolIcon,
+.swimmingPoolIconWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.swimmingPoolIcon {
+  flex: 1;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  padding: var(--padding-7xl) var(--padding-4xl) var(--padding-7xl)
+    var(--padding-12xl);
+}
+.swimmingPoolIconWrapper {
+  width: 170px;
+  padding: 0 var(--padding-3xs);
+  box-sizing: border-box;
+}
+.poolYes,
+.swimming {
+  margin: 0;
+}
+.swimmingPoolContainer {
+  align-self: stretch;
+  position: relative;
+  font-weight: 300;
+}
+.frameContainer {
+  flex: 0.9726;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-xl) 0 0;
+  box-sizing: border-box;
+  gap: var(--gap-8xl);
+  min-width: 151px;
+}
+.familyIconChild {
+  height: 150px;
+  width: 150px;
+  position: relative;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+  display: none;
+}
+.fullFamilyIcon {
+  height: 90px;
+  width: 90px;
+  position: relative;
+  object-fit: contain;
+  z-index: 1;
+}
+.familyIcon {
+  width: 150px;
+  background-color: var(--color-gray-100);
+  border: 3px solid var(--color-cornflowerblue-100);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xl) var(--padding-8xl);
+}
+.idealForFamily {
+  align-self: stretch;
+  position: relative;
+  font-weight: 300;
+}
+.familyIconParent {
+  width: 209px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-8xl);
+}
+.propertyFeatures {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--gap-17xl);
+  font-size: var(--font-size-8xl-5);
+}
+.frameParent {
+  width: 1231px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-36xl);
+  max-width: 100%;
+}
+.frameChild,
+.image2Icon {
+  position: relative;
+  border-radius: var(--br-11xl);
+}
+.image2Icon {
+  align-self: stretch;
+  height: 216.7px;
+  max-width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.frameChild {
+  width: 320px;
+  height: 400px;
+  border: 2px solid var(--color-black);
+  box-sizing: border-box;
+  display: none;
+}
+.spaciousAndLarge {
+  flex: 1;
+  position: relative;
+  font-weight: 300;
+}
+.spaciousAndLargeGardenWrapper {
+  width: 217px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-9xs);
+  box-sizing: border-box;
+}
+.mapPinIcon {
+  height: 45px;
+  width: 45px;
+  position: relative;
+  object-fit: cover;
+  min-height: 45px;
+}
+.pune {
+  align-self: stretch;
+  position: relative;
+  z-index: 2;
+}
+.puneWrapper {
+  flex: 1;
+  flex-direction: column;
+  padding: var(--padding-xs) 0 0;
+  box-sizing: border-box;
+  min-width: 136px;
+}
+.areaDetails,
+.frameParent1,
+.puneWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.areaDetails {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-9xs);
+  font-size: var(--font-size-5xl);
+}
+.frameParent1 {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-mini);
+}
+.featuredPropertyOneDetails {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 var(--padding-xl) 0 var(--padding-3xl);
+}
+.frameItem {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: none;
+}
+.image2Parent {
+  width: 320px;
+  border-radius: var(--br-11xl);
+  border: 2px solid var(--color-black);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: var(--padding-smi) var(--padding-5xs) var(--padding-6xs);
+  gap: var(--gap-8xl-3);
+  min-width: 320px;
+  z-index: 1;
+}
+.desktop1,
+.desktop1Inner,
+.frameDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frameDiv {
+  flex: 1;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.desktop1,
+.desktop1Inner {
+  align-self: stretch;
+  justify-content: flex-end;
+  padding: 0 var(--padding-2xl) 0 var(--padding-xl);
+  box-sizing: border-box;
+  font-size: var(--font-size-8xl-5);
+}
+.desktop1 {
+  background-color: var(--color-white);
+  overflow: hidden;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: var(--padding-24xl) var(--padding-48xl) var(--padding-37xl);
+  gap: var(--gap-51xl);
+  z-index: 6;
+  margin-top: -10px;
+  text-align: left;
+  font-size: var(--font-size-41xl);
+  color: var(--color-black);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1275px) {
+  .areaIconsParent,
+  .frameContainer {
+    flex: 1;
+  }
+  .frameDiv,
+  .propertyFeatures {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .image2Parent {
+    flex: 1;
+  }
+  .desktop1 {
+    padding-bottom: var(--padding-17xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 750px) {
+  .propertyDetails {
+    font-size: var(--font-size-29xl);
+  }
+  .propertyFeatures {
+    gap: var(--gap-lg);
+  }
+  .frameParent {
+    gap: var(--gap-8xl);
+  }
+  .desktop1 {
+    gap: var(--gap-16xl);
+    padding-left: var(--padding-14xl);
+    padding-right: var(--padding-14xl);
+    padding-bottom: var(--padding-4xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .propertyDetails {
+    font-size: var(--font-size-17xl);
+  }
+  .allAwesomePopular {
+    font-size: var(--font-size-3xl);
+  }
+  .propertyDetailsParent {
+    gap: var(--gap-3xl);
+  }
+  .bedRoomContainer,
+  .garageYesContainer,
+  .idealForFamily,
+  .spaciousAndLarge,
+  .squareFeet,
+  .swimmingPoolContainer {
+    font-size: var(--font-size-3xl);
+  }
+  .pune {
+    font-size: var(--font-size-lgi);
+  }
+  .areaDetails {
+    flex-wrap: wrap;
+  }
+  .desktop1 {
+    gap: var(--gap-mid);
+  }
+}

@@ -1,0 +1,284 @@
+.loginFormChild {
+  width: 440px;
+  height: 423px;
+  position: relative;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-13xl);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  display: none;
+  max-width: 100%;
+}
+.logInsignIn {
+  flex: 1;
+  position: relative;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  font-family: var(--font-montserrat);
+  color: var(--color-black);
+  text-align: center;
+  z-index: 1;
+}
+.registration {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 var(--padding-34xl) var(--padding-smi) var(--padding-36xl);
+}
+.phoneNumberMail {
+  width: 136px;
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-inter);
+  color: var(--color-black);
+  text-align: left;
+  display: inline-block;
+  z-index: 1;
+}
+.phoneInputChild {
+  height: 42px;
+  width: 295px;
+  position: relative;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-11xs);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-400);
+  box-sizing: border-box;
+  display: none;
+}
+.phonemail {
+  width: 169px;
+  border: 0;
+  outline: 0;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-xl);
+  background-color: transparent;
+  height: 24px;
+  position: relative;
+  color: var(--color-gray-200);
+  text-align: left;
+  display: inline-block;
+  padding: 0;
+  z-index: 2;
+}
+.phoneInput,
+.registerCallToAction {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.phoneInput {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-11xs);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-400);
+  flex-direction: row;
+  padding: var(--padding-6xs) var(--padding-xs);
+  z-index: 1;
+}
+.registerCallToAction {
+  flex-direction: column;
+  gap: var(--gap-2xs);
+}
+.password {
+  width: 85px;
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-inter);
+  color: var(--color-black);
+  text-align: left;
+  display: inline-block;
+  z-index: 1;
+}
+.passwordPlaceholderChild {
+  height: 42px;
+  width: 295px;
+  position: relative;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-400);
+  box-sizing: border-box;
+  display: none;
+}
+.password1 {
+  width: 169px;
+  border: 0;
+  outline: 0;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-xl);
+  background-color: transparent;
+  height: 24px;
+  position: relative;
+  color: var(--color-gray-200);
+  text-align: left;
+  display: inline-block;
+  padding: 0;
+  z-index: 2;
+}
+.passwordContainer,
+.passwordPlaceholder {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.passwordPlaceholder {
+  align-self: stretch;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-400);
+  flex-direction: row;
+  padding: var(--padding-6xs) var(--padding-sm);
+  z-index: 1;
+}
+.passwordContainer {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-7xs);
+}
+.passwordContainerWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 var(--padding-11xs) var(--padding-smi) var(--padding-12xs);
+}
+.doNotHave {
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-montserrat);
+  text-align: center;
+  z-index: 1;
+}
+.doNotHave,
+.span {
+  color: var(--color-black);
+}
+.registerNow1 {
+  text-decoration: underline;
+  color: var(--color-cornflowerblue-200);
+}
+.registerNow {
+  width: 84px;
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-montserrat);
+  text-align: center;
+  display: inline-block;
+  min-width: 84px;
+  cursor: pointer;
+  z-index: 1;
+}
+.registrationCallToAction {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  row-gap: 20px;
+}
+.submitButtonChild {
+  height: 44px;
+  width: 195px;
+  position: relative;
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  display: none;
+}
+.logIn {
+  flex: 1;
+  position: relative;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-montserrat);
+  color: var(--color-white);
+  text-align: center;
+  z-index: 1;
+}
+.passwordField,
+.submitButton {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+/* .submitButton {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-sm) var(--padding-12xl) var(--padding-2xs);
+  background-color: transparent;
+  flex: 1;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  justify-content: flex-start;
+  white-space: nowrap;
+  z-index: 1;
+} */
+.passwordField {
+  align-self: stretch;
+  justify-content: flex-end;
+  padding: 0 var(--padding-lg) 0 var(--padding-2xl);
+}
+.registrationContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-5xs);
+}
+.registrationContainerWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 var(--padding-11xl) 0 var(--padding-15xl);
+}
+.loginForm,
+.loginForm1 {
+  display: flex;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.loginForm1 {
+  margin: 0;
+  width: 440px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-13xl);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: var(--padding-27xl) var(--padding-51xl) var(--padding-40xl);
+  gap: var(--gap-3xl);
+}
+.loginForm {
+  align-self: stretch;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 var(--padding-3xl) 0 var(--padding-xl);
+}
+@media screen and (max-width: 450px) {
+  .registration {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .password1,
+  .phonemail {
+    font-size: var(--font-size-base);
+  }
+  .registrationCallToAction {
+    flex-wrap: wrap;
+  }
+  .loginForm1 {
+    padding: var(--padding-11xl) var(--padding-xl) var(--padding-19xl);
+    box-sizing: border-box;
+  }
+}

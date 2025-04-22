@@ -1,0 +1,432 @@
+/* General Styles */
+body,
+html {
+  color: #464646 !important;
+  font-size: 14px;
+  font-family: "Source Sans Pro", sans-serif !important;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  margin: 0;
+}
+
+/* Homepage Container */
+.homepageContainer {
+  padding: 10px;
+  background-color: transparent;
+  margin: 0 15px;
+}
+
+/* Home Title */
+.homeTitle {
+  font-size: 32px;
+  font-weight: 400;
+  color: #787676;
+  text-align: center;
+  margin-bottom: 15px;
+  padding-top: 40px;
+}
+
+/* Icon Styles */
+.nIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  color: #464646;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 3px;
+  background-color: rgba(252, 178, 68, 0.2);
+}
+
+.nIcon > img {
+  margin-right: 5px;
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s;
+  animation: scale 1s ease-in-out infinite;
+}
+
+@keyframes scale {
+  to {
+    transform: scale(1.3);
+  }
+}
+
+/* Buy/Rent Container */
+.buyRent {
+  width: 100%;
+  background-color: #fcfcfc;
+  margin: 30px auto 0;
+  border: 1px solid #efefef;
+  border-width: 1px 1px 0;
+  border-radius: 4px 4px 0 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 5px 0;
+}
+
+.buyRent > div {
+  text-align: center;
+  border-right: 1px solid #efefef;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 40px;
+  font-size: 17px;
+  font-weight: 400;
+  color: #afaaaa;
+}
+
+/* Search Box */
+.searchBox {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: default;
+  /* padding: 77px 0; */
+}
+
+.searchBox select {
+  height: 50px;
+  font-size: 16px;
+  margin-right: -20px;
+  margin-bottom: 1px;
+  border-radius: 4px;
+  border: 1px solid #e2e2e2;
+  transition: all 100ms ease;
+  box-sizing: border-box;
+  outline: 0 !important;
+  /* Ensure default arrow is visible */
+  appearance: initial; /* Resets any custom appearance */
+  -webkit-appearance: initial; /* Resets for Chrome */
+  -moz-appearance: initial; /* Resets for Firefox */
+
+  /* Ensure no custom arrow is added */
+  background: #fff; /* Solid background color */
+  padding-right: 10px; /* Adjust padding as needed */
+}
+
+.searchBox select::-ms-expand {
+  display: block; /* For IE to show default arrow */
+}
+
+/* Remove any pseudo-elements that might add another arrow */
+.searchBox select::after {
+  display: none;
+}
+
+.searchInput > input {
+  width: 540px;
+  height: 50px;
+  font-size: 16px;
+  border-radius: 0;
+  border: 1px solid #e2e2e2;
+  padding-left: 15px;
+  outline: none;
+}
+
+/* Search Button */
+.searchButton {
+  height: 50px !important;
+  font-size: 18px;
+  width: 180px;
+  border-radius: 4px !important;
+  font-weight: 400;
+  background-color: #fd3752;
+  color: #fff;
+  z-index: 1;
+}
+
+.searchButton:hover {
+  background-color: #ababf6 !important;
+}
+
+/* Filter Box */
+.filterBox {
+  height: 59px;
+  background-color: #fcfcfc;
+  width: 900px;
+  margin: 0 auto;
+  padding: 10px;
+  border: 1px solid #e2e2e2;
+  border-radius: 0 0 4px 4px;
+  display: flex;
+  align-items: center;
+}
+
+/* Post Your Ad Button */
+.postYourAd {
+  cursor: pointer;
+  font-weight: 300;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: "Source Sans Pro", sans-serif;
+  height: 40px;
+  padding: 7px 25px;
+  width: fit-content;
+  margin: auto;
+}
+
+/* Options with Icon */
+.optiosWithIcon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.optiosWithIcon > div {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.optiosWithIcon > div img:hover {
+  transition-duration: 0.4s;
+  transform: scale(1.2);
+}
+
+.optiosWithIcon > div > :first-child {
+  font-size: 12px;
+  font-weight: 600;
+  color: #464646;
+  margin-bottom: 6px;
+  background-color: #ffefd9;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.optiosWithIcon > div > :last-child {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.optiosWithIcon img {
+  display: block;
+  margin: auto;
+  height: 60px;
+  width: 60px;
+}
+
+/* Horizontal Line Box */
+.horizontalLineBox {
+  display: flex;
+  opacity: 0.5;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.horizontalLine {
+  height: 1px;
+  width: 100%;
+  background-color: #707070;
+}
+
+.redCircle {
+  height: 20px;
+  width: 20px;
+  border: 1px solid #ababf6;
+  border-radius: 50%;
+}
+
+/* Why Use NoBroker Section */
+.whyUseNoBroker {
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  margin: 40px auto;
+}
+
+.whyUseNoBroker img {
+  margin: auto;
+  transition: transform 0.4s;
+}
+
+.whyUseNoBroker img:hover {
+  transform: scale(1.2);
+}
+
+.whyUseNoBroker > div > :nth-child(2) {
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+.whyUseNoBroker > div > :last-child {
+  font-size: 14px;
+}
+
+/* Enquiry Now Section */
+.enquiryNow {
+  padding: 40px 0;
+  background-color: #f4f4f4;
+}
+
+.enquiryBtn {
+  margin-top: 30px;
+  text-decoration: none;
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #ababf6;
+  color: #fff;
+  font-weight: 400;
+}
+
+/* Review Box */
+.reviewBox {
+  padding: 40px;
+  color: #fff;
+  background-color: #334a5c;
+}
+
+.reviewBox iframe {
+  width: 560px;
+  height: 320px;
+  vertical-align: middle;
+}
+
+/* User Avatar */
+.userAvatarBox > img {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.ratting_star {
+  display: inline;
+  width: 14px;
+  color: #009587;
+}
+
+/* Description Box */
+.descriptionBox {
+  margin-top: 20px;
+  max-height: 140px;
+  overflow: hidden;
+}
+
+/* Mobile Icon Box */
+.mobileIconBox {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobileIconBox img {
+  max-width: 80%;
+  height: auto;
+}
+
+/* Radio Button Box */
+.radioBtnBox > label > :last-child {
+  font-size: 12px !important;
+}
+
+/* Apartment Type */
+.apartmentType {
+  border: 1px solid #e2e2e2 !important;
+  font-size: 12px !important;
+  background-color: #fcfcfc;
+  border-radius: 0;
+}
+
+/* Menu Items */
+.menuItems {
+  min-width: fit-content !important;
+  padding: 0;
+  border-radius: 0 !important;
+  border: 1px solid #e2e2e2 !important;
+  padding-right: 10px !important;
+}
+
+.menuItems2 {
+  width: 100px;
+  padding: 0;
+  border-radius: 0 !important;
+  border: 1px solid #e2e2e2 !important;
+  padding-right: 10px !important;
+}
+
+.menuItems button > label > :last-child,
+.menuItems2 > button {
+  font-size: 14px !important;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 1140px) {
+  .searchInput > input {
+    width: 350px;
+  }
+
+  .labelOption {
+    font-size: 16px;
+  }
+  .searchButton {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 789px) {
+  .homepageContainer {
+    padding: 0 20px;
+  }
+
+  .buyRent {
+    width: 100%;
+    grid-template-columns: repeat(5, 1fr);
+    font-size: 8px;
+  }
+  .labelOption {
+    font-size: 14px;
+  }
+
+  .searchBox {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .searchInput > input {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .searchButton {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .filterBox {
+    width: 100%;
+  }
+
+  .whyUseNoBroker {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .searchInput > input {
+    font-size: 14px;
+  }
+
+  .searchButton {
+    font-size: 16px;
+  }
+
+  .whyUseNoBroker {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .searchButton {
+    font-size: 12px;
+  }
+
+  .labelOption {
+    font-size: 12px;
+  }
+}

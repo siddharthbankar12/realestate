@@ -1,0 +1,60 @@
+/* * { border: 1px solid green; } */
+
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.employeeCard {
+  width: 410px;
+  height: 150px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  color: black;
+  font-family: var(--font-montserrat);
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); */
+  border-radius: 75px;
+  font-size: 16px; 
+}
+
+.employeeCard > *, 
+.information > * {
+  width: 100%;
+}
+
+.image {
+  width: auto;
+  height: 60%;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 12px;
+}
+
+.icon {
+  height: 20px;
+}
+
+.name,
+.phone,
+.email {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 600;
+}

@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.propertyCard {
+  width: 18vw;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  color: black;
+  font-family: var(--font-montserrat);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5em;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.propertyCard:hover {
+  transform: scale(1.05);
+}
+
+.image {
+  width: inherit;
+  height: 65%;
+  border-radius: 0.5em 0.5em 0 0;
+  object-fit: fill;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  background: transparent;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  cursor: pointer;
+  margin-top: 1vh;
+  padding: 1vh 1vw 2vh 1vw;
+  height: 100%;
+}
+
+.TitleContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-weight: 500;
+}
+
+.frameParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.mapPinIcon {
+  height: 25px;
+  width: 25px;
+}
+
+.city {
+  width: 100px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: end;
+}

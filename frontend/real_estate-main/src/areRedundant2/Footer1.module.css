@@ -1,0 +1,219 @@
+.frameChild {
+  width: 1440px;
+  height: 600px;
+  position: relative;
+  background-color: var(--color-slateblue);
+  display: none;
+  max-width: 100%;
+}
+.realEstateAround {
+  margin: 0;
+  height: 55px;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+  display: inline-block;
+  z-index: 1;
+}
+.realEstateTitle {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 0 0 var(--padding-18xl);
+}
+.vectorIcon {
+  width: 20.4px;
+  height: 40.2px;
+  position: relative;
+  object-fit: contain;
+  z-index: 1;
+}
+.futureTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-124xl) 0 0;
+}
+.imagePlaceholderIcon {
+  height: 400px;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+  min-width: 339px;
+  z-index: 1;
+}
+.futureContent {
+  width: 589px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-28xl-6);
+  min-width: 589px;
+  max-width: 100%;
+}
+.contraryToPopular,
+.theFutureOf {
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  z-index: 1;
+}
+.theFutureOf {
+  width: 580px;
+  height: 98px;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+}
+.contraryToPopular {
+  height: 264px;
+  flex: 1;
+  white-space: pre-wrap;
+  min-width: 407px;
+}
+.readMoreIcon {
+  width: 20px;
+  height: 40px;
+  position: relative;
+  z-index: 1;
+}
+.readMoreIconWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-lgi) 0 0;
+}
+.loremIpsum {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: var(--gap-29xl);
+  font-size: var(--font-size-xl);
+  font-family: var(--font-inter);
+}
+.futureContainer,
+.futureDescription,
+.loremIpsum {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.futureDescription {
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-7xl);
+  min-width: 451px;
+}
+.futureContainer {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--gap-51xl);
+}
+.readMore {
+  position: relative;
+  z-index: 1;
+}
+.readMoreButton {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 var(--padding-xl);
+  font-size: var(--font-size-xl);
+}
+.futureContainerParent,
+.rectangleParent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.futureContainerParent {
+  width: 1353px;
+  gap: var(--gap-6xl);
+  font-size: var(--font-size-21xl);
+}
+.rectangleParent {
+  align-self: stretch;
+  background-color: var(--color-slateblue);
+  padding: var(--padding-10xl) var(--padding-12xl) var(--padding-18xl);
+  box-sizing: border-box;
+  gap: var(--gap-11xl);
+  text-align: left;
+  font-size: var(--font-size-26xl);
+  color: var(--color-white);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1275px) {
+  .futureContent {
+    flex: 1;
+  }
+  .futureContainer {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 750px) {
+  .realEstateAround {
+    font-size: var(--font-size-17xl);
+  }
+  .futureContent {
+    flex-wrap: wrap;
+    gap: var(--gap-5xl);
+    min-width: 100%;
+  }
+  .theFutureOf {
+    font-size: var(--font-size-13xl);
+  }
+  .contraryToPopular {
+    min-width: 100%;
+  }
+  .loremIpsum {
+    flex-wrap: wrap;
+    gap: var(--gap-5xl);
+  }
+  .futureDescription {
+    min-width: 100%;
+  }
+  .futureContainer {
+    gap: var(--gap-16xl);
+  }
+  .rectangleParent {
+    gap: var(--gap-mini);
+    padding-top: var(--padding-xl);
+    padding-bottom: var(--padding-5xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .realEstateAround {
+    font-size: var(--font-size-8xl);
+  }
+  .imagePlaceholderIcon {
+    min-width: 100%;
+  }
+  .theFutureOf {
+    font-size: var(--font-size-5xl);
+  }
+  .contraryToPopular {
+    font-size: var(--font-size-base);
+  }
+  .futureContainer {
+    gap: var(--gap-mid);
+  }
+  .readMore {
+    font-size: var(--font-size-base);
+  }
+}

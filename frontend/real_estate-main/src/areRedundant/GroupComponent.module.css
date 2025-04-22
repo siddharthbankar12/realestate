@@ -1,0 +1,137 @@
+.frameChild {
+  height: 400px;
+  width: 1440px;
+  position: relative;
+  background-color: var(--color-black);
+  display: none;
+  max-width: 100%;
+}
+.itIsA,
+.logo {
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+.logo {
+  width: 88px;
+}
+.itIsA {
+  align-self: stretch;
+  height: 36px;
+  font-size: var(--font-size-mini);
+  flex-shrink: 0;
+}
+.footerInfo {
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xl);
+  max-width: 100%;
+}
+.buy,
+.rent {
+  flex-shrink: 0;
+}
+.buy {
+  align-self: stretch;
+  position: relative;
+  font-weight: 600;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 1;
+}
+.rent {
+  display: inline-block;
+  min-width: 67px;
+}
+.login,
+.rent,
+.sell {
+  position: relative;
+  font-weight: 600;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 1;
+}
+.sell {
+  align-self: stretch;
+}
+.login {
+  display: inline-block;
+  min-width: 67px;
+}
+.buyParent,
+.rectangleParent,
+.rentLink {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.rentLink {
+  align-self: stretch;
+  flex-direction: column;
+  gap: var(--gap-7xl);
+  flex-shrink: 0;
+}
+.buyParent,
+.rectangleParent {
+  box-sizing: border-box;
+}
+.buyParent {
+  height: 113px;
+  width: 67px;
+  flex-direction: column;
+  padding: 0 0 var(--padding-10xl);
+  gap: var(--gap-10xl-5);
+}
+.rectangleParent {
+  align-self: stretch;
+  background-color: var(--color-black);
+  flex-direction: row;
+  padding: var(--padding-70xl) var(--padding-101xl) var(--padding-179xl);
+  gap: var(--gap-619xl);
+  max-width: 100%;
+  flex-shrink: 0;
+  z-index: 1;
+  text-align: left;
+  font-size: var(--font-size-4xl);
+  color: var(--color-white);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1250px) {
+  .rectangleParent {
+    flex-wrap: wrap;
+    gap: var(--gap-300xl);
+    justify-content: center;
+    padding-left: var(--padding-41xl);
+    padding-right: var(--padding-41xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 750px) {
+  .rectangleParent {
+    gap: var(--gap-140xl);
+    padding-left: var(--padding-11xl);
+    padding-right: var(--padding-11xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .buy,
+  .login,
+  .logo,
+  .rent,
+  .sell {
+    font-size: var(--font-size-lg);
+  }
+  .rectangleParent {
+    gap: var(--gap-61xl);
+    padding-top: var(--padding-82xl);
+    padding-bottom: var(--padding-110xl);
+    box-sizing: border-box;
+  }
+}

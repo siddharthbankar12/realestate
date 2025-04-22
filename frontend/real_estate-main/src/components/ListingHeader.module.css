@@ -1,0 +1,69 @@
+.listYourProperty {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  margin-top: 75px;
+}
+.imageInputParent,
+.listYourPropertyWrapper,
+.listingHeader {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+.listYourPropertyWrapper {
+  padding: 0 var(--padding-xl) 0 var(--padding-156xl);
+}
+.imageInputParent,
+.listingHeader {
+  gap: var(--gap-60xl);
+  max-width: 100%;
+  font-size: var(--font-size-xl);
+}
+.listingHeader {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-29xl);
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-black);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1050px) {
+  .imageInputParent {
+    gap: var(--gap-20xl);
+  }
+}
+@media screen and (max-width: 1000px) {
+  .listYourProperty {
+    font-size: var(--font-size-13xl);
+  }
+  .imageInputParent {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 725px) {
+  .listYourPropertyWrapper {
+    padding-left: var(--padding-68xl);
+    box-sizing: border-box;
+  }
+  .imageInputParent {
+    gap: var(--gap-xl);
+  }
+  .listingHeader {
+    gap: var(--gap-5xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .listYourProperty {
+    font-size: var(--font-size-5xl);
+  }
+  .listYourPropertyWrapper {
+    padding-left: var(--padding-xl);
+    box-sizing: border-box;
+  }
+}

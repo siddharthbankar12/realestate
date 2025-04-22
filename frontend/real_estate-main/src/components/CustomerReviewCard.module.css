@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.CustomerReviewCard {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    color: black;
+    font-family: var(--font-montserrat);
+    border: 2px solid black;
+    border-radius: 30px;
+    width: 400px;
+}
+
+.CustomerReviewCard > * {
+    width: 100%;
+}
+
+.profile {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.pfp {
+  width: 40px;
+  height: 40px;
+  border: none;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.name {
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.review {
+    font-size: 16px;
+    line-height: 20px;
+}

@@ -1,0 +1,114 @@
+.footer {
+  width: 100%;
+  padding: 4vw 8vw;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.section {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  /* padding-bottom: 25px; */
+}
+
+.section h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.section p {
+  padding: 0;
+  text-align: start;
+}
+
+.section ul {
+  width: 60%;
+  list-style: none;
+  padding: 0;
+  text-align: left;
+}
+
+.section ul li {
+  margin-bottom: 15px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.section ul li:hover {
+  text-decoration: underline;
+}
+
+.topMargin {
+  margin-top: 25px;
+}
+
+.contactLink {
+  color: white;
+  margin-left: 5px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.lightFont {
+  color: grey;
+  font-size: 12px;
+  text-align: justify;
+}
+
+.icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.icon {
+  color: white;
+  font-size: 24px;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.socialMedia {
+  margin-bottom: 25px;
+}
+
+.storeBadges {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    width: 45%;
+    margin-bottom: 20px;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

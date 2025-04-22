@@ -1,0 +1,447 @@
+.image1Icon {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  right: 0;
+  left: 0;
+  max-width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+.logo {
+  text-decoration: none;
+  height: 36px;
+  width: 138px;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  display: inline-block;
+  flex-shrink: 0;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 3;
+}
+.firstName {
+  height: 29px;
+  position: relative;
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  display: none;
+  z-index: 4;
+}
+.buy,
+.rent {
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.buy {
+  flex: 1;
+  z-index: 1;
+}
+.rent {
+  height: 36px;
+  display: inline-block;
+  z-index: 3;
+}
+.buyRentButtons {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.login,
+.sell {
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  z-index: 3;
+}
+.sell {
+  height: 36px;
+  width: 54px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.login {
+  line-height: 28px;
+  cursor: pointer;
+}
+.buttonContainer,
+.buttonsAndMap {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.buttonContainer {
+  flex: 1;
+  justify-content: flex-start;
+  gap: var(--gap-14xl-5);
+}
+.buttonsAndMap {
+  width: 384px;
+  justify-content: flex-end;
+  padding: 0 var(--padding-3xl);
+  box-sizing: border-box;
+}
+.bookAppointment,
+.frameChild {
+  position: relative;
+  max-width: 100%;
+}
+.frameChild {
+  width: 725px;
+  height: 498px;
+  border-radius: var(--br-11xl);
+  background-color: var(--color-gainsboro-100);
+  display: none;
+  z-index: 0;
+}
+.bookAppointment {
+  margin: 0;
+  height: 52px;
+  flex: 1;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  z-index: 4;
+}
+.appointmentBanner {
+  width: 603px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-47xl);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.firstNameInput {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--color-whitesmoke-200);
+  height: 68px;
+  flex: 0.9774;
+  padding: var(--padding-xl) var(--padding-lgi) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  min-width: 194px;
+  z-index: 5;
+}
+.contactForm,
+.firstNameInput,
+.lastNameInput {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.lastNameInput {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--color-whitesmoke-200);
+  height: 68px;
+  flex: 1;
+  padding: var(--padding-xl) var(--padding-base) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  min-width: 194px;
+  z-index: 4;
+}
+.contactForm {
+  align-self: stretch;
+  padding: 0 0 var(--padding-mid);
+  gap: var(--gap-19xl);
+}
+.emailInput {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--color-whitesmoke-200);
+  height: 68px;
+  flex: 0.9774;
+  padding: var(--padding-xl) var(--padding-lgi) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  min-width: 194px;
+  z-index: 4;
+}
+.emailInput,
+.emailPhoneInputs,
+.phoneInput {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.phoneInput {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background-color: var(--color-whitesmoke-200);
+  height: 68px;
+  flex: 1;
+  padding: var(--padding-xl) var(--padding-base) var(--padding-lgi);
+  box-sizing: border-box;
+  font-family: var(--font-montserrat);
+  font-size: var(--font-size-5xl);
+  color: var(--color-gray-200);
+  min-width: 194px;
+  z-index: 4;
+}
+.emailPhoneInputs {
+  align-self: stretch;
+  padding: 0 0 var(--padding-xl);
+  gap: var(--gap-19xl);
+}
+.getAppointmentButtonChild {
+  height: 71px;
+  width: 546px;
+  position: relative;
+  border-radius: var(--br-81xl);
+  background: linear-gradient(90deg, #254a76 3.54%, #458adc 99.95%);
+  display: none;
+  max-width: 100%;
+}
+.getYourAppointment {
+  position: relative;
+  font-size: var(--font-size-13xl);
+  font-family: var(--font-montserrat);
+  color: var(--color-gray-100);
+  text-align: left;
+  z-index: 5;
+}
+.getAppointmentButton,
+.submitButton {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.getAppointmentButton {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-mid) var(--padding-xl) var(--padding-mini);
+  background-color: transparent;
+  width: 546px;
+  border-radius: var(--br-81xl);
+  background: linear-gradient(90deg, #254a76 3.54%, #458adc 99.95%);
+  justify-content: center;
+  z-index: 4;
+}
+.submitButton {
+  align-self: stretch;
+  justify-content: flex-start;
+  padding: 0 var(--padding-20xl);
+}
+.yourDreamHome {
+  margin: 0 !important;
+  width: 627px;
+  height: 389px;
+  position: absolute;
+  top: -186px;
+  left: -557px;
+  font-size: var(--font-size-45xl);
+  font-weight: 800;
+  font-family: inherit;
+  color: var(--color-white);
+  display: inline-block;
+  z-index: 7;
+}
+.actionButtons,
+.rectangleParent {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.rectangleParent {
+  align-self: stretch;
+  border-radius: var(--br-11xl);
+  background-color: var(--color-gainsboro-100);
+  align-items: flex-start;
+  padding: var(--padding-24xl) var(--padding-21xl) var(--padding-20xl)
+    var(--padding-32xl);
+  box-sizing: border-box;
+  position: relative;
+  gap: var(--gap-21xl);
+  z-index: 3;
+  font-size: var(--font-size-13xl);
+  color: var(--color-black);
+}
+.actionButtons {
+  width: 725px;
+  align-items: flex-end;
+  gap: var(--gap-274xl);
+}
+.buy1 {
+  text-decoration: none;
+  width: 56px;
+  position: absolute;
+  margin: 0 !important;
+  top: 43px;
+  right: 370px;
+  font-weight: 600;
+  color: inherit;
+  display: inline-block;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 3;
+}
+.searchBarChild {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 1440px;
+  height: 1034px;
+  z-index: 2;
+}
+.searchChild {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.icbaselineSearchIcon {
+  position: absolute;
+  top: 10px;
+  left: 26px;
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  z-index: 1;
+}
+.search {
+  position: absolute;
+  top: 35px;
+  left: 304px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  width: 549px;
+  height: 44px;
+  cursor: pointer;
+  z-index: 3;
+}
+.searchBar {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  right: 0;
+}
+.homePage {
+  align-self: stretch;
+  background-color: var(--color-white);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--padding-24xl) var(--padding-45xl) var(--padding-135xl)
+    var(--padding-62xl);
+  box-sizing: border-box;
+  position: relative;
+  max-width: 100%;
+  gap: var(--gap-xl);
+  text-align: left;
+  font-size: var(--font-size-4xl);
+  color: var(--color-white);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1100px) {
+  .homePage {
+    flex-wrap: wrap;
+    padding-top: var(--padding-9xl);
+    padding-bottom: var(--padding-81xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 750px) {
+  .bookAppointment {
+    font-size: var(--font-size-7xl);
+  }
+  .appointmentBanner {
+    padding-left: var(--padding-14xl);
+    padding-right: var(--padding-14xl);
+    box-sizing: border-box;
+  }
+  .contactForm,
+  .emailPhoneInputs {
+    flex-wrap: wrap;
+    gap: var(--gap-lgi);
+  }
+  .getYourAppointment {
+    font-size: var(--font-size-7xl);
+  }
+  .yourDreamHome {
+    font-size: var(--font-size-32xl);
+  }
+  .rectangleParent {
+    gap: var(--gap-xl);
+    padding-left: var(--padding-6xl);
+    padding-top: var(--padding-9xl);
+    padding-bottom: var(--padding-6xl);
+    box-sizing: border-box;
+  }
+  .actionButtons {
+    gap: var(--gap-127xl);
+  }
+  .homePage {
+    padding: var(--padding-xl) var(--padding-13xl) var(--padding-46xl)
+      var(--padding-21xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .logo {
+    font-size: var(--font-size-lg);
+  }
+  .firstName {
+    font-size: var(--font-size-lgi);
+  }
+  .buttonContainer {
+    gap: var(--gap-mid);
+  }
+  .bookAppointment {
+    font-size: var(--font-size-lgi);
+  }
+  .emailInput,
+  .firstNameInput {
+    flex: 1;
+  }
+  .getYourAppointment {
+    font-size: var(--font-size-lgi);
+  }
+  .yourDreamHome {
+    font-size: var(--font-size-19xl);
+  }
+  .actionButtons {
+    gap: var(--gap-54xl);
+  }
+  .buy1 {
+    font-size: var(--font-size-lg);
+  }
+}

@@ -1,0 +1,181 @@
+.sidebarChild {
+  width: 289px;
+  height: 922px;
+  position: relative;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-400);
+  box-sizing: border-box;
+  display: none;
+}
+.profileSettings {
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+}
+.profileSettingsWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 var(--padding-4xs) 0 var(--padding-xs);
+}
+.myProperties,
+.pastSearches {
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+}
+.myProperties {
+  width: 186px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pastSearches {
+  flex: 1;
+}
+.logoutActions {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 var(--padding-2xl) 0 var(--padding-5xl);
+}
+.previouslyViewed,
+.saved {
+  position: relative;
+  z-index: 1;
+}
+.saved {
+  width: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 65px;
+  cursor: pointer;
+}
+.savedWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-11xl);
+}
+.contacted {
+  flex: 1;
+  position: relative;
+  display: inline-block;
+  min-width: 111px;
+  cursor: pointer;
+  z-index: 1;
+}
+.logoutActionItems1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-mid) 0 var(--padding-6xs);
+}
+.logOut,
+.notifications {
+  position: relative;
+  z-index: 1;
+}
+.notifications {
+  align-self: stretch;
+}
+.logOut {
+  height: 31px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 83px;
+  cursor: pointer;
+}
+.logoutActionItems2 {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0 var(--padding-12xl) 0 var(--padding-2xl);
+}
+.logoutActionItems,
+.logoutActionItems2,
+.userActions {
+  display: flex;
+  align-items: flex-start;
+}
+.userActions {
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-59xl-3);
+}
+.logoutActionItems {
+  width: 171px;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0 var(--padding-lg);
+  box-sizing: border-box;
+  color: var(--color-black);
+}
+.previouslyViewedParent,
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-56xl);
+  color: var(--color-slateblue);
+}
+.sidebar {
+  width: 289px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-400);
+  box-sizing: border-box;
+  padding: var(--padding-35xl) var(--padding-30xl) var(--padding-95xl)
+    var(--padding-29xl);
+  gap: var(--gap-61xl-3);
+  min-width: 289px;
+  text-align: center;
+  font-size: var(--font-size-xl);
+  color: var(--color-black);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 975px) {
+  .sidebar {
+    flex: 1;
+  }
+}
+@media screen and (max-width: 950px) {
+  .sidebar {
+    padding-top: var(--padding-16xl);
+    padding-bottom: var(--padding-55xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .contacted,
+  .logOut,
+  .myProperties,
+  .notifications,
+  .pastSearches,
+  .previouslyViewed,
+  .profileSettings,
+  .saved {
+    font-size: var(--font-size-base);
+  }
+  .sidebar {
+    gap: var(--gap-21xl);
+    padding: var(--padding-4xl) var(--padding-xl) var(--padding-29xl);
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,205 @@
+.nav3Child {
+  height: 102px;
+  width: 1440px;
+  position: relative;
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  display: none;
+  max-width: 100%;
+}
+.logo {
+  text-decoration: none;
+  position: relative;
+  font-weight: 700;
+  color: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  z-index: 1;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 0 var(--padding-5xs);
+}
+.searchBarChild {
+  height: 40px;
+  width: 400px;
+  position: relative;
+  border-radius: var(--br-3xl);
+  background-color: var(--color-white);
+  display: none;
+  max-width: 100%;
+}
+.icbaselineSearchIcon {
+  height: 24px;
+  width: 24px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  min-height: 24px;
+  z-index: 1;
+}
+.searchBar,
+.searchBarItem,
+.searchBarWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+.searchBarItem {
+  width: 110px;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  height: 24px;
+  flex-direction: column;
+  padding: var(--padding-9xs) 0 0;
+  font-family: var(--font-montserrat);
+  font-weight: 300;
+  font-size: var(--font-size-xs);
+  color: var(--color-black);
+}
+.searchBar,
+.searchBarWrapper {
+  max-width: 100%;
+}
+.searchBar {
+  align-self: stretch;
+  border-radius: var(--br-3xl);
+  background-color: var(--color-white);
+  flex-direction: row;
+  padding: var(--padding-5xs) var(--padding-2xs);
+  gap: var(--gap-9xs);
+  z-index: 1;
+}
+.searchBarWrapper {
+  width: 407px;
+  flex-direction: column;
+  padding: 0 var(--padding-6xs) 0 0;
+}
+.home {
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  z-index: 1;
+}
+.homeWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) 0 0;
+}
+.buy {
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  z-index: 1;
+}
+.buyWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-6xs) var(--padding-5xs) 0 0;
+}
+.rent {
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  z-index: 1;
+}
+.homeIconBackground {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-6xs) var(--padding-10xs) 0 0;
+}
+.sell {
+  text-decoration: none;
+  position: relative;
+  font-weight: 600;
+  color: inherit;
+  z-index: 1;
+}
+.sellWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-6xs) var(--padding-5xs) 0 0;
+}
+.homeIcon {
+  height: 33.3px;
+  width: 33.3px;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+}
+.frameParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.buttons1,
+.nav3 {
+  display: flex;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.buttons1 {
+  width: 458.3px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 0 var(--padding-10xs-7);
+  font-size: var(--font-size-base);
+}
+.nav3 {
+  align-self: stretch;
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: var(--padding-12xl) var(--padding-110xl) var(--padding-12xl)
+    var(--padding-93xl);
+  top: 0;
+  z-index: 99;
+  position: sticky;
+  gap: var(--gap-xl);
+  text-align: center;
+  font-size: var(--font-size-xl);
+  color: var(--color-white);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 925px) {
+  .frameParent {
+    display: none;
+  }
+  .buttons1 {
+    width: 0;
+  }
+  .nav3 {
+    padding-left: var(--padding-37xl);
+    padding-right: var(--padding-45xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .nav3 {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+}

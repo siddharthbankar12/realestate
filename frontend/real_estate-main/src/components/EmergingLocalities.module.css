@@ -1,0 +1,73 @@
+.head {
+  width: 100%;
+  max-width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: center;
+  margin-bottom: 16px;
+}
+
+.head p {
+  padding: 0;
+  margin: 0;
+  color: #777;
+}
+
+.carouselContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80vw;
+  margin: 0 auto 2vh;
+  position: relative;
+}
+
+.carouselViewport {
+  width: 93%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1vh;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory; /* optional snap */
+}
+
+.carousel {
+  display: flex;
+  gap: 16px;
+}
+
+.carousel > * {
+  scroll-snap-align: start; /* optional snap */
+}
+
+.navButton {
+  background: linear-gradient(135deg, #2697e0, #a57fe0);
+  color: white;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 0.6em;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.navButton:first-of-type {
+  left: -20px;
+}
+
+.navButton:last-of-type {
+  right: -20px;
+}

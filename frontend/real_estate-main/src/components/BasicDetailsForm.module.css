@@ -1,0 +1,104 @@
+.formSection {
+     display: flex;
+     flex-direction: column;
+     gap: 20px;
+     border: 1px solid #ccc;
+     padding: 20px;
+     border-radius: 10px;
+     max-width: 600px; 
+     width: 400px;
+   }
+   
+   .propertyTitle, .propertyType, .propertyTypeDetails, .propertyDescription {
+     display: flex;
+     flex-direction: column;
+     gap: 10px;
+   }
+   
+   .propertyTitleInput input, .propertyDescriptionInput input {
+     border-radius: 5px;
+     padding: 10px;
+     border: 1px solid #ccc;
+     width: 100%;
+     height: 40px; /* Common height */
+     max-width: 500px; /* Adjust as needed */
+   }
+   
+   .propertyTypeInput label, .propertyTypeDetailsInput label {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+   }
+   
+   .propertyTypeInput input, .propertyTypeDetailsInput input {
+     margin-right: 5px;
+   }
+   
+   h2 {
+     color: #2c3e50;
+   }
+   
+   .propertyTitleName, .propertyTypeName, .propertyTypeDetailsName, .propertyDescriptionName {
+     color: #34495e;
+     font-weight: bold;
+   }
+   
+   button {
+     align-self: flex-end;
+     background-image: linear-gradient(90deg, #2895DF, #764EC6);
+     color: #fff;
+     border: none;
+     border-radius: 5px;
+     padding: 10px 20px;
+     cursor: pointer;
+     transition: background-color 0.3s;
+   }
+   
+   button:hover {
+     background-color: #1f6391;
+   }
+
+   .propertyTypeInput label, .propertyTypeDetailsInput label {
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  .propertyTypeDetailsInput {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .propertyTypeDetailsInput label {
+    display: flex;
+    align-items: center;
+  }
+  
+  .propertyTypeInput input[type="radio"], 
+  .propertyTypeDetailsInput input[type="radio"] {
+    width: auto;
+    height: auto;
+  }
+  
+  .propertyTypeInput,
+  .propertyTypeDetailsInput {
+    display: flex;
+    flex-direction: row; /* Aligns radio buttons and labels horizontally */
+    gap: 20px; /* Space between radio button groups */
+    flex-wrap: wrap; /* Allows wrapping if the screen size is small */
+  }
+  
+  .propertyTypeInput label,
+  .propertyTypeDetailsInput label {
+    display: flex;
+    align-items: center; /* Aligns radio button and text on the same line */
+    gap: 10px; /* Space between the radio button and label text */
+  }
+  
+  .propertyTypeInput input[type="radio"], 
+  .propertyTypeDetailsInput input[type="radio"] {
+    width: auto;
+    height: auto;
+    margin: 0; /* Removes default margin, ensuring alignment */
+  }
+  

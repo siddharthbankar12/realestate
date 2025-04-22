@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.builderCard {
+  width: 25vw;
+  padding: 1.5vh 1vw 1.5vh 1vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  color: black;
+  font-family: var(--font-montserrat);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  font-size: 18px;
+  gap: 10px;
+  transition: transform 0.3s ease;
+}
+
+.builderCard:hover {
+  transform: scale(1.05);
+}
+
+.image {
+  height: 90px;
+  width: 90px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  cursor: pointer;
+  height: 100%;
+  gap: 15px;
+}
+
+.name {
+  font-weight: 500;
+}

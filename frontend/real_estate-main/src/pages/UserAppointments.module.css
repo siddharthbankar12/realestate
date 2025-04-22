@@ -1,0 +1,58 @@
+.container {
+    display: flex;
+    height: 100vh;
+}
+.page{
+    display: flex;
+    gap: 5vw;
+}
+.sidebarParent {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 0 415px;
+    box-sizing: border-box;
+    max-width: 100%;
+    text-align: left;
+    font-size: var(--font-size-xl);
+    color: var(--color-black);
+    font-family: var(--font-montserrat);
+}
+
+.mainContent {
+    margin-left: 200px;
+    padding-top: 4rem; /* To account for the fixed navbar */
+    padding-left: 2rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10vh;
+}
+
+.buttons {
+    display: flex;
+    gap: 10vw;
+    margin-top: 6vh;
+    padding-left: 2vh;
+}
+
+.button {
+    background: linear-gradient(to right, #2697e0, #784dc6);
+    color: white;
+    border: none;
+    padding: 0.75rem 3rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.noAppointment{
+    margin-bottom: 4vh;
+}
+
+.txt{
+    font-weight: 600;
+}

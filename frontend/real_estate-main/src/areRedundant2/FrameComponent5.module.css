@@ -1,0 +1,370 @@
+.homeUk,
+.type {
+  position: relative;
+  font-weight: 300;
+}
+.homeUk {
+  white-space: pre-wrap;
+  display: inline-block;
+  text-shadow: 1px 0 0#1f1f1f, 0 1px 0#1f1f1f, -1px 0 0#1f1f1f, 0-1px 0#1f1f1f;
+  max-width: 100%;
+}
+.type {
+  height: 37px;
+  display: flex;
+  align-items: center;
+}
+.typeWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-12xs);
+}
+.area,
+.status {
+  height: 37px;
+  position: relative;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+.areaWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-12xs);
+}
+.furnishing {
+  position: relative;
+  font-weight: 300;
+}
+.furnishingWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-6xs) 0 var(--padding-12xs);
+}
+.bedrooms {
+  height: 37px;
+  position: relative;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+.headerNames {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-12xs);
+}
+.bathrooms {
+  height: 37px;
+  position: relative;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+.headerNames1 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 0 var(--padding-12xs);
+}
+.price {
+  height: 37px;
+  position: relative;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+}
+.propertyTitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-11xl);
+  min-width: 169px;
+}
+.starsIcon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.reviews {
+  position: relative;
+  font-weight: 500;
+}
+.headerNames2 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-6xl) 0 var(--padding-7xl);
+}
+.starsParent,
+.typeAndPriceValues {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+}
+.starsParent {
+  width: 250px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-10xs);
+}
+.typeAndPriceValues {
+  height: 93px;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.apartment {
+  height: 37px;
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+}
+.headerNames3 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-7xs);
+}
+.readyToMove {
+  position: relative;
+  font-weight: 600;
+}
+.headerNames4 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 0 var(--padding-7xs);
+}
+.ft,
+.furnished {
+  height: 37px;
+  position: relative;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+.reviewCount {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-7xs);
+}
+.b {
+  height: 37px;
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+}
+.typeAndPriceValues1 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-5xs);
+}
+.b1 {
+  height: 37px;
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+}
+.typeAndPriceValues2 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-6xs);
+}
+.div {
+  height: 37px;
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+.starsAndCount {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-11xl);
+  font-size: var(--font-size-11xl);
+}
+.detailHeaders,
+.propertyTitleParent {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.detailHeaders {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-53xl);
+  min-width: 272px;
+  font-size: var(--font-size-6xl);
+}
+.propertyTitleParent {
+  position: absolute;
+  top: 4px;
+  left: 581px;
+  width: 650px;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: var(--gap-44xl);
+}
+.web141Icon {
+  position: absolute;
+  top: 153px;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+}
+.theLyra {
+  margin: 0;
+  height: 67px;
+  position: relative;
+  font-size: inherit;
+  font-weight: 800;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+}
+.portalNorthAction {
+  position: relative;
+  font-size: var(--font-size-6xl);
+}
+.amenityLabelsOne {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-4xs);
+  font-size: var(--font-size-36xl);
+}
+.frameParent {
+  align-self: stretch;
+  height: 653px;
+  position: relative;
+  max-width: 100%;
+  font-size: var(--font-size-11xl);
+}
+.homeUkLondonTheLyraParent {
+  width: 1231px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-38xl);
+  max-width: 100%;
+}
+.propertyDetailsPageInner {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 var(--padding-xl) var(--padding-127xl) var(--padding-16xl);
+  box-sizing: border-box;
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-gray-300);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1050px) {
+  .apartment,
+  .area,
+  .b,
+  .b1,
+  .bathrooms,
+  .bedrooms,
+  .div,
+  .ft,
+  .furnished,
+  .furnishing,
+  .price,
+  .readyToMove,
+  .status,
+  .type {
+    font-size: var(--font-size-5xl);
+  }
+  .theLyra {
+    font-size: var(--font-size-25xl);
+  }
+  .propertyDetailsPageInner {
+    padding-bottom: var(--padding-76xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 750px) {
+  .propertyTitle {
+    flex: 1;
+  }
+  .propertyTitleParent {
+    flex-wrap: wrap;
+  }
+  .frameParent {
+    height: auto;
+    min-height: 653;
+  }
+  .homeUkLondonTheLyraParent {
+    gap: var(--gap-9xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .homeUk {
+    font-size: var(--font-size-base);
+  }
+  .area,
+  .bathrooms,
+  .bedrooms,
+  .furnishing,
+  .price,
+  .status,
+  .type {
+    font-size: var(--font-size-lg);
+  }
+  .reviews {
+    font-size: var(--font-size-xl);
+  }
+  .apartment,
+  .b,
+  .b1,
+  .div,
+  .ft,
+  .furnished,
+  .readyToMove {
+    font-size: var(--font-size-lg);
+  }
+  .theLyra {
+    font-size: var(--font-size-14xl);
+  }
+  .portalNorthAction {
+    font-size: var(--font-size-xl);
+  }
+  .propertyDetailsPageInner {
+    padding-bottom: var(--padding-43xl);
+    box-sizing: border-box;
+  }
+}

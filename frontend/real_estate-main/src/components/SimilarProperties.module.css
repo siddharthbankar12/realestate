@@ -1,0 +1,47 @@
+/* * { border: 1px solid green; } */
+
+.SimilarProperties * {
+  font-family: var(--font-montserrat);
+}
+
+.SimilarProperties {
+  width: 100%;
+  padding: 4vw 8vw;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.similarlistings {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  gap: 40px;
+  width: 100%;
+}
+.loadMoreButton {
+  background-color: white;
+  color: rgb(9, 148, 241); /* Sky blue color */
+  border: 1px solid rgb(9, 148, 241); /* Matching border color */
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  width: fit-content; /* Adjusts the width to fit the content */
+  margin: 10px auto; /* Centers the button horizontally */
+}
+
+.loadMoreButton:hover {
+  background-color: rgb(9, 128, 220); /* Darker shade of sky blue */
+  color: white;
+}

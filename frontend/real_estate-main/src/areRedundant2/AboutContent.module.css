@@ -1,0 +1,491 @@
+.aboutUs {
+  margin: 0;
+  height: 49px;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+}
+.welcomeToOur,
+.withAUserFriendly {
+  display: block;
+}
+.welcomeToOurContainer1 {
+  width: 100%;
+}
+.welcomeToOurContainer {
+  margin: 0;
+  width: 1161px;
+  height: 145px;
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+}
+.aboutUsParent {
+  align-self: stretch;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-6xl);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-5xl) var(--padding-xl) var(--padding-5xl)
+    var(--padding-31xl);
+  gap: var(--gap-base);
+  max-width: 100%;
+}
+.ourVision,
+.ourVisionIs {
+  height: 39px;
+  position: relative;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+.ourVisionIs {
+  margin: 0;
+  width: 516px;
+  height: 178px;
+  font-size: var(--font-size-5xl);
+  font-weight: 300;
+  white-space: pre-wrap;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+.visionHeader {
+  flex: 1;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-6xl);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-xl) var(--padding-xl) var(--padding-35xl)
+    var(--padding-13xl);
+  gap: var(--gap-base);
+  min-width: 383px;
+  max-width: 100%;
+}
+.ourMission,
+.ourMissionIs {
+  height: 39px;
+  position: relative;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+.ourMissionIs {
+  margin: 0;
+  height: 236px;
+  flex: 1;
+  font-weight: 300;
+  max-width: 100%;
+}
+.ourMissionIsToRevolutionizWrapper {
+  align-self: stretch;
+  flex-direction: row;
+  padding: 0 var(--padding-9xs) 0 var(--padding-8xs);
+  box-sizing: border-box;
+  font-size: var(--font-size-5xl);
+}
+.ourMissionIsToRevolutionizWrapper,
+.visionHeader1,
+.visionMissionContent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.visionHeader1 {
+  flex: 1;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: var(--br-6xl);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-direction: column;
+  padding: var(--padding-xl) var(--padding-7xl) var(--padding-base);
+  gap: var(--gap-base);
+  min-width: 383px;
+}
+.visionMissionContent {
+  align-self: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--gap-48xl);
+}
+.ourOffices {
+  margin: 0;
+  height: 49px;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+}
+.officeIcons {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  border-radius: var(--br-6xl);
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.address,
+.phone {
+  margin: 0;
+  font-weight: 500;
+}
+.email1 {
+  font-weight: 500;
+}
+.span {
+  font-family: var(--font-montserrat);
+}
+.email {
+  margin: 0;
+}
+.addressPhoneContainer {
+  align-self: stretch;
+  height: 89px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.icon,
+.officeColumns {
+  align-self: stretch;
+  border-radius: var(--br-6xl);
+  overflow: hidden;
+}
+.officeColumns {
+  width: 317px;
+  background-color: var(--color-whitesmoke-100);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-lgi) var(--padding-base) var(--padding-xl);
+  gap: var(--gap-lgi);
+}
+.icon {
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+.address1,
+.phone1 {
+  margin: 0;
+  font-weight: 500;
+}
+.email3 {
+  font-weight: 500;
+}
+.span1 {
+  font-family: var(--font-montserrat);
+}
+.email2 {
+  margin: 0;
+}
+.addressPhoneContainer1 {
+  align-self: stretch;
+  height: 89px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.icon1,
+.officeColumns1 {
+  align-self: stretch;
+  border-radius: var(--br-6xl);
+  overflow: hidden;
+}
+.officeColumns1 {
+  width: 317px;
+  background-color: var(--color-whitesmoke-100);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-lgi) var(--padding-base) var(--padding-xl);
+  gap: var(--gap-lgi);
+}
+.icon1 {
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+.address2,
+.phone2 {
+  margin: 0;
+  font-weight: 500;
+}
+.email5 {
+  font-weight: 500;
+}
+.span2 {
+  font-family: var(--font-montserrat);
+}
+.email4 {
+  margin: 0;
+}
+.addressPhoneContainer2 {
+  align-self: stretch;
+  height: 89px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.officeColumns2 {
+  align-self: stretch;
+  width: 317px;
+  border-radius: var(--br-6xl);
+  background-color: var(--color-whitesmoke-100);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-lgi) var(--padding-base) var(--padding-xl);
+  gap: var(--gap-lgi);
+}
+.officeAddressList,
+.officeAddresses {
+  align-self: stretch;
+  flex: 1;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.officeAddressList {
+  overflow-x: auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: 100%;
+  gap: var(--gap-xl);
+}
+.officeAddresses {
+  justify-content: flex-start;
+  padding: 0 var(--padding-mid);
+  box-sizing: border-box;
+  font-size: var(--font-size-5xl);
+}
+.meetOurTeam,
+.officeAddresses,
+.offices {
+  display: flex;
+  max-width: 100%;
+}
+.offices {
+  align-self: stretch;
+  height: 560px;
+  border-radius: var(--br-6xl);
+  background-color: var(--color-white);
+  overflow: hidden;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-51xl) var(--padding-31xl);
+  box-sizing: border-box;
+  gap: var(--gap-24xl);
+}
+.meetOurTeam {
+  margin: 0;
+  height: 49px;
+  flex: 1;
+  position: relative;
+  font-size: inherit;
+  font-weight: 700;
+  font-family: inherit;
+  align-items: center;
+}
+.meetOurTeamWrapper {
+  width: 364px;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0 var(--padding-smi);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.meetOurTeamWrapper,
+.teamContent,
+.teamMembers {
+  display: flex;
+  align-items: flex-start;
+}
+.teamMembers {
+  align-self: stretch;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: var(--gap-10xl);
+  font-size: var(--font-size-5xl);
+}
+.teamContent {
+  border-radius: var(--br-6xl);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: var(--padding-15xl) var(--padding-18xl) var(--padding-12xl);
+  gap: var(--gap-22xl);
+  max-width: 100%;
+}
+.officesParent,
+.teamContent,
+.visionMissionContentParent {
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.officesParent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-10xl);
+  max-width: 100%;
+  font-size: var(--font-size-21xl);
+}
+.visionMissionContentParent {
+  gap: var(--gap-37xl);
+  font-size: var(--font-size-13xl);
+}
+.aboutContent,
+.aboutIntro,
+.visionMissionContentParent {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.aboutIntro {
+  width: 1247px;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-74xl);
+}
+.aboutContent {
+  width: 1413px;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-xl);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  text-align: left;
+  font-size: var(--font-size-21xl);
+  color: var(--color-gray-300);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1200px) {
+  .aboutUsParent,
+  .offices {
+    padding-left: var(--padding-6xl);
+    box-sizing: border-box;
+  }
+  .offices {
+    padding-right: var(--padding-6xl);
+  }
+}
+@media screen and (max-width: 1050px) {
+  .aboutUs {
+    font-size: var(--font-size-13xl);
+  }
+  .ourMission,
+  .ourVision {
+    font-size: var(--font-size-7xl);
+  }
+  .meetOurTeam,
+  .ourOffices {
+    font-size: var(--font-size-13xl);
+  }
+}
+@media screen and (max-width: 750px) {
+  .visionMissionContent {
+    gap: var(--gap-14xl);
+  }
+  .offices {
+    gap: var(--gap-2xl);
+    padding-top: var(--padding-82xl);
+    padding-bottom: var(--padding-26xl);
+    box-sizing: border-box;
+  }
+  .teamContent {
+    gap: var(--gap-xl);
+  }
+  .visionMissionContentParent {
+    gap: var(--gap-9xl);
+  }
+  .aboutIntro {
+    gap: var(--gap-27xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .aboutUs {
+    font-size: var(--font-size-5xl);
+  }
+  .ourVision,
+  .ourVisionIs,
+  .welcomeToOurContainer {
+    font-size: var(--font-size-lgi);
+  }
+  .visionHeader {
+    min-width: 100%;
+  }
+  .ourMission,
+  .ourMissionIs {
+    font-size: var(--font-size-lgi);
+  }
+  .visionHeader1 {
+    min-width: 100%;
+  }
+  .visionMissionContent {
+    gap: var(--gap-mid);
+  }
+  .ourOffices {
+    font-size: var(--font-size-5xl);
+  }
+  .addressPhoneContainer,
+  .addressPhoneContainer1,
+  .addressPhoneContainer2 {
+    font-size: var(--font-size-lgi);
+  }
+  .meetOurTeam {
+    font-size: var(--font-size-5xl);
+  }
+  .teamContent {
+    padding-top: var(--padding-82xl);
+    padding-bottom: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .aboutIntro {
+    gap: var(--gap-4xl);
+  }
+}

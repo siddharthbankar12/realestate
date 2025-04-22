@@ -1,0 +1,122 @@
+.spaciousAndLarge {
+  width: 209px;
+  height: 70px;
+  position: relative;
+  font-weight: 300;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.image2Icon {
+  position: absolute;
+  width: calc(100% - 20px);
+  top: 16px;
+  right: 10px;
+  left: 10px;
+  border-radius: var(--br-11xl);
+  max-width: 100%;
+  overflow: hidden;
+  height: 216.7px;
+  object-fit: cover;
+}
+.mapPinIcon {
+  position: absolute;
+  top: 345px;
+  left: 32px;
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+.frameChild,
+.image2Parent {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.frameChild {
+  border-radius: var(--br-11xl);
+  border: 2px solid var(--color-black);
+  box-sizing: border-box;
+  height: 100%;
+  z-index: 1;
+}
+.image2Parent {
+  height: 400px;
+  margin: 0 !important;
+  right: 0;
+}
+.pune {
+  height: 30px;
+  width: 209px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  z-index: 2;
+}
+.puneWrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  font-size: var(--font-size-5xl);
+}
+.frameItem {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: none;
+  z-index: 3;
+}
+.spaciousAndLargeGardenParent {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: var(--padding-241xl) var(--padding-11xl) 0 var(--padding-17xl);
+  box-sizing: border-box;
+  position: relative;
+  gap: var(--gap-8xl);
+}
+.desktop1Inner,
+.frameParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frameParent {
+  flex: 1;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.desktop1Inner {
+  align-self: stretch;
+  justify-content: flex-end;
+  padding: 0 var(--padding-2xl) 0 var(--padding-xl);
+  box-sizing: border-box;
+  text-align: left;
+  font-size: var(--font-size-8xl-5);
+  color: var(--color-black);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1275px) {
+  .frameParent {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 450px) {
+  .spaciousAndLarge {
+    font-size: var(--font-size-3xl);
+  }
+  .pune {
+    font-size: var(--font-size-lgi);
+  }
+  .spaciousAndLargeGardenParent {
+    padding-top: var(--padding-47xl);
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,113 @@
+.frameChild,
+.image3Icon {
+  position: relative;
+  border-radius: var(--br-11xl);
+}
+.image3Icon {
+  align-self: stretch;
+  height: 216.7px;
+  max-width: 100%;
+  overflow: hidden;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.frameChild {
+  width: 320px;
+  height: 400px;
+  border: 2px solid var(--color-black);
+  box-sizing: border-box;
+  display: none;
+}
+.withItsOwn {
+  flex: 1;
+  position: relative;
+  font-weight: 300;
+}
+.withItsOwnPoolWrapper {
+  width: 245px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-lg);
+  box-sizing: border-box;
+}
+.mapPinIcon,
+.mumbai {
+  position: relative;
+  z-index: 2;
+}
+.mapPinIcon {
+  height: 45px;
+  width: 45px;
+  object-fit: cover;
+}
+.mumbai {
+  align-self: stretch;
+}
+.mumbaiWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-3xs) 0 0;
+  box-sizing: border-box;
+  min-width: 136px;
+}
+.mapPinParent {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-5xs);
+  font-size: var(--font-size-5xl);
+}
+.featuredPropertyTwoDetails,
+.frameParent,
+.image3Parent,
+.mapPinParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.frameParent {
+  flex: 1;
+  flex-direction: column;
+  gap: var(--gap-mini);
+}
+.featuredPropertyTwoDetails,
+.image3Parent {
+  width: 284px;
+  flex-direction: row;
+  padding: 0 var(--padding-2xs);
+  box-sizing: border-box;
+}
+.image3Parent {
+  width: 320px;
+  border-radius: var(--br-11xl);
+  border: 2px solid var(--color-black);
+  flex-direction: column;
+  padding: var(--padding-smi) var(--padding-5xs) var(--padding-6xs);
+  gap: var(--gap-8xl-3);
+  min-width: 320px;
+  z-index: 1;
+  text-align: left;
+  font-size: var(--font-size-8xl-5);
+  color: var(--color-black);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1100px) {
+  .image3Parent {
+    flex: 1;
+  }
+}
+@media screen and (max-width: 450px) {
+  .withItsOwn {
+    font-size: var(--font-size-3xl);
+  }
+  .mumbai {
+    font-size: var(--font-size-lgi);
+  }
+  .mapPinParent {
+    flex-wrap: wrap;
+  }
+}

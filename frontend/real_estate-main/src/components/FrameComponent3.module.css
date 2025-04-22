@@ -1,0 +1,281 @@
+.mostPopular,
+.web11Icon {
+  position: relative;
+  flex-shrink: 0;
+}
+.mostPopular {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 400;
+  font-family: inherit;
+  white-space: pre-wrap;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.web11Icon {
+  align-self: stretch;
+  height: 200px;
+  max-width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+.blankLine,
+.coppermakerSquareLondon {
+  margin: 0;
+}
+.from3723month {
+  margin: 0;
+  font-size: var(--font-size-mini);
+}
+.coppermakerSquareLondonContainer {
+  align-self: stretch;
+  position: relative;
+}
+.mostPopularPropertyCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-6xl);
+  min-width: 162px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.web21Icon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.blankLine1,
+.ovoArenaBuilding {
+  margin: 0;
+}
+.from2195month {
+  margin: 0;
+  font-size: var(--font-size-mini);
+}
+.ovoArenaBuildingContainer {
+  align-self: stretch;
+  position: relative;
+}
+.mostPopularPropertyCard1 {
+  align-self: stretch;
+  height: 307.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-6xl-5);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.mostPopularPropertyCardWrapper {
+  flex: 1;
+  flex-direction: column;
+  padding: var(--padding-10xs-5) 0 0;
+  box-sizing: border-box;
+  min-width: 162px;
+}
+.cardList,
+.mostPopularPropertyCardParent,
+.mostPopularPropertyCardWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.mostPopularPropertyCardParent {
+  align-self: stretch;
+  flex-direction: row;
+  gap: var(--gap-44xl);
+  flex-shrink: 0;
+  font-size: var(--font-size-xl);
+}
+.cardList {
+  width: 563.2px;
+  flex-direction: column;
+  gap: var(--gap-15xl-4);
+  max-width: 100%;
+  font-size: var(--font-size-26xl);
+}
+.web31Icon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.blankLine2,
+.chapterIslingtonLondon {
+  margin: 0;
+}
+.from390week {
+  margin: 0;
+  font-size: var(--font-size-mini);
+}
+.chapterIslingtonLondonContainer {
+  align-self: stretch;
+  position: relative;
+}
+.mostPopularPropertyCard2 {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-6xl);
+  cursor: pointer;
+}
+.mostPopularPropertyCardContainer {
+  height: 310px;
+  width: 250.2px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 0 var(--padding-10xs);
+  box-sizing: border-box;
+}
+.viewMoreBtnChild {
+  height: 44px;
+  width: 195px;
+  position: relative;
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  display: none;
+}
+.viewMore {
+  position: relative;
+  font-size: var(--font-size-xl);
+  font-family: var(--font-montserrat);
+  color: var(--color-white);
+  text-align: left;
+  display: inline-block;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  min-width: 106px;
+  z-index: 1;
+}
+.viewMoreBtn {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-4xs) var(--padding-25xl) var(--padding-2xs);
+  background-color: transparent;
+  border-radius: var(--br-24xl);
+  background: linear-gradient(90deg, #2697e0, #784dc6);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.web41Icon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: cover;
+}
+.blankLine3,
+.theLyraLondon {
+  margin: 0;
+}
+.from390week1 {
+  margin: 0;
+  font-size: var(--font-size-mini);
+}
+.theLyraLondonContainer {
+  align-self: stretch;
+  height: 82px;
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.mostPopularPropertyCard3,
+.mostPopularPropertyCardFrame {
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+}
+.mostPopularPropertyCard3 {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: var(--gap-5xl-8);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.mostPopularPropertyCardFrame {
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0 var(--padding-11xs) 0 0;
+}
+.viewMoreBtnParent {
+  height: 388px;
+  width: 253px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: var(--gap-18xl-2);
+}
+.popularCards,
+.popularProperties {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.popularCards {
+  align-items: flex-end;
+  gap: var(--gap-47xl-8);
+}
+.popularProperties {
+  align-items: flex-start;
+  padding: 0 0 0 var(--padding-5xs);
+  box-sizing: border-box;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-gray-300);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1200px) {
+  .popularCards {
+    flex-wrap: wrap;
+    gap: var(--gap-14xl);
+  }
+}
+@media screen and (max-width: 1050px) {
+  .mostPopular {
+    font-size: var(--font-size-17xl);
+  }
+}
+@media screen and (max-width: 750px) {
+  .mostPopularPropertyCardParent {
+    flex-wrap: wrap;
+    gap: var(--gap-12xl);
+  }
+  .cardList,
+  .popularCards {
+    gap: var(--gap-mid);
+  }
+}
+@media screen and (max-width: 450px) {
+  .mostPopular {
+    font-size: var(--font-size-8xl);
+  }
+  .mostPopularPropertyCardParent {
+    gap: var(--gap-base);
+  }
+  .viewMoreBtnParent {
+    gap: var(--gap-lgi);
+  }
+}

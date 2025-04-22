@@ -1,0 +1,143 @@
+.container {
+  width: 100%;
+  max-width: 60vw;
+  height: fit-content;
+  margin: auto;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  background-color: #fff;
+  border-radius: 1em;
+  box-shadow: 0 4px 8px rgb(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.head {
+  width: 100%;
+  max-width: 60vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: center;
+}
+
+h2 {
+  margin-bottom: 1vh;
+}
+
+.head p {
+  padding: 0;
+  margin: 0;
+  color: #777;
+}
+
+.headerRow {
+  font-weight: 600;
+  color: #ffffff;
+  border-bottom: 2px solid #eaeaea;
+  display: flex;
+  background-color: #2697e0;
+  border-radius: 0.6em 0.6em 0 0;
+  width: inherit;
+  height: 5vh;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1vw;
+  border-bottom: 1px solid #eaeaea;
+  cursor: pointer;
+}
+
+.row:hover {
+  background-color: #e1e1e1;
+}
+
+.locality,
+.rate,
+.rentalYield,
+.priceTrend {
+  flex: 1;
+  text-align: center;
+}
+
+.locality {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.localityHeader,
+.rateHeader,
+.rentalYieldHeader,
+.priceTrendHeader {
+  flex: 1;
+  text-align: center;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+h3 {
+  margin: 0;
+}
+
+.rate,
+.rentalYield,
+.priceTrend {
+  color: #555;
+}
+
+.priceTrend {
+  color: green;
+  position: relative;
+}
+
+.priceTrend::before {
+  content: "▲";
+  color: green;
+  font-size: 14px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.priceTrend::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: green;
+  bottom: -3px;
+  left: 0;
+}
+
+.viewAllButton {
+  padding: 1vh;
+  margin: 1vh;
+  width: 100%;
+  max-width: 50vw;
+  background: linear-gradient(to right, #2697e0, #784dc6);
+  color: #fff;
+  border: none;
+  border-radius: 0.6em;
+  cursor: pointer;
+  text-align: center;
+  align-self: center;
+}
+
+.viewAllButton:hover {
+  background-color: #0056b3;
+}
+
+.loc p {
+  padding: 0;
+}

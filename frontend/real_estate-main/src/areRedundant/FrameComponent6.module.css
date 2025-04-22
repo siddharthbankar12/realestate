@@ -1,0 +1,268 @@
+.homeUk,
+.type {
+  position: relative;
+  font-weight: 300;
+  display: inline-block;
+}
+.homeUk {
+  white-space: pre-wrap;
+  text-shadow: 1px 0 0 #1f1f1f, 0 1px 0 #1f1f1f, -1px 0 0 #1f1f1f, 0 -1px 0 #1f1f1f;
+  max-width: 100%;
+}
+.type {
+  min-width: 70px;
+}
+.propertyAttributes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-11xl-2);
+  min-width: 169px;
+}
+.attributeLabels,
+.attributeLabels1,
+.furnishingLabel,
+.attributeLabels2,
+.attributeLabels3 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 var(--padding-12xs);
+}
+.attributeLabels1,
+.attributeLabels2,
+.attributeLabels3 {
+  padding-left: var(--padding-12xs);
+}
+.area,
+.status,
+.furnishing,
+.bedrooms,
+.bathrooms,
+.price {
+  position: relative;
+  font-weight: 300;
+  display: inline-block;
+}
+.area {
+  min-width: 68px;
+}
+.price {
+  min-width: 75px;
+}
+.starsIcon {
+  align-self: stretch;
+  flex: 1;
+  max-width: 100%;
+  max-height: 100%;
+}
+.reviews {
+  position: relative;
+  font-weight: 500;
+}
+.reviewsCount {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0 var(--padding-6xl) 0 var(--padding-7xl);
+}
+.ratingStars,
+.starsParent {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+}
+.starsParent {
+  width: 250px;
+  flex-direction: column;
+  gap: var(--gap-10xs);
+}
+.ratingStars {
+  height: 93px;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.apartment,
+.readyToMove,
+.ft,
+.furnished,
+.div,
+.div1,
+.div2 {
+  position: relative;
+  font-weight: 600;
+}
+.summaryValues,
+.summaryValues1,
+.summaryValues2,
+.summaryValues3,
+.summaryValues4 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0 var(--padding-7xs);
+}
+.summaryValues3,
+.summaryValues4 {
+  padding-left: var(--padding-6xs);
+}
+.propertySummary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-11xl);
+  font-size: var(--font-size-11xl);
+}
+.propertyDetails,
+.rating {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.rating {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--gap-53xl);
+  font-size: var(--font-size-6xl);
+}
+.propertyDetails {
+  position: absolute;
+  top: 4px;
+  left: 581px;
+  width: 650px;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: var(--gap-44xl);
+}
+.web141Icon {
+  position: absolute;
+  top: 153px;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  object-fit: cover;
+}
+.theLyra {
+  margin: 0;
+  font-size: inherit;
+  font-weight: 800;
+  font-family: inherit;
+}
+.portalNorthAction {
+  font-size: var(--font-size-6xl);
+}
+.propertyTitle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-4xs);
+  font-size: var(--font-size-36xl);
+}
+.propertyInfo {
+  align-self: stretch;
+  height: 653px;
+  position: relative;
+  max-width: 100%;
+  font-size: var(--font-size-11xl);
+}
+.breadcrumb,
+.breadcrumbWrapper {
+  display: flex;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.breadcrumb {
+  width: 1231px;
+  flex-direction: column;
+  gap: var(--gap-38xl);
+}
+.breadcrumbWrapper {
+  align-self: stretch;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-xl) var(--padding-127xl) var(--padding-16xl);
+  box-sizing: border-box;
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-gray-300);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 1050px) {
+  .apartment,
+  .area,
+  .bathrooms,
+  .bedrooms,
+  .div,
+  .div1,
+  .div2,
+  .ft,
+  .furnished,
+  .furnishing,
+  .price,
+  .readyToMove,
+  .status,
+  .type {
+    font-size: var(--font-size-5xl);
+  }
+  .theLyra {
+    font-size: var(--font-size-25xl);
+  }
+  .breadcrumbWrapper {
+    padding-bottom: var(--padding-76xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 750px) {
+  .propertyAttributes {
+    flex: 1;
+  }
+  .propertyDetails {
+    flex-wrap: wrap;
+  }
+  .propertyInfo {
+    height: auto;
+    min-height: 653px;
+  }
+  .breadcrumb {
+    gap: var(--gap-9xl);
+  }
+}
+@media screen and (max-width: 450px) {
+  .homeUk {
+    font-size: var(--font-size-base);
+  }
+  .area,
+  .bathrooms,
+  .bedrooms,
+  .furnishing,
+  .price,
+  .status,
+  .type {
+    font-size: var(--font-size-lg);
+  }
+  .reviews {
+    font-size: var(--font-size-xl);
+  }
+  .apartment,
+  .div,
+  .div1,
+  .div2,
+  .ft,
+  .furnished,
+  .readyToMove {
+    font-size: var(--font-size-lg);
+  }
+  .theLyra {
+    font-size: var(--font-size-14xl);
+  }
+  .portalNorthAction {
+    font-size: var(--font-size-xl);
+  }
+  .breadcrumbWrapper {
+    padding-bottom: var(--padding-43xl);
+    box-sizing: border-box;
+  }
+}

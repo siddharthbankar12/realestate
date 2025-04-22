@@ -1,0 +1,122 @@
+.searchBar {
+  font-size: 16px;
+  background-color: var(--color-white);
+  padding: 6px 16px;
+  width: 40%;
+  /* height: 5vh; */
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* gap: 10px; */
+}
+
+.searchContainer {
+  width: 70%;
+  display: flex;
+}
+
+.cityHead {
+  color: black;
+  margin: 0 10px 0 0;
+  padding: 0 5px;
+  width: 25%;
+  display: flex;
+  align-items: center;
+}
+
+.searchinput {
+  font-size: 14px;
+  padding: 0 15px;
+  border: none;
+  font-weight: 500;
+  background: none;
+}
+
+.searchinput:focus {
+  border: none;
+  outline: none;
+}
+
+.searchicon {
+  cursor: pointer;
+}
+
+.homeIcon {
+  height: 30px;
+  width: 30px;
+}
+
+.filter {
+  color: black;
+  font-size: 13px;
+  text-wrap: nowrap;
+  display: flex;
+  position: relative;
+}
+
+.filterlist {
+  position: absolute;
+  top: 95%;
+  left: -4px;
+  width: 555%;
+  height: 170px;
+  background: var(--color-white);
+  z-index: 9;
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  display: flex;
+}
+
+.dropdownfilter {
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filterlist.visible {
+  max-height: 200px;
+  opacity: 1;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.column {
+  width: 45%;
+  margin-left: 5%;
+}
+
+.filterElement {
+  margin-top: 25px;
+  width: 30%;
+}
+
+.rotate {
+  display: inline-block; /* Ensure the span is treated as a block for transformation */
+  transition: transform 0.3s ease; /* Add transition for smooth rotation */
+}
+
+.rotated {
+  transform: rotate(180deg); /* Rotate the element by 180 degrees */
+}
+
+@media (max-width: 1100px) {
+  .searchinput {
+    font-size: 14px;
+  }
+  .cityHead {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .searchBar {
+    width: 60%;
+  }
+  .searchinput {
+    font-size: 12px;
+  }
+  .cityHead {
+    font-size: 12px;
+  }
+}

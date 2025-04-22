@@ -1,0 +1,31 @@
+/* * {border: 1px solid green;}  */
+
+.propertyListingsPage {
+  background-color: var(--color-white);
+  width: 100%;
+  margin: 0 auto;
+}
+
+.sortAndFilterParent {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  /* justify-content: center; */
+  /* background-color: yellow; */
+}
+
+.listings {
+  margin-top: 50px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  align-content: start;
+  gap: 40px;
+  padding: 40px;
+  width: 100%;
+}
+
+.listings > * {
+  height: fit-content;
+}

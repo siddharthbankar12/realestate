@@ -1,0 +1,38 @@
+.recentSearchWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: white;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.label {
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.noSearch {
+  font-size: 14px;
+}
+
+.searchChip {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #1a1a1a;
+
+  transition: background-color 0.2s ease-in-out;
+}
+
+.icon {
+  font-size: 12px;
+  color: #5a6c84;
+  margin-right: 5px;
+}
+
+.viewAll {
+  font-weight: bold;
+}
