@@ -118,7 +118,7 @@ html {
 }
 
 .searchInput > input {
-  width: 540px;
+  width: 400px;
   height: 50px;
   font-size: 16px;
   border-radius: 0;
@@ -130,7 +130,7 @@ html {
 /* Search Button */
 .searchButton {
   height: 50px !important;
-  font-size: 18px;
+  font-size: 16px;
   width: 180px;
   border-radius: 4px !important;
   font-weight: 400;
@@ -424,9 +424,13 @@ html {
 
   .searchButton {
     font-size: 12px;
+    width: 100%;
   }
 
-  .labelOption {
-    font-size: 12px;
+  .responsiveSelect {
+    display: none;
+  }
+  .responsiveSearch {
+    width: 50px;
   }
 }

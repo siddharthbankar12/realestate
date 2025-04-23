@@ -42,7 +42,7 @@ const LoginForm: FunctionComponent<LoginFormType> = ({ className = "" }) => {
       localStorage.setItem("authToken", token);
 
       console.log(response.data);
-      navigate("/user-profile"); // after successful login , navigate or add your logic as per your req .
+      navigate("/user-profile");
       return response.data;
     } catch (error) {
       console.error("Login failed", error);

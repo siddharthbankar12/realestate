@@ -15,10 +15,14 @@ const RegisterPopup: FunctionComponent<RegisterPopupProps> = ({
   const [email, setEmail] = useState(prefilledEmail);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [error, setError] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [address, setAddress] = useState("");
+  const [landlineNumber, setLandlineNumber] = useState("");
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,10 +31,14 @@ const RegisterPopup: FunctionComponent<RegisterPopupProps> = ({
     const registrationData = {
       firstName,
       lastName,
-      phone,
+      phoneNumber,
       email,
       password,
       role,
+      city,
+      address,
+      state,
+      landlineNumber,
     };
 
     try {
@@ -89,14 +97,14 @@ const RegisterPopup: FunctionComponent<RegisterPopupProps> = ({
             />
           </div>
           <div className={styles.section}>
-            <label htmlFor="phone">Phone Number*</label>
+            <label htmlFor="phoneNumber">Phone Number*</label>
             <input
               type="tel"
-              id="phone"
-              name="phone"
+              id="phoneNumber"
+              name="phoneNumber"
               required
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
           <div className={styles.section}>

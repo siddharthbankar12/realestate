@@ -4,45 +4,68 @@
 }
 
 .CustomerReviewCard {
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    cursor: pointer;
-    color: black;
-    font-family: var(--font-montserrat);
-    border: 2px solid black;
-    border-radius: 30px;
-    width: 400px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  color: black;
+  font-family: var(--font-montserrat);
+  border: 2px solid black;
+  border-radius: 30px;
+  width: 100%;
+  max-width: 400px;
+  flex: 1 1 calc(33.333% - 12px);
+  height: 400px;
+  transition: all 0.3s ease;
 }
 
 .CustomerReviewCard > * {
-    width: 100%;
+  width: 100%;
 }
 
 .profile {
-    height: 50px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 .pfp {
   width: 40px;
   height: 40px;
-  border: none;
   object-fit: cover;
   border-radius: 15px;
 }
 
 .name {
-    font-size: 20px;
-    line-height: 40px;
+  font-size: 1.25rem;
+  line-height: 40px;
 }
 
 .review {
-    font-size: 16px;
-    line-height: 20px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* 🌐 Responsive Breakpoints */
+@media screen and (max-width: 1024px) {
+  .CustomerReviewCard {
+    flex: 1 1 calc(50% - 12px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .CustomerReviewCard {
+    flex: 1 1 100%;
+  }
+
+  .name {
+    font-size: 1.1rem;
+  }
+
+  .review {
+    font-size: 0.95rem;
+  }
 }

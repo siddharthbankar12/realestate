@@ -20,10 +20,22 @@ const Userschema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  role: {            
+  role: {
     type: String,
   },
   image: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  state: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  landlineNumber: {
     type: String,
   },
 });

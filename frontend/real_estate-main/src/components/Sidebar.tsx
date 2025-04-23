@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useMemo, CSSProperties, useCallback, useState } from "react";
+import React, {
+  FunctionComponent,
+  useMemo,
+  CSSProperties,
+  useCallback,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 
@@ -66,8 +72,10 @@ const Sidebar: FunctionComponent<SidebarType> = ({
   }, []);
 
   const handleLogoutConfirm = useCallback(() => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userProfile");
+    setShowLogoutConfirmation(false);
     navigate("/");
-    // Perform additional logout actions if needed
   }, [navigate]);
 
   const handleLogoutCancel = useCallback(() => {
@@ -75,26 +83,50 @@ const Sidebar: FunctionComponent<SidebarType> = ({
   }, []);
 
   return (
-    <div className={[styles.sidebar, className].join(" ")} style={sidebar1Style}>
-      <div className={getCurrentPageClass("profile-settings")} onClick={onProfileSettingTextClick}>
+    <div
+      className={[styles.sidebar, className].join(" ")}
+      style={sidebar1Style}
+    >
+      <div
+        className={getCurrentPageClass("profile-settings")}
+        onClick={onProfileSettingTextClick}
+      >
         Profile settings
       </div>
-      <div className={getCurrentPageClass("user-appointments0")} onClick={onAppointmentsTextClick0}>
+      <div
+        className={getCurrentPageClass("user-appointments0")}
+        onClick={onAppointmentsTextClick0}
+      >
         Appointments
       </div>
-      <div className={getCurrentPageClass("user-properties0")} onClick={onMyPropertiesTextClick}>
+      <div
+        className={getCurrentPageClass("user-properties0")}
+        onClick={onMyPropertiesTextClick}
+      >
         My properties
       </div>
-      <div className={getCurrentPageClass("user-past-searches0")} onClick={onPastSearchesTextClick}>
+      <div
+        className={getCurrentPageClass("user-past-searches0")}
+        onClick={onPastSearchesTextClick}
+      >
         Past searches
       </div>
-      <div className={getCurrentPageClass("user-previously-viewed0")} onClick={onPreviouslyViewedTextClick}>
+      <div
+        className={getCurrentPageClass("user-previously-viewed0")}
+        onClick={onPreviouslyViewedTextClick}
+      >
         Previously viewed
       </div>
-      <div className={getCurrentPageClass("user-previously-saved0")} onClick={onSavedTextClick}>
+      <div
+        className={getCurrentPageClass("user-previously-saved0")}
+        onClick={onSavedTextClick}
+      >
         Saved
       </div>
-      <div className={getCurrentPageClass("user-previously-contacted0")} onClick={onContactedTextClick}>
+      <div
+        className={getCurrentPageClass("user-previously-contacted0")}
+        onClick={onContactedTextClick}
+      >
         Contacted
       </div>
       <div className={getCurrentPageClass("notifications")}>Notifications</div>
@@ -105,10 +137,22 @@ const Sidebar: FunctionComponent<SidebarType> = ({
       {/* Logout confirmation popup */}
       {showLogoutConfirmation && (
         <div className={styles.logoutPopup}>
-          <div className={styles.logoutMessage}>Are you sure you want to log out?</div>
+          <div className={styles.logoutMessage}>
+            Are you sure you want to log out?
+          </div>
           <div className={styles.logoutButtons}>
-            <button className={styles.logoutButton} onClick={handleLogoutConfirm}>Yes</button>
-            <button className={styles.cancelButton} onClick={handleLogoutCancel}>No</button>
+            <button
+              className={styles.logoutButton}
+              onClick={handleLogoutConfirm}
+            >
+              Yes
+            </button>
+            <button
+              className={styles.cancelButton}
+              onClick={handleLogoutCancel}
+            >
+              No
+            </button>
           </div>
         </div>
       )}

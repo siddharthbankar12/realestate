@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const loginRouter = require("express").Router();
 const User = require("../models/User");
 
-const SECRET = "bearer"; // This should be in the dotenv file, rn I am keeping it here.
+const SECRET = "bearer";
 
 loginRouter.post("/login", async (request, response) => {
   try {
@@ -23,13 +23,22 @@ loginRouter.post("/login", async (request, response) => {
       });
     }
 
+    console.log(user, "helllooooooooo");
+
     const userForToken = {
       email: user.email,
       phoneNumber: user.phoneNumber,
       firstname: user.firstName,
       lastname: user.lastName,
       role: user.role || "User",
+      city: user.city,
+      state: user.state,
+      address: user.address,
+      landlineNumber: user.landlineNumber,
+      _id: user._id, // Include _id to make sure it's in the token
     };
+
+    console.log(user._id);
 
     const token = jwt.sign(userForToken, SECRET);
 

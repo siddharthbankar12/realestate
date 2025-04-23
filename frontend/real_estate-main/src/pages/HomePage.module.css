@@ -367,11 +367,11 @@ input {
 .reviews {
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  flex-wrap: wrap; /* Ensures it wraps in smaller screens */
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .reviewCard {

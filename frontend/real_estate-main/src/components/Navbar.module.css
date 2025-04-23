@@ -30,9 +30,10 @@
 }
 
 .logo1 {
-  width: 100px;
-  height: 40px;
+  width: 120px;
+  height: auto;
   font-weight: 600;
+  transition: width 0.3s ease;
 }
 
 .profile {
@@ -86,5 +87,21 @@
 
   .hamburger {
     display: block;
+  }
+
+  .logo1 {
+    width: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    /* width: 60px; */
+    display: none;
+  }
+
+  .navbar {
+    gap: 10px;
+    padding: 10px 5px;
   }
 }

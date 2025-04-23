@@ -11,16 +11,13 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import styles from "./UserProfile.module.css";
 import EditableInput from "../components/EditableInput";
-import PropertyCard from "../components/PropertyCard";
 
 const UserProfile: React.FC = () => {
   const [isEditable, setIsEditable] = useState(false);
   const [inputValues, setInputValues] = useState({
     role: "Role",
     name: "Full Name",
-    phoneNumber1: "Phone Number 1",
-    phoneNumber2: "0000000000",
-    phoneNumber3: "0000000000",
+    phoneNumber: "Phone Number",
     mail: "Mail",
     state: "State",
     city: "City",
@@ -30,94 +27,41 @@ const UserProfile: React.FC = () => {
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
   const [isRequiredFilled, setIsRequiredFilled] = useState(false);
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({});
-  const [isProfilePicMenuOpen, setIsProfilePicMenuOpen] = useState(false); // State to track if profile pic menu is open
-
-  useEffect(() => {
-    const {
-      name,
-      phoneNumber1,
-      phoneNumber2,
-      phoneNumber3,
-      mail,
-      city,
-      state,
-      address,
-      landlineNumber,
-    } = inputValues;
-    const errors: Record<string, string> = {};
-    if (name === "") {
-      errors["name"] = "This is a required field";
-    }
-    if (phoneNumber1 === "") {
-      errors["phoneNumber1"] = "This is a required field";
-    } else if (!/^\d+$/.test(phoneNumber1)) {
-      errors["phoneNumber1"] = "Phone number must be numeric";
-    }
-    if (!/^\d+$/.test(phoneNumber2) && phoneNumber2 !== "") {
-      errors["phoneNumber2"] = "Phone number must be numeric";
-    }
-    if (!/^\d+$/.test(phoneNumber3) && phoneNumber3 !== "") {
-      errors["phoneNumber3"] = "Phone number must be numeric";
-    }
-    if (mail === "") {
-      errors["mail"] = "This is a required field";
-    } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(mail)) {
-      errors["mail"] = "Invalid email format";
-    }
-    if (city === "") {
-      errors["city"] = "This is a required field";
-    }
-    if (state === "") {
-      errors["state"] = "This is a required field";
-    }
-    if (address === "") {
-      errors["address"] = "This is a required field";
-    }
-    if (!/^\d+$/.test(landlineNumber) && landlineNumber !== "") {
-      errors["landlineNumber"] = "Landline number must be numeric";
-    }
-    setValidationErrors(errors);
-    setIsRequiredFilled(Object.keys(errors).length === 0);
-  }, [inputValues]);
+  const [isProfilePicMenuOpen, setIsProfilePicMenuOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
-    console.log(token);
     if (token) {
       try {
-        const decoded = jwtDecode(token);
+        const decoded: any = jwtDecode(token);
         console.log(decoded);
         setInputValues({
           role: decoded.role || "User",
           name: `${decoded.firstname} ${decoded.lastname}`,
-          phoneNumber1: decoded.phoneNumber,
-          phoneNumber2: "0000000000",
-          phoneNumber3: "0000000000",
-          mail: decoded.email,
-          state: decoded.state || "State",
-          city: decoded.city || "City",
-          address: decoded.address || "Address",
-          landlineNumber: decoded.landlineNumber || "0000000000",
+          phoneNumber: decoded.phoneNumber || "",
+          mail: decoded.email || "",
+          state: decoded.state || "",
+          city: decoded.city || "",
+          address: decoded.address || "",
+          landlineNumber: decoded.landlineNumber || "",
         });
+
+        // Set the userId from the token (assuming it's available)
+        const userId = decoded._id || decoded.id; // or whatever property holds the userId
+        setUserId(userId); // Set the userId in a state variable
+        console.log("Decoded token:", decoded);
       } catch (error) {
         console.error("Invalid token:", error);
       }
     }
-
-    const savedImage = localStorage.getItem("profileImage");
-    if (savedImage) {
-      setSelectedImage(savedImage);
-    }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("userProfile", JSON.stringify(inputValues));
-  }, [inputValues]);
 
   useEffect(() => {
     if (selectedImage) {
@@ -125,18 +69,48 @@ const UserProfile: React.FC = () => {
     }
   }, [selectedImage]);
 
-  const handleEditClick = () => {
-    setIsEditable(true);
-  };
+  useEffect(() => {
+    const errors: Record<string, string> = {};
+    const requiredFields = [
+      "name",
+      "phoneNumber",
+      "mail",
+      "state",
+      "city",
+      "address",
+      "landlineNumber",
+    ];
 
-  const handleSaveClick = () => {
-    setIsEditable(false);
-    if (isRequiredFilled) {
-      console.log("Saving profile...");
-    } else {
-      alert("Please fill in all mandatory fields.");
+    requiredFields.forEach((field) => {
+      if (!inputValues[field]) {
+        errors[field] = "This is a required field";
+      }
+    });
+
+    if (inputValues.phoneNumber1 && !/^\d+$/.test(inputValues.phoneNumber1)) {
+      errors.phoneNumber1 = "Phone number must be numeric";
     }
-  };
+    ["phoneNumber2", "phoneNumber3"].forEach((field) => {
+      if (inputValues[field] && !/^\d+$/.test(inputValues[field])) {
+        errors[field] = "Phone number must be numeric";
+      }
+    });
+    if (
+      inputValues.mail &&
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputValues.mail)
+    ) {
+      errors.mail = "Invalid email format";
+    }
+    if (
+      inputValues.landlineNumber &&
+      !/^\d+$/.test(inputValues.landlineNumber)
+    ) {
+      errors.landlineNumber = "Landline number must be numeric";
+    }
+
+    setValidationErrors(errors);
+    setIsRequiredFilled(Object.keys(errors).length === 0);
+  }, [inputValues]);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
@@ -147,6 +121,84 @@ const UserProfile: React.FC = () => {
       [field]: e.target.value,
     });
   };
+
+  const handleEditClick = () => setIsEditable(true);
+
+  const handleSaveClick = async () => {
+    if (isRequiredFilled && userId) {
+      setIsEditable(false);
+      console.log("Profile saved:", inputValues);
+
+      // Create a new FormData object to append data
+      const formData = new FormData();
+
+      // Append form data
+      formData.append("name", inputValues.name);
+      formData.append("mail", inputValues.mail);
+      formData.append("phoneNumber", inputValues.phoneNumber);
+
+      formData.append("landlineNumber", inputValues.landlineNumber);
+      formData.append("city", inputValues.city);
+      formData.append("state", inputValues.state);
+      formData.append("address", inputValues.address);
+
+      // If image is selected, append it to the formData
+      if (selectedImage) {
+        const base64Data = selectedImage.split(",")[1]; // Strip the data URI prefix
+        const blob = new Blob(
+          [
+            new Uint8Array(
+              atob(base64Data)
+                .split("")
+                .map((c) => c.charCodeAt(0))
+            ),
+          ],
+          { type: "image/jpeg" }
+        );
+        formData.append("image", blob, "profile-picture.jpg");
+      }
+
+      try {
+        // Send FormData to the backend
+        const response = await fetch(
+          `http://localhost:8000/api/user-update/${userId}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+            body: formData, // Send the FormData object
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+          setSaveSuccess("Profile saved successfully!");
+          localStorage.setItem("userProfile", JSON.stringify(inputValues));
+
+          // ✅ Check if new token is returned, update localStorage
+          if (data.token) {
+            localStorage.setItem("authToken", data.token);
+            console.log("New token updated in localStorage");
+          }
+        } else {
+          setSaveSuccess(`Error: ${data.message || "Profile save failed"}`);
+        }
+      } catch (error) {
+        console.error("Error saving profile:", error);
+        setSaveSuccess("An error occurred while saving your profile.");
+      }
+
+      setTimeout(() => setSaveSuccess(null), 3000);
+    } else {
+      alert("Please fill in all mandatory fields correctly.");
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("userProfile", JSON.stringify(inputValues));
+  }, [inputValues]);
 
   const handleButtonClick = () => {
     if (selectedImage) {
@@ -170,30 +222,34 @@ const UserProfile: React.FC = () => {
 
   const handleRemoveProfilePic = () => {
     setSelectedImage(null);
-    setIsProfilePicMenuOpen(false);
     localStorage.removeItem("profileImage");
+    setIsProfilePicMenuOpen(false);
   };
 
   const navigate = useNavigate();
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
   const onDeleteClick = useCallback(() => {
     setShowDeleteConfirmation(true);
   }, []);
 
   const handleDeleteConfirm = useCallback(() => {
+    // Add API call here if needed
+    localStorage.clear();
     navigate("/");
-    // Perform additional Delete actions if needed
   }, [navigate]);
 
   const handleDeleteCancel = useCallback(() => {
     setShowDeleteConfirmation(false);
   }, []);
 
-  // useEffect(() => {
-  //   const searchParams = new URLSearchParams(location.search);
-  //   const query = searchParams.get("query") || "";
-  //   fetchProperties(query);
-  // }, [location.search]);
+  useEffect(() => {
+    console.log("Validation Errors: ", validationErrors);
+    setIsRequiredFilled(Object.keys(validationErrors).length === 0);
+  }, [validationErrors]);
+
+  console.log("userId:", userId);
+  console.log(inputValues);
 
   return (
     <div className={styles.userProfile}>
@@ -202,166 +258,95 @@ const UserProfile: React.FC = () => {
         <Sidebar currentPage="profile-settings" />
         <div className={styles.lastNameRow} style={{ marginTop: "3vh" }}>
           <div className={styles.userContainer}>
-            <div style={{ display: "flex", flexDirection: "row", gap: "12vw" }}>
-              <div className={styles.header}>
-                <div className={styles.profileImage}>
-                  <div
-                    className={styles.logo}
-                    style={{
-                      backgroundImage: selectedImage
-                        ? `url(${selectedImage})`
-                        : undefined,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      backgroundColor: selectedImage
-                        ? "transparent"
-                        : "linear-gradient(to right, #42a5f5, #7e57c2)",
-                    }}
+            <div className={styles.profileHeader}>
+              <div className={styles.profileImage}>
+                <div
+                  className={styles.logo}
+                  style={{
+                    backgroundImage: selectedImage
+                      ? `url(${selectedImage})`
+                      : undefined,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundColor: selectedImage ? "transparent" : "#ccc",
+                  }}
+                />
+                <button
+                  className={styles.cameraButton}
+                  onClick={handleButtonClick}
+                >
+                  <img
+                    alt=""
+                    src={
+                      selectedImage ? "/materialsymbolsedit.svg" : "/camera.svg"
+                    }
                   />
-                  <button
-                    className={styles.cameraButton}
-                    onClick={handleButtonClick}
-                  >
-                    <img
-                      loading="lazy"
-                      alt=""
-                      src={
-                        selectedImage
-                          ? "/materialsymbolsedit.svg"
-                          : "/camera.svg"
-                      }
-                    />
-                  </button>
-                  {isProfilePicMenuOpen && (
-                    <div className={styles.profilePicMenu}>
-                      <button onClick={handleRemoveProfilePic}>
-                        Remove Profile Picture
-                      </button>
-                      <button onClick={() => fileInputRef.current?.click()}>
-                        Change Profile Picture
-                      </button>
-                    </div>
-                  )}
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    style={{ display: "none" }}
-                    accept="image/png, image/jpeg, image/jpg"
-                    onChange={handleFileChange}
-                  />
-                </div>
-              </div>
-              <div className={styles.editProfile}>
-                {!isEditable && (
-                  <button
-                    className={styles.editButton}
-                    onClick={handleEditClick}
-                  >
-                    {/* <div className={styles.editButtonChild} /> */}
-                    <a className={styles.edit}>Edit</a>
-                    <img
-                      className={styles.materialSymbolseditIcon}
-                      alt=""
-                      src="/materialsymbolsedit.svg"
-                    />
-                  </button>
+                </button>
+                {isProfilePicMenuOpen && (
+                  <div className={styles.profilePicMenu}>
+                    <button onClick={handleRemoveProfilePic}>
+                      Remove Profile Picture
+                    </button>
+                    <button onClick={() => fileInputRef.current?.click()}>
+                      Change Profile Picture
+                    </button>
+                  </div>
                 )}
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  accept="image/png, image/jpeg"
+                  onChange={handleFileChange}
+                />
               </div>
+              {!isEditable && (
+                <button className={styles.editButton} onClick={handleEditClick}>
+                  <span>Edit</span>
+                  <img src="/materialsymbolsedit.svg" alt="Edit" />
+                </button>
+              )}
             </div>
+
             <div className={styles.detailContainer}>
               <div className={styles.editableContainer}>
                 <div className={styles.detailColumn}>
-                  <div className={styles.indDetail}>
-                    You are*
-                    <EditableInput
-                      isEditable={false}
-                      value={inputValues.role}
-                      onChange={(e) => handleInputChange(e, "role")}
-                    />
-                  </div>
-                  <div className={styles.indDetail}>
-                    Name*
-                    <EditableInput
-                      isEditable={isEditable}
-                      value={inputValues.name}
-                      onChange={(e) => handleInputChange(e, "name")}
-                      errorMessage={validationErrors["name"]}
-                    />
-                  </div>
-                  <div className={styles.indDetail}>
-                    Phone Number 1*
-                    <EditableInput
-                      isEditable={isEditable}
-                      value={inputValues.phoneNumber1}
-                      onChange={(e) => handleInputChange(e, "phoneNumber1")}
-                      errorMessage={validationErrors["phoneNumber1"]}
-                    />
-                  </div>
-                  <div className={styles.indDetail}>
-                    Phone Number 2
-                    <EditableInput
-                      isEditable={isEditable}
-                      value={inputValues.phoneNumber2}
-                      onChange={(e) => handleInputChange(e, "phoneNumber2")}
-                      errorMessage={validationErrors["phoneNumber2"]}
-                    />
-                  </div>
-                  <div className={styles.indDetail}>
-                    Phone Number 3
-                    <EditableInput
-                      isEditable={isEditable}
-                      value={inputValues.phoneNumber3}
-                      onChange={(e) => handleInputChange(e, "phoneNumber3")}
-                      errorMessage={validationErrors["phoneNumber3"]}
-                    />
-                  </div>
+                  {[
+                    ["You are*", "role"],
+                    ["Name*", "name"],
+                    ["Phone Number *", "phoneNumber"],
+                    ["Landline Number", "landlineNumber"],
+                  ].map(([label, key]) => (
+                    <div className={styles.indDetail} key={key}>
+                      {label}
+                      <EditableInput
+                        isEditable={isEditable}
+                        value={inputValues[key]}
+                        field={key} // ✅ Add this line
+                        onChange={(e) => handleInputChange(e, key)}
+                        errorMessage={validationErrors[key]}
+                      />
+                    </div>
+                  ))}
                 </div>
                 <div className={styles.detailColumn}>
-                  <div className={styles.indDetail}>
-                    Mail*
-                    <EditableInput
-                      isEditable={isEditable}
-                      value={inputValues.mail}
-                      onChange={(e) => handleInputChange(e, "mail")}
-                      errorMessage={validationErrors["mail"]}
-                    />
-                  </div>
-                  <div className={styles.indDetail}>
-                    State*
-                    <EditableInput
-                      isEditable={isEditable}
-                      value={inputValues.state}
-                      onChange={(e) => handleInputChange(e, "state")}
-                      errorMessage={validationErrors["state"]}
-                    />
-                  </div>
-                  <div className={styles.indDetail}>
-                    City*
-                    <EditableInput
-                      isEditable={isEditable}
-                      value={inputValues.city}
-                      onChange={(e) => handleInputChange(e, "city")}
-                      errorMessage={validationErrors["city"]}
-                    />
-                  </div>
-                  <div className={styles.indDetail}>
-                    Address*
-                    <EditableInput
-                      isEditable={isEditable}
-                      value={inputValues.address}
-                      onChange={(e) => handleInputChange(e, "address")}
-                      errorMessage={validationErrors["address"]}
-                    />
-                  </div>
-                  <div className={styles.indDetail}>
-                    Landline Number
-                    <EditableInput
-                      isEditable={isEditable}
-                      value={inputValues.landlineNumber}
-                      onChange={(e) => handleInputChange(e, "landlineNumber")}
-                      errorMessage={validationErrors["landlineNumber"]}
-                    />
-                  </div>
+                  {[
+                    ["Mail*", "mail"],
+                    ["State*", "state"],
+                    ["City*", "city"],
+                    ["Address*", "address"],
+                  ].map(([label, key]) => (
+                    <div className={styles.indDetail} key={key}>
+                      {label}
+                      <EditableInput
+                        isEditable={isEditable}
+                        value={inputValues[key]}
+                        field={key} // ✅ Add this line
+                        onChange={(e) => handleInputChange(e, key)}
+                        errorMessage={validationErrors[key]}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className={styles.other}>
@@ -391,9 +376,9 @@ const UserProfile: React.FC = () => {
                 </button>
                 <div className={styles.deleteContainer}>
                   To delete your account{" "}
-                  <a className={styles.TCtext} onClick={onDeleteClick}>
+                  <span className={styles.TCtext} onClick={onDeleteClick}>
                     click here
-                  </a>
+                  </span>
                 </div>
                 {showDeleteConfirmation && (
                   <div className={styles.DeletePopup}>

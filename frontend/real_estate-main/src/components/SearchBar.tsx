@@ -23,27 +23,29 @@ function Homepage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-    // If "All" is selected, don't filter by city
-    const cityToSearch = city === "All" ? "" : city || searchCity;
-    const capitalizedCity = capitalizeCity(cityToSearch);
-    dispatch(handleCity(capitalizedCity)); // Dispatch the capitalized city
-    const cityQuery = `city=${encodeURIComponent(
-      cityToSearch
-    )}&query=${encodeURIComponent("")}`;
-    navigate(`/property-listings-page?${cityQuery}`);
-  };
-
   const handleSearchChange = (event) => {
-    setSearchCity(event.target.value);
+    setSearchCity(capitalizeCity(event.target.value));
   };
 
   const handleCityChange = (event) => {
     const selectedCity = event.target.value;
-    selectCity(selectedCity); // Update local state
-    dispatch(handleCity(selectedCity)); // Dispatch directly to Redux
-    setSearchCity(""); // Clear search input when city is selected
+    selectCity(selectedCity);
+    setSearchCity("");
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+
+    const cityToSearch = city === "All" ? "" : city || searchCity;
+    const capitalizedCity = capitalizeCity(cityToSearch);
+
+    dispatch(handleCity(capitalizedCity));
+
+    const cityQuery = `city=${encodeURIComponent(
+      capitalizedCity
+    )}&query=${encodeURIComponent(searchCity)}`;
+
+    navigate(`/property-listings-page?${cityQuery}`);
   };
 
   return (
@@ -74,9 +76,14 @@ function Homepage() {
             padding={0}
             flexDirection={["column", "column", "row"]}
           >
-            <Box width={["100%", "100%", "auto"]} mb={[4, 4, 0]}>
+            <Box
+              width={["100%", "100%", "auto"]}
+              mb={[4, 4, 0]}
+              className={style.responsiveSelect}
+            >
               <Select
                 placeholder="Select a City"
+                value={city}
                 style={{ padding: "10px 20px" }}
                 size="lg"
                 width={["100%", "100%", "150px"]}
@@ -101,7 +108,10 @@ function Homepage() {
               />
             </Box>
 
-            <Box width={["100%", "100%", "auto"]}>
+            <Box
+              width={["100%", "100%", "auto"]}
+              className={style.responsiveSearch}
+            >
               <Button
                 type="submit"
                 leftIcon={<GoSearch />}
@@ -109,7 +119,7 @@ function Homepage() {
                 variant="solid"
                 color="white"
                 className={style.searchButton}
-                width={["100%", "100%", "150px"]}
+                // width={["100%", "100%", "150px"]}
               >
                 Search
               </Button>

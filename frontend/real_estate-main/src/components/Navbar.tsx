@@ -53,13 +53,19 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   }, [navigate]);
 
   const handleLoginClick = () => {
-    if (isLoggedIn) {
+    const token = localStorage.getItem("authToken");
+    if (token) {
       navigate("/user-profile");
     } else {
       closePopups();
       setLoginPopupOpen(true);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setIsLoggedIn(!!token);
+  }, []);
 
   const handleSwitchToCollectEmail = () => {
     closePopups();
@@ -142,7 +148,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
       <NavSearch />
 
-      {/* Desktop Nav Items */}
       <div className={styles.desktopNav}>
         <div className={styles.navitem} onClick={onSellTextClick}>
           For Buyers
@@ -171,7 +176,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         </div>
       </div>
 
-      {/* Profile Icon */}
       <div
         className={`${styles.navitem} ${styles.profile}`}
         onClick={handleLoginClick}
@@ -183,12 +187,10 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         />
       </div>
 
-      {/* Hamburger Icon */}
       <div className={styles.hamburger} onClick={toggleMobileMenu}>
-        <FiMenu size={28} color="white" />
+        <FiMenu size={24} color="white" />
       </div>
 
-      {/* Mobile Dropdown Menu */}
       {isMobileMenuOpen && (
         <div className={styles.mobileMenu}>
           <div onClick={onSellTextClick}>For Buyers</div>
@@ -212,7 +214,6 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         </div>
       )}
 
-      {/* Popups */}
       {isLoginPopupOpen && (
         <LoginPopup
           onClose={closePopups}

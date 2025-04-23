@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 import styles from "./LoginPopup.module.css";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 type LoginPopupProps = {
   onClose: () => void;
@@ -16,6 +17,8 @@ const LoginPopup: FunctionComponent<LoginPopupProps> = ({
   const [emailOrPhone, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate(); // Use useNavigate to programmatically navigate
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,13 +43,18 @@ const LoginPopup: FunctionComponent<LoginPopupProps> = ({
 
       console.log("Token received:", data.token);
 
-      console.log(data.token);
+      // Save the token to localStorage
       localStorage.setItem("authToken", data.token);
 
+      // Decode the JWT token
       const decoded = jwtDecode(data.token);
       console.log(decoded);
 
+      // Call onLoginSuccess (you can handle any other success logic here)
       onLoginSuccess();
+
+      // Redirect to the user-profile page after successful login
+      navigate("/user-profile"); // Redirect to user profile
     } catch (err) {
       setError("Server error. Please try again later.");
     }

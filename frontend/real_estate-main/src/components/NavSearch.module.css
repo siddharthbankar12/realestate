@@ -40,6 +40,10 @@
 
 .searchicon {
   cursor: pointer;
+  width: auto;
+  height: 100%;
+  border-radius: 80%;
+  margin: 0;
 }
 
 .homeIcon {
@@ -118,5 +122,11 @@
   }
   .cityHead {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 460px) {
+  .searchBar {
+    width: 500px;
   }
 }

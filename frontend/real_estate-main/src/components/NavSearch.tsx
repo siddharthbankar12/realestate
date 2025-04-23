@@ -146,15 +146,13 @@ const NavSearch: FunctionComponent<NavSearchProps> = () => {
           type="submit"
           className={styles.searchicon}
           aria-label="Search"
-          style={{
-            width: "auto",
-            height: "100%",
-            borderRadius: "80%",
-            margin: "0",
-            // display: "flex",
-            // alignItems: "center",
-            // justifyContent: "center",
-          }}
+          style={
+            {
+              // display: "flex",
+              // alignItems: "center",
+              // justifyContent: "center",
+            }
+          }
         >
           <FaSearch style={{ transform: "translateY(2px)" }} size={16} />
         </button>
