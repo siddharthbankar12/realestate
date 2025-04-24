@@ -1,58 +1,105 @@
 .container {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden; /* Ensures that the border-radius works */
 }
-.page{
-    display: flex;
-    gap: 5vw;
-}
+
 .sidebarParent {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-direction: row;
-    padding: 0 415px;
-    box-sizing: border-box;
-    max-width: 100%;
-    text-align: left;
-    font-size: var(--font-size-xl);
-    color: var(--color-black);
-    font-family: var(--font-montserrat);
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border-left: 1px solid #ddd;
+  border-top-left-radius: 8px; /* Apply top-left border-radius */
+  border-bottom-left-radius: 8px; /* Apply bottom-left border-radius */
 }
 
 .mainContent {
-    margin-left: 200px;
-    padding-top: 4rem; /* To account for the fixed navbar */
-    padding-left: 2rem;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-left: 270px;
+  margin-top: 70px;
+  overflow-x: auto;
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-top-right-radius: 8px; /* Apply top-right border-radius */
+}
+
+.tableWrapper {
+  width: 100%;
+
+  overflow-x: auto;
+  margin-top: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Border radius for the wrapper */
+  overflow: hidden; /* Ensures the border-radius works */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  border-left: 1px solid #ddd;
+}
+
+.table th {
+  background: linear-gradient(to right, #2697e0, #784dc6);
+  color: white;
+  font-weight: 600;
+}
+
+.table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.noAppointment {
+  margin-top: 4vh;
+  /* height: 70vh; */
+  text-align: center;
+
+  padding: 2rem;
+}
+
+.txt {
+  font-weight: 600;
+  text-align: right;
+  margin-top: 1rem;
+  margin-right: 290px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+  .sidebarParent {
     flex-direction: column;
-    gap: 10vh;
-}
+    border-left: none;
+  }
 
-.buttons {
-    display: flex;
-    gap: 10vw;
-    margin-top: 6vh;
-    padding-left: 2vh;
-}
+  .mainContent {
+    padding: 1rem;
+    width: 100%;
+  }
 
-.button {
-    background: linear-gradient(to right, #2697e0, #784dc6);
-    color: white;
-    border: none;
-    padding: 0.75rem 3rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-}
+  .table th,
+  .table td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
 
-.noAppointment{
-    margin-bottom: 4vh;
-}
-
-.txt{
-    font-weight: 600;
+  .tableWrapper {
+    padding: 0;
+  }
 }

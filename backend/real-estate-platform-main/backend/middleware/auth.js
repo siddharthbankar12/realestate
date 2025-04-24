@@ -1,11 +1,13 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/User");
 const Admin = require("../models/Admin");
 
-// Fetch the secret key from the environment variables
-const SECRET = "bearer";
+const SECRET = "bearer"; // Ideally use process.env.JWT_SECRET
 
-const authenticate = (req, res, next) => {
+// User Authentication Middleware
+const authenticate = async (req, res, next) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
+  console.log("TOKEN:", token);
 
   if (!token) {
     return res.status(401).send({ error: "Your authentication failed." });
@@ -13,13 +15,21 @@ const authenticate = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, SECRET);
-    req.admin = decoded; // Store decoded admin data in request
+    const user = await User.findById(decoded._id || decoded.id); // Check if decoded includes "id"
+
+    if (!user) {
+      return res.status(401).send({ error: "User not found." });
+    }
+
+    req.user = user; // Store user info in req
     next();
   } catch (e) {
+    console.error("Auth error:", e);
     res.status(401).send({ error: "Your authentication failed." });
   }
 };
 
+// Admin Authorization Middleware
 const authorizeAdmin = async (req, res, next) => {
   try {
     const admin = await Admin.findById(req.admin.id);
@@ -32,4 +42,5 @@ const authorizeAdmin = async (req, res, next) => {
   }
 };
 
+// ✅ Correct Export
 module.exports = { authenticate, authorizeAdmin };

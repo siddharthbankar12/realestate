@@ -28,6 +28,7 @@ import PropertiesSell from "./pages/PropertiesSell";
 import Properties from "./pages/Properties";
 import { Insights } from "@mui/icons-material";
 import CardLayout from "./components/Insights";
+import UserNotifications from "./pages/UserNotifications";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -160,6 +161,7 @@ function App() {
         path="/user-previously-contacted0"
         element={<UserPreviouslyContacted />}
       />
+      <Route path="/user-notifications0" element={<UserNotifications />} />
       <Route path="/admin-login" element={<AdminLogin />} />
       <Route path="/admin-dashboard" element={<AdminDashboard />} />
       <Route path="/register" element={<Register />} />

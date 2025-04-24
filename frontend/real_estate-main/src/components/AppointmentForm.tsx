@@ -1,24 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AppointmentForm.module.css";
+import { jwtDecode } from "jwt-decode";
 
 const AppointmentForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [userId, setUserId] = useState<string | null>(null);
+
+  // Retrieve the token from localStorage (assuming it's stored there)
+  const token = localStorage.getItem("authToken");
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      try {
+        const decoded: any = jwtDecode(token);
+        console.log(decoded);
+
+        const userId = decoded._id || decoded.id;
+        setUserId(userId);
+        console.log(userId);
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    }
+  }, []);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const apiUrl = "http://localhost:8000/api/appointments";
+    const apiUrl = token
+      ? "http://localhost:8000/api/appointments/user" // For logged-in users
+      : "http://localhost:8000/api/appointments/admin"; // For guests
 
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: userId ? `Bearer ${token}` : "",
+          // Attach the Bearer token if available
         },
-        body: JSON.stringify({ firstName, lastName, email, phone }),
+        body: JSON.stringify({ firstName, lastName, email, phone, userId }),
       });
 
       if (response.ok) {
@@ -74,7 +99,7 @@ const AppointmentForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <input
             className={styles.phno}
             placeholder="Phone"
-            type="text"
+            type="number"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             required

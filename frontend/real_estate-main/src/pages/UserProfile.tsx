@@ -256,152 +256,151 @@ const UserProfile: React.FC = () => {
       <Navbar />
       <section className={styles.sidebarParent}>
         <Sidebar currentPage="profile-settings" />
-        <div className={styles.lastNameRow} style={{ marginTop: "3vh" }}>
-          <div className={styles.userContainer}>
-            <div className={styles.profileHeader}>
-              <div className={styles.profileImage}>
-                <div
-                  className={styles.logo}
-                  style={{
-                    backgroundImage: selectedImage
-                      ? `url(${selectedImage})`
-                      : undefined,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundColor: selectedImage ? "transparent" : "#ccc",
-                  }}
-                />
-                <button
-                  className={styles.cameraButton}
-                  onClick={handleButtonClick}
-                >
-                  <img
-                    alt=""
-                    src={
-                      selectedImage ? "/materialsymbolsedit.svg" : "/camera.svg"
-                    }
-                  />
-                </button>
-                {isProfilePicMenuOpen && (
-                  <div className={styles.profilePicMenu}>
-                    <button onClick={handleRemoveProfilePic}>
-                      Remove Profile Picture
-                    </button>
-                    <button onClick={() => fileInputRef.current?.click()}>
-                      Change Profile Picture
-                    </button>
-                  </div>
-                )}
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  style={{ display: "none" }}
-                  accept="image/png, image/jpeg"
-                  onChange={handleFileChange}
-                />
-              </div>
-              {!isEditable && (
-                <button className={styles.editButton} onClick={handleEditClick}>
-                  <span>Edit</span>
-                  <img src="/materialsymbolsedit.svg" alt="Edit" />
-                </button>
-              )}
-            </div>
 
-            <div className={styles.detailContainer}>
-              <div className={styles.editableContainer}>
-                <div className={styles.detailColumn}>
-                  {[
-                    ["You are*", "role"],
-                    ["Name*", "name"],
-                    ["Phone Number *", "phoneNumber"],
-                    ["Landline Number", "landlineNumber"],
-                  ].map(([label, key]) => (
-                    <div className={styles.indDetail} key={key}>
-                      {label}
-                      <EditableInput
-                        isEditable={isEditable}
-                        value={inputValues[key]}
-                        field={key} // ✅ Add this line
-                        onChange={(e) => handleInputChange(e, key)}
-                        errorMessage={validationErrors[key]}
-                      />
-                    </div>
-                  ))}
+        <div className={styles.userContainer}>
+          <div className={styles.profileHeader}>
+            <div className={styles.profileImage}>
+              <div
+                className={styles.logo}
+                style={{
+                  backgroundImage: selectedImage
+                    ? `url(${selectedImage})`
+                    : undefined,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundColor: selectedImage ? "transparent" : "#ccc",
+                }}
+              />
+              <button
+                className={styles.cameraButton}
+                onClick={handleButtonClick}
+              >
+                <img
+                  alt=""
+                  src={
+                    selectedImage ? "/materialsymbolsedit.svg" : "/camera.svg"
+                  }
+                />
+              </button>
+              {isProfilePicMenuOpen && (
+                <div className={styles.profilePicMenu}>
+                  <button onClick={handleRemoveProfilePic}>
+                    Remove Profile Picture
+                  </button>
+                  <button onClick={() => fileInputRef.current?.click()}>
+                    Change Profile Picture
+                  </button>
                 </div>
-                <div className={styles.detailColumn}>
-                  {[
-                    ["Mail*", "mail"],
-                    ["State*", "state"],
-                    ["City*", "city"],
-                    ["Address*", "address"],
-                  ].map(([label, key]) => (
-                    <div className={styles.indDetail} key={key}>
-                      {label}
-                      <EditableInput
-                        isEditable={isEditable}
-                        value={inputValues[key]}
-                        field={key} // ✅ Add this line
-                        onChange={(e) => handleInputChange(e, key)}
-                        errorMessage={validationErrors[key]}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className={styles.other}>
-                <div className={styles.subscribeContainer}>
-                  Subscribe for updates from Real Estate.
-                  <div className={styles.checkContainer}>
-                    <input
-                      type="checkbox"
-                      id="subscribe"
-                      className={styles.checkbox}
+              )}
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                accept="image/png, image/jpeg"
+                onChange={handleFileChange}
+              />
+            </div>
+            {!isEditable && (
+              <button className={styles.editButton} onClick={handleEditClick}>
+                <span>Edit</span>
+                <img src="/materialsymbolsedit.svg" alt="Edit" />
+              </button>
+            )}
+          </div>
+
+          <div className={styles.detailContainer}>
+            <div className={styles.editableContainer}>
+              <div className={styles.detailColumn}>
+                {[
+                  ["You are*", "role"],
+                  ["Name*", "name"],
+                  ["Phone Number *", "phoneNumber"],
+                  ["Landline Number", "landlineNumber"],
+                ].map(([label, key]) => (
+                  <div className={styles.indDetail} key={key}>
+                    {label}
+                    <EditableInput
+                      isEditable={isEditable}
+                      value={inputValues[key]}
+                      field={key} // ✅ Add this line
+                      onChange={(e) => handleInputChange(e, key)}
+                      errorMessage={validationErrors[key]}
                     />
-                    Other Promotional Mailers
                   </div>
-                </div>
-                <div className={styles.TC}>
-                  By clicking below you agree to the{" "}
-                  <span className={styles.TCtext}>Terms and Conditions</span>
-                </div>
-                <button
-                  className={`${styles.saveProfile} ${
-                    isEditable ? styles.active : ""
-                  }`}
-                  onClick={handleSaveClick}
-                  disabled={!isEditable || !isRequiredFilled}
-                >
-                  Save Profile
-                </button>
-                <div className={styles.deleteContainer}>
-                  To delete your account{" "}
-                  <span className={styles.TCtext} onClick={onDeleteClick}>
-                    click here
-                  </span>
-                </div>
-                {showDeleteConfirmation && (
-                  <div className={styles.DeletePopup}>
-                    <div className={styles.DeleteMessage}>
-                      Are you sure you want to delete your account?
-                    </div>
-                    <div className={styles.DeleteButtons}>
-                      <button
-                        className={styles.DeleteButton}
-                        onClick={handleDeleteConfirm}
-                      >
-                        Yes
-                      </button>
-                      <button
-                        className={styles.cancelButton}
-                        onClick={handleDeleteCancel}
-                      >
-                        No
-                      </button>
-                    </div>
-                  </div>
-                )}
+                ))}
               </div>
+              <div className={styles.detailColumn}>
+                {[
+                  ["Mail*", "mail"],
+                  ["State*", "state"],
+                  ["City*", "city"],
+                  ["Address*", "address"],
+                ].map(([label, key]) => (
+                  <div className={styles.indDetail} key={key}>
+                    {label}
+                    <EditableInput
+                      isEditable={isEditable}
+                      value={inputValues[key]}
+                      field={key} // ✅ Add this line
+                      onChange={(e) => handleInputChange(e, key)}
+                      errorMessage={validationErrors[key]}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className={styles.other}>
+              <div className={styles.subscribeContainer}>
+                Subscribe for updates from Real Estate.
+                <div className={styles.checkContainer}>
+                  <input
+                    type="checkbox"
+                    id="subscribe"
+                    className={styles.checkbox}
+                  />
+                  Other Promotional Mailers
+                </div>
+              </div>
+              <div className={styles.TC}>
+                By clicking below you agree to the{" "}
+                <span className={styles.TCtext}>Terms and Conditions</span>
+              </div>
+              <button
+                className={`${styles.saveProfile} ${
+                  isEditable ? styles.active : ""
+                }`}
+                onClick={handleSaveClick}
+                disabled={!isEditable || !isRequiredFilled}
+              >
+                Save Profile
+              </button>
+              <div className={styles.deleteContainer}>
+                To delete your account{" "}
+                <span className={styles.TCtext} onClick={onDeleteClick}>
+                  click here
+                </span>
+              </div>
+              {showDeleteConfirmation && (
+                <div className={styles.DeletePopup}>
+                  <div className={styles.DeleteMessage}>
+                    Are you sure you want to delete your account?
+                  </div>
+                  <div className={styles.DeleteButtons}>
+                    <button
+                      className={styles.DeleteButton}
+                      onClick={handleDeleteConfirm}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      className={styles.cancelButton}
+                      onClick={handleDeleteCancel}
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

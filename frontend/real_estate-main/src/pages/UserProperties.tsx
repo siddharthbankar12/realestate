@@ -120,14 +120,16 @@ const UserProperties: FunctionComponent = () => {
                 style={{ width: 500, height: 400 }}
               />
             </div>
-            <div className={styles.emptyStateMessage}>
-              <div className={styles.youHaventBought}>
-                You haven’t bought or sold any property yet!
+            <div>
+              <div className={styles.emptyStateMessage}>
+                <div className={styles.youHaventBought}>
+                  You haven’t bought or sold any property yet!
+                </div>
               </div>
-            </div>
-            <div className={styles.allTheProperties}>
-              All the properties and projects that you have bought or sold will
-              start appearing here. Search or explore cities now.
+              <div className={styles.allTheProperties}>
+                All the properties and projects that you have bought or sold
+                will start appearing here. Search or explore cities now.
+              </div>
             </div>
           </div>
         </div>

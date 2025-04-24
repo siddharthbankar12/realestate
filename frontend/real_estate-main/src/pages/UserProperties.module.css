@@ -1,205 +1,155 @@
-.illustrationContainer {
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 0 var(--padding-xl) 0 var(--padding-6xl);
-  box-sizing: border-box;
-  max-width: 100%;
+:root {
+  --padding-xl: 20px;
+  --padding-6xl: 40px;
+  --padding-10xl: 60px;
+  --padding-14xl: 80px;
+  --gap-8xl: 40px;
+  --font-size-base: 14px;
+  --font-size-xl: 20px;
+  --font-montserrat: "Montserrat", sans-serif;
+  --color-black: #000;
 }
 
-.youHaventBought {
-  position: relative;
-  font-weight: 600;
+.illustrationContainer,
+.emptyStateMessage {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.illustrationContainer {
+  padding: 0 var(--padding-xl) 0 var(--padding-6xl);
+  max-width: 70%;
+  height: 500px;
 }
 
 .emptyStateMessage {
-  align-self: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-end;
   padding: 0 var(--padding-10xl) 0 var(--padding-14xl);
 }
 
+.youHaventBought {
+  font-weight: 600;
+  text-align: center;
+}
+
+.allTheProperties {
+  text-align: center;
+}
+
 .emptyState {
-  align-self: stretch;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-start;
+  /* flex-direction: column; */
+  align-items: center;
   gap: var(--gap-8xl);
-  max-width: 100%;
+  width: 100%;
 }
 
 .emptyStateIllustration {
   display: flex;
-  align-items: flex-start;
-  box-sizing: border-box;
-  max-width: 100%;
-  width: 521px;
   flex-direction: column;
-  padding: 20vh 0 0;
-  min-width: 521px;
-  margin-left: 43vw;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  /* padding-top: vh; */
+  padding: 0 200px 0 300px;
 }
 
 .sidebarContainer {
-  width: auto;
-  flex-direction: row;
+  display: flex;
   justify-content: space-between;
-  padding-left: 10px;
-  gap: 60%;
-  text-align: center;
+  padding: 30px 20px 0 250px;
+  gap: 2em;
   font-size: var(--font-size-xl);
   color: var(--color-black);
   font-family: var(--font-montserrat);
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .statsContainer {
-  display: flex;
-  justify-content: space-around;
-  margin: 1em 0;
-  padding: 0 var(--padding-xl);
- 
-  
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 40px 0 0 0;
+  padding: 0 10vw;
+  gap: 1em;
+  width: 100%;
 }
 
 .statCard {
-  background-color: #f8f8f8;
-  padding: 1em;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 1.5em;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  flex: 1;
-  margin: 0 1em;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .statCard h3 {
-  margin: 0;
+  margin-bottom: 0.5em;
   font-size: 1.2em;
   color: #333;
 }
 
 .statCard p {
-  font-size: 1.5em;
+  font-size: 1.6em;
   font-weight: bold;
-  margin: 0.5em 0 0;
   color: #4a4a4a;
-}
-
-@media screen and (max-width: 925px) {
-  .emptyStateIllustration {
-    flex: 1;
-  }
-  .sidebarContainer {
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .emptyStateIllustration {
-    padding-top: 73px;
-    box-sizing: border-box;
-    min-width: 100%;
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .youHaventBought {
-    font-size: var(--font-size-base);
-  }
 }
 
 .popularfeatures {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
   padding: 1vw 6vw;
-  gap: 10px;
-  margin-left: 250px;
-  
+  gap: 20px;
 }
 
 .popularProperties {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: left;
-  width: 100%;
-  padding: 6vw 0vw;
   gap: 20px;
+  padding: 6vw 0;
 }
 
 .listings {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 40px;
+  gap: 30px;
+  justify-content: center;
   text-align: center;
 }
 
 .linkWrapper {
-  flex: 1;
   display: flex;
+  flex: 1;
   min-width: 200px;
-  gap: 40px;
+  gap: 20px;
 }
 
-.sidebarContainer {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 0px; /* Adjusted padding */
-  gap: 2em; /* Reduced gap to prevent overlapping */
-  text-align: center;
-  font-size: var(--font-size-xl);
-  color: var(--color-black);
-  font-family: var(--font-montserrat);
-  padding-top: 50px; /* Ensure there's enough space under the navbar */
-}
-
-.statsContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Allow wrapping to prevent overlap */
-  margin: 1em 0;
-  
-  width: 100%; /* Adjust max-width to fit within the available space */
-  margin-left: 20vw; /* Ensure it's not under the sidebar */
-  padding-top: 1em; /* Add padding to prevent overlap with navbar */
-  
-}
-
-.statCard {
-  background-color: #f8f8f8;
-  padding: 1em;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  flex: 1;
-  
-  
-}
-
-@media screen and (max-width: 925px) {
+/* Mobile & Tablet Optimizations */
+@media (max-width: 925px) {
   .statsContainer {
-    max-width: 100%; /* Allow the stats container to use full width */
-    margin-left: 0; /* Remove margin for smaller screens */
-    padding: 0 10vw; /* Adjust padding for smaller screens */
+    padding: 0 5vw;
+  }
+  .emptyStateIllustration {
+    width: 100%;
+    padding-top: 50px;
   }
 }
 
-@media screen and (max-width: 700px) {
+@media (max-width: 700px) {
   .statsContainer {
-    flex-direction: column; /* Stack the cards vertically on smaller screens */
+    grid-template-columns: 1fr;
   }
-}
-.sidebar1 {
-  margin-top: 0px;
-  
+  .youHaventBought {
+    font-size: var(--font-size-base);
+  }
 }

@@ -50,7 +50,6 @@ const updateUserProfile = async (req, res) => {
 
     console.log("User updated successfully:", updatedUser);
 
-    // ✅ Generate a new token
     const token = jwt.sign(
       {
         id: updatedUser._id,
