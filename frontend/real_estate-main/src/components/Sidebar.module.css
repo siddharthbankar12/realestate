@@ -107,22 +107,8 @@
   background-color: #1a6fa5;
 }
 
-/* @media screen and (max-width: 768px) {
+@media screen and (max-width: 708px) {
   .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 10px;
-    border-radius: 0;
+    display: none;
   }
-
-  .currPage,
-  .notCurrPage {
-    height: auto;
-    padding: 10px;
-    font-size: 14px;
-    justify-content: center;
-  }
-} */
+}

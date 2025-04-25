@@ -78,9 +78,13 @@
   .navitem {
     font-size: 16px;
   }
+
+  .logo1 {
+    width: 60px;
+  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 708px) {
   .desktopNav {
     display: none;
   }
@@ -92,14 +96,13 @@
   .logo1 {
     width: 80px;
   }
-}
-
-@media (max-width: 480px) {
   .logo {
     /* width: 60px; */
     display: none;
   }
+}
 
+@media (max-width: 500px) {
   .navbar {
     gap: 10px;
     padding: 10px 5px;

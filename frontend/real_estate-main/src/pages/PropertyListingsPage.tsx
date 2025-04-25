@@ -9,6 +9,7 @@ import styles from "./PropertyListingsPage.module.css";
 import Footer from "../components/Footer";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Box } from "@mui/material"; // Importing Box component for styling
 
 const PropertyListingsPage: FunctionComponent = () => {
   const [properties, setProperties] = useState<any[]>([]);
@@ -20,18 +21,11 @@ const PropertyListingsPage: FunctionComponent = () => {
     propertyType,
     area,
     city,
-
     searchOption,
     isPropertyLoading,
     verifiedProperties,
   } = useSelector((store) => store.search);
 
-  console.log(budgetRange);
-  console.log(area);
-  console.log(noOfBedrooms);
-  console.log(properties);
-
-  // Optimizing fetch function with useCallback
   const fetchProperties = useCallback(
     async (city: string = "", query: string = "") => {
       setLoading(true);
@@ -109,9 +103,9 @@ const PropertyListingsPage: FunctionComponent = () => {
         <SortAndFilter />
         <ToastContainer />
         {loading ? (
-          <div>Loading properties...</div> // Loading indicator
+          <div>Loading properties...</div>
         ) : (
-          <section className={styles.listings}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
             {properties.map((property) => {
               const price = property.price ?? 0;
               const bhk = property.Bhk ?? property.bhk ?? 0;
@@ -152,22 +146,23 @@ const PropertyListingsPage: FunctionComponent = () => {
               if (!isMatch) return null; // Skip property if it doesn't match
 
               return (
-                <Link
-                  key={property._id}
-                  to={`/property-details-page/${property._id}`}
-                  className={styles.linkWrapper}
-                >
-                  <PropertyCard
-                    title={property.title}
-                    city={property.city}
-                    price={price.toString()}
-                    area={propArea.toString()}
-                    bhk={bhk}
-                  />
-                </Link>
+                <div key={property._id} className={styles.propertyCardWrapper}>
+                  <Link
+                    to={`/property-details-page/${property._id}`}
+                    className={styles.linkWrapper}
+                  >
+                    <PropertyCard
+                      title={property.title}
+                      city={property.city}
+                      price={price.toString()}
+                      area={propArea.toString()}
+                      bhk={bhk}
+                    />
+                  </Link>
+                </div>
               );
             })}
-          </section>
+          </Box>
         )}
       </main>
       <Footer />

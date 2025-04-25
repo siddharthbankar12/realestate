@@ -107,10 +107,6 @@ h1 {
 }
 
 @media (max-width: 768px) {
-  .wrapper {
-    padding: 2vh 3vw;
-  }
-
   .container {
     width: 100%;
     gap: 3vw;

@@ -211,6 +211,47 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           >
             Insights
           </div>
+
+          {/* 👇 Sidebar options after "Insights" */}
+          {isLoggedIn && (
+            <>
+              <div onClick={() => navigate("/user-profile")}>
+                Profile Settings
+              </div>
+              <div onClick={() => navigate("/user-appointments")}>
+                Appointments
+              </div>
+              <div onClick={() => navigate("/user-properties0")}>
+                My Properties
+              </div>
+              <div onClick={() => navigate("/user-past-searches0")}>
+                Past Searches
+              </div>
+              <div onClick={() => navigate("/user-previously-viewed0")}>
+                Previously Viewed
+              </div>
+              <div onClick={() => navigate("/user-previously-saved0")}>
+                Saved
+              </div>
+              <div onClick={() => navigate("/user-previously-contacted0")}>
+                Contacted
+              </div>
+              <div onClick={() => navigate("/user-notifications0")}>
+                Notifications
+              </div>
+              <div
+                onClick={() => {
+                  localStorage.removeItem("authToken");
+                  localStorage.removeItem("userProfile");
+                  setIsLoggedIn(false);
+                  setIsMobileMenuOpen(false);
+                  navigate("/");
+                }}
+              >
+                Log out
+              </div>
+            </>
+          )}
         </div>
       )}
 
