@@ -1,11 +1,11 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import styles from "./UserNotifications.module.css";
 import Navbar from "../components/Navbar";
+import styles from "./UserNotifications.module.css";
 
 const UserNotifications = () => {
   return (
-    <div className={styles.userPreviouslynotificationed0}>
+    <div className={styles.userNotifications}>
       <Navbar />
       <main className={styles.sidebarParent}>
         <Sidebar
@@ -16,22 +16,20 @@ const UserNotifications = () => {
           myPropertiesColor="#784dc6"
           myPropertiesFontWeight="bold"
         />
-        <div className={styles.notificationImage}>
-          <div className={styles.content}>
-            <div className={styles.emptyState}>
+        <div className={styles.emptyStateWrapper}>
+          <div className={styles.emptyState}>
+            <div className={styles.imageWrapper}>
               <img
-                className={styles.image6Icon}
+                className={styles.image}
                 loading="lazy"
-                alt=""
+                alt="No notifications yet"
                 src="/notificationImg.jpg"
               />
             </div>
-            <div className={styles.noNotification}>
-              <div className={styles.notYetNotification}>
-                You haven’t received any notifications!
-              </div>
+            <div className={styles.messageTitle}>
+              You haven’t received any notifications!
             </div>
-            <div className={styles.youWillSee}>
+            <div className={styles.messageSubtitle}>
               You will see your notifications here when we have something for
               you.
             </div>

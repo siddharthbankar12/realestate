@@ -51,34 +51,36 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 70%;
 
   /* padding-top: vh; */
-  padding: 0 200px 0 300px;
+  /* padding: 0 200px 0 300px; */
 }
 
 .sidebarContainer {
   display: flex;
-  justify-content: space-between;
-  padding: 30px 20px 0 250px;
+  /* justify-content: space-between; */
+  /* padding: 30px 20px 0 250px; */
   gap: 2em;
   font-size: var(--font-size-xl);
   color: var(--color-black);
   font-family: var(--font-montserrat);
   flex-wrap: wrap;
   text-align: center;
+  margin-top: 90px;
 }
 
 .statsContainer {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  margin: 40px 0 0 0;
-  padding: 0 10vw;
-  gap: 1em;
-  width: 100%;
+  width: auto;
+  display: flex;
+  align-items: start;
+  gap: 50px;
+  height: fit-content;
+  /* background-color: red; */
 }
 
 .statCard {
+  height: 150px;
   background-color: #ffffff;
   padding: 1.5em;
   border-radius: 12px;
@@ -94,7 +96,7 @@
 
 .statCard h3 {
   margin-bottom: 0.5em;
-  font-size: 1.2em;
+  font-size: 1em;
   color: #333;
 }
 
@@ -147,7 +149,7 @@
 
 @media (max-width: 700px) {
   .statsContainer {
-    grid-template-columns: 1fr;
+    /* grid-template-columns: 1fr; */
   }
   .youHaventBought {
     font-size: var(--font-size-base);

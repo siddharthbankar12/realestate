@@ -1,28 +1,71 @@
-.sidebarParent {
-  width: 1104px;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 0 var(--padding-xl) 0 0;
-  box-sizing: border-box;
-  max-width: 100%;
-  gap: 50%;
-}
 .userPreviouslySaved0 {
-  width: 100%;
-  position: relative;
-  background-color: var(--color-white);
-  overflow: hidden;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.sidebarParent {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  margin-top: 90px;
+  gap: 2rem;
   align-items: flex-start;
   justify-content: flex-start;
-  line-height: normal;
-  letter-spacing: normal;
+  flex-wrap: nowrap;
 }
-@media screen and (max-width: 925px) {
+
+.emptyStateWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+}
+
+.emptyState {
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.animationWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.emptyMessage .title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .sidebarParent {
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .emptyStateWrapper {
+    padding: 2rem 1rem;
+  }
+
+  .emptyMessage .title {
+    font-size: 1.1rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
   }
 }

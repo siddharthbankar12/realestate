@@ -3,36 +3,32 @@
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  overflow: hidden; /* Ensures that the border-radius works */
+  /* overflow: hidden; /Ensures that the border-radius works */
 }
 
 .sidebarParent {
+  margin-top: 90px;
   display: flex;
   align-items: center;
   height: 100%;
   width: 100%;
-  border-left: 1px solid #ddd;
-  border-top-left-radius: 8px; /* Apply top-left border-radius */
-  border-bottom-left-radius: 8px; /* Apply bottom-left border-radius */
 }
 
 .mainContent {
   flex: 1;
-  padding: 2rem;
+  padding: 0 2rem;
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   height: 100%;
-  padding-left: 270px;
-  margin-top: 70px;
+  /* padding-left: 270px; */
+  /* margin-top: 70px; */
   overflow-x: auto;
-  border-top: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  border-top-right-radius: 8px; /* Apply top-right border-radius */
+  align-items: start;
+  /* justify-content: space-around; */
 }
 
 .tableWrapper {
   width: 100%;
-
   overflow-x: auto;
   margin-top: 2rem;
   border: 1px solid #ddd;
@@ -67,8 +63,9 @@
 }
 
 .noAppointment {
-  margin-top: 4vh;
+  /* margin-top: 4vh; */
   /* height: 70vh; */
+  width: 500px;
   text-align: center;
 
   padding: 2rem;
@@ -77,12 +74,11 @@
 .txt {
   font-weight: 600;
   text-align: right;
-  margin-top: 1rem;
+  margin-top: 300px;
   margin-right: 290px;
 }
 
-/* Responsive Design */
-@media screen and (max-width: 1024px) {
+/* Responsive Design @media screen and (max-width: 1024px) {
   .sidebarParent {
     flex-direction: column;
     border-left: none;
@@ -102,4 +98,4 @@
   .tableWrapper {
     padding: 0;
   }
-}
+} */

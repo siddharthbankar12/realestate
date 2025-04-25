@@ -1,48 +1,72 @@
-.frameWrapper,
-.sidebarParent {
+.container {
   display: flex;
-  align-items: flex-start;
-  box-sizing: border-box;
-  max-width: 100%;
-}
-.frameWrapper {
-  width: 630px;
   flex-direction: column;
-  justify-content: center;
-  padding: 10vh 0 0;
-  margin-left: 40vw;
-  min-width: 630px;
-}
-.sidebarParent {
-  width: auto;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 50%;
-}
-.userPreviouslyViewed0 {
   width: 100%;
-  position: relative;
-  background-color: var(--color-white);
-  overflow: hidden;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.contentArea {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  margin-top: 90px;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.emptySection {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  line-height: normal;
-  letter-spacing: normal;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+  padding: 2rem;
+  max-width: 600px;
 }
-@media screen and (max-width: 975px) {
-  .frameWrapper {
-    flex: 1;
+
+.message {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333;
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+.message:last-of-type {
+  font-weight: 400;
+  font-size: 1rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .contentArea {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
   }
-  .sidebarParent {
-    flex-wrap: wrap;
+
+  .message {
+    font-size: 1.1rem;
+  }
+
+  .message:last-of-type {
+    font-size: 0.95rem;
   }
 }
-@media screen and (max-width: 700px) {
-  .frameWrapper {
-    padding-top: 75px;
-    box-sizing: border-box;
-    min-width: 100%;
+
+@media (max-width: 480px) {
+  .emptySection {
+    padding: 1rem;
+  }
+
+  .message {
+    font-size: 1rem;
+  }
+
+  .message:last-of-type {
+    font-size: 0.9rem;
   }
 }

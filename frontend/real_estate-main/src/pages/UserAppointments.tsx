@@ -5,15 +5,17 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import LottieAnimation from "../components/LottieAnimation";
 import styles from "./UserAppointments.module.css";
+import { MdDelete } from "react-icons/md";
 
 interface Appointment {
   _id: string;
   firstName: string;
   lastName: string;
   email: string;
-  PhoneNumber: number;
+  phoneNumber: number;
   userId?: string;
   createdAt?: string;
+  status?: string;
 }
 
 const UserAppointments: React.FC = () => {
@@ -62,12 +64,40 @@ const UserAppointments: React.FC = () => {
     }
   }, [userId]);
 
+  const handleDelete = async (id: string) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this appointment?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem("authToken");
+      await axios.delete(`/api/appointments/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Update UI after successful deletion
+      setAppointments((prev) => prev.filter((appt) => appt._id !== id));
+    } catch (error) {
+      console.error("Error deleting appointment:", error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Navbar />
 
       <section className={styles.sidebarParent}>
-        <Sidebar currentPage="user-appointments0" />
+        <Sidebar
+          currentPage="user-appointments0"
+          sidebarMarginLeft="unset"
+          profileSettingsColor="#000"
+          profileSettingsFontWeight="unset"
+          myPropertiesColor="#784dc6"
+          myPropertiesFontWeight="bold"
+        />
 
         <main className={styles.mainContent}>
           {loading ? (
@@ -75,10 +105,7 @@ const UserAppointments: React.FC = () => {
           ) : appointments.length === 0 ? (
             <>
               <div className={styles.noAppointment}>
-                <LottieAnimation
-                  animationLink="https://lottie.host/2bc9990e-d2fb-4fd7-adf1-0a31c295f944/S3gYyygOxW.json"
-                  style={{ width: 500, height: 300 }}
-                />
+                <LottieAnimation animationLink="https://lottie.host/2bc9990e-d2fb-4fd7-adf1-0a31c295f944/S3gYyygOxW.json" />
               </div>
               <div className={styles.txt}>
                 You haven’t booked any appointments yet!
@@ -94,6 +121,8 @@ const UserAppointments: React.FC = () => {
                     <th>Phone</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Status</th>
+                    <th>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -101,7 +130,7 @@ const UserAppointments: React.FC = () => {
                     <tr key={appt._id}>
                       <td>{`${appt.firstName} ${appt.lastName}`}</td>
                       <td>{appt.email}</td>
-                      <td>{appt.PhoneNumber}</td>
+                      <td>{appt.phoneNumber}</td>
                       <td>
                         {appt.createdAt &&
                           new Date(appt.createdAt).toLocaleDateString("en-IN", {
@@ -116,6 +145,15 @@ const UserAppointments: React.FC = () => {
                             hour: "2-digit",
                             minute: "2-digit",
                           })}
+                      </td>
+                      <td>{appt.status || "Pending"}</td>
+                      <td style={{ textAlign: "center" }}>
+                        <MdDelete
+                          color="red"
+                          size={20}
+                          style={{ cursor: "pointer" }}
+                          onClick={() => handleDelete(appt._id)}
+                        />
                       </td>
                     </tr>
                   ))}

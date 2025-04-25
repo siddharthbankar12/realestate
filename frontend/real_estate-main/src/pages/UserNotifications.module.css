@@ -1,127 +1,78 @@
-.userPreviouslynotificationed0 {
-  width: 100%;
-  position: relative;
-  background-color: var(--color-white);
-  overflow: hidden;
+.userNotifications {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  line-height: normal;
-  letter-spacing: normal;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fff;
 }
 
 .sidebarParent {
-  width: 1104px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding: 0 var(--padding-xl) 0 0;
-  gap: 45%;
-  text-align: center;
-  font-size: var(--font-size-xl);
-  color: var(--color-black);
-  font-family: var(--font-montserrat);
-}
-
-.notificationImage,
-.content {
-  display: flex;
-  align-items: center;
-  max-width: 100%;
-}
-
-.content {
-  align-self: stretch;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--gap-32xl);
-}
-
-.notificationImage {
-  box-sizing: border-box;
-  width: 518px;
-  flex-direction: column;
+  flex: 1;
+  margin-top: 90px;
+  gap: 2rem;
+  align-items: flex-start;
   justify-content: flex-start;
-  padding: 0 0 10%;
-  min-width: 518px;
-  margin-left: 40vw;
-  margin-top: 20vh;
+  flex-wrap: nowrap;
+}
+
+.emptyStateWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
 }
 
 .emptyState {
-  width: 20vw;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.imageWrapper {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0 var(--padding-3xl);
-  box-sizing: border-box;
-  max-width: 100%;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
-.image6Icon {
-  height: 30vh;
-  flex: 1;
-  position: relative;
+.image {
+  width: 300px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
 }
 
-.noNotification {
-  align-self: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0 var(--padding-50xl);
-}
-
-.notYetNotification {
-  position: relative;
+.messageTitle {
+  font-size: 1.25rem;
   font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
 }
 
-.youWillSee {
-  align-self: stretch;
-  position: relative;
+.messageSubtitle {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.5;
 }
 
-/* Media Queries for responsiveness */
-@media screen and (max-width: 925px) {
-  .notificationImage {
-    flex: 1;
-    padding-top: var(--padding-39xl);
-    box-sizing: border-box;
-  }
-
+/* Responsive */
+@media (max-width: 768px) {
   .sidebarParent {
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .noNotification {
-    padding-left: var(--padding-15xl);
-    padding-right: var(--padding-15xl);
-    box-sizing: border-box;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
-  .content {
-    gap: var(--gap-6xl);
+  .emptyStateWrapper {
+    padding: 2rem 1rem;
   }
 
-  .notificationImage {
-    min-width: 100%;
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .notYetNotification,
-  .youWillSee {
-    font-size: var(--font-size-base);
+  .messageTitle {
+    font-size: 1.1rem;
   }
 
-  .notificationImage {
-    padding-top: var(--padding-19xl);
-    box-sizing: border-box;
+  .messageSubtitle {
+    font-size: 0.95rem;
   }
 }

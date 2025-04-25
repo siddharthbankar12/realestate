@@ -19,8 +19,8 @@ router.post("/appointments/admin", async (req, res) => {
     firstName,
     lastName,
     email,
-    PhoneNumber: phone,
-    isGuest: true, // Mark as guest
+    phoneNumber: phone,
+    isGuest: true,
   });
 
   try {
@@ -39,16 +39,11 @@ router.post("/appointments/admin", async (req, res) => {
   }
 });
 
-// Logged-in user route (appointments for logged-in users)
+// Logged-in user route
 router.post("/appointments/user", authenticate, async (req, res) => {
   try {
     const { firstName, lastName, email, phone } = req.body;
-
-    // Access user id directly from req.user
-    const userId = req.user._id; // Corrected to use req.user._id
-
-    console.log("User ID from token:", userId); // Log the user ID for debugging
-    console.log("User from token:", req.user); // Log the user object for debugging
+    const userId = req.user._id;
 
     if (!firstName || !lastName || !email || !phone) {
       return res.status(400).json({
@@ -62,9 +57,9 @@ router.post("/appointments/user", authenticate, async (req, res) => {
       firstName,
       lastName,
       email,
-      PhoneNumber: phone,
-      userId: userId, // Store userId to track which user booked the appointment
-      isGuest: false, // Mark as a registered user
+      phoneNumber: phone,
+      userId,
+      isGuest: false,
     });
 
     await appointment.save();
@@ -82,19 +77,12 @@ router.post("/appointments/user", authenticate, async (req, res) => {
   }
 });
 
-// Get all appointments (can be used for admin to see all appointments)
-// Get appointments - Admin gets all, user gets only theirs
+// Get appointments - Admin gets all, user gets their own
 router.get("/appointments", authenticate, async (req, res) => {
   try {
-    let appointments;
-
-    // If user is admin, show all appointments
-    if (req.user.isAdmin) {
-      appointments = await Appointments.find();
-    } else {
-      // If user is normal, show only their own appointments
-      appointments = await Appointments.find({ userId: req.user._id });
-    }
+    const appointments = req.user.isAdmin
+      ? await Appointments.find()
+      : await Appointments.find({ userId: req.user._id });
 
     return res.status(200).json({
       success: true,
@@ -110,29 +98,88 @@ router.get("/appointments", authenticate, async (req, res) => {
   }
 });
 
-// Delete an appointment by ID
+// Delete appointment (User can delete their own or admin can delete any)
 router.delete("/appointments/:id", authenticate, async (req, res) => {
   const { id } = req.params;
+
   try {
     const appointment = await Appointments.findById(id);
     if (!appointment) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Appointment not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Appointment not found",
+      });
+    }
+
+    if (
+      !req.user.isAdmin &&
+      appointment.userId?.toString() !== req.user._id.toString()
+    ) {
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized to delete this appointment",
+      });
     }
 
     await Appointments.findByIdAndDelete(id);
-    return res
-      .status(200)
-      .json({ success: true, message: "Appointment deleted successfully" });
-  } catch (err) {
-    console.error("Error deleting appointment:", err.message);
+    return res.status(200).json({
+      success: true,
+      message: "Appointment deleted successfully",
+    });
+  } catch (error) {
+    console.error("Error deleting appointment:", error.message);
     return res.status(500).json({
       success: false,
       message: "Internal Server Error",
-      error: err.message,
+      error: error.message,
     });
   }
 });
+
+// Optional: Update appointment status (admin only)
+router.patch(
+  "/appointments/:id/status",
+  authenticate,
+  authorizeAdmin,
+  async (req, res) => {
+    const { status } = req.body;
+    const validStatuses = ["Pending", "Confirmed", "Cancelled"];
+
+    if (!validStatuses.includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid status provided",
+      });
+    }
+
+    try {
+      const updated = await Appointments.findByIdAndUpdate(
+        req.params.id,
+        { status },
+        { new: true }
+      );
+
+      if (!updated) {
+        return res.status(404).json({
+          success: false,
+          message: "Appointment not found",
+        });
+      }
+
+      return res.status(200).json({
+        success: true,
+        message: "Appointment status updated successfully",
+        appointment: updated,
+      });
+    } catch (error) {
+      console.error("Error updating status:", error.message);
+      return res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+        error: error.message,
+      });
+    }
+  }
+);
 
 module.exports = router;
