@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useState } from "react";
 import styles from "./LoginPopup.module.css";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 type LoginPopupProps = {
   onClose: () => void;
@@ -18,7 +19,7 @@ const LoginPopup: FunctionComponent<LoginPopupProps> = ({
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const navigate = useNavigate(); // Use useNavigate to programmatically navigate
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,8 +54,11 @@ const LoginPopup: FunctionComponent<LoginPopupProps> = ({
       // Call onLoginSuccess (you can handle any other success logic here)
       onLoginSuccess();
 
+      toast.success("Login successful!");
+
       // Redirect to the user-profile page after successful login
       navigate("/user-profile"); // Redirect to user profile
+      console.log(response);
     } catch (err) {
       setError("Server error. Please try again later.");
     }

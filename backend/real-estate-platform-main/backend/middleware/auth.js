@@ -15,13 +15,27 @@ const authenticate = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, SECRET);
-    const user = await User.findById(decoded._id || decoded.id); // Check if decoded includes "id"
+    console.log("Decoded Token:", decoded); // Check the decoded token
 
-    if (!user) {
-      return res.status(401).send({ error: "User not found." });
+    // First, check if the token corresponds to a User
+    const user = await User.findById(decoded._id || decoded.id);
+
+    if (user) {
+      req.user = user; // Store user info in req
+      // If the user is an admin, attach admin info
+      if (user.isAdmin) {
+        req.admin = user;
+      }
+    } else {
+      // If not found as User, check if the token corresponds to an Admin
+      const admin = await Admin.findOne({ adminId: decoded.adminId });
+      if (admin) {
+        req.admin = admin; // Store admin info in req
+      } else {
+        return res.status(401).send({ error: "User or Admin not found." });
+      }
     }
 
-    req.user = user; // Store user info in req
     next();
   } catch (e) {
     console.error("Auth error:", e);
@@ -31,15 +45,12 @@ const authenticate = async (req, res, next) => {
 
 // Admin Authorization Middleware
 const authorizeAdmin = async (req, res, next) => {
-  try {
-    const admin = await Admin.findById(req.admin.id);
-    if (!admin) {
-      throw new Error();
-    }
-    next();
-  } catch (e) {
-    res.status(403).send({ error: "Access denied." });
+  // If no admin info is present, access is denied
+  if (!req.admin) {
+    return res.status(403).send({ error: "Access denied. Admins only." });
   }
+
+  next();
 };
 
 // ✅ Correct Export

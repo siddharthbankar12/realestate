@@ -1,11 +1,13 @@
 import { FunctionComponent, useMemo, CSSProperties } from "react";
 import styles from "./FirstNameField.module.css";
 
+// Define the types for the component props
 export type FirstNameFieldType = {
   className?: string;
   firstName?: string;
   firstNamePlaceholder?: string;
   propMinWidth?: CSSProperties["minWidth"];
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Add onChange prop
 };
 
 const FirstNameField: FunctionComponent<FirstNameFieldType> = ({
@@ -13,6 +15,7 @@ const FirstNameField: FunctionComponent<FirstNameFieldType> = ({
   firstName,
   firstNamePlaceholder,
   propMinWidth,
+  onChange, // Destructure onChange
 }) => {
   const firstNameStyle: CSSProperties = useMemo(() => {
     return {
@@ -31,7 +34,8 @@ const FirstNameField: FunctionComponent<FirstNameFieldType> = ({
           className={styles.firstName1}
           placeholder={firstNamePlaceholder}
           type="text"
-          value={firstNamePlaceholder} 
+          value={firstNamePlaceholder} // Controlled value
+          onChange={onChange} // Add the onChange handler
         />
       </div>
     </div>

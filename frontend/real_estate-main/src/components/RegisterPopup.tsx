@@ -1,5 +1,6 @@
 import { FunctionComponent, useState } from "react";
 import styles from "./RegisterPopup.module.css";
+import { toast } from "react-toastify";
 
 type RegisterPopupProps = {
   onClose: () => void;
@@ -58,9 +59,8 @@ const RegisterPopup: FunctionComponent<RegisterPopupProps> = ({
 
       const data = await response.json();
       console.log("Registration successful:", data);
+      toast.success("Registration successful");
       onSwitchToLogin();
-
-      // Optionally, handle successful registration (e.g., show a success message, redirect to login, etc.)
     } catch (err) {
       setError("Server error. Please try again later.");
     }
@@ -156,9 +156,7 @@ const RegisterPopup: FunctionComponent<RegisterPopupProps> = ({
             </div>
           </div>
           {error && <p className={styles.error}>{error}</p>}
-          <div className={styles.req}>
-            <p>*required</p>
-          </div>
+
           <div>
             <p className="text">
               Already have an account?{" "}
@@ -168,7 +166,7 @@ const RegisterPopup: FunctionComponent<RegisterPopupProps> = ({
             </p>
           </div>
           <div className={styles.submit}>
-            <button type="submit">Register</button>
+            <button type="submit">Registere</button>
           </div>
         </form>
       </div>

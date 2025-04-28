@@ -6,6 +6,7 @@ import Sidebar from "../components/Sidebar";
 import LottieAnimation from "../components/LottieAnimation";
 import styles from "./UserAppointments.module.css";
 import { MdDelete } from "react-icons/md";
+import { toast } from "react-toastify";
 
 interface Appointment {
   _id: string;
@@ -80,6 +81,7 @@ const UserAppointments: React.FC = () => {
 
       // Update UI after successful deletion
       setAppointments((prev) => prev.filter((appt) => appt._id !== id));
+      toast.error("Appointment Deleted");
     } catch (error) {
       console.error("Error deleting appointment:", error);
     }

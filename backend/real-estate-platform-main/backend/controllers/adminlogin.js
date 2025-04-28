@@ -3,25 +3,26 @@ const bcrypt = require("bcrypt");
 const AdminRouter = require("express").Router();
 const Admin = require("../models/Admin");
 
-const SECRET = "bearer"; // This should be in the dotenv file, rn I am keeping it here.
+const SECRET = "bearer";
 
 AdminRouter.post("/", async (request, response) => {
   try {
     const { adminId, password } = request.body;
 
-    var user = await Admin.findOne({ adminId });
+    const user = await Admin.findOne({ adminId });
 
-    const passwordCorrect =
-      user === null ? false : await bcrypt.compare(password, user.password);
-
-    if (user == null) {
-      user = await Admin.findOne({ password: passwordCorrect });
+    if (!user) {
+      return response
+        .status(401)
+        .json({ error: "Invalid admin ID or password" });
     }
 
-    if (!(user && passwordCorrect)) {
-      return response.status(401).json({
-        error: "Invalid id or password",
-      });
+    const passwordCorrect = await bcrypt.compare(password, user.password);
+
+    if (!passwordCorrect) {
+      return response
+        .status(401)
+        .json({ error: "Invalid admin ID or password" });
     }
 
     const userForToken = {
@@ -29,10 +30,11 @@ AdminRouter.post("/", async (request, response) => {
       adminId: user.adminId,
     };
 
-    const token = jwt.sign(userForToken, SECRET);
+    const token = jwt.sign(userForToken, SECRET, { expiresIn: "1h" });
 
     response.status(200).send({ token, adminId: user.adminId });
   } catch (error) {
+    console.error(error);
     response.status(500).json({ error: "Something went wrong" });
   }
 });

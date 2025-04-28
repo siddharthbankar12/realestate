@@ -4,6 +4,7 @@ import axios from "axios";
 import styles from "./LoginForm.module.css";
 
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 export type LoginFormType = {
   className?: string;
@@ -42,6 +43,9 @@ const LoginForm: FunctionComponent<LoginFormType> = ({ className = "" }) => {
       localStorage.setItem("authToken", token);
 
       console.log(response.data);
+
+      toast.success("Login Successful");
+
       navigate("/user-profile");
       return response.data;
     } catch (error) {

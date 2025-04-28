@@ -11,6 +11,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import styles from "./UserProfile.module.css";
 import EditableInput from "../components/EditableInput";
+import { toast } from "react-toastify";
 
 const UserProfile: React.FC = () => {
   const [isEditable, setIsEditable] = useState(false);
@@ -185,6 +186,8 @@ const UserProfile: React.FC = () => {
         } else {
           setSaveSuccess(`Error: ${data.message || "Profile save failed"}`);
         }
+
+        toast.success("Update User Profile successfully");
       } catch (error) {
         console.error("Error saving profile:", error);
         setSaveSuccess("An error occurred while saving your profile.");

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AppointmentForm.module.css";
 import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
 
 const AppointmentForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [firstName, setFirstName] = useState("");
@@ -47,7 +48,7 @@ const AppointmentForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       });
 
       if (response.ok) {
-        alert("Appointment booked successfully!");
+        toast.success("Appointment Book Successfully");
         setFirstName("");
         setLastName("");
         setEmail("");

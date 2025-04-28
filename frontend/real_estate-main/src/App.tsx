@@ -29,6 +29,7 @@ import Properties from "./pages/Properties";
 import { Insights } from "@mui/icons-material";
 import CardLayout from "./components/Insights";
 import UserNotifications from "./pages/UserNotifications";
+import { ToastContainer } from "react-toastify";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -130,46 +131,56 @@ function App() {
   }, [pathname]);
 
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/insights" element={<CardLayout />} />
-      <Route path="/aboutus" element={<AboutUs />} />
-      <Route path="/property-explore-page" element={<PropertyExplorePage />} />
-      <Route
-        path="/property-listings-page"
-        element={<PropertyListingsPage />}
-      />
-      <Route
-        path="/SearchPropertiesNavbar"
-        element={<SearchPropertiesNavbar />}
-      />
-      <Route
-        path="/property-details-page/:property_id"
-        element={<PropertyDetailsPage />}
-      />
-      <Route path="/rent" element={<Rent />} />
-      <Route path="/user-profile" element={<UserProfile />} />
-      <Route path="/user-appointments" element={<UserAppointments />} />
-      <Route path="/user-properties0" element={<UserProperties />} />
-      <Route path="/user-past-searches0" element={<UserPastSearches />} />
-      <Route
-        path="/user-previously-viewed0"
-        element={<UserPreviouslyViewed />}
-      />
-      <Route path="/user-previously-saved0" element={<UserPreviouslySaved />} />
-      <Route
-        path="/user-previously-contacted0"
-        element={<UserPreviouslyContacted />}
-      />
-      <Route path="/user-notifications0" element={<UserNotifications />} />
-      <Route path="/admin-login" element={<AdminLogin />} />
-      <Route path="/admin-dashboard" element={<AdminDashboard />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/log-in" element={<LogIn />} />
-      <Route path="/properties" element={<Properties />} />
-      <Route path="/properties/sell" element={<PropertiesSell />} />
-      <Route path="/properties/rent" element={<PropertiesRent />} />
-    </Routes>
+    <>
+      {" "}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/insights" element={<CardLayout />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route
+          path="/property-explore-page"
+          element={<PropertyExplorePage />}
+        />
+        <Route
+          path="/property-listings-page"
+          element={<PropertyListingsPage />}
+        />
+        <Route
+          path="/SearchPropertiesNavbar"
+          element={<SearchPropertiesNavbar />}
+        />
+        <Route
+          path="/property-details-page/:property_id"
+          element={<PropertyDetailsPage />}
+        />
+        <Route path="/rent" element={<Rent />} />
+        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/user-appointments" element={<UserAppointments />} />
+        <Route path="/user-properties0" element={<UserProperties />} />
+        <Route path="/user-past-searches0" element={<UserPastSearches />} />
+        <Route
+          path="/user-previously-viewed0"
+          element={<UserPreviouslyViewed />}
+        />
+        <Route
+          path="/user-previously-saved0"
+          element={<UserPreviouslySaved />}
+        />
+        <Route
+          path="/user-previously-contacted0"
+          element={<UserPreviouslyContacted />}
+        />
+        <Route path="/user-notifications0" element={<UserNotifications />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        {/* <Route path="/register" element={<Register />} /> */}
+        {/* <Route path="/log-in" element={<LogIn />} /> */}
+        <Route path="/properties" element={<Properties />} />
+        <Route path="/properties/sell" element={<PropertiesSell />} />
+        <Route path="/properties/rent" element={<PropertiesRent />} />
+      </Routes>
+      <ToastContainer />
+    </>
   );
 }
 

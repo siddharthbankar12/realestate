@@ -12,7 +12,7 @@ export type ContentType = {
 
 const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
   const navigate = useNavigate();
-  const baseUrl = "http://localhost:8000/api/admin/login"; //  backend URL
+  const baseUrl = "http://localhost:8000/api/admin/login";
 
   const [loginCredentials, setLoginCredentials] = useState({
     adminId: "",
@@ -33,13 +33,13 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       localStorage.setItem("authToken", token);
+      toast.success("Login Successful");
 
       console.log(response.data);
       navigate("/admin-dashboard");
     } catch (error) {
       toast.error("Login failed");
       console.error("Login failed", error);
-      throw new Error("Login failed");
     }
   };
 

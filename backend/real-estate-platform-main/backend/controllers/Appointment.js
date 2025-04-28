@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Appointments = require("../models/Appointment.js");
-const { authenticate, authorizeAdmin } = require("../middleware/auth.js");
+const Appointments = require("../models/Appointment");
+const { authenticate, authorizeAdmin } = require("../middleware/auth");
 
 // Guest route - no authentication required
 router.post("/appointments/admin", async (req, res) => {
@@ -78,11 +78,10 @@ router.post("/appointments/user", authenticate, async (req, res) => {
 });
 
 // Get appointments - Admin gets all, user gets their own
+// Get appointments - Always fetch all appointments
 router.get("/appointments", authenticate, async (req, res) => {
   try {
-    const appointments = req.user.isAdmin
-      ? await Appointments.find()
-      : await Appointments.find({ userId: req.user._id });
+    const appointments = await Appointments.find();
 
     return res.status(200).json({
       success: true,
@@ -135,51 +134,5 @@ router.delete("/appointments/:id", authenticate, async (req, res) => {
     });
   }
 });
-
-// Optional: Update appointment status (admin only)
-router.patch(
-  "/appointments/:id/status",
-  authenticate,
-  authorizeAdmin,
-  async (req, res) => {
-    const { status } = req.body;
-    const validStatuses = ["Pending", "Confirmed", "Cancelled"];
-
-    if (!validStatuses.includes(status)) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid status provided",
-      });
-    }
-
-    try {
-      const updated = await Appointments.findByIdAndUpdate(
-        req.params.id,
-        { status },
-        { new: true }
-      );
-
-      if (!updated) {
-        return res.status(404).json({
-          success: false,
-          message: "Appointment not found",
-        });
-      }
-
-      return res.status(200).json({
-        success: true,
-        message: "Appointment status updated successfully",
-        appointment: updated,
-      });
-    } catch (error) {
-      console.error("Error updating status:", error.message);
-      return res.status(500).json({
-        success: false,
-        message: "Internal Server Error",
-        error: error.message,
-      });
-    }
-  }
-);
 
 module.exports = router;

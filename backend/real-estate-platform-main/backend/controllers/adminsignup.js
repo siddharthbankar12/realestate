@@ -34,7 +34,7 @@ adminsignuprouter.get("/", authenticate, authorizeAdmin, async (req, res) => {
     const admins = await Admin.find({});
     res.json(admins);
   } catch (error) {
-    res.status(400).json({ error: "Admins not found ." });
+    res.status(400).json({ error: "Admins not found." });
   }
 });
 

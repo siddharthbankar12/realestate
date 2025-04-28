@@ -10,49 +10,52 @@ interface ModalProps {
   handleClose: () => void;
 }
 
-const Modal = (props: ModalProps) => {
-  const [AddAdmin, setAddAdmin] = React.useState({
-    adminId: "",
-    password: "",
-  });
+const Modal = ({ show, handleClose }: ModalProps) => {
+  const [AddAdmin, setAddAdmin] = React.useState({ adminId: "", password: "" });
   const baseUrl = "http://localhost:8000/api/admin/signup";
-  const onSubmit = async (e: React.FormEvent) => {
-    setAddAdmin({ adminId: "", password: "" });
-    e.preventDefault();
-    try {
-      const response = await axios.post(baseUrl, AddAdmin);
 
-      // const token = response.data.token;
-      // console.log(token);
-      const token = localStorage.getItem("authToken");
-      axios.defaults.headers.common["Authorization"] = `bearer ${token}`;
-      // localStorage.setItem('authToken', token);
-      // toast.success("Admin added successfully");
-      return response.data;
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Get the token from local storage or wherever it's stored
+    const token = localStorage.getItem("authToken");
+
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      console.log("Decoded Token:", decoded); // Check the decoded token
+    } else {
+      console.log("No token found.");
+    }
+
+    if (!token) {
+      toast.error("You must be logged in to add an admin.");
+      return;
+    }
+
+    try {
+      const response = await axios.post(baseUrl, AddAdmin, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success("Admin added successfully");
+      handleClose();
     } catch (error) {
-      console.error("Adding Admin failed", error);
-      throw new Error("Adding Admin failed");
+      toast.error("Adding Admin failed");
     }
   };
+
   const handle = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
     setAddAdmin({ ...AddAdmin, [e.currentTarget.name]: e.currentTarget.value });
   };
-  const handleclose = () => {
-    if (AddAdmin.adminId === "" || AddAdmin.password === "") {
-      toast.error("Please fill all fields");
-    } else {
-      toast.success("Admin added successfully");
-      props.handleClose();
-    }
-  };
+
   return (
-    <div className={`${styles.modal} ${props.show ? styles.show : ""}`}>
+    <div className={`${styles.modal} ${show ? styles.show : ""}`}>
       <div className={styles.modalContent}>
-        <span className={styles.modalclose} onClick={props.handleClose}>
+        <span className={styles.modalclose} onClick={handleClose}>
           &times;
         </span>
-        <h3>Enter Admin Details</h3> <br />
+        <h3>Enter Admin Details</h3>
         <form className={styles.modalform} onSubmit={onSubmit}>
           <label htmlFor="adminId" className={styles.modallabel}>
             Admin ID:
@@ -62,11 +65,9 @@ const Modal = (props: ModalProps) => {
             id="adminId"
             name="adminId"
             required
-            className={styles.modalinput}
             value={AddAdmin.adminId}
             onChange={handle}
           />
-
           <label htmlFor="password" className={styles.modallabel}>
             Password:
           </label>
@@ -75,16 +76,10 @@ const Modal = (props: ModalProps) => {
             id="password"
             name="password"
             required
-            className={styles.modalinput}
             value={AddAdmin.password}
             onChange={handle}
           />
-
-          <button
-            type="submit"
-            className={styles.modalbutton}
-            onClick={handleclose}
-          >
+          <button type="submit" className={styles.modalbutton}>
             Submit
           </button>
         </form>
