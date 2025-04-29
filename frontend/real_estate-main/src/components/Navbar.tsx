@@ -13,6 +13,7 @@ import CollectEmailPopup from "./CollectEmailPopup";
 import NavSearch from "./NavSearch";
 import { FiMenu } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
+import { jwtDecode } from "jwt-decode";
 
 export type NavbarProps = {
   className?: string;
@@ -20,6 +21,18 @@ export type NavbarProps = {
 };
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
+  let isAdmin = false;
+
+  try {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      isAdmin = decoded?.adminId;
+    }
+  } catch (err) {
+    console.error("Invalid token", err);
+  }
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -54,8 +67,13 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   const handleLoginClick = () => {
     const token = localStorage.getItem("authToken");
+
     if (token) {
-      navigate("/user-profile");
+      if (isAdmin) {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/user-profile");
+      }
     } else {
       closePopups();
       setLoginPopupOpen(true);
@@ -107,8 +125,15 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   }, []);
 
   const handleLoginSuccess = () => {
+    const isAdmin = localStorage.getItem("adminId");
     setIsLoggedIn(true);
     closePopups();
+
+    if (isAdmin) {
+      navigate("/admin-dashboard");
+    } else {
+      navigate("/user-profile");
+    }
   };
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {

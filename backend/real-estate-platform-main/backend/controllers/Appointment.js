@@ -111,7 +111,7 @@ router.delete("/appointments/:id", authenticate, async (req, res) => {
     }
 
     if (
-      !req.user.isAdmin &&
+      !req.admin &&
       appointment.userId?.toString() !== req.user._id.toString()
     ) {
       return res.status(403).json({

@@ -16,14 +16,29 @@ adminsignuprouter.post(
         .status(400)
         .send({ error: "Admin ID and password are required." });
     }
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    const newAdmin = new Admin({ adminId, password: passwordHash });
     try {
+      // Check if adminId already exists
+      const existingAdmin = await Admin.findOne({ adminId });
+      if (existingAdmin) {
+        return res.status(400).send({ error: "Admin ID already exists." });
+      }
+
+      const saltRounds = 10;
+      const passwordHash = await bcrypt.hash(password, saltRounds);
+
+      const newAdmin = new Admin({
+        adminId,
+        password: passwordHash,
+
+        buyersId: [],
+        sellersId: [],
+      });
+
       await newAdmin.save();
       res.status(201).send({ message: "Admin created successfully." });
     } catch (e) {
+      console.error("Error creating admin:", e);
       res.status(400).send({ error: "Failed to create admin." });
     }
   }
@@ -31,10 +46,14 @@ adminsignuprouter.post(
 
 adminsignuprouter.get("/", authenticate, authorizeAdmin, async (req, res) => {
   try {
-    const admins = await Admin.find({});
-    res.json(admins);
+    const admins = await Admin.find()
+      .populate("buyersId", "name email")
+      .populate("sellersId", "name email");
+
+    res.status(200).json({ success: true, data: admins });
   } catch (error) {
-    res.status(400).json({ error: "Admins not found." });
+    console.error("Error fetching admins:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 });
 

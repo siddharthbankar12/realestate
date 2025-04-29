@@ -29,7 +29,7 @@ import Properties from "./pages/Properties";
 import { Insights } from "@mui/icons-material";
 import CardLayout from "./components/Insights";
 import UserNotifications from "./pages/UserNotifications";
-import { ToastContainer } from "react-toastify";
+
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -179,7 +179,6 @@ function App() {
         <Route path="/properties/sell" element={<PropertiesSell />} />
         <Route path="/properties/rent" element={<PropertiesRent />} />
       </Routes>
-      <ToastContainer />
     </>
   );
 }

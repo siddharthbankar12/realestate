@@ -80,7 +80,7 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
           </button>
         </div>
       </form>
-      <ToastContainer />
+     
     </section>
   );
 };

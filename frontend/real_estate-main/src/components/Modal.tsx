@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./Modal.module.css";
 
@@ -20,13 +20,6 @@ const Modal = ({ show, handleClose }: ModalProps) => {
     // Get the token from local storage or wherever it's stored
     const token = localStorage.getItem("authToken");
 
-    if (token) {
-      const decoded: any = jwtDecode(token);
-      console.log("Decoded Token:", decoded); // Check the decoded token
-    } else {
-      console.log("No token found.");
-    }
-
     if (!token) {
       toast.error("You must be logged in to add an admin.");
       return;
@@ -40,13 +33,14 @@ const Modal = ({ show, handleClose }: ModalProps) => {
       });
       toast.success("Admin added successfully");
       handleClose();
-    } catch (error) {
-      toast.error("Adding Admin failed");
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.error || "Adding Admin failed";
+      toast.error(errorMessage);
     }
   };
 
-  const handle = (e: React.FormEvent<HTMLInputElement>) => {
-    setAddAdmin({ ...AddAdmin, [e.currentTarget.name]: e.currentTarget.value });
+  const handle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAddAdmin({ ...AddAdmin, [e.target.name]: e.target.value });
   };
 
   return (

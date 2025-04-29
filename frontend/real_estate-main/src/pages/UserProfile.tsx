@@ -54,9 +54,8 @@ const UserProfile: React.FC = () => {
           landlineNumber: decoded.landlineNumber || "",
         });
 
-        // Set the userId from the token (assuming it's available)
-        const userId = decoded._id || decoded.id; // or whatever property holds the userId
-        setUserId(userId); // Set the userId in a state variable
+        const userId = decoded._id || decoded.id;
+        setUserId(userId);
         console.log("Decoded token:", decoded);
       } catch (error) {
         console.error("Invalid token:", error);

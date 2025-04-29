@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styles from "./AdminDashboard.module.css";
-import Nav from "../components/Nav";
-import Modal from "../components/Modal";
-import FirstNameField from "../components/FirstNameField";
-import VerifyPropertiesForm from "../components/VerifyForm";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Navbar from "../components/Navbar";
+import AdminAppointment from "../components/AdminAppointment";
+import AdminPropertyVerification from "../components/AdminPropertyVerification";
+import AdminReviews from "../components/AdminReviews";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Modal from "../components/Modal";
+import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import AdminSideBar from "../components/AdminSideBar";
+import AdminList from "../components/AdminList";
 
 interface Appointment {
   _id: string;
@@ -29,13 +33,21 @@ interface Review {
   content: string;
   rating: number;
 }
+interface Admin {
+  _id: string;
+  adminId: string;
+  buyersId?: { name: string; email: string }[];
+  sellersId?: { name: string; email: string }[];
+}
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("appointments");
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [admins, setAdmins] = useState<Admin[]>([]);
   const [reviews, setReviews] = useState<Review[]>([
     {
       _id: "1",
@@ -58,27 +70,46 @@ const AdminDashboard = () => {
   ]);
 
   useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      try {
+        const decoded: any = jwtDecode(token);
+        console.log("Decoded token:", decoded);
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
-        const [appointmentsRes, propertiesRes] = await Promise.all([
+        const [appointmentsRes, propertiesRes, adminsRes] = await Promise.all([
           fetch("http://localhost:8000/api/appointments", {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           }),
           fetch("http://localhost:8000/api/property/verification"),
+          fetch("http://localhost:8000/api/admin", {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          }),
         ]);
 
-        if (!appointmentsRes.ok || !propertiesRes.ok) {
+        if (!appointmentsRes.ok || !propertiesRes.ok || !adminsRes.ok) {
           throw new Error("Failed to fetch data.");
         }
 
         const appointmentsData = await appointmentsRes.json();
         const propertiesData = await propertiesRes.json();
+        const adminsData = await adminsRes.json();
 
         if (appointmentsData.success)
           setAppointments(appointmentsData.appointments);
         if (propertiesData.success) setProperties(propertiesData);
+        if (adminsData.success) setAdmins(adminsData.data);
       } catch (err) {
         toast.error("Failed to fetch data. Please try again.");
         setError((err as Error).message);
@@ -92,21 +123,35 @@ const AdminDashboard = () => {
 
   const handleRemoveAppointment = async (id: string) => {
     try {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        throw new Error("No authorization token found");
+      }
+
       const response = await fetch(
         `http://localhost:8000/api/appointments/${id}`,
-        { method: "DELETE" }
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+
       const result = await response.json();
-      if (!result.success || !response.ok) {
-        alert("Deleting failed, please try later");
-        return;
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Failed to delete the appointment");
       }
+
       setAppointments((prevAppointments) =>
         prevAppointments.filter((appointment) => appointment._id !== id)
       );
-      alert("Deleting successful");
-    } catch (error) {
-      console.error("Error deleting appointment:", error);
+
+      toast.success("Appointment deleted successfully!");
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error(error.message || "Something went wrong while deleting.");
     }
   };
 
@@ -150,6 +195,14 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+
+    toast.success("Logged out successfully!");
+
+    navigate("/admin-login");
+  };
+
   const [showModal, setShowModal] = useState(false);
   const handleSectionChange = (section: string) => setActiveSection(section);
   const handleCloseModal = () => setShowModal(false);
@@ -159,94 +212,42 @@ const AdminDashboard = () => {
     <>
       <Navbar />
       <div className={styles.adminDashboard}>
-        <div className={styles.sidebar}>
-          <div
-            className={styles.sidebarText}
-            onClick={() => handleSectionChange("appointments")}
-          >
-            Appointments
-          </div>
-          <div
-            className={styles.sidebarText}
-            onClick={() => handleSectionChange("propertyVerification")}
-          >
-            Property Verification
-          </div>
-          <div
-            className={styles.sidebarText}
-            onClick={() => handleSectionChange("reviews")}
-          >
-            Reviews
-          </div>
-          <button onClick={handleShowModal}>Add Admin</button>
-        </div>
+        <AdminSideBar
+          activeSection={activeSection}
+          handleSectionChange={handleSectionChange}
+          handleShowModal={handleShowModal}
+          handleLogout={handleLogout}
+        />
+
         <div className={styles.content}>
           {activeSection === "appointments" && (
-            <div>
-              {loading ? (
-                <p>Loading appointments...</p>
-              ) : error ? (
-                <p>{error}</p>
-              ) : (
-                <div>
-                  <div className={styles.heading}>Appointments</div>
-                  {appointments && appointments.length > 0 ? (
-                    appointments.map((appointment) => (
-                      <div key={appointment._id}>
-                        <FirstNameField
-                          firstName="First Name"
-                          firstNamePlaceholder={appointment.firstName || "N/A"}
-                        />
-                        <FirstNameField
-                          firstName="Phone No."
-                          firstNamePlaceholder={
-                            appointment.phoneNumber || "N/A"
-                          }
-                        />
-                        <button
-                          onClick={() =>
-                            handleRemoveAppointment(appointment._id)
-                          }
-                        >
-                          Done
-                        </button>
-                      </div>
-                    ))
-                  ) : (
-                    <p>No appointments available.</p>
-                  )}
-                </div>
-              )}
-            </div>
+            <AdminAppointment
+              appointments={appointments}
+              loading={loading}
+              error={error}
+              handleRemoveAppointment={handleRemoveAppointment}
+            />
           )}
           {activeSection === "propertyVerification" && (
-            <div>
-              {loading ? (
-                <p>Loading properties...</p>
-              ) : error ? (
-                <p>{error}</p>
-              ) : (
-                <VerifyPropertiesForm
-                  properties={properties}
-                  onAccept={handleAcceptProperty}
-                  onReject={handleRejectProperty}
-                />
-              )}
-            </div>
+            <AdminPropertyVerification
+              properties={properties}
+              loading={loading}
+              error={error}
+              handleAcceptProperty={handleAcceptProperty}
+              handleRejectProperty={handleRejectProperty}
+            />
           )}
-          {activeSection === "reviews" && (
-            <div>
-              {reviews.map((review) => (
-                <div key={review._id}>
-                  <h3>{review.reviewerName}</h3>
-                  <p>{review.content}</p>
-                </div>
-              ))}
-            </div>
+          {activeSection === "reviews" && <AdminReviews reviews={reviews} />}
+          {activeSection === "adminsList" && (
+            <AdminList
+              admins={admins}
+              onAddAdminClick={handleShowModal}
+              loading={loading}
+              error={error}
+            />
           )}
         </div>
         <Modal show={showModal} handleClose={handleCloseModal} />
-        <ToastContainer />
       </div>
     </>
   );

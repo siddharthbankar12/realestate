@@ -1,6 +1,9 @@
-const { v2 } = require("cloudinary");
+// const { v2 } = require("cloudinary");
+// const fs = require("fs");
+// const cloudinary = v2;
+
+const { v2: cloudinary } = require("cloudinary");
 const fs = require("fs");
-const cloudinary = v2;
 
 cloudinary.config({
   cloud_name: "dsrbflu0a",
@@ -11,16 +14,27 @@ cloudinary.config({
 const uploadOnCloudinary = async (localFilePath) => {
   try {
     if (!localFilePath) return null;
-    //upload the file on cloudinary
+
     const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "auto",
     });
-    // file has been uploaded successfull
-    console.log("file is uploaded on cloudinary ", response.url);
-    fs.unlinkSync(localFilePath);
+
+    console.log("File uploaded to Cloudinary:", response.url);
+
+    try {
+      if (fs.existsSync(localFilePath)) fs.unlinkSync(localFilePath);
+    } catch (err) {
+      console.error("Failed to delete local file:", err);
+    }
+
     return response;
   } catch (error) {
-    fs.unlinkSync(localFilePath); // remove the locally saved temporary file as the upload operation got failed
+    console.error("Cloudinary upload error:", error);
+    try {
+      if (fs.existsSync(localFilePath)) fs.unlinkSync(localFilePath);
+    } catch (err) {
+      console.error("Failed to delete local file after error:", err);
+    }
     return null;
   }
 };

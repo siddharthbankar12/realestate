@@ -1,18 +1,25 @@
-import React, { FunctionComponent, useState, useCallback } from "react";
+import React, {
+  FunctionComponent,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./NavSearch.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { handleCity } from "../redux/SearchBox/SearchSlice";
 import { FaMapMarkerAlt, FaSearch } from "react-icons/fa";
+import axios from "axios";
 
 export type NavSearchProps = {};
 
 const NavSearch: FunctionComponent<NavSearchProps> = () => {
   const navigate = useNavigate();
-  const city = useSelector((state) => state.search.city);
+  // const city = useSelector((state) => state.search.city);
   const location = useLocation();
   const [searchCity, setSearchCity] = useState("");
   const [isFilterListVisible, setIsFilterListVisible] = useState(false);
+  const [userLocation, setUserLocation] = useState("");
   const dispatch = useDispatch();
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,6 +45,22 @@ const NavSearch: FunctionComponent<NavSearchProps> = () => {
     return city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
   };
 
+  const getUserLocation = async () => {
+    try {
+      const response = await axios.get("https://ipinfo.io?d66a8f0420021a");
+      const cityName = response.data.city;
+      if (cityName) {
+        setUserLocation(cityName);
+      }
+    } catch (error) {
+      console.error("Error fetching user location:", error);
+    }
+  };
+
+  useEffect(() => {
+    getUserLocation();
+  }, []);
+
   return (
     <form className={styles.searchBar} onSubmit={handleSearch}>
       <h4 className={styles.cityHead}>
@@ -45,7 +68,7 @@ const NavSearch: FunctionComponent<NavSearchProps> = () => {
           style={{ marginRight: "5px", color: "red" }}
           size={14}
         />
-        {city ? city : "All Cities"}
+        {userLocation}
       </h4>
 
       {/* <div className={styles.filter}>

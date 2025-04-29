@@ -34,8 +34,9 @@ const FirstNameField: FunctionComponent<FirstNameFieldType> = ({
           className={styles.firstName1}
           placeholder={firstNamePlaceholder}
           type="text"
-          value={firstNamePlaceholder} // Controlled value
-          onChange={onChange} // Add the onChange handler
+          value={firstName || ""}
+          onChange={onChange}
+          readOnly={!onChange}
         />
       </div>
     </div>

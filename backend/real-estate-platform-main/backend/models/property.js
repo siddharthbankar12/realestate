@@ -37,7 +37,7 @@ const propertySchema = new mongoose.Schema({
   // Sell or Rent
   purpose: {
     type: String,
-    enum: ["Sell", "Rent"],
+    enum: ["Rent", "Lease", "Sell", "Rent/Lease"],
   },
   phone: {
     type: String,
