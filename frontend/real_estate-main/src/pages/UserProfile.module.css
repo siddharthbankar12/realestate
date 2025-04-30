@@ -7,18 +7,17 @@ button {
   margin-top: 90px;
   display: flex;
   flex-direction: column;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .sidebarParent {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  /* height: 100vh; */
 }
 
 .userContainer {
   flex: 1;
-  /* margin-left: 300px; */
   padding: 0 80px;
   box-sizing: border-box;
 }
@@ -29,15 +28,16 @@ button {
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .profileImage {
-  position: relative;
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  overflow: hidden;
+
   border: 2px solid #ccc;
+  position: relative;
 }
 
 .logo {
@@ -45,6 +45,8 @@ button {
   height: 100%;
   border-radius: 50%;
   background-color: #ccc;
+  background-size: cover;
+  background-position: center;
 }
 
 .cameraButton {
@@ -53,36 +55,58 @@ button {
   right: 0;
   background-color: white;
   border: none;
-  border-radius: 100%;
+  border-radius: 50%;
   padding: 5px;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+
 .editButton {
   display: flex;
   align-items: center;
   gap: 5px;
   margin-right: 40px;
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
 }
 
 .profilePicMenu {
+  display: block;
   position: absolute;
-  top: 130px;
-  right: 0;
+  top: 120px;
+  left: 90px;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 1;
+  width: 180px;
 }
 
 .profilePicMenu button {
-  background: none;
+  background-color: white;
   border: none;
   padding: 10px;
   width: 100%;
   text-align: left;
   cursor: pointer;
   font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+
+.profilePicMenu button:last-child {
+  border-bottom: none;
 }
 
 .editableContainer {
@@ -130,6 +154,11 @@ button {
   margin: 20px auto;
   width: 60%;
   text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.saveProfile:hover {
+  background-color: #0056b3;
 }
 
 .saveProfile:disabled {
@@ -157,6 +186,7 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .DeleteButton {
@@ -166,6 +196,13 @@ button {
 
 .cancelButton {
   background-color: #ccc;
+  color: black;
+}
+
+.saveBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 /* Responsive adjustments */
@@ -173,6 +210,7 @@ button {
   .userContainer {
     margin-left: 0;
     width: 100%;
+    padding: 0 40px;
   }
 }
 
@@ -183,7 +221,7 @@ button {
 
   .profileHeader {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .profileImage {
@@ -192,6 +230,9 @@ button {
 
   .saveProfile {
     width: 100%;
-    text-align: center;
+  }
+
+  .editButton {
+    margin: 10px 0 0 0;
   }
 }

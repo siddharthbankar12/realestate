@@ -11,9 +11,9 @@ const adminSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    fullName: { type: String, required: false, default: "" },
-    phoneNumber: { type: String, required: false, default: "" },
-    email: { type: String, required: false, default: "" },
+    fullName: { type: String, required: false },
+    phoneNumber: { type: String, required: false },
+    email: { type: String, required: false },
 
     buyersId: {
       type: [mongoose.Schema.Types.ObjectId],

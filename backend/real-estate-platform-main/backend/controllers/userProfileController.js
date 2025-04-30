@@ -19,8 +19,10 @@ const updateUserProfile = async (req, res) => {
 
     console.log("Request Body: ", req.body);
 
+    // Split the name into first and last name if provided
     const [firstName, lastName] = name ? name.split(" ") : ["", ""];
 
+    // Set up the updated user data
     const updatedData = {
       firstName,
       lastName,
@@ -32,11 +34,18 @@ const updateUserProfile = async (req, res) => {
       address,
     };
 
+    // If there is a file uploaded, update the image field
     if (req.file) {
       console.log("Uploaded file: ", req.file);
       updatedData.image = req.file.filename;
     }
 
+    // Check if the removeImage flag is set to 'true' and remove the image if so
+    if (req.body.removeImage === "true") {
+      updatedData.image = null; // Remove the image from the database
+    }
+
+    // Update the user in the database
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $set: updatedData },
@@ -50,6 +59,7 @@ const updateUserProfile = async (req, res) => {
 
     console.log("User updated successfully:", updatedUser);
 
+    // Generate a new JWT token for the updated user
     const token = jwt.sign(
       {
         id: updatedUser._id,
@@ -62,15 +72,17 @@ const updateUserProfile = async (req, res) => {
         state: updatedUser.state,
         address: updatedUser.address,
         landlineNumber: updatedUser.landlineNumber,
+        image: updatedUser.image,
       },
       "bearer",
       { expiresIn: "7d" }
     );
 
+    // Respond with the updated user and token
     res.status(200).json({
       message: "Profile updated successfully",
       user: updatedUser,
-      token, // Return new token
+      token,
     });
   } catch (error) {
     console.error("Error updating user profile:", error);

@@ -27,6 +27,9 @@ const UserProfile: React.FC = () => {
   });
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [removeImage, setRemoveImage] = useState(false);
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
@@ -42,7 +45,8 @@ const UserProfile: React.FC = () => {
     if (token) {
       try {
         const decoded: any = jwtDecode(token);
-        console.log(decoded);
+        console.log(decoded); // You can remove this after testing
+
         setInputValues({
           role: decoded.role || "User",
           name: `${decoded.firstname} ${decoded.lastname}`,
@@ -53,6 +57,12 @@ const UserProfile: React.FC = () => {
           address: decoded.address || "",
           landlineNumber: decoded.landlineNumber || "",
         });
+
+        setSelectedImage(
+          decoded.image
+            ? `http://localhost:8000/uploads/${decoded.image}`
+            : "/path/to/default/image.jpg"
+        );
 
         const userId = decoded._id || decoded.id;
         setUserId(userId);
@@ -87,14 +97,6 @@ const UserProfile: React.FC = () => {
       }
     });
 
-    if (inputValues.phoneNumber1 && !/^\d+$/.test(inputValues.phoneNumber1)) {
-      errors.phoneNumber1 = "Phone number must be numeric";
-    }
-    ["phoneNumber2", "phoneNumber3"].forEach((field) => {
-      if (inputValues[field] && !/^\d+$/.test(inputValues[field])) {
-        errors[field] = "Phone number must be numeric";
-      }
-    });
     if (
       inputValues.mail &&
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputValues.mail)
@@ -136,26 +138,17 @@ const UserProfile: React.FC = () => {
       formData.append("name", inputValues.name);
       formData.append("mail", inputValues.mail);
       formData.append("phoneNumber", inputValues.phoneNumber);
-
       formData.append("landlineNumber", inputValues.landlineNumber);
       formData.append("city", inputValues.city);
       formData.append("state", inputValues.state);
       formData.append("address", inputValues.address);
 
       // If image is selected, append it to the formData
-      if (selectedImage) {
-        const base64Data = selectedImage.split(",")[1]; // Strip the data URI prefix
-        const blob = new Blob(
-          [
-            new Uint8Array(
-              atob(base64Data)
-                .split("")
-                .map((c) => c.charCodeAt(0))
-            ),
-          ],
-          { type: "image/jpeg" }
-        );
-        formData.append("image", blob, "profile-picture.jpg");
+      if (selectedFile) {
+        formData.append("image", selectedFile);
+      } else if (removeImage) {
+        // If image should be removed, add removeImage flag to FormData
+        formData.append("removeImage", "true");
       }
 
       try {
@@ -167,7 +160,7 @@ const UserProfile: React.FC = () => {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
-            body: formData, // Send the FormData object
+            body: formData,
           }
         );
 
@@ -177,13 +170,12 @@ const UserProfile: React.FC = () => {
           setSaveSuccess("Profile saved successfully!");
           localStorage.setItem("userProfile", JSON.stringify(inputValues));
 
-          // ✅ Check if new token is returned, update localStorage
           if (data.token) {
             localStorage.setItem("authToken", data.token);
             console.log("New token updated in localStorage");
           }
         } else {
-          setSaveSuccess(`Error: ${data.message || "Profile save failed"}`);
+          toast.error(data.message || "Profile save failed");
         }
 
         toast.success("Update User Profile successfully");
@@ -196,6 +188,7 @@ const UserProfile: React.FC = () => {
     } else {
       alert("Please fill in all mandatory fields correctly.");
     }
+    setRemoveImage(false);
   };
 
   useEffect(() => {
@@ -216,6 +209,7 @@ const UserProfile: React.FC = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setSelectedImage(reader.result as string);
+        setSelectedFile(file);
         setIsProfilePicMenuOpen(false);
       };
       reader.readAsDataURL(file);
@@ -224,6 +218,8 @@ const UserProfile: React.FC = () => {
 
   const handleRemoveProfilePic = () => {
     setSelectedImage(null);
+    setSelectedFile(null);
+    setRemoveImage(true); // << indicate image removal to backend
     localStorage.removeItem("profileImage");
     setIsProfilePicMenuOpen(false);
   };
@@ -261,39 +257,52 @@ const UserProfile: React.FC = () => {
 
         <div className={styles.userContainer}>
           <div className={styles.profileHeader}>
-            <div className={styles.profileImage}>
+            <div className={styles.profileImageWrapper}>
               <div
-                className={styles.logo}
+                className={styles.profileImage}
                 style={{
                   backgroundImage: selectedImage
                     ? `url(${selectedImage})`
+                    : inputValues.image
+                    ? `url(${inputValues.image})`
                     : undefined,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  backgroundColor: selectedImage ? "transparent" : "#ccc",
+                  backgroundColor:
+                    selectedImage || inputValues.image ? "transparent" : "#ccc",
                 }}
-              />
-              <button
-                className={styles.cameraButton}
-                onClick={handleButtonClick}
               >
-                <img
-                  alt=""
-                  src={
-                    selectedImage ? "/materialsymbolsedit.svg" : "/camera.svg"
-                  }
-                />
-              </button>
+                <button
+                  className={styles.cameraButton}
+                  onClick={handleButtonClick}
+                  aria-label="Change profile"
+                >
+                  <img
+                    alt="Change"
+                    src={
+                      selectedImage ? "/materialsymbolsedit.svg" : "/camera.svg"
+                    }
+                  />
+                </button>
+              </div>
+
               {isProfilePicMenuOpen && (
                 <div className={styles.profilePicMenu}>
-                  <button onClick={handleRemoveProfilePic}>
+                  <button
+                    className={styles.removeButton}
+                    onClick={handleRemoveProfilePic}
+                  >
                     Remove Profile Picture
                   </button>
-                  <button onClick={() => fileInputRef.current?.click()}>
+                  <button
+                    className={styles.changeButton}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
                     Change Profile Picture
                   </button>
                 </div>
               )}
+
               <input
                 type="file"
                 ref={fileInputRef}
@@ -302,6 +311,7 @@ const UserProfile: React.FC = () => {
                 onChange={handleFileChange}
               />
             </div>
+
             {!isEditable && (
               <button className={styles.editButton} onClick={handleEditClick}>
                 <span>Edit</span>
@@ -322,9 +332,9 @@ const UserProfile: React.FC = () => {
                   <div className={styles.indDetail} key={key}>
                     {label}
                     <EditableInput
-                      isEditable={isEditable}
+                      isEditable={key !== "role" && isEditable}
                       value={inputValues[key]}
-                      field={key} // ✅ Add this line
+                      field={key}
                       onChange={(e) => handleInputChange(e, key)}
                       errorMessage={validationErrors[key]}
                     />
@@ -367,15 +377,17 @@ const UserProfile: React.FC = () => {
                 By clicking below you agree to the{" "}
                 <span className={styles.TCtext}>Terms and Conditions</span>
               </div>
-              <button
-                className={`${styles.saveProfile} ${
-                  isEditable ? styles.active : ""
-                }`}
-                onClick={handleSaveClick}
-                disabled={!isEditable || !isRequiredFilled}
-              >
-                Save Profile
-              </button>
+              <div className={styles.saveBtn}>
+                <button
+                  className={`${styles.saveProfile} ${
+                    isEditable ? styles.active : ""
+                  }`}
+                  onClick={handleSaveClick}
+                  // disabled={!isEditable || !isRequiredFilled}
+                >
+                  Save Profile
+                </button>
+              </div>
               <div className={styles.deleteContainer}>
                 To delete your account{" "}
                 <span className={styles.TCtext} onClick={onDeleteClick}>

@@ -4,7 +4,7 @@
 }
 
 .propertyCard {
-  min-width: 250px;
+  width: 280px;
   height: 40vh;
   display: flex;
   flex-direction: column;

@@ -30,7 +30,7 @@ adminsignuprouter.post(
       const newAdmin = new Admin({
         adminId,
         password: passwordHash,
-
+        email: `${adminId}@mail.com`,
         buyersId: [],
         sellersId: [],
       });
