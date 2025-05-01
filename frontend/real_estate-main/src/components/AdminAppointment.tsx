@@ -30,46 +30,54 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
   return (
     <div className={styles.container}>
       {loading ? (
-        <p>Loading appointments...</p>
+        <p className={styles.loading}>Loading appointments...</p>
       ) : error ? (
-        <p>{error}</p>
+        <p className={styles.error}>{error}</p>
       ) : (
-        <div>
+        <div className={styles.tableWrapper}>
+          <p className={styles.headApp}>Appointments</p>
           {appointments && appointments.length > 0 ? (
-            <table>
+            <table className={styles.table}>
               <thead>
                 <tr>
                   <th>Full Name</th>
-
                   <th>Email</th>
-                  <th>Phone Number</th>
+                  <th>Phone</th>
                   <th>Status</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
-                  <th>Guest / User</th>
-                  <th>Delete</th>
+                  <th>Created</th>
+                  <th>Updated</th>
+                  <th>Type</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {appointments.map((appointment) => (
-                  <tr key={appointment._id}>
+                {appointments.map((a) => (
+                  <tr key={a._id}>
                     <td>
-                      {`${appointment.firstName || ""} ${
-                        appointment.lastName || ""
-                      }`.trim() || "N/A"}
+                      {`${a.firstName || ""} ${a.lastName || ""}`.trim() ||
+                        "N/A"}
                     </td>
-
-                    <td>{appointment.email || "N/A"}</td>
-                    <td>{appointment.phoneNumber || "N/A"}</td>
-                    <td>{appointment.status || "N/A"}</td>
-                    <td>{new Date(appointment.createdAt).toLocaleString()}</td>
-                    <td>{new Date(appointment.updatedAt).toLocaleString()}</td>
-                    <td>{appointment.isGuest ? "Guest" : "User"}</td>
+                    <td>{a.email || "N/A"}</td>
+                    <td>{a.phoneNumber || "N/A"}</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${
+                          a.status.toLowerCase() === "pending"
+                            ? styles.pending
+                            : styles.completed
+                        }`}
+                      >
+                        {a.status}
+                      </span>
+                    </td>
+                    <td>{new Date(a.createdAt).toLocaleString()}</td>
+                    <td>{new Date(a.updatedAt).toLocaleString()}</td>
+                    <td>{a.isGuest ? "Guest" : "User"}</td>
                     <td>
                       <button
-                        onClick={() => handleRemoveAppointment(appointment._id)}
+                        onClick={() => handleRemoveAppointment(a._id)}
                         className={styles.deleteBtn}
-                        title="Delete Appointment"
+                        title="Delete"
                       >
                         <FaTrash />
                       </button>

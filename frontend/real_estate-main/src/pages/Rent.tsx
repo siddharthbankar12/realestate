@@ -10,6 +10,8 @@ import HouseProfileForm from "../components/HouseProfileForm";
 import PhotosForm from "../components/PhotosForm";
 import PricingForm from "../components/PricingForm";
 import styles from "./Rent.module.css";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Rent: React.FC = () => {
   const [step, setStep] = useState(1);
@@ -54,6 +56,8 @@ const Rent: React.FC = () => {
     availability: "Ready to move",
   });
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+
+  const route = useNavigate();
 
   const nextStep = () => setStep((prevStep) => prevStep + 1);
   const prevStep = () => {
@@ -101,10 +105,11 @@ const Rent: React.FC = () => {
         }
       );
 
-      alert("Property listed successfully!");
+      toast.success("Property listed successfully!");
+      route("/");
     } catch (error) {
       console.error("Error uploading property or images:", error);
-      alert("Failed to list property.");
+      toast.error("Failed to list property.");
     }
   };
 

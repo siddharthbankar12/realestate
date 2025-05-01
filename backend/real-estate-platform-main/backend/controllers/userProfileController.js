@@ -11,55 +11,57 @@ const getUserProfile = async (req, res) => {
   }
 };
 
+const cloudinary = require("../util/cloudinary");
+
 const updateUserProfile = async (req, res) => {
   try {
     const userId = req.params.id;
-    const { name, mail, phoneNumber, landlineNumber, city, state, address } =
-      req.body;
+    const {
+      name,
+      mail,
+      phoneNumber,
+      landlineNumber,
+      city,
+      state,
+      address,
+      removeImage,
+    } = req.body;
 
-    console.log("Request Body: ", req.body);
+    // Handle image upload to Cloudinary
+    let imageURL = null;
+    if (req.file) {
+      // Upload the image to Cloudinary and get the URL and public_id
+      const uploadedImage = await cloudinary.uploadOnCloudinary(req.file.path);
+      imageURL = uploadedImage?.secure_url; // Cloudinary image URL
+    }
 
-    // Split the name into first and last name if provided
-    const [firstName, lastName] = name ? name.split(" ") : ["", ""];
+    // If user wants to remove image, delete the image from Cloudinary
+    if (removeImage === "true" && req.body.imagePublicId) {
+      await cloudinary.deleteFromCloudinary(req.body.imagePublicId);
+      imageURL = null; // Remove image URL from the user's profile
+    }
 
-    // Set up the updated user data
     const updatedData = {
-      firstName,
-      lastName,
+      firstName: name.split(" ")[0],
+      lastName: name.split(" ")[1] || "",
       email: mail,
       phoneNumber,
       landlineNumber,
       city,
       state,
       address,
+      image: imageURL,
     };
 
-    // If there is a file uploaded, update the image field
-    if (req.file) {
-      console.log("Uploaded file: ", req.file);
-      updatedData.image = req.file.filename;
-    }
-
-    // Check if the removeImage flag is set to 'true' and remove the image if so
-    if (req.body.removeImage === "true") {
-      updatedData.image = null; // Remove the image from the database
-    }
-
-    // Update the user in the database
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { $set: updatedData },
-      { new: true }
-    );
+    // Update the user profile in the database
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedData, {
+      new: true,
+    });
 
     if (!updatedUser) {
-      console.log("User not updated. Check if the document exists.");
       return res.status(404).json({ error: "User not found" });
     }
 
-    console.log("User updated successfully:", updatedUser);
-
-    // Generate a new JWT token for the updated user
     const token = jwt.sign(
       {
         id: updatedUser._id,
@@ -78,7 +80,6 @@ const updateUserProfile = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    // Respond with the updated user and token
     res.status(200).json({
       message: "Profile updated successfully",
       user: updatedUser,

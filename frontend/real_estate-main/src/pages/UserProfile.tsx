@@ -58,11 +58,7 @@ const UserProfile: React.FC = () => {
           landlineNumber: decoded.landlineNumber || "",
         });
 
-        setSelectedImage(
-          decoded.image
-            ? `http://localhost:8000/uploads/${decoded.image}`
-            : "/path/to/default/image.jpg"
-        );
+        setSelectedImage(decoded.image);
 
         const userId = decoded._id || decoded.id;
         setUserId(userId);
@@ -166,6 +162,8 @@ const UserProfile: React.FC = () => {
 
         const data = await response.json();
 
+        console.log(data);
+
         if (response.ok) {
           setSaveSuccess("Profile saved successfully!");
           localStorage.setItem("userProfile", JSON.stringify(inputValues));
@@ -248,6 +246,7 @@ const UserProfile: React.FC = () => {
 
   console.log("userId:", userId);
   console.log(inputValues);
+  console.log(selectedImage);
 
   return (
     <div className={styles.userProfile}>

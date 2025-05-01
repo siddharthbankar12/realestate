@@ -1,49 +1,89 @@
 .container {
-  background-color: #f9f9f9;
-  border-radius: 10px;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: 20px;
 }
 
-table {
+.loading,
+.error,
+.noAppointments {
+  font-size: 16px;
+  text-align: center;
+  margin-top: 20px;
+  color: #555;
+}
+
+.error {
+  color: red;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.headApp {
+  margin: 10px 0 30px 0;
+  text-align: left;
+  padding: 0 5px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-table,
-th,
-td {
-  border: 1px solid #ddd;
-}
-
-th,
-td {
-  padding: 12px;
-  text-align: left;
-}
-
-th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-button {
-  padding: 8px 16px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-.no-appointments {
+.table th,
+.table td {
+  padding: 14px 18px;
+  border: 1px solid #e0e0e0;
   text-align: center;
-  color: #888;
-  font-size: 18px;
+  font-size: 15px;
+}
+
+.table th {
+  background-color: #f4f4f4;
+
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: white;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pending {
+  background-color: #f39c12;
+}
+
+.completed {
+  background-color: #2ecc71;
+}
+
+.deleteBtn {
+  cursor: pointer;
+  color: #e74c3c;
+  background-image: none;
+  background-color: transparent;
+}
+
+.deleteBtn:hover {
+  background-color: transparent;
 }

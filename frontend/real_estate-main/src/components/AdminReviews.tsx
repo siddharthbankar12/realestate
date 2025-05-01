@@ -1,4 +1,7 @@
 import React from "react";
+import styles from "./AdminReviews.module.css";
+import { FaStar } from "react-icons/fa";
+import { BiUserCircle } from "react-icons/bi";
 
 interface Review {
   _id: string;
@@ -12,12 +15,28 @@ interface AdminReviewsProps {
 }
 
 const AdminReviews: React.FC<AdminReviewsProps> = ({ reviews }) => {
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, index) => (
+      <FaStar
+        key={index}
+        className={styles.star}
+        color={index < rating ? "#facc15" : "#d1d5db"} // yellow or gray
+      />
+    ));
+  };
+
   return (
-    <div>
+    <div className={styles.grid}>
       {reviews.map((review) => (
-        <div key={review._id}>
-          <h3>{review.reviewerName}</h3>
-          <p>{review.content}</p>
+        <div key={review._id} className={styles.card}>
+          <div className={styles.header}>
+            <BiUserCircle className={styles.avatar} />
+            <div>
+              <h3 className={styles.name}>{review.reviewerName}</h3>
+              <div className={styles.stars}>{renderStars(review.rating)}</div>
+            </div>
+          </div>
+          <p className={styles.content}>"{review.content}"</p>
         </div>
       ))}
     </div>

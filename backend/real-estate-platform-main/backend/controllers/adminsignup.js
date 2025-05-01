@@ -31,6 +31,8 @@ adminsignuprouter.post(
         adminId,
         password: passwordHash,
         email: `${adminId}@mail.com`,
+        fullName: "",
+        phoneNumber: "",
         buyersId: [],
         sellersId: [],
       });

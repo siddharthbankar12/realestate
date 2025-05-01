@@ -13,6 +13,7 @@ interface Props {
   onAddAdminClick: () => void;
   loading: boolean;
   error: string | null;
+  handleRemoveAdmin: (id: string) => void;
 }
 
 const AdminList: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const AdminList: React.FC<Props> = ({
   onAddAdminClick,
   loading,
   error,
+  handleRemoveAdmin,
 }) => {
   return (
     <div className={styles.adminList}>
@@ -38,6 +40,7 @@ const AdminList: React.FC<Props> = ({
               <th>Admin ID</th>
               <th>Buyers</th>
               <th>Sellers</th>
+              <th>Delete Account</th>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +49,14 @@ const AdminList: React.FC<Props> = ({
                 <td>{admin.adminId}</td>
                 <td>{admin.buyersId?.length ?? 0}</td>
                 <td>{admin.sellersId?.length ?? 0}</td>
+                <td>
+                  <button
+                    className={styles.deleteBtn}
+                    onClick={() => handleRemoveAdmin(admin._id)}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

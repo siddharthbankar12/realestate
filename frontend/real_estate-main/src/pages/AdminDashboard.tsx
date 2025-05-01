@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import styles from "./AdminDashboard.module.css";
 import Navbar from "../components/Navbar";
 import AdminAppointment from "../components/AdminAppointment";
-import AdminPropertyVerification from "../components/AdminPropertyVerification";
-import AdminReviews from "../components/AdminReviews";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "../components/Modal";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import AdminPropertyVerification from "../components/AdminPropertyVerification";
+import AdminReviews from "../components/AdminReviews";
 import AdminSideBar from "../components/AdminSideBar";
 import AdminList from "../components/AdminList";
 
@@ -67,9 +67,37 @@ const AdminDashboard = () => {
       content: "Very helpful.",
       rating: 4,
     },
+    {
+      _id: "4",
+      reviewerName: "Michael Brown",
+      content: "Not satisfied with the response time.",
+      rating: 2,
+    },
+    {
+      _id: "5",
+      reviewerName: "Emily Davis",
+      content: "Professional and kind staff.",
+      rating: 5,
+    },
+    {
+      _id: "6",
+      reviewerName: "David Wilson",
+      content: "The service was okay, nothing special.",
+      rating: 3,
+    },
+    {
+      _id: "7",
+      reviewerName: "Sophia Taylor",
+      content: "Quick and reliable.",
+      rating: 4,
+    },
   ]);
 
   useEffect(() => {
+    const savedSection =
+      localStorage.getItem("activeSection") || "appointments";
+    setActiveSection(savedSection);
+
     const token = localStorage.getItem("authToken");
     if (token) {
       try {
@@ -197,16 +225,52 @@ const AdminDashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("activeSection");
 
     toast.success("Logged out successfully!");
 
     navigate("/admin-login");
   };
 
+  const handleRemoveAdmin = async (adminId: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/admin/${adminId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+
+      const text = await response.text(); // read raw text
+      const result = text ? JSON.parse(text) : { success: response.ok };
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Failed to delete admin");
+      }
+
+      setAdmins((prevAdmins) =>
+        prevAdmins.filter((admin) => admin._id !== adminId)
+      );
+
+      toast.success("Admin deleted successfully!");
+    } catch (error: any) {
+      console.error(error.message);
+      toast.error(error.message || "Something went wrong while deleting.");
+    }
+  };
+
   const [showModal, setShowModal] = useState(false);
-  const handleSectionChange = (section: string) => setActiveSection(section);
+  const handleSectionChange = (section: string) => {
+    setActiveSection(section);
+    localStorage.setItem("activeSection", section);
+  };
   const handleCloseModal = () => setShowModal(false);
-  const handleShowModal = () => setShowModal(true);
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
 
   return (
     <>
@@ -242,6 +306,7 @@ const AdminDashboard = () => {
             <AdminList
               admins={admins}
               onAddAdminClick={handleShowModal}
+              handleRemoveAdmin={handleRemoveAdmin}
               loading={loading}
               error={error}
             />

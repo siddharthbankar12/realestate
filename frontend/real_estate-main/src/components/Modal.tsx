@@ -32,6 +32,8 @@ const Modal = ({ show, handleClose }: ModalProps) => {
         },
       });
       toast.success("Admin added successfully");
+      window.location.reload();
+
       handleClose();
     } catch (error: any) {
       const errorMessage = error.response?.data?.error || "Adding Admin failed";
