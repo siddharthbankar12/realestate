@@ -169,7 +169,7 @@ router.get("/property-user/:email_id", async (req, res) => {
 router.get("/property/verification", async (req, res) => {
   try {
     const property_verify = await Property.find({ verification: "pending" });
-    res.json(property_verify);
+    return res.json({ success: true, property_verify });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Internal Server Error" });

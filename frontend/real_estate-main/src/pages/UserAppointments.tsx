@@ -114,53 +114,66 @@ const UserAppointments: React.FC = () => {
               </div>
             </>
           ) : (
-            <div className={styles.tableWrapper}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                    <th>Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {appointments.map((appt) => (
-                    <tr key={appt._id}>
-                      <td>{`${appt.firstName} ${appt.lastName}`}</td>
-                      <td>{appt.email}</td>
-                      <td>{appt.phoneNumber}</td>
-                      <td>
-                        {appt.createdAt &&
-                          new Date(appt.createdAt).toLocaleDateString("en-IN", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                      </td>
-                      <td>
-                        {appt.createdAt &&
-                          new Date(appt.createdAt).toLocaleTimeString("en-IN", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                      </td>
-                      <td>{appt.status || "Pending"}</td>
-                      <td style={{ textAlign: "center" }}>
-                        <MdDelete
-                          color="red"
-                          size={20}
-                          style={{ cursor: "pointer" }}
-                          onClick={() => handleDelete(appt._id)}
-                        />
-                      </td>
+            <div className={styles.mainUAContain}>
+              <p className={styles.headUAContain}>Appointments</p>
+              <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Status</th>
+                      <th>Delete</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {appointments.map((appt) => (
+                      <tr key={appt._id}>
+                        <td>{`${appt.firstName} ${appt.lastName}`}</td>
+                        <td>{appt.email}</td>
+                        <td>{appt.phoneNumber}</td>
+                        <td>
+                          {appt.createdAt &&
+                            new Date(appt.createdAt).toLocaleDateString(
+                              "en-IN",
+                              {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )}
+                        </td>
+                        <td>
+                          {appt.createdAt &&
+                            new Date(appt.createdAt).toLocaleTimeString(
+                              "en-IN",
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              }
+                            )}
+                        </td>
+                        <td>
+                          <p className={styles.statusUA}>
+                            {appt.status || "Pending"}
+                          </p>
+                        </td>
+                        <td style={{ textAlign: "center" }}>
+                          <MdDelete
+                            color="red"
+                            size={20}
+                            style={{ cursor: "pointer" }}
+                            onClick={() => handleDelete(appt._id)}
+                          />
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </main>

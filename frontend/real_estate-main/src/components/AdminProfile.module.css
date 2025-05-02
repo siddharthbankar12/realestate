@@ -1,0 +1,142 @@
+.profileWrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #f7f9fc;
+}
+
+.profileCard {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  max-width: 850px;
+  width: 100%;
+  padding: 35px;
+  transition: all 0.3s ease;
+}
+
+.profileHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  font-size: 60px;
+  color: #2980b9;
+  margin-bottom: 8px;
+}
+
+.profileTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.profileGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.profileField {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.input {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+  background: #fdfdfd;
+  transition: border-color 0.3s;
+  height: 40px;
+}
+
+.input:focus {
+  border-color: #2980b9;
+}
+
+.readonly {
+  padding: 10px 14px;
+  background: #f0f3f7;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #333;
+  border: 1px solid #e0e0e0;
+  margin: 0;
+  height: 40px;
+}
+
+.divider {
+  margin: 30px 0 20px;
+  height: 1px;
+  background-color: #e0e0e0;
+}
+
+.profileActions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.editBtn,
+.updateBtn,
+.cancelBtn {
+  font-size: 15px;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.editBtn {
+  background-color: #2980b9;
+  color: #fff;
+}
+
+.updateBtn {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+.cancelBtn {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.editBtn:hover,
+.updateBtn:hover,
+.cancelBtn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .profileGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .profileActions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .editBtn,
+  .updateBtn,
+  .cancelBtn {
+    width: 100%;
+  }
+}

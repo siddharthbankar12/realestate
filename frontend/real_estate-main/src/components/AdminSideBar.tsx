@@ -18,6 +18,14 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({
     <div className={styles.sidebar}>
       <div
         className={`${styles.sidebarText} ${
+          activeSection === "adminProfile" ? styles.activeSidebarText : ""
+        }`}
+        onClick={() => handleSectionChange("adminProfile")}
+      >
+        Admin Profile
+      </div>
+      <div
+        className={`${styles.sidebarText} ${
           activeSection === "appointments" ? styles.activeSidebarText : ""
         }`}
         onClick={() => handleSectionChange("appointments")}

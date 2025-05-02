@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, Divider, Paper, Typography } from "@mui/material";
 
-
 import { useNavigate } from "react-router-dom";
 
 const PropertiesListCard = ({ property }) => {
-  const imageProperty="https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-  
-  
-   const navigate = useNavigate();
+  const imageProperty =
+    "https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
+  const navigate = useNavigate();
   // const [bhk, setbhk] = useState();
   const {
     address,
@@ -19,8 +18,8 @@ const PropertiesListCard = ({ property }) => {
     propertyOptions,
     propertyType,
     Bhk,
+    verification,
   } = property;
- 
 
   const handleCardClick = () => {
     navigate(`/property-details-page/${property._id}`, { state: { property } });
@@ -45,7 +44,8 @@ const PropertiesListCard = ({ property }) => {
 
   return (
     <>
-      <Paper onClick={handleCardClick}
+      <Paper
+        onClick={handleCardClick}
         elevation={1}
         sx={{
           mt: 3,
@@ -55,6 +55,20 @@ const PropertiesListCard = ({ property }) => {
           position: "relative",
         }}
       >
+        {verification === "verified" ? (
+          <img
+            src="/verifiedPro.png"
+            width="100px"
+            style={{
+              position: "absolute",
+              top: "6px",
+              right: "6px",
+              zIndex: "99",
+              transform: "rotate(20deg)",
+            }}
+          />
+        ) : null}
+
         <img
           src={
             imageProperty === null
@@ -85,7 +99,6 @@ const PropertiesListCard = ({ property }) => {
           }}
         >
           <Box>
-            
             <Typography
               sx={{
                 fontFamily: "var(--font-montserrat)",
@@ -93,10 +106,9 @@ const PropertiesListCard = ({ property }) => {
                 lineHeight: "20px",
                 fontWeight: 700,
                 mt: 0.1,
-                 ml: -5, 
+                ml: -5,
                 color: "#091E42",
                 cursor: "pointer",
-                
               }}
             >
               {title}
@@ -108,7 +120,7 @@ const PropertiesListCard = ({ property }) => {
                 lineHeight: "20px",
                 cursor: "pointer",
                 mt: 0.5,
-                ml: -5, 
+                ml: -5,
               }}
             >
               {Bhk} BHK Serviced {propertyType} for {propertyOptions} in{" "}
@@ -123,7 +135,7 @@ const PropertiesListCard = ({ property }) => {
                       fontSize: "20px",
                       lineHeight: "28px",
                       fontWeight: 600,
-                      
+
                       color: "#091E42",
                     }}
                   >
@@ -238,7 +250,7 @@ const PropertiesListCard = ({ property }) => {
               }}
             >
               Amazing {Bhk} bedroom{" "}
-              {Bhk > 3 ? (Bhk > 5 ? Bhk - 2 :Bhk- 1) :Bhk} bathroom{" "}
+              {Bhk > 3 ? (Bhk > 5 ? Bhk - 2 : Bhk - 1) : Bhk} bathroom{" "}
               {propertyType} in {title} located in {address}, {city}, .
               Utilities include Cable, High Speed Fiber Internet, Electricity,
               Water Tank and Complete Power Backup and Gas also have{" "}

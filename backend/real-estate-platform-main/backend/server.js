@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const usersRouter = require("./controllers/newuser");
 const loginRouter = require("./controllers/login");
-const AdminRouter = require("./controllers/adminlogin");
+const { AdminRouter, AdminUpdateRouter } = require("./controllers/adminlogin");
+
 const adminsignuprouter = require("./controllers/adminsignup");
 const userProfileRoutes = require("./controllers/userProfileRoutes.js");
 
@@ -24,6 +25,7 @@ app.use("/api/users", usersRouter);
 app.use("/api/users", loginRouter);
 app.use("/api/user-update", userProfileRoutes);
 app.use("/api/admin/login", AdminRouter);
+app.use("/api/admin/update", AdminUpdateRouter);
 app.use("/api/admin", adminsignuprouter);
 app.use("/api", require("./controllers/propertyRoutes"));
 app.use("/api", require("./controllers/propertyImageRoutes"));

@@ -11,44 +11,46 @@ import AdminPropertyVerification from "../components/AdminPropertyVerification";
 import AdminReviews from "../components/AdminReviews";
 import AdminSideBar from "../components/AdminSideBar";
 import AdminList from "../components/AdminList";
+import AdminProfile from "../components/AdminProfile";
 
-interface Appointment {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  PhoneNumber: number;
-}
+// interface Appointment {
+//   _id: string;
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   PhoneNumber: number;
+// }
 
-interface Property {
-  _id: string;
-  firstName: string;
-  phoneNumber: string;
-  email: string;
-}
+// interface Property {
+//   _id: string;
+//   firstName: string;
+//   phoneNumber: string;
+//   email: string;
+// }
 
-interface Review {
-  _id: string;
-  reviewerName: string;
-  content: string;
-  rating: number;
-}
-interface Admin {
-  _id: string;
-  adminId: string;
-  buyersId?: { name: string; email: string }[];
-  sellersId?: { name: string; email: string }[];
-}
+// interface Review {
+//   _id: string;
+//   reviewerName: string;
+//   content: string;
+//   rating: number;
+// }
+// interface Admin {
+//   _id: string;
+//   adminId: string;
+//   buyersId?: { name: string; email: string }[];
+//   sellersId?: { name: string; email: string }[];
+// }
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("appointments");
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
-  const [properties, setProperties] = useState<Property[]>([]);
+  const [appointments, setAppointments] = useState<any[]>([]);
+  const [properties, setProperties] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [admins, setAdmins] = useState<Admin[]>([]);
-  const [reviews, setReviews] = useState<Review[]>([
+  const [admins, setAdmins] = useState<any[]>([]);
+  const [adminProfile, setAdminProfile] = useState<any>(null);
+  const [reviews, setReviews] = useState<any[]>([
     {
       _id: "1",
       reviewerName: "John Doe",
@@ -95,19 +97,21 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const savedSection =
-      localStorage.getItem("activeSection") || "appointments";
+      localStorage.getItem("activeSection") || "adminProfile";
     setActiveSection(savedSection);
 
     const token = localStorage.getItem("authToken");
     if (token) {
       try {
         const decoded: any = jwtDecode(token);
-        console.log("Decoded token:", decoded);
+        setAdminProfile(decoded);
       } catch (error) {
         console.error("Invalid token:", error);
       }
     }
   }, []);
+
+  console.log(adminProfile);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -134,9 +138,12 @@ const AdminDashboard = () => {
         const propertiesData = await propertiesRes.json();
         const adminsData = await adminsRes.json();
 
+        console.log(propertiesData);
+
         if (appointmentsData.success)
           setAppointments(appointmentsData.appointments);
-        if (propertiesData.success) setProperties(propertiesData);
+        if (propertiesData?.success)
+          setProperties(propertiesData.property_verify);
         if (adminsData.success) setAdmins(adminsData.data);
       } catch (err) {
         toast.error("Failed to fetch data. Please try again.");
@@ -148,6 +155,8 @@ const AdminDashboard = () => {
 
     fetchData();
   }, []);
+
+  console.log(properties);
 
   const handleRemoveAppointment = async (id: string) => {
     try {
@@ -197,7 +206,7 @@ const AdminDashboard = () => {
       setProperties((prevProperties) =>
         prevProperties.filter((property) => property._id !== id)
       );
-      alert("Property accepted");
+      toast.success("Property accepted successfully");
     } catch (error) {
       console.error("Error accepting property:", error);
     }
@@ -217,7 +226,7 @@ const AdminDashboard = () => {
       setProperties((prevProperties) =>
         prevProperties.filter((property) => property._id !== id)
       );
-      alert("Property rejected");
+      toast.success("Property rejected successfully");
     } catch (error) {
       console.error("Error rejecting property:", error);
     }
@@ -284,6 +293,9 @@ const AdminDashboard = () => {
         />
 
         <div className={styles.content}>
+          {activeSection === "adminProfile" && adminProfile && (
+            <AdminProfile adminProfile={adminProfile} />
+          )}
           {activeSection === "appointments" && (
             <AdminAppointment
               appointments={appointments}

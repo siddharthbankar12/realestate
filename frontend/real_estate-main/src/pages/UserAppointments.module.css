@@ -31,9 +31,8 @@
   width: 100%;
   overflow-x: auto;
   margin-top: 2rem;
-  border: 1px solid #ddd;
+  border: 1px solid #878484;
   border-radius: 8px; /* Border radius for the wrapper */
-  overflow: hidden; /* Ensures the border-radius works */
 }
 
 .table {
@@ -47,19 +46,29 @@
 .table th,
 .table td {
   padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-  border-left: 1px solid #ddd;
+  text-align: center;
+  border-bottom: 1px solid #878484;
+  border-left: 1px solid #878484;
 }
 
 .table th {
-  background: linear-gradient(to right, #2697e0, #784dc6);
-  color: white;
+  background-color: #f4f4f4;
+  text-align: center;
   font-weight: 600;
 }
 
-.table tr:hover {
-  background-color: #f9f9f9;
+.mainUAContain {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.headUAContain {
+  font-size: 28px;
+  text-align: left;
+  margin: 10px 0 0 6px;
+  padding: 0;
+  font-weight: 600;
 }
 
 .noAppointment {
@@ -69,6 +78,14 @@
   text-align: center;
 
   padding: 2rem;
+}
+
+.statusUA {
+  background-color: #f39c12;
+  margin: 0;
+  padding: 5px;
+  border-radius: 8px;
+  color: black;
 }
 
 .txt {
