@@ -1,20 +1,22 @@
-const mongoose=require("mongoose")
+const mongoose = require("mongoose");
 
-const SearchHistorySchema =  new mongoose.Schema({
-    user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    search_terms: {
-        type: [String],
-        default: []
-    },
-    search_date: {
-        type: Date,
-        default: Date.now
-    }
-})
+const SearchEntrySchema = new mongoose.Schema({
+  search_text: String,
+  search_datetime: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const SearchHistorySchema = new mongoose.Schema({
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    unique: true,
+    required: true,
+  },
+  searches: [SearchEntrySchema],
+});
 
 const Search = mongoose.model("Search", SearchHistorySchema);
 

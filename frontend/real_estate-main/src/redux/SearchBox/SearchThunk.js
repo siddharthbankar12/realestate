@@ -5,14 +5,12 @@ export const searchSuggestionsThunk = async (url, searchTerm, thunkAPI) => {
       throw new Error("Network response was not ok");
     }
     const properties = await response.json();
-    // Filter properties to only include those with "buy" as the purpose
     const buyProperties = properties.filter(
       (property) => property.purpose === "sell"
     );
     return buyProperties;
   } catch (error) {
     console.error("Error fetching properties:", error);
-    // Optionally, you can return an empty array or a default value in case of an error
     return [];
   }
 };

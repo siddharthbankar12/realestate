@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.js");
+const Search = require("../models/SearchHistory.js");
 
 const getUserProfile = async (req, res) => {
   try {
@@ -91,4 +92,80 @@ const updateUserProfile = async (req, res) => {
   }
 };
 
-module.exports = { getUserProfile, updateUserProfile };
+const userPastHistory = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const userSearchHistory = await Search.findOne({ user_id: userId });
+
+    if (!userSearchHistory) {
+      return res
+        .status(404)
+        .json({ message: "No search history found for this user" });
+    }
+
+    res.status(200).json(userSearchHistory.searches);
+  } catch (error) {
+    console.error("Error fetching user search history:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = userPastHistory;
+
+const saveSearchHistory = async (req, res) => {
+  try {
+    const { search_text, userId } = req.body;
+
+    if (!search_text || !userId) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const now = new Date();
+
+    const roundedNow = new Date(now);
+    roundedNow.setSeconds(0, 0);
+
+    let userSearchDoc = await Search.findOne({ user_id: userId });
+
+    if (!userSearchDoc) {
+      userSearchDoc = new Search({
+        user_id: userId,
+        searches: [{ search_text, search_datetime: roundedNow }],
+      });
+      await userSearchDoc.save();
+      return res.status(200).json({ message: "Search saved (first)" });
+    }
+
+    const isDuplicate = userSearchDoc.searches.some((entry) => {
+      const entryTime = new Date(entry.search_datetime);
+      entryTime.setSeconds(0, 0); // Round to minute
+      return (
+        entry.search_text.toLowerCase() === search_text.toLowerCase() &&
+        entryTime.getTime() === roundedNow.getTime()
+      );
+    });
+
+    if (isDuplicate) {
+      return res.status(200).json({ message: "Duplicate search ignored" });
+    }
+
+    userSearchDoc.searches.push({
+      search_text,
+      search_datetime: roundedNow,
+    });
+    await userSearchDoc.save();
+
+    return res.status(200).json({ message: "Search saved" });
+  } catch (error) {
+    console.error("Error saving search history:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = {
+  getUserProfile,
+  updateUserProfile,
+  saveSearchHistory,
+  userPastHistory,
+};

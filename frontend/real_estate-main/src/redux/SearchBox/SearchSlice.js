@@ -243,11 +243,11 @@ export const {
   handleChange,
   clearSearchState,
   handleSearchCity,
-  handleReraApproved, // Export this action
+  handleReraApproved,
   handleVerifiedProperties,
-  handlePostedBy, // Export this action
-  handleFurnitureType, // Export this action
-  handlePurchaseType, // Export this action
+  handlePostedBy,
+  handleFurnitureType,
+  handlePurchaseType,
   updateFilters,
   handleCity,
 } = SearchSlice.actions;

@@ -71,15 +71,17 @@ router.get("/allproperty", async (req, res) => {
   }
 });
 
+// property query and city
+
 router.get("/property", async (req, res) => {
   const { city, query } = req.query;
 
   try {
-    const filters = [{ verification: "verified" }];
+    const filters = [];
 
     if (city && typeof city === "string") {
       filters.push({
-        city: { $regex: city, $options: "i" },
+        city: { $regex: city.trim(), $options: "i" },
       });
     }
 
@@ -96,8 +98,7 @@ router.get("/property", async (req, res) => {
       });
     }
 
-    const searchQuery =
-      filters.length > 1 ? { $and: filters } : { verification: "verified" };
+    const searchQuery = filters.length > 0 ? { $and: filters } : {};
 
     const properties = await Property.find(searchQuery);
     res.json(properties);

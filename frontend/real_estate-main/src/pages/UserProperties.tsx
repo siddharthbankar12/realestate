@@ -16,8 +16,18 @@ const UserProperties: FunctionComponent = () => {
   });
 
   let token = localStorage.getItem("authToken");
-  const decoded: any = jwtDecode(token);
-  const email = decoded.email;
+  let email = "";
+
+  if (token) {
+    try {
+      const decoded: any = jwtDecode(token);
+      email = decoded.email;
+    } catch (err) {
+      console.error("Invalid token", err);
+    }
+  }
+
+  console.log(properties);
 
   const fetchProperties = async () => {
     try {
@@ -31,14 +41,11 @@ const UserProperties: FunctionComponent = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch properties");
-      }
+      if (!response.ok) throw new Error("Failed to fetch properties");
 
       const result = await response.json();
       setProperties(result.data);
 
-      // Assuming your backend provides these statistics in the response
       setStats({
         totalHosted: result.stats.totalHosted,
         totalSoldOrRented: result.stats.totalSoldOrRented,
@@ -54,86 +61,76 @@ const UserProperties: FunctionComponent = () => {
   }, []);
 
   return (
-    <div className={styles.userProperties0}>
+    <div className={styles.userProperties}>
       <Navbar />
 
-      <main className={styles.sidebarContainer}>
-        <div>
-          <Sidebar
-            currentPage="user-properties0"
-            sidebarMarginLeft="unset"
-            profileSettingsColor="#000"
-            profileSettingsFontWeight="unset"
-            myPropertiesColor="#784dc6"
-            myPropertiesFontWeight="bold"
-          />
-        </div>
-        {properties.length > 0 ? (
-          <>
-            <div className={styles.statsContainer}>
-              <div className={styles.statCard}>
-                <h3>Total Properties Hosted</h3>
-                <p>{stats.totalHosted}</p>
-              </div>
-              <div className={styles.statCard}>
-                <h3>Total Properties Sold / Rented</h3>
-                <p>{stats.totalSoldOrRented}</p>
-              </div>
-              <div className={styles.statCard}>
-                <h3>Available Properties</h3>
-                <p>{stats.availableProperties}</p>
-              </div>
-            </div>
+      <main className={styles.mainContainer}>
+        <Sidebar
+          currentPage="user-properties0"
+          sidebarMarginLeft="unset"
+          profileSettingsColor="#000"
+          profileSettingsFontWeight="unset"
+          myPropertiesColor="#784dc6"
+          myPropertiesFontWeight="bold"
+        />
 
-            <div style={{ display: "flex", paddingRight: "2em" }}>
-              <div className={styles.popularfeatures}>
-                <section className={styles.popularProperties}>
-                  <div className={styles.listings}>
-                    {properties.map((property) => (
-                      <div key={property._id}>
-                        <BuilderPropertyCard
-                          title={property.title}
-                          city={property.city}
-                          price={property.price.toString()}
-                          area={property.area.toString()}
-                          pid={property._id}
-                        />
-                        <Link
-                          to={`/property-details-page/${property._id}`}
-                          className={styles.viewDetailsLink}
-                        >
-                          View Details
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
-                </section>
+        <div className={styles.content}>
+          {properties.length > 0 ? (
+            <>
+              <div className={styles.statsContainer}>
+                <div className={styles.statCard}>
+                  <h3>Total Properties Hosted</h3>
+                  <p>{stats.totalHosted}</p>
+                </div>
+                <div className={styles.statCard}>
+                  <h3>Total Properties Sold / Rented</h3>
+                  <p>{stats.totalSoldOrRented}</p>
+                </div>
+                <div className={styles.statCard}>
+                  <h3>Available Properties</h3>
+                  <p>{stats.availableProperties}</p>
+                </div>
               </div>
-            </div>
-          </>
-        ) : (
-          <div className={styles.emptyStateIllustration}>
+
+              <div className={styles.propertiesGrid}>
+                {properties.map((property) => (
+                  <div key={property._id} className={styles.cardWrapper}>
+                    <BuilderPropertyCard
+                      title={property.title}
+                      city={property.city}
+                      price={property.price.toString()}
+                      area={property.area.toString()}
+                      pid={property._id}
+                      imageUrl={property.image}
+                      onSoldUpdate={fetchProperties}
+                      status={property.status}
+                    />
+                    <Link
+                      to={`/property-details-page/${property._id}`}
+                      className={styles.viewDetailsLink}
+                    >
+                      View Details
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
             <div className={styles.emptyState}>
-              <div className={styles.illustrationContainer}>
+              <div className={styles.lottieWrapper}>
                 <LottieAnimation
                   animationLink="https://lottie.host/fc9fb0d0-1766-4e25-8483-ba9f9fa545f6/rNwcjg5a6Q.json"
-                  style={{ width: 500, height: 400 }}
+                  style={{ width: 400, height: 300 }}
                 />
               </div>
-              <div>
-                <div className={styles.emptyStateMessage}>
-                  <div className={styles.youHaventBought}>
-                    You haven’t bought or sold any property yet!
-                  </div>
-                </div>
-                <div className={styles.allTheProperties}>
-                  All the properties and projects that you have bought or sold
-                  will start appearing here. Search or explore cities now.
-                </div>
-              </div>
+              <h2>You haven’t bought or sold any property yet!</h2>
+              <p>
+                All the properties and projects that you have bought or sold
+                will start appearing here. Search or explore cities now.
+              </p>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </main>
     </div>
   );

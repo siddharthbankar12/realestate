@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 import styles from "./BuilderPropertyCard.module.css";
 
 export type PropertyCardType = {
@@ -9,7 +9,8 @@ export type PropertyCardType = {
   area: string;
   imageUrl?: string;
   className?: string;
-  propertyId: string; // Add propertyId to identify the property
+  status?: string;
+  onSoldUpdate?: () => void;
   onPropertyCardContainerClick?: () => void;
 };
 
@@ -21,13 +22,20 @@ const BuilderPropertyCard: FunctionComponent<PropertyCardType> = ({
   imageUrl = "/image-4@2x.png",
   className = "",
   pid,
-  onPropertyCardContainerClick,
+  status,
+  onSoldUpdate,
 }) => {
-  const [isSold, setIsSold] = useState(false);
+  const isSold = status?.toLowerCase() === "sold";
+
+  const formatPrice = (price: string) => {
+    const num = Number(price);
+    if (num >= 10000000) return `Rs. ${(num / 10000000).toFixed(1)} Cr`;
+    if (num >= 100000) return `Rs. ${(num / 100000).toFixed(1)} Lakh`;
+    return `Rs. ${num.toLocaleString()}`;
+  };
 
   const handleBuyNowClick = async () => {
     try {
-      console.log(pid);
       const response = await fetch(
         `http://localhost:8000/api/property/${pid}/sold`,
         {
@@ -42,7 +50,7 @@ const BuilderPropertyCard: FunctionComponent<PropertyCardType> = ({
         throw new Error("Failed to update property status");
       }
 
-      setIsSold(true);
+      onSoldUpdate && onSoldUpdate();
     } catch (error) {
       console.log("Error updating property status:", error);
     }
@@ -60,15 +68,11 @@ const BuilderPropertyCard: FunctionComponent<PropertyCardType> = ({
         className={styles.image}
         alt={title}
         src={imageUrl}
-        style={{
-          filter: isSold ? "blur(5px)" : "none",
-        }}
+        style={{ filter: isSold ? "blur(4px)" : "none" }}
       />
       <div
         className={styles.information}
-        style={{
-          filter: isSold ? "blur(5px)" : "none",
-        }}
+        style={{ filter: isSold ? "blur(4px)" : "none" }}
       >
         <div className={styles.title}>{title}</div>
         <div className={styles.frameParent}>
@@ -82,7 +86,7 @@ const BuilderPropertyCard: FunctionComponent<PropertyCardType> = ({
           </div>
           <div className={styles.details}>
             <div className={styles.area}>{area} acres</div>
-            <div className={styles.price}>Rs. {price}</div>
+            <div className={styles.price}>{formatPrice(price)}</div>
           </div>
         </div>
       </div>
@@ -90,7 +94,7 @@ const BuilderPropertyCard: FunctionComponent<PropertyCardType> = ({
         <div className={styles.soldWatermark}>SOLD</div>
       ) : (
         <button className={styles.check} onClick={handleBuyNowClick}>
-          Sold
+          Mark as Sold
         </button>
       )}
     </div>

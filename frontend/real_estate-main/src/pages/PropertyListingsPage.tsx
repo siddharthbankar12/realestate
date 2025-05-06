@@ -9,7 +9,7 @@ import styles from "./PropertyListingsPage.module.css";
 import Footer from "../components/Footer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Box, Typography } from "@mui/material"; // Importing Box component for styling
+import { Box, Typography } from "@mui/material";
 
 const PropertyListingsPage: FunctionComponent = () => {
   const [properties, setProperties] = useState<any[]>([]);
@@ -71,7 +71,6 @@ const PropertyListingsPage: FunctionComponent = () => {
 
         if (Array.isArray(result) && result.length === 0) {
           toast.warn("No properties found. Try another city.", {
-            position: "top-center",
             autoClose: 5000,
           });
         } else {

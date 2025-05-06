@@ -1,58 +1,125 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  /* min-height: 100vh; */
-  background-color: #fff;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  margin: 80px 0;
 }
 
-.contentArea {
+.contentWrapper {
   display: flex;
-  flex-direction: row;
-  flex: 1;
-  /* padding: 2rem; */
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-top: 90px;
+  gap: 30px;
+  margin-top: 20px;
+  flex-grow: 1;
 }
 
-.emptySection {
-  flex: 1;
+.sidebarWrapper {
+  background-color: #fff;
+  width: 270px;
+  border-radius: 15px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  height: 100%;
+}
+
+.tableWrapper {
+  flex-grow: 1;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  text-align: center;
-  padding: 2rem;
-  max-width: 600px;
+  gap: 20px;
 }
 
-.message {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-top: 1.5rem;
-  color: #333;
+.pageTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2d3a46;
+  margin-bottom: 20px;
+}
+
+.searchTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f9f9f9;
+}
+
+.searchTable th,
+.searchTable td {
+  padding: 15px 25px;
+  text-align: left;
+  font-family: "Roboto", sans-serif;
+}
+
+.searchTable th {
+  background-color: #0078d4;
+  color: white;
+  font-size: 16px;
+}
+
+.searchTable td {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  color: #555;
+}
+
+.searchTable tr:hover td {
+  background-color: #f1f1f1;
+}
+
+.searchTable tr:last-child td {
+  border-bottom: none;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 60px;
+}
+
+.noSearchMessage {
+  font-size: 18px;
+  color: #6c757d;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Loading state */
+.loadingWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 20px;
+  font-weight: 500;
+  color: #555;
 }
 
 @media (max-width: 768px) {
-  .contentArea {
+  .contentWrapper {
     flex-direction: column;
-    align-items: center;
-    padding: 1rem;
+    gap: 15px;
   }
 
-  .message {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .message {
-    font-size: 0.95rem;
+  .tableWrapper {
+    padding: 15px;
   }
 
-  .emptySection {
-    padding: 1rem;
+  .searchTable th,
+  .searchTable td {
+    padding: 10px 15px;
+  }
+
+  .noSearchMessage {
+    font-size: 16px;
   }
 }

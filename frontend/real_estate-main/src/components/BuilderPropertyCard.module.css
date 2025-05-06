@@ -1,115 +1,128 @@
-/* * { border: 1px solid green; } */
+.propertyCard {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+  position: relative;
+  margin: 1rem auto;
+}
 
-* {
-    box-sizing: border-box;
-    text-decoration: none;
-  }
-  
+.propertyCard:hover {
+  transform: translateY(-5px);
+}
+
+.image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.information {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.frameParent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+}
+
+.mapPinIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+}
+
+.city {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.details {
+  text-align: right;
+}
+
+.area {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.check {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #6c5ce7;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-top: 1px solid #eee;
+}
+
+.check:hover {
+  background-color: #5a4fcf;
+}
+
+.soldWatermark {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: crimson;
+  color: #fff;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.sold {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@media screen and (max-width: 768px) {
   .propertyCard {
-    width: 260px;
-    height: 320px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    color: black;
-    font-family: var(--font-montserrat);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    border-radius: 25px;
-    font-size: 18px; 
+    max-width: 95%;
   }
-  
-  .propertyCard > * {
-    width: 100%;
-  }
-  
-  .image {
-    width: 80%;
-    object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
-  }
-  
-  .information {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    cursor: pointer;
-    margin-top: 20px;
-    height: 100%;
-  }
-  
-  .title {
-    font-weight: 500;
-  }
-  
-  .frameParent {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 14px;
-  }
-  
-  .location {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-  }
-  
-  .mapPinIcon {
-    height: 25px;
-    width: 25px;
-  }
-  
-  .city {
-    width: 100px;
-  }
-  
-  .details {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: end;
-  }
-  
-/* Add styles for the sold button and watermark */
 
-.soldButton1 {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+  .title {
+    font-size: 1.1rem;
   }
-  
-  .soldButton:hover {
-    background-color: #f0f0f0;
+
+  .price {
+    font-size: 0.95rem;
   }
-  
-  .sold {
-    filter: blur(2px); /* Blur the card when it's sold */
+
+  .area,
+  .city {
+    font-size: 0.85rem;
   }
-  
-  .soldWatermark {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 48px;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }  
-  .check{
-    padding: 5px 10px;
-    width: 50%;
-    margin-top: 10px;
+
+  .check {
+    font-size: 0.95rem;
+    padding: 10px 0;
   }
+}

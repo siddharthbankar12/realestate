@@ -2,7 +2,7 @@ import { FunctionComponent, useCallback, useState } from "react";
 import PasswordInput from "./PasswordInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "./Content1.module.css";
 
@@ -80,7 +80,6 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
           </button>
         </div>
       </form>
-     
     </section>
   );
 };

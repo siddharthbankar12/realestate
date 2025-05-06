@@ -2,7 +2,7 @@ import React, { FunctionComponent, useState } from "react";
 import styles from "./LoginPopup.module.css";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 type LoginPopupProps = {
   onClose: () => void;

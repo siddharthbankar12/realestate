@@ -12,7 +12,7 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Fab from "@mui/material/Fab";
 import Fade from "@mui/material/Fade";
 import StraightSharpIcon from "@mui/icons-material/StraightSharp";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -87,29 +87,13 @@ const Properties = (props) => {
       const result = await response.json();
 
       if (Array.isArray(result) && result.length === 0) {
-        toast.warn("No properties found. Try another city.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.warn("No properties found. Try another city.");
       } else {
         setProperties(result);
       }
     } catch (error) {
       console.error("Error fetching property cards:", error.message);
-      toast.error("Error fetching properties. Please try again later.", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error("Error fetching properties. Please try again later.");
     }
   };
   const Params = new URLSearchParams(location.search);
