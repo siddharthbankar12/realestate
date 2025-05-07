@@ -38,6 +38,14 @@ const Userschema = new mongoose.Schema({
   landlineNumber: {
     type: String,
   },
+  saveProperties: [
+    {
+      propertyId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Property",
+      },
+    },
+  ],
 });
 const User = mongoose.model("User", Userschema);
 

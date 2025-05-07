@@ -36,7 +36,8 @@ loginRouter.post("/login", async (request, response) => {
       address: user.address,
       landlineNumber: user.landlineNumber,
       image: user.image,
-      _id: user._id, // Include _id to make sure it's in the token
+      saveProperties: user.saveProperties,
+      _id: user._id,
     };
 
     console.log(user._id);

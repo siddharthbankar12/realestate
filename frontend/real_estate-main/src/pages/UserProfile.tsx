@@ -24,6 +24,7 @@ const UserProfile: React.FC = () => {
     city: "City",
     address: "Address",
     landlineNumber: "0000000000",
+    saveProperties: [],
   });
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -45,7 +46,7 @@ const UserProfile: React.FC = () => {
     if (token) {
       try {
         const decoded: any = jwtDecode(token);
-        console.log(decoded); // You can remove this after testing
+        // console.log(decoded);
 
         setInputValues({
           role: decoded.role || "User",
@@ -56,6 +57,7 @@ const UserProfile: React.FC = () => {
           city: decoded.city || "",
           address: decoded.address || "",
           landlineNumber: decoded.landlineNumber || "",
+          saveProperties: decoded.saveProperties || [],
         });
 
         setSelectedImage(decoded.image);
@@ -191,6 +193,7 @@ const UserProfile: React.FC = () => {
 
   useEffect(() => {
     localStorage.setItem("userProfile", JSON.stringify(inputValues));
+    // console.log(inputValues, "inputValues");
   }, [inputValues]);
 
   const handleButtonClick = () => {
@@ -230,7 +233,6 @@ const UserProfile: React.FC = () => {
   }, []);
 
   const handleDeleteConfirm = useCallback(() => {
-    // Add API call here if needed
     localStorage.clear();
     navigate("/");
   }, [navigate]);
@@ -240,13 +242,13 @@ const UserProfile: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Validation Errors: ", validationErrors);
+    // console.log("Validation Errors: ", validationErrors);
     setIsRequiredFilled(Object.keys(validationErrors).length === 0);
   }, [validationErrors]);
 
-  console.log("userId:", userId);
-  console.log(inputValues);
-  console.log(selectedImage);
+  // console.log("userId:", userId);
+  // console.log(inputValues, "inputValues");
+  // console.log(selectedImage);
 
   return (
     <div className={styles.userProfile}>

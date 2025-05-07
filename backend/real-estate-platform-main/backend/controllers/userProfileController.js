@@ -111,8 +111,6 @@ const userPastHistory = async (req, res) => {
   }
 };
 
-module.exports = userPastHistory;
-
 const saveSearchHistory = async (req, res) => {
   try {
     const { search_text, userId } = req.body;
@@ -163,9 +161,130 @@ const saveSearchHistory = async (req, res) => {
   }
 };
 
+const saveProperty = async (req, res) => {
+  try {
+    const { propertyId, userId } = req.body;
+
+    if (!userId || !propertyId) {
+      return res
+        .status(400)
+        .json({ error: "User ID and Property ID are required" });
+    }
+
+    const user = await User.findById(userId).populate(
+      "saveProperties.propertyId"
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (!Array.isArray(user.saveProperties)) {
+      user.saveProperties = [];
+    }
+
+    const alreadySaved = user.saveProperties.some(
+      (p) => p.propertyId._id.toString() === propertyId.toString()
+    );
+
+    if (alreadySaved) {
+      return res.status(200).json({
+        message: "Property already saved",
+        saveProperties: user.saveProperties,
+      });
+    }
+
+    user.saveProperties.push({ propertyId });
+    await user.save();
+
+    // Re-populate after save
+    await user.populate("saveProperties.propertyId");
+
+    return res.status(200).json({
+      message: "Property saved successfully",
+      saveProperties: user.saveProperties,
+    });
+  } catch (error) {
+    console.error("Error saving property:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const removeSavedProperty = async (req, res) => {
+  try {
+    const { userId, propertyId } = req.params;
+
+    if (!userId || !propertyId) {
+      return res
+        .status(400)
+        .json({ error: "User ID and Property ID are required" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Ensure saveProperties array exists or initialize it
+    if (!Array.isArray(user.saveProperties)) {
+      user.saveProperties = [];
+    }
+
+    const initialLength = user.saveProperties.length;
+
+    // Remove the saved property
+    user.saveProperties = user.saveProperties.filter(
+      (p) => p.propertyId.toString() !== propertyId.toString()
+    );
+
+    // If no property was removed, return a message
+    if (user.saveProperties.length === initialLength) {
+      return res
+        .status(404)
+        .json({ message: "Property not found in saved list" });
+    }
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Property removed successfully",
+      saveProperties: user.saveProperties,
+    });
+  } catch (error) {
+    console.error("Error removing saved property:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const getUserSavedProperties = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // console.log(userId);
+
+    const user = await User.findById(userId).populate(
+      "saveProperties.propertyId"
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      saveProperties: user.saveProperties,
+    });
+  } catch (error) {
+    console.error("Error fetching saved properties:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   getUserProfile,
   updateUserProfile,
   saveSearchHistory,
   userPastHistory,
+  saveProperty,
+  removeSavedProperty,
+  getUserSavedProperties,
 };

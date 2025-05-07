@@ -1,10 +1,16 @@
- /* * { border: 1px solid green; } */
+/* * { border: 1px solid green; } */
 
- .breadcrumb {
-    font-family: var(--font-montserrat);
-    width: 100%; 
-    font-size: 16px;
-    font-weight: 600;
+.breadcrumb {
+  font-family: var(--font-montserrat);
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ratingANDsave {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .PropertyDetails *,
@@ -13,182 +19,182 @@
 .Description *,
 .FacilitiesAmenities *,
 .Location * {
-    font-family: var(--font-montserrat);
+  font-family: var(--font-montserrat);
 }
 
 .Description,
 .FacilitiesAmenities,
 .Location {
-    width: 100%;
-    padding: 4vw 8vw;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+  width: 100%;
+  padding: 4vw 8vw;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .heading {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    font-size: 30px;
-    font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 30px;
+  font-weight: 600;
 }
 
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .Details {
-    width: 100%;
-    padding: 8vw 8vw 0vw 8vw;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+  width: 100%;
+  padding: 8vw 8vw 0vw 8vw;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .verify {
-    height: 30px;
+  height: 30px;
 }
 
 .title {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .propertyname {
-    font-size: 30px;
-    font-weight: 600;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
+  font-size: 30px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
 }
 
 .details {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0px;
-    font-size: 18px;
-    line-height: 20px;
-    gap: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0px;
+  font-size: 18px;
+  line-height: 20px;
+  gap: 5px;
 }
 
 i {
-    line-height: 20px;
-    padding: 5px;
+  line-height: 20px;
+  padding: 5px;
 }
 
-.ratings {    
-    align-self: flex-start;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    line-height: 40px;
+.ratings {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  line-height: 40px;
 }
 
 .stars {
-    font-size: 25px;
-    color: yellow;              
-    -webkit-text-stroke: 0.5px black;
-    padding: 0px 5px;
+  font-size: 25px;
+  color: yellow;
+  -webkit-text-stroke: 0.5px black;
+  padding: 0px 5px;
 }
 
-.reviews{
-    font-size: 20px;
+.reviews {
+  font-size: 20px;
 }
 
 .Gallery {
-    width: 100vw;
-    padding: 2vw 8vw 0vw ;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+  width: 100vw;
+  padding: 2vw 8vw 0vw;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .images {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden; 
-    gap: 5px;
-    scroll-snap-type: x mandatory;
-    padding: 10px 0;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 5px;
+  scroll-snap-type: x mandatory;
+  padding: 10px 0;
 }
 
 .image {
-    flex: 0 0 400px;  
-    height: 400px;  
-    object-fit: cover;  
-    scroll-snap-align: start; 
+  flex: 0 0 400px;
+  height: 400px;
+  object-fit: cover;
+  scroll-snap-align: start;
 }
 
 .PropertyDetails {
-    display: flex;
-    flex: column;
+  display: flex;
+  flex: column;
 }
 
 .left {
-    width: 60%;
+  width: 60%;
 }
 
 .right {
-    width: 40%;
+  width: 40%;
 }
-.right1{
-    margin-top: 30px;
-    margin-right: 90px;
+.right1 {
+  margin-top: 30px;
+  margin-right: 90px;
 }
 
 .describe {
-    font-size: 18px;
-    line-height: 30px;
+  font-size: 18px;
+  line-height: 30px;
 }
 
 .gridContainer {
-    font-size: 18px;
-    line-height: 30px; 
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 10px; 
-    align-items: center;
+  font-size: 18px;
+  line-height: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  align-items: center;
 }
 
-.gridItem  {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+.gridItem {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .img {
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
 }
 
 .address {
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  gap: 20px;
 }
 
 .mapicon {
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
 }
 
 .map {
-    height: 500px;
-    width: 100%;
-    border: none;
+  height: 500px;
+  width: 100%;
+  border: none;
 }

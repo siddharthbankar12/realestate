@@ -60,10 +60,11 @@ usersRouter.post(
       password: passwordHash,
       role,
       image: coverImage?.url || "",
-      city: city || "City", // Default value if not provided
-      state: state || "State", // Default value if not provided
-      address: address || "Address", // Default value if not provided
-      landlineNumber: landlineNumber || "0000000000", // Default value if not provided
+      city: city || "City",
+      state: state || "State",
+      address: address || "Address",
+      landlineNumber: landlineNumber || "0000000000",
+      saveProperties: [],
     });
 
     try {
