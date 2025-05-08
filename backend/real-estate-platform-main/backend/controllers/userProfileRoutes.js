@@ -8,6 +8,7 @@ const {
   saveProperty,
   getUserSavedProperties,
   removeSavedProperty,
+  previousView,
 } = require("../controllers/userProfileController.js");
 const { upload } = require("../middleware/multer.middleware.js");
 const { authenticate } = require("../middleware/auth.js");
@@ -22,5 +23,6 @@ router.delete(
   removeSavedProperty
 );
 router.get("/:userId/saved-properties", getUserSavedProperties);
+router.post("/previous-view", previousView);
 
 module.exports = router;

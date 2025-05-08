@@ -5,6 +5,7 @@ import styles from "./PropertyDetailsPage.module.css";
 import PropertyDetails from "../components/PropertyDetails";
 import SimilarProperties from "../components/SimilarProperties";
 import Footer from "../components/Footer";
+import { jwtDecode } from "jwt-decode";
 
 interface Property {
   _id: string;
@@ -28,6 +29,8 @@ const PropertyDetailsPage: FunctionComponent = () => {
   const { property_id } = useParams<{ property_id: string }>();
   const [property, setProperty] = useState<Property | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const token = localStorage.getItem("authToken");
+  const decoded = jwtDecode(token);
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -42,7 +45,19 @@ const PropertyDetailsPage: FunctionComponent = () => {
 
         const result = await response.json();
         setProperty(result.property);
-        console.log(property);
+
+        if (decoded._id && property_id) {
+          await fetch(`http://localhost:8000/api/user-update/previous-view/`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: decoded._id,
+              propertyId: property_id,
+            }),
+          });
+        }
       } catch (error) {
         console.error("Error fetching property details:", error);
         setError("Failed to fetch property details");

@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.js");
-const Search = require("../models/SearchHistory.js");
 
 const getUserProfile = async (req, res) => {
   try {
@@ -96,18 +95,16 @@ const userPastHistory = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    const userSearchHistory = await Search.findOne({ user_id: userId });
+    const userData = await User.findById(userId);
 
-    if (!userSearchHistory) {
-      return res
-        .status(404)
-        .json({ message: "No search history found for this user" });
+    if (!userData) {
+      return res.status(404).json({ message: "No user found" });
     }
 
-    res.status(200).json(userSearchHistory.searches);
+    return res.status(200).json(userData.searches);
   } catch (error) {
     console.error("Error fetching user search history:", error);
-    res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -124,11 +121,11 @@ const saveSearchHistory = async (req, res) => {
     const roundedNow = new Date(now);
     roundedNow.setSeconds(0, 0);
 
-    let userSearchDoc = await Search.findOne({ user_id: userId });
+    let userSearchDoc = await User.findById(userId);
 
     if (!userSearchDoc) {
-      userSearchDoc = new Search({
-        user_id: userId,
+      userSearchDoc = new User({
+        ...userSearchDoc,
         searches: [{ search_text, search_datetime: roundedNow }],
       });
       await userSearchDoc.save();
@@ -279,6 +276,53 @@ const getUserSavedProperties = async (req, res) => {
   }
 };
 
+const previousView = async (req, res) => {
+  try {
+    const { userId, propertyId } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ error: "User ID is required" });
+    }
+
+    const user = await User.findById(userId).populate(
+      "previousView.propertyId"
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (!Array.isArray(user.previousView)) {
+      user.previousView = [];
+    }
+
+    if (propertyId) {
+      const alreadyViewed = user.previousView.some(
+        (view) => view.propertyId._id.toString() === propertyId.toString()
+      );
+
+      if (!alreadyViewed) {
+        user.previousView.push({ propertyId });
+        await user.save();
+        await user.populate("previousView.propertyId");
+      }
+
+      return res.status(200).json({
+        message: "Property added to previous views",
+        previousView: user.previousView,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Previously viewed properties fetched successfully",
+      previousView: user.previousView,
+    });
+  } catch (error) {
+    console.error("Error in previousView:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
   getUserProfile,
   updateUserProfile,
@@ -287,4 +331,5 @@ module.exports = {
   saveProperty,
   removeSavedProperty,
   getUserSavedProperties,
+  previousView,
 };
