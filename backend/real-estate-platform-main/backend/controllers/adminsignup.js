@@ -1,10 +1,10 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const adminsignuprouter = new express.Router();
+const adminSignupRouter = new express.Router();
 const Admin = require("../models/Admin");
 const { authenticate, authorizeAdmin } = require("../middleware/auth");
 
-adminsignuprouter.post(
+adminSignupRouter.post(
   "/signup",
   authenticate,
   authorizeAdmin,
@@ -46,7 +46,7 @@ adminsignuprouter.post(
   }
 );
 
-adminsignuprouter.get("/", authenticate, authorizeAdmin, async (req, res) => {
+adminSignupRouter.get("/", authenticate, authorizeAdmin, async (req, res) => {
   try {
     const admins = await Admin.find()
       .populate("buyersId", "name email")
@@ -59,7 +59,7 @@ adminsignuprouter.get("/", authenticate, authorizeAdmin, async (req, res) => {
   }
 });
 
-adminsignuprouter.delete(
+adminSignupRouter.delete(
   "/:id",
   authenticate,
   authorizeAdmin,
@@ -79,4 +79,4 @@ adminsignuprouter.delete(
   }
 );
 
-module.exports = adminsignuprouter;
+module.exports = adminSignupRouter;

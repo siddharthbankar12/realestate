@@ -283,52 +283,56 @@ const AdminDashboard = () => {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className={styles.adminDashboard}>
-        <AdminSideBar
-          activeSection={activeSection}
-          handleSectionChange={handleSectionChange}
-          handleShowModal={handleShowModal}
-          handleLogout={handleLogout}
-        />
+    <div style={{ backgroundColor: "#f5f7fa" }}>
+      <div style={{ padding: "20px 0" }}>
+        <Navbar />
+        <div className={styles.adminDashboard}>
+          <AdminSideBar
+            activeSection={activeSection}
+            handleSectionChange={handleSectionChange}
+            handleShowModal={handleShowModal}
+            handleLogout={handleLogout}
+          />
 
-        <div className={styles.content}>
-          {activeSection === "adminProfile" && adminProfile && (
-            <AdminProfile adminProfile={adminProfile} />
-          )}
-          {activeSection === "adminDashUserDetails" && <AdminDashUserDetails />}
-          {activeSection === "appointments" && (
-            <AdminAppointment
-              appointments={appointments}
-              loading={loading}
-              error={error}
-              handleRemoveAppointment={handleRemoveAppointment}
-            />
-          )}
-          {activeSection === "propertyVerification" && (
-            <AdminPropertyVerification
-              properties={properties}
-              loading={loading}
-              error={error}
-              handleAcceptProperty={handleAcceptProperty}
-              handleRejectProperty={handleRejectProperty}
-            />
-          )}
-          {activeSection === "reviews" && <AdminReviews reviews={reviews} />}
-          {activeSection === "adminsList" && (
-            <AdminList
-              admins={admins}
-              onAddAdminClick={handleShowModal}
-              handleRemoveAdmin={handleRemoveAdmin}
-              loading={loading}
-              error={error}
-            />
-          )}
+          <div className={styles.content}>
+            {activeSection === "adminProfile" && adminProfile && (
+              <AdminProfile adminProfile={adminProfile} />
+            )}
+            {activeSection === "adminDashUserDetails" && (
+              <AdminDashUserDetails adminProfile={adminProfile} />
+            )}
+            {activeSection === "appointments" && (
+              <AdminAppointment
+                appointments={appointments}
+                loading={loading}
+                error={error}
+                handleRemoveAppointment={handleRemoveAppointment}
+              />
+            )}
+            {activeSection === "propertyVerification" && (
+              <AdminPropertyVerification
+                properties={properties}
+                loading={loading}
+                error={error}
+                handleAcceptProperty={handleAcceptProperty}
+                handleRejectProperty={handleRejectProperty}
+              />
+            )}
+            {activeSection === "reviews" && <AdminReviews reviews={reviews} />}
+            {activeSection === "adminsList" && (
+              <AdminList
+                admins={admins}
+                onAddAdminClick={handleShowModal}
+                handleRemoveAdmin={handleRemoveAdmin}
+                loading={loading}
+                error={error}
+              />
+            )}
+          </div>
+          <Modal show={showModal} handleClose={handleCloseModal} />
         </div>
-        <Modal show={showModal} handleClose={handleCloseModal} />
       </div>
-    </>
+    </div>
   );
 };
 

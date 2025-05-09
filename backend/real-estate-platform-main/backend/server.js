@@ -1,16 +1,25 @@
 const express = require("express");
 const app = express();
+
 const usersRouter = require("./controllers/newuser");
 const loginRouter = require("./controllers/login");
-const { AdminRouter, AdminUpdateRouter } = require("./controllers/adminlogin");
-
-const adminsignuprouter = require("./controllers/adminsignup");
+const {
+  AdminRouter,
+  AdminUpdateRouter,
+  AdminDashUsersDetail,
+} = require("./controllers/adminlogin");
+const adminSignupRouter = require("./controllers/adminsignup");
 const userProfileRoutes = require("./controllers/userProfileRoutes.js");
+const propertyRoutes = require("./controllers/propertyRoutes");
+const propertyImageRoutes = require("./controllers/propertyImageRoutes");
+const testimonialRoutes = require("./controllers/testimonialRoutes");
+const emailVerification = require("./controllers/emailVerification");
+const Appointment = require("./controllers/Appointment");
 
+require("dotenv").config();
 const mongoDB = require("./db");
 const cors = require("cors");
 const path = require("path");
-require("dotenv").config();
 
 const port = process.env.PORT || 8000;
 
@@ -26,15 +35,16 @@ app.use("/api/users", loginRouter);
 app.use("/api/user-update", userProfileRoutes);
 app.use("/api/admin/login", AdminRouter);
 app.use("/api/admin/update", AdminUpdateRouter);
-app.use("/api/admin", adminsignuprouter);
-app.use("/api", require("./controllers/propertyRoutes"));
-app.use("/api", require("./controllers/propertyImageRoutes"));
-app.use("/api/testimonials", require("./controllers/testimonialRoutes"));
-app.use("/api", require("./controllers/emailVerification"));
-app.use("/api", require("./controllers/Appointment"));
+app.use("/api/admin/users-details", AdminDashUsersDetail);
+app.use("/api/admin", adminSignupRouter);
+app.use("/api", propertyRoutes);
+app.use("/api", propertyImageRoutes);
+app.use("/api/testimonials", testimonialRoutes);
+app.use("/api", emailVerification);
+app.use("/api", Appointment);
 
 // Static file access
-app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve uploaded images
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // General error handling middleware
 app.use((err, req, res, next) => {
