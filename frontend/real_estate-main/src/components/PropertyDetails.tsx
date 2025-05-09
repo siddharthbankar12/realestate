@@ -43,7 +43,7 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
   const handleSaveProperty = async () => {
     try {
       if (!userId) {
-        toast.error("Please log in to save properties");
+        toast.warn("Please log in to save properties");
         return;
       }
 

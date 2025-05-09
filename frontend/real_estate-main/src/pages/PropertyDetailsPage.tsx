@@ -29,8 +29,17 @@ const PropertyDetailsPage: FunctionComponent = () => {
   const { property_id } = useParams<{ property_id: string }>();
   const [property, setProperty] = useState<Property | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  let decoded: { _id?: string } = {};
   const token = localStorage.getItem("authToken");
-  const decoded = jwtDecode(token);
+
+  if (token && typeof token === "string") {
+    try {
+      decoded = jwtDecode(token);
+    } catch (e) {
+      console.error("Invalid token:", e);
+    }
+  }
 
   useEffect(() => {
     const fetchProperty = async () => {

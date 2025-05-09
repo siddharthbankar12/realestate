@@ -120,7 +120,7 @@ const UserProperties: FunctionComponent = () => {
               <div className={styles.lottieWrapper}>
                 <LottieAnimation
                   animationLink="https://lottie.host/fc9fb0d0-1766-4e25-8483-ba9f9fa545f6/rNwcjg5a6Q.json"
-                  style={{ width: 400, height: 300 }}
+                  style={{ width: 400, height: 350 }}
                 />
               </div>
               <h2>You haven’t bought or sold any property yet!</h2>
