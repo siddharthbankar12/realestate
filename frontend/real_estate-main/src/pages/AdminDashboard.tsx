@@ -12,6 +12,7 @@ import AdminReviews from "../components/AdminReviews";
 import AdminSideBar from "../components/AdminSideBar";
 import AdminList from "../components/AdminList";
 import AdminProfile from "../components/AdminProfile";
+import AdminDashUserDetails from "../components/AdminDashUserDetails";
 
 // interface Appointment {
 //   _id: string;
@@ -296,6 +297,7 @@ const AdminDashboard = () => {
           {activeSection === "adminProfile" && adminProfile && (
             <AdminProfile adminProfile={adminProfile} />
           )}
+          {activeSection === "adminDashUserDetails" && <AdminDashUserDetails />}
           {activeSection === "appointments" && (
             <AdminAppointment
               appointments={appointments}

@@ -55,7 +55,9 @@ const OtpPopup: FunctionComponent<OtpPopupProps> = ({
         <p>Please enter it below to complete your registration.</p>
         <form onSubmit={handleVerifyOtp}>
           <div className={styles.section}>
-            <label htmlFor="otp">OTP</label>
+            <label htmlFor="otp" style={{ textAlign: "center" }}>
+              OTP
+            </label>
             <input
               type="text"
               id="otp"

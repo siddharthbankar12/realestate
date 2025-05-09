@@ -86,7 +86,7 @@ const UserPreviouslyViewed: FunctionComponent = () => {
             <div className={styles.emptySection}>
               <LottieAnimation
                 animationLink="https://lottie.host/fc9fb0d0-1766-4e25-8483-ba9f9fa545f6/rNwcjg5a6Q.json"
-                style={{ width: "300px", height: "auto" }}
+                style={{ width: "300px", height: "auto", margin: "0 auto" }}
               />
               <p className={styles.emptyMessage}>
                 You haven’t viewed anything yet
