@@ -68,6 +68,14 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({
       >
         Admins
       </div>
+      <div
+        className={`${styles.sidebarText} ${
+          activeSection === "staffManagement" ? styles.activeSidebarText : ""
+        }`}
+        onClick={() => handleSectionChange("staffManagement")}
+      >
+        Staff Management
+      </div>
 
       <button onClick={handleLogout} className={styles.logoutButton}>
         Logout

@@ -1,5 +1,4 @@
-import { FunctionComponent, useCallback, useState } from "react";
-import PasswordInput from "./PasswordInput";
+import { FunctionComponent, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -31,11 +30,8 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
       const response = await axios.post(baseUrl, loginCredentials);
       const token = response.data.token;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
       localStorage.setItem("authToken", token);
       toast.success("Login Successful");
-
-      console.log(response.data);
       navigate("/admin-dashboard");
     } catch (error) {
       toast.error("Login failed");
@@ -44,43 +40,51 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
   };
 
   return (
-    <section className={[styles.content, className].join(" ")}>
-      <form className={styles.rectangleParent} onSubmit={onSubmitButtonClick}>
-        <div className={styles.frameChild} />
-        <div className={styles.adminLoginHeader}>
-          <div className={styles.adminLogin}>Admin Login</div>
-        </div>
-        <div className={styles.adminLoginForm}>
-          <div className={styles.adminCredentials}>
-            <div className={styles.adminIdInput}>
-              <div className={styles.adminId}>Admin Id</div>
-              <div className={styles.adminIdField}>
-                <div className={styles.adminIdFieldChild} />
-                <input
-                  className={styles.adminId1}
-                  placeholder="Admin Id"
-                  type="text"
-                  name="adminId"
-                  value={loginCredentials.adminId}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
+    <div className={`${styles.containerContent} ${className}`}>
+      <div className={styles.leftPanel}>
+        <img src="/logo.png" alt="Company Logo" className={styles.logo} />
+        <h1 className={styles.companyName}>Real Estate Admin</h1>
+        <p className={styles.tagline}>Manage Your Properties Efficiently</p>
+      </div>
+
+      <div className={styles.rightPanel}>
+        <form className={styles.loginForm} onSubmit={onSubmitButtonClick}>
+          <h2 className={styles.heading}>Admin Portal</h2>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="adminId">Admin ID</label>
+            <input
+              id="adminId"
+              name="adminId"
+              type="text"
+              placeholder="Enter Admin ID"
+              value={loginCredentials.adminId}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
           </div>
-          <PasswordInput
-            password={loginCredentials.password}
-            passwordPlaceholder="Password"
-            handleChange={handleChange}
-          />
-        </div>
-        <div className={styles.submitButtonContainer}>
-          <button className={styles.submitButton} type="submit">
-            <div className={styles.submitButtonChild} />
-            <div className={styles.logIn}>LOG IN</div>
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Enter Password"
+              value={loginCredentials.password}
+              onChange={handleChange}
+              required
+              className={styles.input}
+            />
+          </div>
+
+          <button type="submit" className={styles.button}>
+            Log In
           </button>
-        </div>
-      </form>
-    </section>
+        </form>
+      </div>
+    </div>
   );
 };
 

@@ -1,191 +1,136 @@
-.frameChild {
-    width: 440px;
-    height: 423px;
-    position: relative;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: var(--br-13xl);
-    background-color: var(--color-white);
-    border: 1px solid var(--color-black);
-    box-sizing: border-box;
-    display: none;
-    max-width: 100%;
+.containerContent {
+  display: flex;
+  width: 100%;
+  min-height: 100dvh;
+  font-family: sans-serif;
+  background: #003973;
+  background: -webkit-linear-gradient(to left, #e5e5be, #003973);
+  background: linear-gradient(to left, #e5e5be, #003973);
+  flex-direction: row;
+}
+
+/* Left Panel */
+.leftPanel {
+  flex: 1;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.logo {
+  width: 250px;
+  max-width: 90%;
+  margin-bottom: 20px;
+}
+
+.companyName {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  font-size: 1rem;
+  color: #ccc;
+}
+
+/* Right Panel */
+.rightPanel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.loginForm {
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputGroup label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #125ea8;
+}
+
+@media (max-width: 768px) {
+  .containerContent {
+    flex-direction: column;
   }
-  .adminLogin {
-    flex: 1;
-    position: relative;
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    font-family: var(--font-montserrat);
-    color: var(--color-black);
-    text-align: center;
-    z-index: 1;
-  }
-  .adminLoginHeader {
-    align-self: stretch;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding: 0 var(--padding-34xl) 0 var(--padding-36xl);
-  }
-  .adminId {
-    width: 136px;
-    position: relative;
-    font-size: var(--font-size-xs);
-    font-family: var(--font-inter);
-    color: var(--color-black);
-    text-align: left;
-    display: inline-block;
-    z-index: 1;
-  }
-  .adminIdFieldChild {
-    height: 42px;
-    width: 295px;
-    position: relative;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: var(--br-11xs);
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray-500);
-    box-sizing: border-box;
-    display: none;
-  }
-  .adminId1 {
+
+  .leftPanel,
+  .rightPanel {
+    flex: none;
     width: 100%;
-    border: 0;
-    outline: 0;
-    font-family: var(--font-montserrat);
-    font-size: var(--font-size-xl);
-    background-color: transparent;
-    height: 24px;
-    flex: 1;
-    position: relative;
-    color: var(--color-gray-200);
-    text-align: left;
-    display: inline-block;
-    min-width: 165px;
-    padding: 0;
-    z-index: 2;
   }
-  .adminIdField {
-    align-self: stretch;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: var(--br-11xs);
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray-500);
-    flex-direction: row;
-    padding: var(--padding-6xs) var(--padding-6xs) var(--padding-6xs)
-      var(--padding-2xs);
-    z-index: 1;
+
+  .logo {
+    width: 180px;
   }
-  .adminCredentials,
-  .adminIdField,
-  .adminIdInput,
-  .adminLoginForm {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
+
+  .loginForm {
+    padding: 30px 20px;
+    margin-top: 20px;
   }
-  .adminIdInput {
-    flex: 1;
-    flex-direction: column;
-    gap: var(--gap-2xs);
+}
+
+@media (max-width: 480px) {
+  .companyName {
+    font-size: 1.5rem;
   }
-  .adminCredentials,
-  .adminLoginForm {
-    align-self: stretch;
-    flex-direction: row;
-    padding: 0 0 0 var(--padding-11xs);
+
+  .tagline {
+    font-size: 0.9rem;
   }
-  .adminLoginForm {
-    flex-direction: column;
-    padding: 0 0 var(--padding-4xl);
-    gap: var(--gap-3xl);
+
+  .loginForm {
+    padding: 20px 15px;
   }
-  .submitButtonChild {
-    height: 44px;
-    width: 195px;
-    position: relative;
-    border-radius: var(--br-24xl);
-    background: linear-gradient(90deg, #2697e0, #784dc6);
-    display: none;
+
+  .input {
+    padding: 8px;
   }
-  .logIn {
-    flex: 1;
-    position: relative;
-    font-size: var(--font-size-xs);
-    font-family: var(--font-montserrat);
-    color: var(--color-white);
-    text-align: center;
-    z-index: 1;
+
+  .button {
+    padding: 10px;
   }
-  .submitButton,
-  .submitButtonContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-  }
-  .submitButton {
-    cursor: pointer;
-    border: 0;
-    padding: var(--padding-sm) var(--padding-12xl) var(--padding-2xs);
-    background-color: transparent;
-    flex: 1;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: var(--br-24xl);
-    background: linear-gradient(90deg, #2697e0, #784dc6);
-    justify-content: flex-start;
-    white-space: nowrap;
-    z-index: 1;
-  }
-  .submitButtonContainer {
-    align-self: stretch;
-    justify-content: flex-end;
-    padding: 0 var(--padding-29xl) 0 var(--padding-36xl);
-  }
-  .content,
-  .rectangleParent {
-    display: flex;
-    box-sizing: border-box;
-    max-width: 100%;
-  }
-  .rectangleParent {
-    margin-top: 100px;;
-    width: 440px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: var(--br-13xl);
-    background-color: var(--color-white);
-    border: 1px solid var(--color-black);
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-start;
-    padding: var(--padding-27xl) var(--padding-51xl) var(--padding-40xl);
-    gap: var(--gap-16xl);
-  }
-  .content {
-    align-self: stretch;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 0 var(--padding-3xl) 0 var(--padding-xl);
-  }
-  @media screen and (max-width: 450px) {
-    .adminLoginHeader {
-      padding-left: var(--padding-xl);
-      padding-right: var(--padding-xl);
-      box-sizing: border-box;
-    }
-    .adminId1 {
-      font-size: var(--font-size-base);
-    }
-    .submitButtonContainer {
-      padding-left: var(--padding-xl);
-      padding-right: var(--padding-xl);
-      box-sizing: border-box;
-    }
-    .rectangleParent {
-      gap: var(--gap-mid);
-      padding: var(--padding-11xl) var(--padding-xl) var(--padding-19xl);
-      box-sizing: border-box;
-    }
-  }
-  
+}

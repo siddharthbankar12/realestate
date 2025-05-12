@@ -9,6 +9,7 @@ const {
   AdminDashUsersDetail,
 } = require("./controllers/adminlogin");
 const adminSignupRouter = require("./controllers/adminsignup");
+const staffRouter = require("./controllers/staffControllers.js");
 const userProfileRoutes = require("./controllers/userProfileRoutes.js");
 const propertyRoutes = require("./controllers/propertyRoutes");
 const propertyImageRoutes = require("./controllers/propertyImageRoutes");
@@ -42,6 +43,7 @@ app.use("/api", propertyImageRoutes);
 app.use("/api/testimonials", testimonialRoutes);
 app.use("/api", emailVerification);
 app.use("/api", Appointment);
+app.use("/api/staff", staffRouter);
 
 // Static file access
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

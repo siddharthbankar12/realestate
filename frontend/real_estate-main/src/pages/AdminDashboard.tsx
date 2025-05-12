@@ -13,6 +13,7 @@ import AdminSideBar from "../components/AdminSideBar";
 import AdminList from "../components/AdminList";
 import AdminProfile from "../components/AdminProfile";
 import AdminDashUserDetails from "../components/AdminDashUserDetails";
+import StaffManagement from "../components/StaffManagement";
 
 // interface Appointment {
 //   _id: string;
@@ -328,6 +329,7 @@ const AdminDashboard = () => {
                 error={error}
               />
             )}
+            {activeSection === "staffManagement" && <StaffManagement />}
           </div>
           <Modal show={showModal} handleClose={handleCloseModal} />
         </div>

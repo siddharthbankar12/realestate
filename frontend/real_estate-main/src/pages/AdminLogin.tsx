@@ -6,7 +6,7 @@ import styles from "./AdminLogin.module.css";
 const AdminLogin: FunctionComponent = () => {
   return (
     <div className={styles.adminLogin}>
-      <Nav />
+      {/* <Nav /> */}
       <Content />
     </div>
   );

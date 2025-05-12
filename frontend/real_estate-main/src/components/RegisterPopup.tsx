@@ -24,6 +24,7 @@ const RegisterPopup: FunctionComponent<RegisterPopupProps> = ({
   const [state, setState] = useState("");
   const [address, setAddress] = useState("");
   const [landlineNumber, setLandlineNumber] = useState("");
+  const [roleIntent, setRoleIntent] = useState("");
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -128,33 +129,59 @@ const RegisterPopup: FunctionComponent<RegisterPopupProps> = ({
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+
           <div className={styles.section}>
             <label>Are you a real estate agent or a builder?*</label>
             <div className={styles.radioGroup}>
               <input
                 className={styles.circle}
                 type="radio"
-                id="agent"
-                name="role"
-                value="agent"
-                checked={role === "agent"}
-                onChange={(e) => setRole(e.target.value)}
+                id="yes"
+                name="roleIntent"
+                value="yes"
+                checked={roleIntent === "yes"}
+                onChange={(e) => {
+                  setRoleIntent("yes");
+                  setRole(""); // clear role when switching
+                }}
                 required
               />
-              <label htmlFor="agent">Yes</label>
+              <label htmlFor="yes">Yes</label>
+
               <input
                 className={styles.circle}
                 type="radio"
-                id="builder"
-                name="role"
-                value="builder"
-                checked={role === "builder"}
-                onChange={(e) => setRole(e.target.value)}
+                id="no"
+                name="roleIntent"
+                value="no"
+                checked={roleIntent === "no"}
+                onChange={(e) => {
+                  setRoleIntent("no");
+                  setRole("user");
+                }}
                 required
               />
-              <label htmlFor="builder">No</label>
+              <label htmlFor="no">No</label>
             </div>
           </div>
+
+          {roleIntent === "yes" && (
+            <div className={styles.section}>
+              <label>Select your role*</label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+              >
+                <option value="" disabled>
+                  Select role
+                </option>
+                <option value="agent">Agent</option>
+                <option value="builder">Builder</option>
+              </select>
+            </div>
+          )}
+
           {error && <p className={styles.error}>{error}</p>}
 
           <div>
