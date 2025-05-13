@@ -1,0 +1,120 @@
+.profileContainerStaff {
+  max-width: 500px;
+  margin: 90px auto;
+  padding: 20px;
+  background: #fefefe;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.profileCardStaff {
+  display: flex;
+  flex-direction: column;
+}
+
+.titleStaff {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #333;
+}
+
+.fieldGroupStaff {
+  margin-bottom: 1rem;
+}
+
+.fieldGroupStaff label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
+  color: #555;
+}
+
+.fieldGroupStaff p,
+.fieldGroupStaff input {
+  font-size: 1rem;
+  color: #222;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.fieldGroupStaff input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+.actionRowStaff {
+  display: flex;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.editBtnStaff,
+.saveBtnStaff,
+.cancelBtnStaff {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.editBtnStaff {
+  background-color: #0077ff;
+  color: #fff;
+}
+
+.saveBtnStaff {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.cancelBtnStaff {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.dividerStaff {
+  margin: 1.5rem 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.changePasswordLinkStaff {
+  color: #0077ff;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 500;
+  text-align: center;
+}
+
+.passwordSectionStaff {
+  margin-top: 1rem;
+}
+
+.passwordInputWrapperStaff {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.passwordInputWrapperStaff input {
+  flex: 1;
+  margin: 0;
+}
+
+.passwordInputWrapperStaff span {
+  cursor: pointer;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.loadingStaff {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}

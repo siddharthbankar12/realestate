@@ -1,10 +1,10 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const Admin = require("../models/Admin");
+const Staff = require("../models/Staff");
 
-const SECRET = "bearer"; // Ideally use process.env.JWT_SECRET
+const SECRET = "bearer";
 
-// User Authentication Middleware
 const authenticate = async (req, res, next) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
   console.log("TOKEN:", token);
@@ -15,25 +15,25 @@ const authenticate = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, SECRET);
-    console.log("Decoded Token:", decoded); // Check the decoded token
+    console.log("Decoded Token:", decoded);
 
-    // First, check if the token corresponds to a User
     const user = await User.findById(decoded._id || decoded.id);
+    const admin = await Admin.findOne({ adminId: decoded.adminId });
+    const staff = await Staff.findOne({ staffId: decoded.staffId });
 
     if (user) {
-      req.user = user; // Store user info in req
-      // If the user is an admin, attach admin info
+      req.user = user;
       if (user.isAdmin) {
         req.admin = user;
       }
+    } else if (admin) {
+      req.admin = admin;
+    } else if (staff) {
+      req.staff = staff;
     } else {
-      // If not found as User, check if the token corresponds to an Admin
-      const admin = await Admin.findOne({ adminId: decoded.adminId });
-      if (admin) {
-        req.admin = admin; // Store admin info in req
-      } else {
-        return res.status(401).send({ error: "User or Admin not found." });
-      }
+      return res
+        .status(401)
+        .send({ error: "User, Admin, or Staff not found." });
     }
 
     next();
@@ -43,9 +43,7 @@ const authenticate = async (req, res, next) => {
   }
 };
 
-// Admin Authorization Middleware
 const authorizeAdmin = async (req, res, next) => {
-  // If no admin info is present, access is denied
   if (!req.admin) {
     return res.status(403).send({ error: "Access denied. Admins only." });
   }
@@ -53,5 +51,4 @@ const authorizeAdmin = async (req, res, next) => {
   next();
 };
 
-// ✅ Correct Export
 module.exports = { authenticate, authorizeAdmin };

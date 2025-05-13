@@ -3,18 +3,18 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./Content1.module.css";
+import styles from "./StaffLogin.module.css";
 
-export type ContentType = {
+export type contentType = {
   className?: string;
 };
 
-const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
+const StaffLogin: FunctionComponent<contentType> = ({ className = "" }) => {
   const navigate = useNavigate();
-  const baseUrl = "http://localhost:8000/api/admin/login";
+  const baseUrl = "http://localhost:8000/api/staff/login";
 
   const [loginCredentials, setLoginCredentials] = useState({
-    adminId: "admin1",
+    staffId: "basil1747053929249",
     password: "a",
   });
 
@@ -32,7 +32,7 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       localStorage.setItem("authToken", token);
       toast.success("Login Successful");
-      navigate("/admin-dashboard");
+      navigate("/staff-dashboard");
     } catch (error) {
       toast.error("Login failed");
       console.error("Login failed", error);
@@ -49,16 +49,16 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
 
       <div className={styles.rightPanel}>
         <form className={styles.loginForm} onSubmit={onSubmitButtonClick}>
-          <h2 className={styles.heading}>Admin Portal</h2>
+          <h2 className={styles.heading}>Staff Portal</h2>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="adminId">Admin ID</label>
+            <label htmlFor="staffId">Staff ID</label>
             <input
-              id="adminId"
-              name="adminId"
+              id="staffId"
+              name="staffId"
               type="text"
-              placeholder="Enter Admin ID"
-              value={loginCredentials.adminId}
+              placeholder="Enter Staff ID"
+              value={loginCredentials.staffId}
               onChange={handleChange}
               required
               className={styles.input}
@@ -88,4 +88,4 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
   );
 };
 
-export default Content;
+export default StaffLogin;

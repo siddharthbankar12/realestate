@@ -29,6 +29,8 @@ import Properties from "./pages/Properties";
 import { Insights } from "@mui/icons-material";
 import CardLayout from "./components/Insights";
 import UserNotifications from "./pages/UserNotifications";
+import StaffLogin from "./pages/StaffLogin";
+import StaffDashboard from "./pages/StaffDashboard";
 
 function App() {
   const action = useNavigationType();
@@ -178,6 +180,9 @@ function App() {
         <Route path="/properties" element={<Properties />} />
         <Route path="/properties/sell" element={<PropertiesSell />} />
         <Route path="/properties/rent" element={<PropertiesRent />} />
+
+        <Route path="/staff-login" element={<StaffLogin />} />
+        <Route path="/staff-dashboard" element={<StaffDashboard />} />
       </Routes>
     </>
   );

@@ -1,0 +1,51 @@
+.sidebarContainerStaff {
+  width: 240px;
+  height: fit-content;
+  margin-top: 90px;
+  background: linear-gradient(160deg, #1d3557, #457b9d);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.sidebarMenuStaff {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+}
+
+.sidebarOptionStaff {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 15.5px;
+}
+
+.sidebarOptionStaff:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.sidebarActiveStaff {
+  background-color: rgba(255, 255, 255, 0.2);
+  font-weight: bold;
+}
+
+.sidebarIconStaff {
+  font-size: 18px;
+}
+
+.sidebarLabelStaff {
+  flex: 1;
+}

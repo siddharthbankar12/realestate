@@ -1,88 +1,189 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const staffSignupRouter = express.Router();
-
+const staffRouter = express.Router();
+const jwt = require("jsonwebtoken");
 const Staff = require("../models/Staff");
 const { authenticate, authorizeAdmin } = require("../middleware/auth");
 
-// Create new staff
-staffSignupRouter.post(
-  "/signup",
-  authenticate,
-  authorizeAdmin,
-  async (req, res) => {
-    const { email, password, fullName, role } = req.body;
+const SECRET = "bearer";
 
-    if (!email || !password || !fullName || !role) {
-      return res.status(400).send({
-        error: "All fields (email, password, fullName, role) are required.",
-      });
-    }
+staffRouter.post("/signup", authenticate, authorizeAdmin, async (req, res) => {
+  const { email, password, fullName, role } = req.body;
 
-    try {
-      const existingStaff = await Staff.findOne({ email });
-      if (existingStaff) {
-        return res
-          .status(400)
-          .send({ error: "Staff with this email already exists." });
-      }
-
-      const passwordHash = await bcrypt.hash(password, 10);
-      const staffId = `basil${Date.now()}`;
-
-      const newStaff = new Staff({
-        staffId,
-        email,
-        password: passwordHash,
-        fullName,
-        role,
-      });
-
-      await newStaff.save();
-      res.status(201).send({ message: "Staff created successfully." });
-    } catch (error) {
-      console.error("Error creating staff:", error);
-      res.status(500).send({ error: "Failed to create staff." });
-    }
+  if (!email || !password || !fullName || !role) {
+    return res.status(400).send({
+      error: "All fields (email, password, fullName, role) are required.",
+    });
   }
-);
 
-// Get all staff
-staffSignupRouter.get(
-  "/all",
-  authenticate,
-  authorizeAdmin,
-  async (req, res) => {
-    try {
-      const staffList = await Staff.find().select("-password");
-      res.status(200).send(staffList);
-    } catch (error) {
-      res.status(500).send({ error: "Failed to fetch staff." });
+  try {
+    const existingStaff = await Staff.findOne({ email });
+    if (existingStaff) {
+      return res
+        .status(400)
+        .send({ error: "Staff with this email already exists." });
     }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const staffId = `basil${Date.now()}`;
+
+    const newStaff = new Staff({
+      staffId,
+      email,
+      password: passwordHash,
+      fullName,
+      role,
+    });
+
+    await newStaff.save();
+    res.status(201).send({ message: "Staff created successfully." });
+  } catch (error) {
+    console.error("Error creating staff:", error);
+    res.status(500).send({ error: "Failed to create staff." });
   }
-);
+});
 
-// Delete a staff by ID
-staffSignupRouter.delete(
-  "/:id",
-  authenticate,
-  authorizeAdmin,
-  async (req, res) => {
-    const staffId = req.params.id;
+staffRouter.get("/all", authenticate, authorizeAdmin, async (req, res) => {
+  try {
+    const staffList = await Staff.find().select("-password");
+    res.status(200).send(staffList);
+  } catch (error) {
+    res.status(500).send({ error: "Failed to fetch staff." });
+  }
+});
 
-    try {
-      const deletedStaff = await Staff.findByIdAndDelete(staffId);
+staffRouter.delete("/:id", authenticate, authorizeAdmin, async (req, res) => {
+  const staffId = req.params.id;
 
-      if (!deletedStaff) {
-        return res.status(404).send({ error: "Staff not found." });
-      }
+  try {
+    const deletedStaff = await Staff.findByIdAndDelete(staffId);
 
-      res.status(200).send({ message: "Staff deleted successfully." });
-    } catch (error) {
-      console.error("Error deleting staff:", error);
-      res.status(500).send({ error: "Failed to delete staff." });
+    if (!deletedStaff) {
+      return res.status(404).send({ error: "Staff not found." });
     }
-  }
-);
 
-module.exports = staffSignupRouter;
+    res.status(200).send({ message: "Staff deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting staff:", error);
+    res.status(500).send({ error: "Failed to delete staff." });
+  }
+});
+
+staffRouter.post("/login", async (req, res) => {
+  const { staffId, password } = req.body;
+
+  if (!staffId || !password) {
+    return res
+      .status(400)
+      .json({ error: "Staff ID and password are required." });
+  }
+
+  try {
+    const staff = await Staff.findOne({ staffId });
+
+    if (!staff) {
+      return res.status(404).json({ error: "Staff not found." });
+    }
+
+    const isMatch = await bcrypt.compare(password, staff.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid credentials." });
+    }
+
+    const userForToken = {
+      _id: staff._id,
+      staffId: staff.staffId,
+      fullName: staff.fullName,
+      phoneNumber: staff.phoneNumber,
+      email: staff.email,
+      role: staff.role,
+    };
+
+    const token = jwt.sign(userForToken, SECRET || "bearer");
+
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      staff,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ error: "Server error during login." });
+  }
+});
+
+staffRouter.put("/update-detail/:id", authenticate, async (req, res) => {
+  const { id } = req.params;
+  const { email, fullName } = req.body;
+
+  if (!email || !fullName) {
+    return res.status(400).json({ error: "Email and full name are required." });
+  }
+
+  try {
+    const updatedStaff = await Staff.findByIdAndUpdate(
+      id,
+      { email, fullName },
+      { new: true }
+    );
+
+    if (!updatedStaff) {
+      return res.status(404).json({ error: "Staff not found." });
+    }
+
+    const updatedTokenPayload = {
+      _id: updatedStaff._id,
+      staffId: updatedStaff.staffId,
+      fullName: updatedStaff.fullName,
+      phoneNumber: updatedStaff.phoneNumber,
+      email: updatedStaff.email,
+      role: updatedStaff.role,
+    };
+
+    const token = jwt.sign(updatedTokenPayload, SECRET || "bearer");
+
+    res.status(200).json({
+      message: "Staff details updated.",
+      staff: updatedStaff,
+      token,
+    });
+  } catch (error) {
+    console.error("Error updating staff:", error);
+    res.status(500).json({ error: "Failed to update staff." });
+  }
+});
+
+staffRouter.put("/:id/change-password", authenticate, async (req, res) => {
+  const { id } = req.params;
+  const { oldPassword, newPassword } = req.body;
+
+  if (!oldPassword || !newPassword) {
+    return res
+      .status(400)
+      .json({ error: "Both old and new passwords are required." });
+  }
+
+  try {
+    const staff = await Staff.findById(id);
+
+    if (!staff) {
+      return res.status(404).json({ error: "Staff not found." });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, staff.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Old password is incorrect." });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    staff.password = hashedPassword;
+    await staff.save();
+
+    res.status(200).json({ message: "Password updated successfully." });
+  } catch (error) {
+    console.error("Password update error:", error);
+    res.status(500).json({ error: "Failed to update password." });
+  }
+});
+
+module.exports = staffRouter;
