@@ -1,0 +1,139 @@
+.containerStaff {
+  display: grid;
+  gap: 24px;
+  padding: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  margin-top: 90px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  width: 550px;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2a2a2a;
+  margin: 0 0 28px 0;
+  font-size: 26px;
+}
+
+.status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  color: white;
+}
+
+.pending {
+  background-color: #f0ad4e;
+}
+
+.verified {
+  background-color: #28a745;
+}
+
+.rejected {
+  background-color: #dc3545;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-bottom: 8px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.acceptBtn {
+  width: 80%;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.acceptBtn {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-weight: 500;
+}
+
+.acceptBtn:hover {
+  background: #c3e6cb;
+}
+
+.rejectBtn {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-weight: 500;
+}
+
+.rejectBtn:hover {
+  background: #f1b0b7;
+}
+
+.infoGroup {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  row-gap: 12px;
+  column-gap: 16px;
+}
+
+.label {
+  font-weight: 600;
+  color: #444;
+  text-align: right;
+}
+
+.value {
+  color: #222;
+  word-break: break-word;
+}
+
+.message {
+  text-align: center;
+  margin: 40px;
+  padding: 0;
+  font-size: 26px;
+  font-weight: 600;
+  color: #555;
+}
+
+.error {
+  color: red;
+  text-align: left;
+  font-weight: bold;
+}

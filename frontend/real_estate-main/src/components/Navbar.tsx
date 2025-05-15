@@ -22,12 +22,20 @@ export type NavbarProps = {
 
 const Navbar: FunctionComponent<NavbarProps> = () => {
   let isAdmin = false;
+  let isStaff = false;
 
   try {
     const token = localStorage.getItem("authToken");
     if (token) {
       const decoded: any = jwtDecode(token);
-      isAdmin = decoded?.adminId;
+
+      if (decoded?.adminId) {
+        isAdmin = decoded?.adminId;
+      }
+
+      if (decoded?.staffId) {
+        isStaff = decoded?.staffId;
+      }
     }
   } catch (err) {
     console.error("Invalid token", err);
@@ -71,6 +79,8 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
     if (token) {
       if (isAdmin) {
         navigate("/admin-dashboard");
+      } else if (isStaff) {
+        navigate("/staff-dashboard");
       } else {
         navigate("/user-profile");
       }
@@ -125,13 +135,15 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   }, []);
 
   const handleLoginSuccess = () => {
-    const isAdmin = localStorage.getItem("adminId");
     setIsLoggedIn(true);
     closePopups();
 
     if (isAdmin) {
       navigate("/admin-dashboard");
-    } else {
+    } else if (isStaff) {
+      navigate("/staff-dashboard");
+    }
+    {
       navigate("/user-profile");
     }
   };

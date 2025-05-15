@@ -47,16 +47,9 @@ const staffSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Property",
         },
-        status: {
-          type: String,
-          enum: ["verified", "rejected"],
-        },
         verificationDate: {
           type: Date,
           default: Date.now,
-        },
-        remarks: {
-          type: String,
         },
       },
     ],

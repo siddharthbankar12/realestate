@@ -4,6 +4,7 @@ const staffRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const Staff = require("../models/Staff");
 const { authenticate, authorizeAdmin } = require("../middleware/auth");
+const Property = require("../models/property");
 
 const SECRET = "bearer";
 
@@ -183,6 +184,42 @@ staffRouter.put("/:id/change-password", authenticate, async (req, res) => {
   } catch (error) {
     console.error("Password update error:", error);
     res.status(500).json({ error: "Failed to update password." });
+  }
+});
+
+staffRouter.put("/property/:id/accept/:staffId", async (req, res) => {
+  try {
+    const propertyId = req.params.id;
+    const staffId = req.params.staffId;
+
+    const property = await Property.findById(propertyId);
+    if (!property) {
+      return res.status(404).json({ error: "Property not found" });
+    }
+
+    property.verification = "verified";
+    await property.save();
+
+    const staff = await Staff.findById(staffId);
+    if (!staff) {
+      return res.status(404).json({ error: "Staff not found" });
+    }
+
+    staff.verifiedProperties.push({
+      propertyId: property._id,
+      verificationDate: new Date(),
+    });
+
+    await staff.save();
+
+    res.json({
+      success: true,
+      message: "Property accepted and verified",
+      verifiedBy: staff.fullName,
+    });
+  } catch (error) {
+    console.error("Error accepting property:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

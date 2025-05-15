@@ -68,7 +68,7 @@ const NavSearch: FunctionComponent<NavSearchProps> = () => {
           style={{ marginRight: "5px", color: "red" }}
           size={14}
         />
-        {userLocation}
+        {userLocation ? userLocation : "Location"}
       </h4>
 
       {/* <div className={styles.filter}>
