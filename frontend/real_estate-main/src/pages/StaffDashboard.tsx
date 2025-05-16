@@ -16,6 +16,7 @@ const StaffDashboard = () => {
   const [properties, setProperties] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [appointments, setAppointments] = useState<any[]>([]);
 
   const menuOptions = [
     { key: "profile", label: "Staff Profile" },
@@ -94,6 +95,8 @@ const StaffDashboard = () => {
 
         console.log(propertiesData);
 
+        if (appointmentsData.success)
+          setAppointments(appointmentsData.appointments);
         if (propertiesData?.success)
           setProperties(propertiesData.property_verify);
       } catch (err) {
@@ -112,7 +115,14 @@ const StaffDashboard = () => {
       case "profile":
         return <StaffProfile staff={staffData} updateToken={fetchStaffData} />;
       case "appointments":
-        return <StaffManagedAppointments />;
+        return (
+          <StaffManagedAppointments
+            appointments={appointments}
+            loading={loading}
+            error={error}
+            // handleRemoveAppointment={handleRemoveAppointment}
+          />
+        );
       case "properties":
         return (
           <StaffVerifyProperties
@@ -122,6 +132,7 @@ const StaffDashboard = () => {
             handleAcceptProperty={handleAcceptProperty}
           />
         );
+
       case "logout":
         handleLogout();
         return null;

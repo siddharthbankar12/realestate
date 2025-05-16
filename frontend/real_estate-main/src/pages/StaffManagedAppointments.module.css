@@ -1,9 +1,25 @@
-.container {
+.containerStaffApp {
   padding: 24px;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin: 20px;
+  margin: 90px 50px;
+}
+
+.statusFilter {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-left: auto;
+  width: auto;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .loading,
@@ -69,22 +85,6 @@
   font-weight: 500;
 }
 
-.headerRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.dropdown {
-  padding: 6px 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  outline: none;
-  width: auto;
-}
-
 .pending {
   background-color: #f39c12;
 }
@@ -97,13 +97,28 @@
   background-color: #e74c3c;
 }
 
-.deleteBtn {
+.ConfirmedBtn {
+  cursor: pointer;
+  color: #24a459;
+  background-image: none;
+  background-color: transparent;
+  border: 1px solid black;
+  margin-bottom: 8px;
+}
+
+.ConfirmedBtn:hover {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.CancelBtn {
   cursor: pointer;
   color: #e74c3c;
   background-image: none;
   background-color: transparent;
+  border: 1px solid black;
 }
-
-.deleteBtn:hover {
-  background-color: transparent;
+.CancelBtn:hover {
+  background-color: #e74c3c;
+  color: white;
 }

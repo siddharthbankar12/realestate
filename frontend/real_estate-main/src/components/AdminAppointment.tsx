@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../components/AdminAppointment.module.css";
 import { FaTrash } from "react-icons/fa";
 
@@ -27,6 +27,15 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
   error,
   handleRemoveAppointment,
 }) => {
+  const [selectedStatus, setSelectedStatus] = useState("all");
+
+  const filteredAppointments =
+    selectedStatus === "all"
+      ? appointments
+      : appointments.filter(
+          (a) => a.status.toLowerCase() === selectedStatus.toLowerCase()
+        );
+
   return (
     <div className={styles.container}>
       {loading ? (
@@ -35,8 +44,21 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
         <p className={styles.error}>{error}</p>
       ) : (
         <div className={styles.tableWrapper}>
-          <p className={styles.headApp}>Appointments</p>
-          {appointments && appointments.length > 0 ? (
+          <div className={styles.headerRow}>
+            <p className={styles.headApp}>Appointments</p>
+            <select
+              value={selectedStatus}
+              onChange={(e) => setSelectedStatus(e.target.value)}
+              className={styles.dropdown}
+            >
+              <option value="all">All</option>
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+
+          {filteredAppointments.length > 0 ? (
             <table className={styles.table}>
               <thead>
                 <tr>
@@ -51,7 +73,7 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
                 </tr>
               </thead>
               <tbody>
-                {appointments.map((a) => (
+                {filteredAppointments.map((a) => (
                   <tr key={a._id}>
                     <td>
                       {`${a.firstName || ""} ${a.lastName || ""}`.trim() ||
@@ -64,7 +86,9 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
                         className={`${styles.status} ${
                           a.status.toLowerCase() === "pending"
                             ? styles.pending
-                            : styles.completed
+                            : a.status.toLowerCase() === "cancelled"
+                            ? styles.cancelled
+                            : styles.confirmed
                         }`}
                       >
                         {a.status}
@@ -87,7 +111,9 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
               </tbody>
             </table>
           ) : (
-            <p className={styles.noAppointments}>No appointments available.</p>
+            <p className={styles.noAppointments}>
+              No appointments found for selected status.
+            </p>
           )}
         </div>
       )}
