@@ -18,14 +18,16 @@ interface StaffManagedAppointmentsProps {
   appointments: Appointment[];
   loading: boolean;
   error: string | null;
-  // handleRemoveAppointment: (id: string) => void;
+  handleConfirmedAppointment: (id: String) => void;
+  handleCancelAppointment: (id: string) => void;
 }
 
 const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
   appointments,
   loading,
   error,
-  // handleRemoveAppointment,
+  handleConfirmedAppointment,
+  handleCancelAppointment,
 }) => {
   const [selectedStatus, setSelectedStatus] = useState("All");
 
@@ -105,14 +107,14 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
                       {a.status.toLowerCase() === "pending" ? (
                         <>
                           <button
-                            // onClick={() => handleRemoveAppointment(a._id)}
+                            onClick={() => handleConfirmedAppointment(a._id)}
                             className={styles.ConfirmedBtn}
                             title="Confirmed"
                           >
                             Confirmed
                           </button>
                           <button
-                            // onClick={() => handleRemoveAppointment(a._id)}
+                            onClick={() => handleCancelAppointment(a._id)}
                             className={styles.CancelBtn}
                             title="Cancel"
                           >

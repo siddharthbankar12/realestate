@@ -36,8 +36,17 @@ const staffSchema = new mongoose.Schema(
 
     appointmentsHandled: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Appointment",
+        appointmentId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Appointment",
+        },
+        date: {
+          type: Date,
+          default: Date.now,
+        },
+        status: {
+          type: String,
+        },
       },
     ],
 
@@ -50,6 +59,9 @@ const staffSchema = new mongoose.Schema(
         verificationDate: {
           type: Date,
           default: Date.now,
+        },
+        status: {
+          type: String,
         },
       },
     ],

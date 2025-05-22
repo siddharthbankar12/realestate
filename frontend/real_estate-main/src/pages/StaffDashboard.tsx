@@ -65,6 +65,72 @@ const StaffDashboard = () => {
     }
   };
 
+  const handleConfirmedAppointment = async (appointmentId: string) => {
+    const staffId = staffData?._id;
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/staff/appointment/confirmed/${appointmentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ staffId }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        toast.error(result.error || "Failed to confirm appointment");
+        return;
+      }
+
+      setAppointments((prev) =>
+        prev.map((a) =>
+          a._id === appointmentId ? { ...a, status: "Confirmed" } : a
+        )
+      );
+      toast.success("Appointment confirmed successfully");
+    } catch (error) {
+      console.error("Error confirming appointment:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
+  const handleCancelAppointment = async (appointmentId: string) => {
+    const staffId = staffData?._id;
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/staff/appointment/cancelled/${appointmentId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ staffId }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        toast.error(result.error || "Failed to cancel appointment");
+        return;
+      }
+
+      setAppointments((prev) =>
+        prev.map((a) =>
+          a._id === appointmentId ? { ...a, status: "Cancelled" } : a
+        )
+      );
+      toast.success("Appointment cancelled successfully");
+    } catch (error) {
+      console.error("Error cancelling appointment:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
   useEffect(() => {
     fetchStaffData();
   }, [navigate]);
@@ -120,7 +186,8 @@ const StaffDashboard = () => {
             appointments={appointments}
             loading={loading}
             error={error}
-            // handleRemoveAppointment={handleRemoveAppointment}
+            handleConfirmedAppointment={handleConfirmedAppointment}
+            handleCancelAppointment={handleCancelAppointment}
           />
         );
       case "properties":

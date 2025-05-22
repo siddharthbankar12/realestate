@@ -5,9 +5,12 @@ const jwt = require("jsonwebtoken");
 const Staff = require("../models/Staff");
 const { authenticate, authorizeAdmin } = require("../middleware/auth");
 const Property = require("../models/property");
+const Appointment = require("../models/Appointment");
+const mongoose = require("mongoose");
 
 const SECRET = "bearer";
 
+// staff signup
 staffRouter.post("/signup", authenticate, authorizeAdmin, async (req, res) => {
   const { email, password, fullName, role } = req.body;
 
@@ -44,6 +47,7 @@ staffRouter.post("/signup", authenticate, authorizeAdmin, async (req, res) => {
   }
 });
 
+// get all staff details
 staffRouter.get("/all", authenticate, authorizeAdmin, async (req, res) => {
   try {
     const staffList = await Staff.find().select("-password");
@@ -53,6 +57,7 @@ staffRouter.get("/all", authenticate, authorizeAdmin, async (req, res) => {
   }
 });
 
+// delete staff account
 staffRouter.delete("/:id", authenticate, authorizeAdmin, async (req, res) => {
   const staffId = req.params.id;
 
@@ -70,6 +75,7 @@ staffRouter.delete("/:id", authenticate, authorizeAdmin, async (req, res) => {
   }
 });
 
+// login staff
 staffRouter.post("/login", async (req, res) => {
   const { staffId, password } = req.body;
 
@@ -113,6 +119,7 @@ staffRouter.post("/login", async (req, res) => {
   }
 });
 
+//update staff details
 staffRouter.put("/update-detail/:id", authenticate, async (req, res) => {
   const { id } = req.params;
   const { email, fullName } = req.body;
@@ -154,6 +161,7 @@ staffRouter.put("/update-detail/:id", authenticate, async (req, res) => {
   }
 });
 
+//change staff password
 staffRouter.put("/:id/change-password", authenticate, async (req, res) => {
   const { id } = req.params;
   const { oldPassword, newPassword } = req.body;
@@ -187,6 +195,7 @@ staffRouter.put("/:id/change-password", authenticate, async (req, res) => {
   }
 });
 
+// verify property by staff
 staffRouter.put("/property/:id/accept/:staffId", async (req, res) => {
   try {
     const propertyId = req.params.id;
@@ -208,6 +217,7 @@ staffRouter.put("/property/:id/accept/:staffId", async (req, res) => {
     staff.verifiedProperties.push({
       propertyId: property._id,
       verificationDate: new Date(),
+      status: "Verified",
     });
 
     await staff.save();
@@ -219,6 +229,95 @@ staffRouter.put("/property/:id/accept/:staffId", async (req, res) => {
     });
   } catch (error) {
     console.error("Error accepting property:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// confirmed appointment by staff
+staffRouter.put("/appointment/confirmed/:appointmentId", async (req, res) => {
+  try {
+    const { appointmentId } = req.params;
+    const { staffId } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ error: "Invalid appointment ID" });
+    }
+    if (!mongoose.Types.ObjectId.isValid(staffId)) {
+      return res.status(400).json({ error: "Invalid staff ID" });
+    }
+
+    const appointment = await Appointment.findById(appointmentId);
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    const staff = await Staff.findById(staffId);
+    if (!staff) {
+      return res.status(404).json({ error: "Staff not found" });
+    }
+
+    appointment.status = "Confirmed";
+    appointment.staffId = staffId;
+    await appointment.save();
+
+    staff.appointmentsHandled.push({
+      appointmentId: appointment._id,
+      date: new Date(),
+      status: "Confirmed",
+    });
+    await staff.save();
+
+    res.json({
+      success: true,
+      message: "Appointment confirmed successfully",
+    });
+  } catch (error) {
+    console.error("Error confirming appointment:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// cancel appointment by staff
+staffRouter.put("/appointment/Cancelled/:appointmentId", async (req, res) => {
+  try {
+    const { appointmentId } = req.params;
+    const { staffId } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ error: "Invalid appointment ID" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(staffId)) {
+      return res.status(400).json({ error: "Invalid staff ID" });
+    }
+
+    const appointment = await Appointment.findById(appointmentId);
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    const staff = await Staff.findById(staffId);
+    if (!staff) {
+      return res.status(404).json({ error: "Staff not found" });
+    }
+
+    appointment.status = "Cancelled";
+    appointment.staffId = staffId;
+    await appointment.save();
+
+    staff.appointmentsHandled.push({
+      appointmentId: appointment._id,
+      date: new Date(),
+      status: "Cancelled",
+    });
+    await staff.save();
+
+    res.json({
+      success: true,
+      message: "Appointment cancelled successfully",
+    });
+  } catch (error) {
+    console.error("Error confirming appointment:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
