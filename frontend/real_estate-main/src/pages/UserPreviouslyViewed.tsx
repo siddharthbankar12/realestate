@@ -108,7 +108,7 @@ const UserPreviouslyViewed: FunctionComponent = () => {
                   >
                     <div className={styles.cardImageWrapper}>
                       <img
-                        src={"./public/web19-1@2x.png"}
+                        src={"./web19-1@2x.png"}
                         alt={property.title}
                         className={styles.cardImage}
                       />

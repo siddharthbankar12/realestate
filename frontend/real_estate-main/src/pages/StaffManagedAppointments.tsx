@@ -30,17 +30,42 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
   handleCancelAppointment,
 }) => {
   const [selectedStatus, setSelectedStatus] = useState("All");
+  const [selectedUser, setSelectedUser] = useState<any | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleUserClick = (user: any) => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedUser(null);
+  };
 
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedStatus(e.target.value);
   };
 
-  const filteredAppointments =
-    selectedStatus === "All"
-      ? appointments
-      : appointments.filter(
-          (a) => a.status.toLowerCase() === selectedStatus.toLowerCase()
-        );
+  const filteredAppointments = appointments.filter((a) => {
+    const matchesStatus =
+      selectedStatus === "All" ||
+      a.status.toLowerCase() === selectedStatus.toLowerCase();
+
+    const fullName = `${a.firstName || ""} ${a.lastName || ""}`.toLowerCase();
+    const email = (a.email || "").toLowerCase();
+    const phone = (a.phoneNumber || "").toLowerCase();
+
+    const matchesSearch =
+      fullName.includes(searchTerm.toLowerCase()) ||
+      email.includes(searchTerm.toLowerCase()) ||
+      phone.includes(searchTerm.toLowerCase());
+
+    return matchesStatus && matchesSearch;
+  });
+
+  console.log(filteredAppointments);
 
   return (
     <div className={styles.containerStaffApp}>
@@ -52,16 +77,25 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
         <div className={styles.tableWrapper}>
           <div className={styles.headerRow}>
             <p className={styles.headApp}>Appointments</p>
-            <select
-              value={selectedStatus}
-              onChange={handleStatusChange}
-              className={styles.statusFilter}
-            >
-              <option value="All">All</option>
-              <option value="Pending">Pending</option>
-              <option value="Confirmed">Confirmed</option>
-              <option value="Cancelled">Cancelled</option>
-            </select>
+            <div style={{ display: "flex", width: "30%", gap: "10px" }}>
+              <input
+                type="text"
+                placeholder="Search here..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className={styles.searchInput}
+              />
+              <select
+                value={selectedStatus}
+                onChange={handleStatusChange}
+                className={styles.statusFilter}
+              >
+                <option value="All">All</option>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
           </div>
 
           {filteredAppointments && filteredAppointments.length > 0 ? (
@@ -102,7 +136,19 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
                     </td>
                     <td>{new Date(a.createdAt).toLocaleString()}</td>
                     <td>{new Date(a.updatedAt).toLocaleString()}</td>
-                    <td>{a.isGuest ? "Guest" : "User"}</td>
+                    <td>
+                      {a.isGuest ? (
+                        "Guest"
+                      ) : (
+                        <p
+                          onClick={() => handleUserClick(a.userId)}
+                          className={styles.userDetailsBtn}
+                        >
+                          User
+                        </p>
+                      )}
+                    </td>
+
                     <td>
                       {a.status.toLowerCase() === "pending" ? (
                         <>
@@ -127,6 +173,39 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
                     </td>
                   </tr>
                 ))}
+                {isModalOpen && selectedUser && (
+                  <div className={styles.modalOverlay}>
+                    <div className={styles.modalContent}>
+                      <button
+                        className={styles.closeModalBtn}
+                        onClick={closeModal}
+                      >
+                        ×
+                      </button>
+                      <h2>User Details</h2>
+
+                      <p>
+                        <strong>Name:</strong> {selectedUser.firstName}{" "}
+                        {selectedUser.lastName}
+                      </p>
+                      <p>
+                        <strong>Email:</strong> {selectedUser.email}
+                      </p>
+                      <p>
+                        <strong>Phone:</strong> {selectedUser.phoneNumber}
+                      </p>
+                      <p>
+                        <strong>Landline:</strong> {selectedUser.landlineNumber}
+                      </p>
+                      <p>
+                        <strong>City:</strong> {selectedUser.city}
+                      </p>
+                      <p>
+                        <strong>Address:</strong> {selectedUser.address}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </tbody>
             </table>
           ) : (

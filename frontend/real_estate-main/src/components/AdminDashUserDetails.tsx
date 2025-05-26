@@ -50,6 +50,9 @@ const AdminDashUserDetails: React.FC<AdminProfileProps> = ({
     "searches" | "views" | "saved" | null
   >(null);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [roleFilter, setRoleFilter] = useState("all");
+
   console.log(users);
 
   useEffect(() => {
@@ -66,6 +69,24 @@ const AdminDashUserDetails: React.FC<AdminProfileProps> = ({
 
     fetchUsers();
   }, [adminProfile.adminId]);
+
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredUsers = users.filter((user) => {
+    const query = searchQuery.toLowerCase();
+    const matchesQuery =
+      user.firstName.toLowerCase().includes(query) ||
+      user.lastName.toLowerCase().includes(query) ||
+      user.email.toLowerCase().includes(query) ||
+      user.phoneNumber.includes(query);
+
+    const matchesRole =
+      roleFilter === "all" || user.role.toLowerCase() === roleFilter;
+
+    return matchesQuery && matchesRole;
+  });
 
   const openPopup = (user: User, type: "searches" | "views" | "saved") => {
     setPopupUser(user);
@@ -106,7 +127,30 @@ const AdminDashUserDetails: React.FC<AdminProfileProps> = ({
 
   return (
     <div className={styles.adminContainer}>
-      <h2 className={styles.title}>All Registered Users</h2>
+      <div className={styles.adminTitleSearch}>
+        <h2 className={styles.title}>All Registered Users</h2>
+        <div className={styles.searchFilterContainer}>
+          <input
+            className={styles.search}
+            type="text"
+            placeholder="Search here..."
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+          />
+
+          <select
+            className={styles.filterDropdown}
+            value={roleFilter}
+            onChange={(e) => setRoleFilter(e.target.value)}
+          >
+            <option value="all">All Roles</option>
+            <option value="user">User</option>
+            <option value="agent">Agent</option>
+            <option value="builder">Builder</option>
+          </select>
+        </div>
+      </div>
+
       <div className={styles.tableContainer}>
         <table className={styles.userTable}>
           <thead>
@@ -121,40 +165,51 @@ const AdminDashUserDetails: React.FC<AdminProfileProps> = ({
             </tr>
           </thead>
           <tbody>
-            {users?.map((user) => (
-              <tr key={user._id}>
-                <td>
-                  <img src={user.image} className={styles.userImg} />
-                </td>
-                <td>
-                  {user.firstName} {user.lastName}
-                </td>
-                <td>{user.email}</td>
-                <td>{user.phoneNumber}</td>
-                <td>{user.city == "City" ? "-" : user.city} </td>
-                <td>{user.role}</td>
-                <td>
-                  <button
-                    className={styles.BtnAdminDash}
-                    onClick={() => openPopup(user, "searches")}
-                  >
-                    Searches
-                  </button>
-                  <button
-                    className={styles.BtnAdminDash}
-                    onClick={() => openPopup(user, "views")}
-                  >
-                    Previous Views
-                  </button>
-                  <button
-                    className={styles.BtnAdminDash}
-                    onClick={() => openPopup(user, "saved")}
-                  >
-                    Saved Properties
-                  </button>
+            {filteredUsers.length === 0 ? (
+              <tr>
+                <td colSpan={7} className={styles.noDataRow}>
+                  No data found
                 </td>
               </tr>
-            ))}
+            ) : (
+              filteredUsers?.map((user) => (
+                <tr key={user._id}>
+                  <td>
+                    <img
+                      src={user.image ? user.image : "./builder.jpeg"}
+                      className={styles.userImg}
+                    />
+                  </td>
+                  <td>
+                    {user.firstName} {user.lastName}
+                  </td>
+                  <td>{user.email}</td>
+                  <td>{user.phoneNumber}</td>
+                  <td>{user.city == "City" ? "-" : user.city} </td>
+                  <td>{user.role}</td>
+                  <td>
+                    <button
+                      className={styles.BtnAdminDash}
+                      onClick={() => openPopup(user, "searches")}
+                    >
+                      Searches
+                    </button>
+                    <button
+                      className={styles.BtnAdminDash}
+                      onClick={() => openPopup(user, "views")}
+                    >
+                      Previous Views
+                    </button>
+                    <button
+                      className={styles.BtnAdminDash}
+                      onClick={() => openPopup(user, "saved")}
+                    >
+                      Saved Properties
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
@@ -170,7 +225,7 @@ const AdminDashUserDetails: React.FC<AdminProfileProps> = ({
                 ? "User Searches"
                 : popupType === "views"
                 ? "User Previous Views"
-                : "USer Saved Properties"}
+                : "User Saved Properties"}
             </h3>
             <button onClick={closePopup} className={styles.closeBtn}>
               ✕
