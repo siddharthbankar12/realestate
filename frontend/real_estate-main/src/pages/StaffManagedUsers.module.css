@@ -1,0 +1,85 @@
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 90px auto 0;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.heading {
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+.dropdown {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+  background-color: #f7f9fc;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.profileImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+.roleTag {
+  padding: 0.3rem 0.6rem;
+  background-color: #eef2f7;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  color: #2c3e50;
+}
+
+.noData {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #888;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.searchInput {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 250px;
+}

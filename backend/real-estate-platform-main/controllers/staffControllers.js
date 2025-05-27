@@ -7,6 +7,7 @@ const { authenticate, authorizeAdmin } = require("../middleware/auth");
 const Property = require("../models/property");
 const Appointment = require("../models/Appointment");
 const mongoose = require("mongoose");
+const User = require("../models/User");
 
 const SECRET = "bearer";
 
@@ -318,6 +319,22 @@ staffRouter.put("/appointment/Cancelled/:appointmentId", async (req, res) => {
     });
   } catch (error) {
     console.error("Error confirming appointment:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// fetch all user data for staff
+staffRouter.get("/users-details", async (req, res) => {
+  try {
+    const data = await User.find();
+
+    return res.json({
+      success: true,
+      message: "Users data fetch successfully",
+      usersData: data,
+    });
+  } catch (error) {
+    console.error("Error fetching users detail:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

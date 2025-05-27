@@ -8,10 +8,12 @@ import { useNavigate } from "react-router-dom";
 import StaffManagedAppointments from "./StaffManagedAppointments";
 import StaffVerifyProperties from "./StaffVerifyProperties";
 import { toast } from "react-toastify";
+import StaffManagedUsers from "./StaffManagedUsers";
 
 const StaffDashboard = () => {
   const [selectedOption, setSelectedOption] = useState("profile");
   const [staffData, setStaffData] = useState(null);
+  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
   const [properties, setProperties] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +22,7 @@ const StaffDashboard = () => {
 
   const menuOptions = [
     { key: "profile", label: "Staff Profile" },
+    { key: "usersDetails", label: "Users Details" },
     { key: "appointments", label: "Manage Appointments" },
     { key: "properties", label: "Verify Properties" },
     { key: "logout", label: "Logout" },
@@ -41,6 +44,30 @@ const StaffDashboard = () => {
       console.error("Invalid token.");
       localStorage.removeItem("authToken");
       navigate("/staff-login");
+    }
+  };
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/staff/users-details",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        setUserData(data.usersData);
+      } else {
+        toast.error(data.error);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -71,7 +98,7 @@ const StaffDashboard = () => {
       const response = await fetch(
         `http://localhost:8000/api/staff/appointment/confirmed/${appointmentId}`,
         {
-          method: "PUT",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
@@ -131,10 +158,6 @@ const StaffDashboard = () => {
     }
   };
 
-  useEffect(() => {
-    fetchStaffData();
-  }, [navigate]);
-
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     navigate("/staff-login");
@@ -180,6 +203,8 @@ const StaffDashboard = () => {
     switch (selectedOption) {
       case "profile":
         return <StaffProfile staff={staffData} updateToken={fetchStaffData} />;
+      case "usersDetails":
+        return <StaffManagedUsers userDetails={userData} />;
       case "appointments":
         return (
           <StaffManagedAppointments
@@ -207,6 +232,11 @@ const StaffDashboard = () => {
         return <div>Select an option</div>;
     }
   };
+
+  useEffect(() => {
+    fetchStaffData();
+    fetchUserDetails();
+  }, [navigate]);
 
   return (
     <div>

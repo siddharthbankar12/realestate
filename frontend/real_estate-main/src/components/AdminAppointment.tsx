@@ -28,13 +28,23 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
   handleRemoveAppointment,
 }) => {
   const [selectedStatus, setSelectedStatus] = useState("all");
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredAppointments =
-    selectedStatus === "all"
-      ? appointments
-      : appointments.filter(
-          (a) => a.status.toLowerCase() === selectedStatus.toLowerCase()
-        );
+  // Filter appointments based on selected status and search term
+  const filteredAppointments = appointments.filter((a) => {
+    const fullName = `${a.firstName} ${a.lastName}`.toLowerCase();
+    const email = a.email.toLowerCase();
+    const phone = a.phoneNumber.toLowerCase();
+    const status = a.status.toLowerCase();
+    const searchTermLower = searchTerm.toLowerCase();
+
+    return (
+      (selectedStatus === "all" || status === selectedStatus.toLowerCase()) &&
+      (fullName.includes(searchTermLower) ||
+        email.includes(searchTermLower) ||
+        phone.includes(searchTermLower))
+    );
+  });
 
   return (
     <div className={styles.container}>
@@ -46,16 +56,25 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
         <div className={styles.tableWrapper}>
           <div className={styles.headerRow}>
             <p className={styles.headApp}>Appointments</p>
-            <select
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-              className={styles.dropdown}
-            >
-              <option value="all">All</option>
-              <option value="pending">Pending</option>
-              <option value="confirmed">Confirmed</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
+            <div style={{ width: "30%", display: "flex", gap: "10px" }}>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search here..."
+                className={styles.searchInput}
+              />
+              <select
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+                className={styles.dropdown}
+              >
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="confirmed">Confirmed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
           </div>
 
           {filteredAppointments.length > 0 ? (
