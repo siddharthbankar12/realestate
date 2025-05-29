@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 export type PropertyDetailsType = {
   className?: string;
   property: {
+    _id: string;
     verification: boolean;
     title: string;
     area: number;
@@ -302,7 +303,7 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
             name={property.Propreiter_name}
           />
           <div className={styles.right1}>
-            <ReviewForm />
+            <ReviewForm propertyId={property._id} />
           </div>
         </div>
       </section>

@@ -23,6 +23,7 @@ const AdminList: React.FC<Props> = ({
   error,
   handleRemoveAdmin,
 }) => {
+  console.log(admins);
   return (
     <div className={styles.adminList}>
       <div className={styles.header}>

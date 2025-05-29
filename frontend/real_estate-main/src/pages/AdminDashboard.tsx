@@ -15,87 +15,16 @@ import AdminProfile from "../components/AdminProfile";
 import AdminDashUserDetails from "../components/AdminDashUserDetails";
 import StaffManagement from "../components/StaffManagement";
 
-// interface Appointment {
-//   _id: string;
-//   firstName: string;
-//   lastName: string;
-//   email: string;
-//   PhoneNumber: number;
-// }
-
-// interface Property {
-//   _id: string;
-//   firstName: string;
-//   phoneNumber: string;
-//   email: string;
-// }
-
-// interface Review {
-//   _id: string;
-//   reviewerName: string;
-//   content: string;
-//   rating: number;
-// }
-// interface Admin {
-//   _id: string;
-//   adminId: string;
-//   buyersId?: { name: string; email: string }[];
-//   sellersId?: { name: string; email: string }[];
-// }
-
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("appointments");
   const [appointments, setAppointments] = useState<any[]>([]);
+  const [adminProfile, setAdminProfile] = useState<any>(null);
   const [properties, setProperties] = useState<any[]>([]);
+  const [admins, setAdmins] = useState<any[]>([]);
+  const [reviews, setReviews] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [admins, setAdmins] = useState<any[]>([]);
-  const [adminProfile, setAdminProfile] = useState<any>(null);
-  const [reviews, setReviews] = useState<any[]>([
-    {
-      _id: "1",
-      reviewerName: "John Doe",
-      content: "Excellent service.",
-      rating: 5,
-    },
-    {
-      _id: "2",
-      reviewerName: "Jane Smith",
-      content: "Could be better.",
-      rating: 3,
-    },
-    {
-      _id: "3",
-      reviewerName: "Alice Johnson",
-      content: "Very helpful.",
-      rating: 4,
-    },
-    {
-      _id: "4",
-      reviewerName: "Michael Brown",
-      content: "Not satisfied with the response time.",
-      rating: 2,
-    },
-    {
-      _id: "5",
-      reviewerName: "Emily Davis",
-      content: "Professional and kind staff.",
-      rating: 5,
-    },
-    {
-      _id: "6",
-      reviewerName: "David Wilson",
-      content: "The service was okay, nothing special.",
-      rating: 3,
-    },
-    {
-      _id: "7",
-      reviewerName: "Sophia Taylor",
-      content: "Quick and reliable.",
-      rating: 4,
-    },
-  ]);
 
   useEffect(() => {
     const savedSection =
@@ -118,35 +47,51 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [appointmentsRes, propertiesRes, adminsRes] = await Promise.all([
-          fetch("http://localhost:8000/api/appointments", {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          }),
-          fetch("http://localhost:8000/api/property/verification"),
-          fetch("http://localhost:8000/api/admin", {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          }),
-        ]);
+        const [appointmentsRes, propertiesRes, reviewsRes, adminsRes] =
+          await Promise.all([
+            fetch("http://localhost:8000/api/appointments", {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              },
+            }),
+            fetch("http://localhost:8000/api/property/verification"),
+            fetch("http://localhost:8000/api/reviews/get-all-reviews"),
+            fetch("http://localhost:8000/api/admin", {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+              },
+            }),
+          ]);
 
-        if (!appointmentsRes.ok || !propertiesRes.ok || !adminsRes.ok) {
+        if (
+          !appointmentsRes.ok ||
+          !propertiesRes.ok ||
+          !reviewsRes.ok ||
+          !adminsRes.ok
+        ) {
           throw new Error("Failed to fetch data.");
         }
 
         const appointmentsData = await appointmentsRes.json();
         const propertiesData = await propertiesRes.json();
+        const reviewsData = await reviewsRes.json();
         const adminsData = await adminsRes.json();
 
         console.log(propertiesData);
 
-        if (appointmentsData.success)
+        if (appointmentsData.success) {
           setAppointments(appointmentsData.appointments);
-        if (propertiesData?.success)
+        }
+        if (propertiesData.success) {
           setProperties(propertiesData.property_verify);
-        if (adminsData.success) setAdmins(adminsData.data);
+        }
+        if (adminsData.success) {
+          setAdmins(adminsData.data);
+        }
+
+        if (reviewsData.success) {
+          setReviews(reviewsData.reviews);
+        }
       } catch (err) {
         toast.error("Failed to fetch data. Please try again.");
         setError((err as Error).message);
@@ -157,8 +102,6 @@ const AdminDashboard = () => {
 
     fetchData();
   }, []);
-
-  console.log(properties);
 
   const handleRemoveAppointment = async (id: string) => {
     try {
@@ -319,10 +262,15 @@ const AdminDashboard = () => {
                 handleRejectProperty={handleRejectProperty}
               />
             )}
-            {activeSection === "reviews" && <AdminReviews reviews={reviews} />}
+            {activeSection === "reviews" && (
+              <AdminReviews
+                reviews={reviews || []}
+                adminId={adminProfile?.adminId}
+              />
+            )}
             {activeSection === "adminsList" && (
               <AdminList
-                admins={admins}
+                admins={admins || []}
                 onAddAdminClick={handleShowModal}
                 handleRemoveAdmin={handleRemoveAdmin}
                 loading={loading}

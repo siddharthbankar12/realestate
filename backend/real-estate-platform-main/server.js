@@ -16,6 +16,7 @@ const propertyImageRoutes = require("./controllers/propertyImageRoutes");
 const testimonialRoutes = require("./controllers/testimonialRoutes");
 const emailVerification = require("./controllers/emailVerification");
 const Appointment = require("./controllers/Appointment");
+const PropertyReviewRouter = require("./controllers/PropertyReviewsControllers.js");
 
 require("dotenv").config();
 const mongoDB = require("./db");
@@ -44,6 +45,7 @@ app.use("/api/testimonials", testimonialRoutes);
 app.use("/api", emailVerification);
 app.use("/api", Appointment);
 app.use("/api/staff", staffRouter);
+app.use("/api/reviews", PropertyReviewRouter);
 
 // Static file access
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

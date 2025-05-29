@@ -57,7 +57,7 @@ const StaffManagedUsers: React.FC<StaffManagedUsersProps> = ({
           <input
             type="text"
             className={styles.searchInput}
-            placeholder="Search by name, email, or phone"
+            placeholder="Search here..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -96,8 +96,8 @@ const StaffManagedUsers: React.FC<StaffManagedUsersProps> = ({
                 </td>
                 <td>{user.email}</td>
                 <td>{user.phoneNumber}</td>
-                <td>{user.city || "N/A"}</td>
-                <td>{user.state || "N/A"}</td>
+                <td>{user.city === "City" ? "N/A" : user.city}</td>
+                <td>{user.state === "State" ? "N/A" : user.city}</td>
                 <td>
                   <span className={styles.roleTag}>{user.role}</span>
                 </td>

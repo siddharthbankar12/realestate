@@ -3,13 +3,13 @@
   padding: 2em;
   background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgb(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgb(0, 0, 0, 0.1);
   max-width: 100%;
   width: 400px;
   margin: 0 auto;
 }
 
-.container{
+.container {
   margin: 1em;
 }
 
@@ -51,6 +51,7 @@
   cursor: pointer;
   font-size: 1em;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 0 auto;
 }
 
 .submitButton:hover {
@@ -61,4 +62,18 @@
 .submitButtonWrapper {
   display: flex;
   justify-content: flex-end;
+}
+
+.starRating {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.starButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem;
 }
