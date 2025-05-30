@@ -40,6 +40,7 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
 }) => {
   const token = localStorage.getItem("authToken");
   const [userId, setUserId] = useState("");
+  const [reviews, setReviews] = useState([]);
 
   const handleSaveProperty = async () => {
     try {
@@ -80,15 +81,50 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
     }
   };
 
+  const fetchReviews = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/reviews/single-property-reviews",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            propertyId: property?._id,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setReviews(data.reviews || []);
+      }
+    } catch (error) {
+      console.error("Error fetch reviews of property", error);
+      toast.error("Failed to save property");
+    }
+  };
+
+  const getAverageRating = (reviews) => {
+    if (reviews.length === 0) return 0;
+    const total = reviews.reduce((sum, r) => sum + r.rating, 0);
+    return total / reviews.length;
+  };
+
+  const averageRating = getAverageRating(reviews);
+
   useEffect(() => {
     if (token) {
       const decoded = jwtDecode(token);
       console.log(decoded, "token");
       setUserId(decoded._id);
     }
+    fetchReviews();
   }, [token]);
 
-  console.log(userId);
+  console.log(reviews);
 
   return (
     <>
@@ -114,9 +150,18 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
             <div className={styles.ratingANDsave}>
               <div className={styles.ratings}>
                 <div className={styles.stars}>
-                  &#9733;&#9733;&#9733;&#9733;&#9734;
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span key={star}>
+                      {averageRating >= star
+                        ? "★"
+                        : averageRating >= star - 0.5
+                        ? "☆"
+                        : "☆"}
+                    </span>
+                  ))}
                 </div>
-                <div className={styles.reviews}>(951 Reviews)</div>
+
+                <div className={styles.reviews}>({reviews.length} Reviews)</div>
               </div>
               <button
                 className={styles.saveProBtn}
@@ -332,7 +377,7 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
 
       {/* Add Review Page Section */}
       <section className={styles.ReviewPage}>
-        <ReviewPage propertyId={property.id} />
+        <ReviewPage reviewsProperty={reviews} />
       </section>
     </>
   );

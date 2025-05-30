@@ -1,8 +1,8 @@
 const express = require("express");
 const PropertyReviewRouter = express.Router();
 const PropertyReview = require("../models/PropertyReviews.js");
-const Admin = require("../models/Admin.js");
 
+// add reviews
 PropertyReviewRouter.post("/add-property-review", async (req, res) => {
   try {
     const { name, review, rating, propertyId } = req.body;
@@ -57,6 +57,7 @@ PropertyReviewRouter.post("/add-property-review", async (req, res) => {
   }
 });
 
+// get all review for admin
 PropertyReviewRouter.get("/get-all-reviews", async (req, res) => {
   try {
     const reviews = await PropertyReview.find().populate("propertyId");
@@ -68,6 +69,40 @@ PropertyReviewRouter.get("/get-all-reviews", async (req, res) => {
     });
   } catch (error) {
     console.error("Error fetching all property reviews:", error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
+});
+
+// get review of single property
+PropertyReviewRouter.post("/single-property-reviews", async (req, res) => {
+  try {
+    const { propertyId } = req.body;
+
+    if (!propertyId) {
+      return res.status(400).json({
+        success: true,
+        message: "Property id required",
+      });
+    }
+
+    const findPropertyReview = await PropertyReview.findOne({
+      propertyId: propertyId,
+    });
+
+    if (!findPropertyReview) {
+      return res.json({
+        success: false,
+        message: "review no for this property",
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: "data fetch successfully",
+      reviews: findPropertyReview.reviews,
+    });
+  } catch (error) {
+    console.error("Error fetching single property reviews:", error);
     res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 });

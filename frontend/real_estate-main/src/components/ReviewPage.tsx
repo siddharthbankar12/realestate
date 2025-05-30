@@ -1,73 +1,118 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./ReviewPage.css";
 
-const ReviewPage: React.FC = () => {
+type Review = {
+  _id: string;
+  name: string;
+  comment: string;
+  rating: number;
+  timestamp: string;
+};
+
+type ReviewPageProps = {
+  reviewsProperty?: Review[];
+};
+
+const ReviewPage: React.FC<ReviewPageProps> = ({ reviewsProperty = [] }) => {
+  const totalReviews = reviewsProperty.length;
+  const sortedReviews = [...reviewsProperty].sort(
+    (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  );
+
+  const averageRating = (
+    sortedReviews.reduce((sum, review) => sum + review.rating, 0) /
+    (totalReviews || 1)
+  ).toFixed(2);
+
+  const ratingCounts = [0, 0, 0, 0, 0];
+  sortedReviews.forEach((r) => {
+    if (r.rating >= 1 && r.rating <= 5) {
+      ratingCounts[r.rating - 1]++;
+    }
+  });
+
+  const getRatingPercentage = (count: number) =>
+    ((count / (totalReviews || 1)) * 100).toFixed(0);
+
+  const [visibleCount, setVisibleCount] = useState(3);
+  const reviewListRef = useRef<HTMLDivElement>(null);
+
+  const handleReadMore = () => {
+    setVisibleCount((prev) => {
+      const newCount = prev + 4;
+      return newCount > totalReviews ? totalReviews : newCount;
+    });
+
+    setTimeout(() => {
+      reviewListRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
   return (
     <div className="review-page">
-      {/* Main rating summary section */}
       <div className="rating-summary">
-        <h2> Rating Overview </h2>
+        <h2>Rating Overview</h2>
         <div className="overall-rating">
-          <div className="rating-value">4.88</div>
+          <div className="rating-value">{averageRating}</div>
         </div>
+
         <div className="ratings-detail">
-          <div className="rating-item">
-            <div><span role="img" aria-label="Excellent" style={{ fontSize: "1.5em" }}>😄</span></div>
-            <div className="bar1"></div>
-            <span className="rating-score">85%</span>
-          </div>
-          <div className="rating-item">
-            <div><span role="img" aria-label="Good" style={{ fontSize: "1.5em" }}>😊</span></div>
-            <div className="bar2"></div>
-            <span className="rating-score">60%</span>
-          </div>
-          <div className="rating-item">
-            <div><span role="img" aria-label="Average" style={{ fontSize: "1.5em" }}>😐</span></div>
-            <div className="bar3"></div>
-            <span className="rating-score">40%</span>
-          </div>
-          <div className="rating-item">
-            <div><span role="img" aria-label="Poor" style={{ fontSize: "1.5em" }}>😕</span></div>
-            <div className="bar4"></div>
-            <span className="rating-score">20%</span>
-          </div>
-          <div className="rating-item">
-            <div><span role="img" aria-label="Terrible" style={{ fontSize: "1.5em" }}>😭</span></div>
-            <div className="bar5"></div>
-            <span className="rating-score">10%</span>
-          </div>
+          {[5, 4, 3, 2, 1].map((star) => {
+            const percent = Number(getRatingPercentage(ratingCounts[star - 1]));
+            const emoji = ["😄", "😊", "😐", "😕", "😭"][5 - star];
+
+            return (
+              <div className="rating-item" key={star}>
+                <span
+                  role="img"
+                  aria-label={`Rating ${star}`}
+                  className="rating-emoji"
+                >
+                  {emoji}
+                </span>
+                <div className="bar-container">
+                  <div
+                    className="bar-fill"
+                    style={{ width: `${percent}%` }}
+                  ></div>
+                </div>
+                <span className="rating-score">{percent}%</span>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Reviews list section */}
-      <div className="reviews-list">
-        <h3>Reviews <span className="review-count"></span></h3>
+      <div className="reviews-list" ref={reviewListRef}>
+        <h3>
+          Reviews <span className="review-count">({totalReviews})</span>
+        </h3>
 
-        {/* Example of a review item */}
-        <div className="review-item">
-          <div className="review-header">
-            <span className="review-author">Sitara,Hyderabad</span>
-            <span className="review-date">Jul 29</span>
+        {totalReviews === 0 ? (
+          <p className="no-reviews">No reviews yet.</p>
+        ) : (
+          <div className="reviews-list-container">
+            {sortedReviews.slice(0, visibleCount).map((review) => (
+              <div className="review-item" key={review._id}>
+                <div className="review-header">
+                  <span className="review-author">{review.name}</span>
+                  <span className="review-date">
+                    {new Date(review.timestamp).toLocaleDateString()}
+                  </span>
+                </div>
+                <div className="review-stars">
+                  {"★".repeat(review.rating) + "☆".repeat(5 - review.rating)}
+                </div>
+                <p>{review.comment}</p>
+              </div>
+            ))}
+            {visibleCount < totalReviews && (
+              <button className="read-more-button" onClick={handleReadMore}>
+                Read More
+              </button>
+            )}
           </div>
-          <div className="review-stars">★★★★☆</div>
-
-          <p> 
-            We absolutely love our new home! The spacious living areas and modern kitchen are perfect for our family gatherings.
-            The neighborhood is friendly and quiet, and the schools nearby are excellent. Highly recommend this property!
-          </p>
-        </div>
-
-        <div className="review-item">
-          <div className="review-header">
-            <span className="review-author">Avansh,Bombay</span>
-            <span className="review-date">Aug 25</span>
-          </div>
-          <div className="review-stars">★★★☆☆</div>
-          <p>
-            We’ve been renting this property for six months, and it’s been a fantastic experience. The house is in great condition, and the landlord has been very attentive to any maintenance requests.
-            The location is convenient, and the rent is very reasonable for the area.
-          </p>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -42,7 +42,15 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
   return (
     <div className={`${styles.containerContent} ${className}`}>
       <div className={styles.leftPanel}>
-        <img src="/logo.png" alt="Company Logo" className={styles.logo} />
+        <img
+          src="/logo.png"
+          alt="Company Logo"
+          className={styles.logo}
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate("/");
+          }}
+        />
         <h1 className={styles.companyName}>Real Estate</h1>
         <p className={styles.tagline}>Manage Your Properties Efficiently</p>
       </div>
