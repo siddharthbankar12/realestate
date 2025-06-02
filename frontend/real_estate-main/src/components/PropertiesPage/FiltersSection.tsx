@@ -17,12 +17,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import DoneIcon from "@mui/icons-material/Done";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import CityDropdown from "../../redux/SearchBox/CityDropDown.jsx"; // Import CityDropdown
+import CityDropdown from "../../redux/SearchBox/CityDropDown.jsx";
 import {
   handleChange,
   handleWithPhotos,
   handleAmenities,
-  handleConstructionStatus,
+  handleAvailabilityStatus,
   handleArea,
   handleBudgetRange,
   handleNoOfBedrooms,
@@ -32,17 +32,13 @@ import {
   handlePostedBy,
   handleFurnitureType,
   handlePurchaseType,
-  handleCity, // Import handleCity action
+  handleCity,
 } from "../../redux/SearchBox/SearchSlice";
 
 const noOfBedroomsList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const propertyTypeList = ["House", "Apartment", "Plot"];
 const amenitiesList = ["Gym", "Swimming Pool", "Garden", "Play Area"];
-const constructionStatusList = [
-  "Under Construction",
-  "Ready to Move",
-  "New Launch",
-];
+const availabilityStatusList = ["Under Construction", "Ready to Move"];
 const postedByList = ["Owner", "Agent", "Builder"];
 const furnitureTypeList = ["Furnished", "Semi-Furnished", "Unfurnished"];
 const purchaseTypeList = ["New", "Resale"];
@@ -54,7 +50,7 @@ const FiltersSection = () => {
     withPhotos,
     expanded,
     amenities,
-    constructionStatus,
+    availabilityStatus,
     budgetRange,
     area,
     reraApproved,
@@ -67,6 +63,7 @@ const FiltersSection = () => {
   const dispatch = useDispatch();
 
   console.log(city);
+  console.log(amenities);
 
   const handleSliderChange = (name, newValue) => {
     if (name === "budgetRange") {
@@ -393,14 +390,14 @@ const FiltersSection = () => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {constructionStatusList.map((status, idx) => (
+                {availabilityStatusList.map((status, idx) => (
                   <FormControlLabel
                     key={idx}
                     control={
                       <Switch
-                        checked={constructionStatus.includes(status)}
+                        checked={availabilityStatus.includes(status)}
                         onChange={() =>
-                          dispatch(handleConstructionStatus(status))
+                          dispatch(handleAvailabilityStatus(status))
                         }
                       />
                     }

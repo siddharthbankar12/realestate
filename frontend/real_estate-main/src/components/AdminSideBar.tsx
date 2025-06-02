@@ -58,7 +58,7 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({
         }`}
         onClick={() => handleSectionChange("reviews")}
       >
-        Reviews
+        Reviews Management
       </div>
       <div
         className={`${styles.sidebarText} ${

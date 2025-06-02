@@ -28,7 +28,7 @@ const initialState = {
   reraApproved: false,
   verifiedProperties: false,
   amenities: [],
-  constructionStatus: [],
+  availabilityStatus: [],
   postedBy: [], // Ensure this is included in the initial state
   furnitureType: [], // Ensure this is included in the initial state
   purchaseType: [], // Ensure this is included in the initial state
@@ -133,14 +133,14 @@ const SearchSlice = createSlice({
         return { ...state, amenities: [...state.amenities, payload] };
       }
     },
-    handleConstructionStatus: (state, { payload }) => {
-      if (state.constructionStatus.includes(payload)) {
-        const arr = state.constructionStatus.filter((item) => item !== payload);
-        return { ...state, constructionStatus: arr };
+    handleAvailabilityStatus: (state, { payload }) => {
+      if (state.availabilityStatus.includes(payload)) {
+        const arr = state.availabilityStatus.filter((item) => item !== payload);
+        return { ...state, availabilityStatus: arr };
       } else {
         return {
           ...state,
-          constructionStatus: [...state.constructionStatus, payload],
+          availabilityStatus: [...state.availabilityStatus, payload],
         };
       }
     },
@@ -239,7 +239,7 @@ export const {
   handleArea,
   handleWithPhotos,
   handleAmenities,
-  handleConstructionStatus,
+  handleAvailabilityStatus,
   handleChange,
   clearSearchState,
   handleSearchCity,

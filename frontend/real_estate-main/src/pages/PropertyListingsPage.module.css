@@ -14,7 +14,7 @@
   /* flex: 1 1 300px; Flex-grow, flex-shrink, flex-basis */
   display: flex;
   justify-content: center;
-  flex: 1;
+  /* flex: 1; */
 }
 
 .linkWrapper {

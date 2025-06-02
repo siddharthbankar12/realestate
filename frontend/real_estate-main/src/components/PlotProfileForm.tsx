@@ -1,17 +1,26 @@
-import React from 'react';
-import styles from './PlotProfileForm.module.css';
+import React from "react";
+import styles from "./PlotProfileForm.module.css";
 
 interface PlotProfileFormProps {
   formData: any;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  handleInputChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   nextStep: () => void;
   prevStep: () => void;
 }
 
-const PlotProfileForm: React.FC<PlotProfileFormProps> = ({ formData, handleInputChange, nextStep, prevStep }) => {
+const PlotProfileForm: React.FC<PlotProfileFormProps> = ({
+  formData,
+  handleInputChange,
+  nextStep,
+  prevStep,
+}) => {
   return (
     <div className={styles.formSection}>
-      <button className={styles.backButton} onClick={prevStep}>Back</button>
+      <button className={styles.backButton} onClick={prevStep}>
+        Back
+      </button>
       <h2>Plot Profile</h2>
 
       <div className={styles.plotArea}>
@@ -25,19 +34,19 @@ const PlotProfileForm: React.FC<PlotProfileFormProps> = ({ formData, handleInput
             placeholder="Enter Area"
           />
           <div className={styles.areastyles}>
-          <select
-            name="areaUnit"
-            value={formData.areaUnit || "sq ft"}
-            onChange={handleInputChange}
-            className={styles.unitDropdown}
-          >
-            <option value="sq ft">Sq Ft</option>
-            <option value="sq yard">Sq Yard</option>
-            <option value="sq m">Sq M</option>
-            <option value="acres">Acres</option>
-            <option value="marla">Marla</option>
-            <option value="cents">Cents</option>
-          </select>
+            <select
+              name="areaUnit"
+              value={formData.areaUnit || "sq ft"}
+              onChange={handleInputChange}
+              className={styles.unitDropdown}
+            >
+              <option value="sq ft">Sq Ft</option>
+              <option value="sq yard">Sq Yard</option>
+              <option value="sq m">Sq M</option>
+              <option value="acres">Acres</option>
+              <option value="marla">Marla</option>
+              <option value="cents">Cents</option>
+            </select>
           </div>
         </div>
       </div>
@@ -46,8 +55,8 @@ const PlotProfileForm: React.FC<PlotProfileFormProps> = ({ formData, handleInput
         <label>Floors allowed for Construction</label>
         <input
           type="number"
-          name="noOfFloors"
-          value={formData.noOfFloors || ""}
+          name="noOfFloorsConst"
+          value={formData.noOfFloorsConst || ""}
           onChange={handleInputChange}
           placeholder="No. of floors"
         />
@@ -162,7 +171,9 @@ const PlotProfileForm: React.FC<PlotProfileFormProps> = ({ formData, handleInput
         </div>
       </div>
 
-      <button className={styles.nextButton} onClick={nextStep}>Next</button>
+      <button className={styles.nextButton} onClick={nextStep}>
+        Next
+      </button>
     </div>
   );
 };

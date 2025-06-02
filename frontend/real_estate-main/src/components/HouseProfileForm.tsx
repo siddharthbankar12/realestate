@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './HouseProfileForm.module.css';
+import React from "react";
+import styles from "./HouseProfileForm.module.css";
 
 const HouseProfileForm = ({
   formData,
@@ -22,7 +22,7 @@ const HouseProfileForm = ({
     const requiredFields = [
       "numberOfBedrooms",
       "numberOfBathrooms",
-      "numberOfBalconies"
+      "numberOfBalconies",
     ];
 
     for (const field of requiredFields) {
@@ -81,9 +81,8 @@ const HouseProfileForm = ({
         </div>
 
         <div className={styles.formGroup}>
-          
-            <label className={styles.formLabel}>Add Area Details</label>
-            <div className={styles.areagroup}>
+          <label className={styles.formLabel}>Add Area Details</label>
+          <div className={styles.areagroup}>
             <input
               type="number"
               name="areaDetails"
@@ -185,30 +184,32 @@ const HouseProfileForm = ({
               <input
                 type="radio"
                 name="availability"
-                value="Ready to move"
-                checked={formData.availability === "Ready to move"}
+                value="Ready to Move"
+                checked={formData.availability === "Ready to Move"}
                 onChange={handleInputChange}
                 className={styles.radio}
               />
-              Ready to move
+              Ready to Move
             </label>
             <label className={styles.inlineLabel}>
               <input
                 type="radio"
                 name="availability"
-                value="Under construction"
-                checked={formData.availability === "Under construction"}
+                value="Under Construction"
+                checked={formData.availability === "Under Construction"}
                 onChange={handleInputChange}
                 className={styles.radio}
               />
-              Under construction
+              Under Construction
             </label>
           </div>
         </div>
 
-        {formData.availability === "Ready to move" && (
+        {formData.availability === "Ready to Move" && (
           <div className={styles.formGroup}>
-            <label className={styles.formLabel}>Age of Property (in years)</label>
+            <label className={styles.formLabel}>
+              Age of Property (in years)
+            </label>
             <input
               type="number"
               name="ageOfProperty"
@@ -220,7 +221,7 @@ const HouseProfileForm = ({
           </div>
         )}
 
-        {formData.availability === "Under construction" && (
+        {formData.availability === "Under Construction" && (
           <div className={styles.formGroup}>
             <label className={styles.formLabel}>Possession by</label>
             <input
@@ -288,8 +289,8 @@ const HouseProfileForm = ({
         </div>
       </div>
       <button className={styles.nextButton} onClick={handleSubmit}>
-          Next
-        </button>
+        Next
+      </button>
     </div>
   );
 };

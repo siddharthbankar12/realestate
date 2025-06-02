@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './ApartmentProfileForm.module.css';
+import React from "react";
+import styles from "./ApartmentProfileForm.module.css";
 
 const ApartmentProfileForm = ({
   formData,
@@ -22,7 +22,7 @@ const ApartmentProfileForm = ({
     const requiredFields = [
       "numberOfBedrooms",
       "numberOfBathrooms",
-      "numberOfBalconies"
+      "numberOfBalconies",
     ];
 
     for (const field of requiredFields) {
@@ -88,29 +88,29 @@ const ApartmentProfileForm = ({
             placeholder="Enter Area"
           />
           <div className={styles.areastyle}>
-          {/* <span className={styles.selectedUnit}>
+            {/* <span className={styles.selectedUnit}>
             {formData.areaUnit || "sq ft"}
           </span> */}
-          <select
-            name="areaUnit"
-            value={formData.areaUnit || "sq ft"}
-            onChange={handleInputChange}
-            className={styles.unitDropdown}
-          >
-            <option value="sq ft">Sq Ft</option>
-            <option value="sq yard">Sq Yard</option>
-            <option value="sq m">Sq M</option>
-            <option value="acres">Acres</option>
-            <option value="marla">Marla</option>
-            <option value="cents">Cents</option>
-          </select>
+            <select
+              name="areaUnit"
+              value={formData.areaUnit || "sq ft"}
+              onChange={handleInputChange}
+              className={styles.unitDropdown}
+            >
+              <option value="sq ft">Sq Ft</option>
+              <option value="sq yard">Sq Yard</option>
+              <option value="sq m">Sq M</option>
+              <option value="acres">Acres</option>
+              <option value="marla">Marla</option>
+              <option value="cents">Cents</option>
+            </select>
           </div>
         </div>
       </div>
 
       <div className={styles.area}>
         <div className={styles.areaLabel}>
-        <label>Other Rooms (optional)</label>
+          <label>Other Rooms (optional)</label>
         </div>
         <div className={styles.areaInput}>
           <label>
@@ -154,7 +154,7 @@ const ApartmentProfileForm = ({
 
       <div className={styles.floorDetails}>
         <div className={styles.floorlabel}>
-        <label>Floor Details</label>
+          <label>Floor Details</label>
         </div>
         <div className={styles.floorInput}>
           <input
@@ -176,36 +176,36 @@ const ApartmentProfileForm = ({
 
       <div className={styles.availability}>
         <div className={styles.availabilityLabel}>
-        <label>Availability Status</label>
+          <label>Availability Status</label>
         </div>
         <div className={styles.availabilityInput}>
           <label>
             <input
               type="radio"
               name="availability"
-              value="Ready to move"
-              checked={formData.availability === "Ready to move"}
+              value="Ready to Move"
+              checked={formData.availability === "Ready to Move"}
               onChange={handleInputChange}
             />
-            Ready to move
+            Ready to Move
           </label>
           <label>
             <input
               type="radio"
               name="availability"
-              value="Under construction"
-              checked={formData.availability === "Under construction"}
+              value="Under Construction"
+              checked={formData.availability === "Under Construction"}
               onChange={handleInputChange}
             />
-            Under construction
+            Under Construction
           </label>
         </div>
       </div>
 
-      {formData.availability === "Ready to move" && (
+      {formData.availability === "Ready to Move" && (
         <div className={styles.ageOfProperty}>
           <div className={styles.ageLabel}>
-          <label>Age of Property</label>
+            <label>Age of Property</label>
           </div>
           <input
             type="number"
@@ -217,10 +217,10 @@ const ApartmentProfileForm = ({
         </div>
       )}
 
-      {formData.availability === "Under construction" && (
+      {formData.availability === "Under Construction" && (
         <div className={styles.possessionDate}>
           <div className={styles.posessionLabel}>
-          <label>Possession Date</label>
+            <label>Possession Date</label>
           </div>
           <input
             type="date"
@@ -232,8 +232,8 @@ const ApartmentProfileForm = ({
       )}
 
       <div className={styles.ownershipType}>
-      <div className={styles.ownershipLabel}>
-        <label>Ownership Type</label>
+        <div className={styles.ownershipLabel}>
+          <label>Ownership Type</label>
         </div>
         <div className={styles.ownershipTypeInput}>
           <label>

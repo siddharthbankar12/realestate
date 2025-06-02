@@ -11,7 +11,8 @@ router.post(
   upload.fields([{ name: "propertyImage", maxCount: 8 }]),
   async (req, res) => {
     try {
-      console.log(req.body);
+      console.log(req.body, "propertyRoute post property");
+
       let image_urls = [];
 
       if (req.files && Array.isArray(req.files.propertyImage)) {
@@ -26,35 +27,59 @@ router.post(
         }
       }
 
+      const other_rooms = JSON.parse(req.body.other_rooms || "{}");
+
+      let amenities = [];
+      try {
+        amenities = JSON.parse(req.body.amenities);
+      } catch (err) {
+        if (typeof req.body.amenities === "string") {
+          amenities = req.body.amenities.split(",").map((a) => a.trim());
+        }
+      }
+
       const newProperty = new Property({
         title: req.body.title,
         description: req.body.description,
         address: req.body.address,
         city: req.body.city,
         price: req.body.price,
-        area: req.body.area,
+        area: req.body.areaDetails || req.body.area,
         type: req.body.propertyType,
         purpose: req.body.purpose,
         status: req.body.status,
-        amenities: req.body.amenities,
+        amenities,
         landmark: req.body.landmark,
         Bhk: req.body.numberOfBedrooms,
         bathrooms: req.body.numberOfBathrooms,
         balconies: req.body.numberOfBalconies,
-        area: req.body.areaDetails,
         floors: req.body.totalFloorDetails,
-        posted_by: req.body.postedBy,
-        availability_status: req.body.availability,
+
+        postedBy: req.body.posterType || req.body.postedBy,
+        availabilityStatus: req.body.availability,
         Propreiter_name: req.body.proprietorName,
         Propreiter_email: req.body.proprietorEmail,
-        Propreiter_contact: req.body.proprietorPhone,
+        Propreiter_contact:
+          req.body.proprietorPhone || req.body.proprietorContact,
+        phone: req.body.phone,
+        mail: req.body.mail,
+        allInclusivePrice: req.body.allInclusivePrice === "true",
+        taxAndGovtChargesExcluded:
+          req.body.taxAndGovtChargesExcluded === "true",
+        priceNegotiable: req.body.priceNegotiable === "true",
+        other_rooms: {
+          studyRoom: !!other_rooms.studyRoom,
+          poojaRoom: !!other_rooms.poojaRoom,
+          servantRoom: !!other_rooms.servantRoom,
+          storeRoom: !!other_rooms.storeRoom,
+        },
         images: image_urls,
       });
 
       await newProperty.save();
       res.status(201).json(newProperty);
     } catch (error) {
-      console.log(error);
+      console.error("Upload failed:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
@@ -118,13 +143,13 @@ router.get("/propertyPurpose", async (req, res) => {
             $regex: typeof query === "string" ? query : "",
             $options: "i",
           },
-        }, // Ensure `query` is a string
+        },
         {
           type: {
             $regex: typeof query === "string" ? query : "",
             $options: "i",
           },
-        }, // Ensure `query` is a string
+        },
       ],
     };
 

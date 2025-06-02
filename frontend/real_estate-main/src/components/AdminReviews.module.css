@@ -110,6 +110,11 @@
   cursor: pointer;
 }
 
+.closeBtn:hover {
+  background-color: transparent;
+  color: red;
+}
+
 .detailsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;

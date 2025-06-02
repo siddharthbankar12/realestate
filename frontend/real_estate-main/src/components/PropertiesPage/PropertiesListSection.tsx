@@ -7,14 +7,21 @@ import { getFilteredProperties } from "../../redux/SearchBox/SearchSlice";
 const PropertiesListSection = ({ searchQuery, filterproperty }) => {
   const {
     noOfBedrooms,
-    budgetRange,
     propertyType,
+    withPhotos,
+    expanded,
+    amenities,
+    availabilityStatus,
+    budgetRange,
     area,
+    reraApproved,
+    verifiedProperties,
+    postedBy,
+    furnitureType,
+    purchaseType,
     city,
     properties,
-    searchOption,
     isPropertyLoading,
-    verifiedProperties,
   } = useSelector((store) => store.search);
   const dispatch = useDispatch();
 
@@ -46,8 +53,17 @@ const PropertiesListSection = ({ searchQuery, filterproperty }) => {
       City: city,
       PropertyType: propertyType,
       verifiedProperties,
+      withPhotos,
+      amenities,
+      availabilityStatus,
+      postedBy,
+      furnitureType,
+      purchaseType,
+      searchproperties: filterproperty,
       url: `http://localhost:8000/api/propertyPurpose?query=${searchQuery.type}`,
+      reraApproved,
     };
+
     dispatch(getFilteredProperties(filters));
   }, [
     verifiedProperties,
@@ -58,7 +74,16 @@ const PropertiesListSection = ({ searchQuery, filterproperty }) => {
     maxArea,
     city,
     propertyType,
+    withPhotos,
+    amenities,
+    availabilityStatus,
+    postedBy,
+    furnitureType,
+    purchaseType,
+    reraApproved,
     dispatch,
+    searchQuery.type,
+    filterproperty,
   ]);
 
   // console.log(properties);

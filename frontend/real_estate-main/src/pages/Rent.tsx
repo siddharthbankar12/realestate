@@ -17,28 +17,37 @@ const Rent: React.FC = () => {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
+    purpose: "sell",
     propertyType: "",
-    address: "",
+    description: "",
+
     city: "",
-    price: "",
+    address: "",
     landmark: "",
+
+    price: "",
     bhk: "",
     bathrooms: "",
     balconies: "",
     other_rooms: "",
     area: "",
+
+    allInclusivePrice: false,
+    taxAndGovtChargesExcluded: false,
+    priceNegotiable: false,
+
     type: "Residential",
     status: "Available",
     floors: "",
-    availability_status: "Ready to move",
-    purpose: "sell",
+    availability: "",
     phone: "",
     mail: "",
-    amenities: "",
-    Propreiter_name: "",
-    Propreiter_email: "",
-    Propreiter_contact: "",
+    proprietorName: "",
+    proprietorEmail: "",
+    proprietorContact: "",
+    proprietorPhone: "",
+    posterType: "",
+
     // Apartment specific fields
     numberOfBedrooms: "",
     numberOfBathrooms: "",
@@ -53,7 +62,14 @@ const Rent: React.FC = () => {
     storeRoom: false,
     ageOfProperty: "",
     possessionDate: "",
-    availability: "Ready to move",
+    ownershipType: "",
+
+    //plot
+
+    plotArea: "",
+    noOfFloorsConst: "",
+    boundary: "",
+    construction: "",
   });
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
 
@@ -68,8 +84,11 @@ const Rent: React.FC = () => {
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
+    const { name, type, value, checked } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,12 +105,31 @@ const Rent: React.FC = () => {
     e.preventDefault();
 
     const combinedFormData = new FormData();
-    Object.keys(formData).forEach((key) => {
-      combinedFormData.append(key, formData[key]);
+
+    const updatedFormData = {
+      ...formData,
+      // Send nested object explicitly
+      other_rooms: {
+        studyRoom: formData.studyRoom,
+        poojaRoom: formData.poojaRoom,
+        servantRoom: formData.servantRoom,
+        storeRoom: formData.storeRoom,
+      },
+    };
+
+    // Append each field properly
+    Object.entries(updatedFormData).forEach(([key, value]) => {
+      if (typeof value === "object" && !Array.isArray(value)) {
+        combinedFormData.append(key, JSON.stringify(value)); // For objects
+      } else if (Array.isArray(value)) {
+        value.forEach((val) => combinedFormData.append(key, val));
+      } else {
+        combinedFormData.append(key, String(value));
+      }
     });
 
-    selectedImages.forEach((image, index) => {
-      combinedFormData.append(`propertyImage`, image);
+    selectedImages.forEach((image) => {
+      combinedFormData.append("propertyImage", image);
     });
 
     try {
@@ -146,6 +184,8 @@ const Rent: React.FC = () => {
         return null;
     }
   };
+
+  console.log(formData);
 
   return (
     <>

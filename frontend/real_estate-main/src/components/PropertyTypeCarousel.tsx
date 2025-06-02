@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import styles from "./PropertyTypeCarousel.module.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { handlePropertyType } from "../redux/SearchBox/SearchSlice";
 
 interface PropertyTypeCardProps {
   title: string;
@@ -14,8 +16,10 @@ const PropertyTypeCard: React.FC<PropertyTypeCardProps> = ({
   imageSrc,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleClick = () => {
-    navigate(`/properties?type=${title}`);
+    navigate("/properties");
+    dispatch(handlePropertyType(title === "Plots" ? "Plot" : title));
   };
   return (
     <div className={styles.card} onClick={handleClick}>

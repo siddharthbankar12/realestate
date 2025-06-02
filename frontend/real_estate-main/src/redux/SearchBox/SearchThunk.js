@@ -25,139 +25,103 @@ export const getFilteredPropertiesThunk = async (url, filters, ThunkAPI) => {
     maxPrice = Infinity,
     noOfBedrooms = [],
     verifiedProperties = false,
+    withPhotos = false,
+    reraApproved = false,
+    amenities = [],
+    availabilityStatus = [],
+    postedBy = [],
+    furnitureType = [],
+    purchaseType = [],
+    searchproperties = [],
   } = filters;
-  console.log("filtrs");
+
   console.log(filters);
 
   try {
-    if (filters.url !== "") {
+    let properties = [];
+
+    if (filters.url && filters.url !== "") {
       const response = await fetch(filters.url);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      const properties = await response.json();
-      const filteredProperties = properties.filter((property) => {
-        const isCityMatch =
-          filters.City === "" ||
-          filters.City === "None" ||
-          property.city.toLowerCase() === filters.City.toLowerCase();
-
-        const isPropertyTypeMatch =
-          filters.PropertyType.length === 0 ||
-          filters.PropertyType.includes(property.type);
-        const isAreaMatch =
-          property.area >= minArea && property.area <= maxArea;
-        const isPriceMatch =
-          property.price >= minPrice && property.price <= maxPrice;
-
-        // Handle the number of bedrooms filter
-        const isnoOfBedroomsMatch =
-          filters.noOfBedrooms.length === 0 ||
-          filters.noOfBedrooms.includes(property.Bhk);
-        const isVerified =
-          filters.verifiedProperties === false ||
-          (property.verification === "verified" &&
-            filters.verifiedProperties === true);
-        return (
-          isCityMatch &&
-          isPropertyTypeMatch &&
-          isAreaMatch &&
-          isPriceMatch &&
-          isnoOfBedroomsMatch &&
-          isVerified
-        );
-      });
-
-      return filteredProperties;
+      properties = await response.json();
     } else {
-      const properties = filters.searchproperties;
-      const filteredProperties = properties.filter((property) => {
-        const isCityMatch =
-          filters.City === "" ||
-          filters.City === "None" ||
-          property.city.toLowerCase() === filters.City.toLowerCase();
-
-        const isPropertyTypeMatch =
-          filters.PropertyType.length === 0 ||
-          filters.PropertyType.includes(property.type);
-        const isAreaMatch =
-          property.area >= minArea && property.area <= maxArea;
-        const isPriceMatch =
-          property.price >= minPrice && property.price <= maxPrice;
-
-        // Handle the number of bedrooms filter
-        const isnoOfBedroomsMatch =
-          filters.noOfBedrooms.length === 0 ||
-          filters.noOfBedrooms.includes(property.Bhk);
-        const isVerified =
-          filters.verifiedProperties === false ||
-          (property.verification === "verified" &&
-            filters.verifiedProperties === true);
-        return (
-          isCityMatch &&
-          isPropertyTypeMatch &&
-          isAreaMatch &&
-          isPriceMatch &&
-          isnoOfBedroomsMatch &&
-          isVerified
-        );
-      });
-
-      return filteredProperties;
+      properties = searchproperties;
     }
-    // return buyProperties;
-    // return pr;
+
+    const filteredProperties = properties.filter((property) => {
+      const isCityMatch =
+        City === "" ||
+        City === "None" ||
+        property.city?.toLowerCase() === City.toLowerCase();
+
+      const isPropertyTypeMatch =
+        PropertyType.length === 0 || PropertyType.includes(property.type);
+
+      const isAreaMatch = property.area >= minArea && property.area <= maxArea;
+
+      const isPriceMatch =
+        property.price >= minPrice && property.price <= maxPrice;
+
+      const isNoOfBedroomsMatch =
+        noOfBedrooms.length === 0 || noOfBedrooms.includes(property.Bhk);
+
+      const isVerified =
+        !verifiedProperties ||
+        (property.verification === "verified" && verifiedProperties);
+
+      const isWithPhotos =
+        !withPhotos || (property.images && property.images.length > 0);
+
+      const isReraApproved =
+        !reraApproved ||
+        property.rera_approved === true ||
+        property.reraApproved === true;
+
+      const hasAmenities =
+        amenities.length === 0 ||
+        (property.amenities &&
+          amenities.every((am) => property.amenities.includes(am)));
+
+      const isAvailabilityStatusMatch =
+        availabilityStatus.length === 0 ||
+        (property.availabilityStatus &&
+          availabilityStatus.includes(property.availabilityStatus));
+
+      const isPostedByMatch =
+        postedBy.length === 0 ||
+        (property.postedBy && postedBy.includes(property.postedBy));
+
+      const isFurnitureTypeMatch =
+        furnitureType.length === 0 ||
+        (property.furnitureType &&
+          furnitureType.includes(property.furnitureType));
+
+      const isPurchaseTypeMatch =
+        purchaseType.length === 0 ||
+        (property.purchaseType && purchaseType.includes(property.purchaseType));
+
+      return (
+        isCityMatch &&
+        isPropertyTypeMatch &&
+        isAreaMatch &&
+        isPriceMatch &&
+        isNoOfBedroomsMatch &&
+        isVerified &&
+        isWithPhotos &&
+        isReraApproved &&
+        hasAmenities &&
+        isAvailabilityStatusMatch &&
+        isPostedByMatch &&
+        isFurnitureTypeMatch &&
+        isPurchaseTypeMatch
+      );
+    });
+
+    return filteredProperties;
   } catch (error) {
-    console.error("Error fetching properties:", error);
-    // Optionally, you can return an empty array or a default value in case of an error
+    console.error("Error filtering properties:", error);
     return [];
   }
 };
-
-// export const getFilteredPropertiesThunk = async (
-//   url,
-//   filters,
-//   purpose,
-//   ThunkAPI
-// ) => {
-//   const {
-//     city = "",
-//     propertyType = [],
-//     minArea = 0,
-//     maxArea = Infinity,
-//     minPrice = 0,
-//     maxPrice = Infinity,
-//   } = filters;
-
-//   console.log("filters");
-//   console.log(filters);
-//   console.log("purpose");
-//   console.log(purpose);
-
-//   try {
-//     const response = await fetch(
-//       `http://localhost:8000/api/allproperty?purpose=${purpose}`
-//     );
-//     if (!response.ok) {
-//       throw new Error("Network response was not ok");
-//     }
-//     const properties = await response.json();
-
-//     const filteredProperties = properties.filter((property) => {
-//       const isCityMatch = !city || property.city === city;
-//       const isPropertyTypeMatch =
-//         propertyType.length === 0 ||
-//         propertyType.includes(property.propertyType);
-//       const isAreaMatch = property.area >= minArea && property.area <= maxArea;
-//       const isPriceMatch =
-//         property.price >= minPrice && property.price <= maxPrice;
-
-//       return isCityMatch && isPropertyTypeMatch && isAreaMatch && isPriceMatch;
-//     });
-
-//     return filteredProperties;
-//   } catch (error) {
-//     console.error("Error fetching properties:", error);
-//     return [];
-//   }
-// };

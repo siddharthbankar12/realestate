@@ -1,7 +1,7 @@
 import { Box, Breadcrumbs, Container, Grid, Link } from "@mui/material";
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { useNavigate ,useLocation} from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import {
   FiltersSection,
   PropertiesListSection,
@@ -57,16 +57,16 @@ ScrollTop.propTypes = {
 };
 
 const Properties = (props) => {
-//   console.log("properprops");
-//   console.log(props);
-//   const [searchQuery, setsearchQuery] = useState(props);
+  //   console.log("properprops");
+  //   console.log(props);
+  //   const [searchQuery, setsearchQuery] = useState(props);
   const navigate = useNavigate();
-  const location=useLocation();
+  const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const propertyType = queryParams.get('type');
-  const [searchQuery, setSearchQuery] = useState({ type: propertyType || '' });
-   useEffect(() => {
-    setSearchQuery({ type: propertyType || '' });
+  const propertyType = queryParams.get("type");
+  const [searchQuery, setSearchQuery] = useState({ type: propertyType || "" });
+  useEffect(() => {
+    setSearchQuery({ type: propertyType || "" });
   }, [propertyType]);
 
   const breadcrumbs = [
@@ -103,10 +103,10 @@ const Properties = (props) => {
     </Link>,
   ];
   console.log("searchQuery");
-    console.log(searchQuery.type);
+  console.log(searchQuery.type);
   return (
     <>
-     <Navbar/>
+      <Navbar />
       <Box sx={{ background: "#f4f5f7", minHeight: "100vh" }}>
         <Container sx={{ paddingTop: 0.5 }}>
           <Breadcrumbs
@@ -122,7 +122,7 @@ const Properties = (props) => {
               <FiltersSection />
             </Grid>
             <Grid item md={8.3}>
-             <PropertiesListSection searchQuery={searchQuery} />
+              <PropertiesListSection searchQuery={searchQuery} />
             </Grid>
           </Grid>
         </Container>

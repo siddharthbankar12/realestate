@@ -52,7 +52,7 @@ const FrameComponent6: FunctionComponent<FrameComponent6Type> = ({
                   <div className={styles.apartment}>Apartment</div>
                 </div>
                 <div className={styles.summaryValues1}>
-                  <div className={styles.readyToMove}>Ready to move</div>
+                  <div className={styles.readyToMove}>Ready to Move</div>
                 </div>
                 <div className={styles.ft}> 189.45 ft²</div>
                 <div className={styles.summaryValues2}>
