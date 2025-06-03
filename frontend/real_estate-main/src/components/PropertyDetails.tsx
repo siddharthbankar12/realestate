@@ -41,6 +41,7 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
   const token = localStorage.getItem("authToken");
   const [userId, setUserId] = useState("");
   const [reviews, setReviews] = useState([]);
+  const [isSaved, setIsSaved] = useState(false);
 
   const handleSaveProperty = async () => {
     try {
@@ -66,14 +67,15 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
       const data = await response.json();
 
       if (response.ok) {
-        if (data.message === "Property already saved") {
-          toast.info("Property is already saved");
-          // console.log(data.saveProperties);
-        } else {
+        if (data.message === "Property unsaved successfully") {
+          toast.info("Property removed from saved list");
+          setIsSaved(false);
+        } else if (data.message === "Property saved successfully") {
           toast.success("Property saved successfully");
+          setIsSaved(true);
         }
       } else {
-        throw new Error(data.message || "Failed to save property");
+        throw new Error(data.message || "Failed to update saved property");
       }
     } catch (error) {
       console.error("Error saving property", error);
@@ -124,7 +126,34 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
     fetchReviews();
   }, [token]);
 
-  console.log(reviews);
+  useEffect(() => {
+    const checkIfSaved = async () => {
+      if (!userId || !property?._id) return;
+
+      try {
+        const response = await fetch(
+          "http://localhost:8000/api/user-update/is-property-saved",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId,
+              propertyId: property._id,
+            }),
+          }
+        );
+
+        const data = await response.json();
+        setIsSaved(data.isSaved);
+      } catch (error) {
+        console.error("Failed to check saved status", error);
+      }
+    };
+
+    checkIfSaved();
+  }, [userId, property._id]);
 
   return (
     <>
@@ -167,7 +196,7 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
                 className={styles.saveProBtn}
                 onClick={handleSaveProperty}
               >
-                Save Property
+                {isSaved ? "Unsave Property" : "Save Property"}
               </button>
             </div>
           </div>
@@ -343,9 +372,9 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
         <div className={styles.right}>
           <PriceHistoryChart />
           <ContactForm
-            email={property.Propreiter_email}
+            userId={userId}
             phone={property.Propreiter_contact}
-            name={property.Propreiter_name}
+            propertyId={property._id}
           />
           <div className={styles.right1}>
             <ReviewForm propertyId={property._id} />

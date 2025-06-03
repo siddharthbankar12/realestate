@@ -4,17 +4,24 @@ import PropertiesListCard from "./PropertiesListCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilteredProperties } from "../../redux/SearchBox/SearchSlice";
 
-const SearchSection = ({ searchCity, filterproperty }) => {
+const SearchSection = ({ filterproperty }) => {
   const {
     noOfBedrooms,
-    budgetRange,
     propertyType,
+    withPhotos,
+    expanded,
+    amenities,
+    availabilityStatus,
+    budgetRange,
     area,
+    reraApproved,
+    verifiedProperties,
+    postedBy,
+    furnitureType,
+    purchaseType,
     city,
     properties,
-    searchOption,
     isPropertyLoading,
-    verifiedProperties,
   } = useSelector((store) => store.search);
   const dispatch = useDispatch();
 
@@ -23,9 +30,7 @@ const SearchSection = ({ searchCity, filterproperty }) => {
   const maxPrice = budgetRange[1];
   const minArea = area[0];
   const maxArea = area[1];
-  console.log("filterproperties");
-  console.log(filterproperty);
-  console.log(searchCity);
+
   useEffect(() => {
     const filters = {
       noOfBedrooms,
@@ -33,16 +38,22 @@ const SearchSection = ({ searchCity, filterproperty }) => {
       maxPrice,
       minArea,
       maxArea,
-      City: city === "All" ? "" : city,
+      City: city,
       PropertyType: propertyType,
       verifiedProperties,
-      url: "",
+      withPhotos,
+      amenities,
+      availabilityStatus,
+      postedBy,
+      furnitureType,
+      purchaseType,
       searchproperties: filterproperty,
+      url: "",
+      reraApproved,
     };
+
     dispatch(getFilteredProperties(filters));
   }, [
-    dispatch,
-    filterproperty,
     verifiedProperties,
     noOfBedrooms,
     minPrice,
@@ -51,6 +62,15 @@ const SearchSection = ({ searchCity, filterproperty }) => {
     maxArea,
     city,
     propertyType,
+    withPhotos,
+    amenities,
+    availabilityStatus,
+    postedBy,
+    furnitureType,
+    purchaseType,
+    reraApproved,
+    dispatch,
+    filterproperty,
   ]);
 
   return (

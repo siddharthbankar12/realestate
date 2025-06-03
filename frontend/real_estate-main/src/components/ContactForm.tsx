@@ -2,8 +2,19 @@ import React, { useState, FunctionComponent } from "react";
 import styles from "./ContactForm.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { toast } from "react-toastify";
 
-const ContactForm: FunctionComponent = (props) => {
+interface ContactFormProps {
+  userId?: string;
+  phone?: string;
+  propertyId?: string;
+}
+
+const ContactForm: FunctionComponent<ContactFormProps> = ({
+  userId,
+  phone,
+  propertyId,
+}) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -21,9 +32,45 @@ const ContactForm: FunctionComponent = (props) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+
+    try {
+      const payload = {
+        fullName: formData.fullName,
+        email: formData.email,
+        phoneNumber: formData.phone,
+        messageEn: formData.message,
+        userId: userId || null,
+        isGuest: !userId,
+        propertyId,
+      };
+
+      const response = await fetch("http://localhost:8000/api/enquiry/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        toast("Enquiry submitted successfully!");
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        toast(data.message || "Failed to submit enquiry.");
+      }
+    } catch (error) {
+      console.error("Error submitting enquiry:", error);
+      toast("Something went wrong. Please try again.");
+    }
   };
 
   console.log(formData);
@@ -41,7 +88,7 @@ const ContactForm: FunctionComponent = (props) => {
                 icon={faWhatsapp}
                 className={styles.whatsappIcon}
               />
-              <span className={styles.whatsappNumber}>{props.phone}</span>
+              <span className={styles.whatsappNumber}>{phone}</span>
             </button>
           </a>
         </div>

@@ -168,9 +168,7 @@ const saveProperty = async (req, res) => {
         .json({ error: "User ID and Property ID are required" });
     }
 
-    const user = await User.findById(userId).populate(
-      "saveProperties.propertyId"
-    );
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -180,29 +178,56 @@ const saveProperty = async (req, res) => {
       user.saveProperties = [];
     }
 
-    const alreadySaved = user.saveProperties.some(
-      (p) => p.propertyId._id.toString() === propertyId.toString()
+    const index = user.saveProperties.findIndex(
+      (p) => p.propertyId.toString() === propertyId
     );
 
-    if (alreadySaved) {
+    if (index > -1) {
+      // Property already saved -> Unsave it
+      user.saveProperties.splice(index, 1);
+      await user.save();
       return res.status(200).json({
-        message: "Property already saved",
+        message: "Property unsaved successfully",
+        saveProperties: user.saveProperties,
+      });
+    } else {
+      // Property not saved -> Save it
+      user.saveProperties.push({ propertyId });
+      await user.save();
+      return res.status(200).json({
+        message: "Property saved successfully",
         saveProperties: user.saveProperties,
       });
     }
-
-    user.saveProperties.push({ propertyId });
-    await user.save();
-
-    // Re-populate after save
-    await user.populate("saveProperties.propertyId");
-
-    return res.status(200).json({
-      message: "Property saved successfully",
-      saveProperties: user.saveProperties,
-    });
   } catch (error) {
-    console.error("Error saving property:", error);
+    console.error("Error saving/unsaving property:", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+const isPropertySaved = async (req, res) => {
+  const { userId, propertyId } = req.body;
+
+  if (!userId || !propertyId) {
+    return res
+      .status(400)
+      .json({ error: "User ID and Property ID are required" });
+  }
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const isSaved = user.saveProperties.some(
+      (p) => p.propertyId.toString() === propertyId
+    );
+
+    return res.status(200).json({ isSaved });
+  } catch (error) {
+    console.error("Error checking saved status:", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -332,4 +357,5 @@ module.exports = {
   removeSavedProperty,
   getUserSavedProperties,
   previousView,
+  isPropertySaved,
 };

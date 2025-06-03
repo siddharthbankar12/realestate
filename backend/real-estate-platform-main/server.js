@@ -22,6 +22,7 @@ require("dotenv").config();
 const mongoDB = require("./db");
 const cors = require("cors");
 const path = require("path");
+const EnquiryRouter = require("./controllers/EnquiryControllers.js");
 
 const port = process.env.PORT || 8000;
 
@@ -46,6 +47,7 @@ app.use("/api", emailVerification);
 app.use("/api", Appointment);
 app.use("/api/staff", staffRouter);
 app.use("/api/reviews", PropertyReviewRouter);
+app.use("/api/enquiry", EnquiryRouter);
 
 // Static file access
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
