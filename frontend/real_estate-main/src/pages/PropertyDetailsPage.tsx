@@ -9,7 +9,7 @@ import { jwtDecode } from "jwt-decode";
 
 interface Property {
   _id: string;
-  user_id: string;
+  user_id?: string;
   title: string;
   description: string;
   address: string;
@@ -22,7 +22,25 @@ interface Property {
   purpose: string;
   amenities: string[];
   created_at: string;
-  __v: number;
+  images: string[];
+  balconies: number;
+  bathrooms: number;
+  verification: string;
+  landmark?: string;
+  floors?: string;
+  availabilityStatus?: string;
+  other_rooms: {
+    studyRoom?: boolean;
+    poojaRoom?: boolean;
+    servantRoom?: boolean;
+    storeRoom?: boolean;
+  };
+  Propreiter_name?: string;
+  Propreiter_email?: string;
+  Propreiter_contact?: string;
+  priceNegotiable?: boolean;
+  allInclusivePrice?: boolean;
+  taxAndGovtChargesExcluded?: boolean;
 }
 
 const PropertyDetailsPage: FunctionComponent = () => {
@@ -79,6 +97,8 @@ const PropertyDetailsPage: FunctionComponent = () => {
   if (error) {
     return <div className={styles.propertyDetailsPage}>Error: {error}</div>;
   }
+
+  console.log(property);
 
   return (
     <>

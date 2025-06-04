@@ -18,7 +18,7 @@ interface PropertyDetail {
   Propreiter_name: string;
   Propreiter_email: string;
   Propreiter_contact: string;
-  availability_status: string;
+  availabilityStatus: string;
   description: string;
   images: string[];
   amenities: string[];

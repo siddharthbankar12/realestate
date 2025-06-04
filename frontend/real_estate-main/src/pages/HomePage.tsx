@@ -31,42 +31,42 @@ const HomePage: FunctionComponent = () => {
     (state: any) => state.search.recentSearchCities
   );
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  // const handleSubmit = async (event: React.FormEvent) => {
+  //   event.preventDefault();
 
-    const apiUrl = "http://localhost:8000/api/appointments";
+  //   const apiUrl = "http://localhost:8000/api/appointments";
 
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          phone,
-        }),
-      });
+  //   try {
+  //     const response = await fetch(apiUrl, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         firstName,
+  //         lastName,
+  //         email,
+  //         phone,
+  //       }),
+  //     });
 
-      if (response.ok) {
-        alert("Appointment booked successfully!");
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPhone("");
-        setIsFormVisible(false); // Close the form after submission
-      } else {
-        throw new Error("Failed to book appointment.");
-      }
-    } catch (error) {
-      console.error("Error booking appointment:", error);
-      alert("Failed to book appointment. Please try again.");
-    }
-  };
+  //     if (response.ok) {
+  //       alert("Appointment booked successfully!");
+  //       setFirstName("");
+  //       setLastName("");
+  //       setEmail("");
+  //       setPhone("");
+  //       setIsFormVisible(false);
+  //     } else {
+  //       throw new Error("Failed to book appointment.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error booking appointment:", error);
+  //     alert("Failed to book appointment. Please try again.");
+  //   }
+  // };
 
   const fetchProperties = async (query: string = "") => {
     try {

@@ -141,18 +141,18 @@ i {
 .PropertyDetails {
   display: flex;
   flex: column;
+  padding: 0 20px;
 }
 
 .left {
-  width: 60%;
+  width: 50%;
 }
 
 .right {
-  width: 40%;
-}
-.right1 {
-  margin-top: 30px;
-  margin-right: 90px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .describe {

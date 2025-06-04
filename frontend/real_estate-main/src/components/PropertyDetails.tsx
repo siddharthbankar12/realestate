@@ -12,26 +12,39 @@ import { toast } from "react-toastify";
 export type PropertyDetailsType = {
   className?: string;
   property: {
-    _id: string;
-    verification: boolean;
+    user_id?: string;
     title: string;
-    area: number;
-    Bhk: number;
+    description: string;
+    address: string;
+    city: string;
+
     price: number;
+    Bhk: number;
+    area: number;
     type: string;
     status: string;
     purpose: string;
-    availability_status: string;
+    amenities: string[];
+    created_at: string;
+    images: string[];
     balconies: number;
     bathrooms: number;
-    floors: number;
-    description: string;
-    Propreiter_email: string;
-    Propreiter_contact: string;
-    Propreiter_name: string;
-    city: string;
-    location: string;
-    landmark: string;
+    verification: string;
+    landmark?: string;
+    floors?: string;
+    availabilityStatus?: string;
+    other_rooms: {
+      studyRoom?: boolean;
+      poojaRoom?: boolean;
+      servantRoom?: boolean;
+      storeRoom?: boolean;
+    };
+    Propreiter_name?: string;
+    Propreiter_email?: string;
+    Propreiter_contact?: string;
+    priceNegotiable?: boolean;
+    allInclusivePrice?: boolean;
+    taxAndGovtChargesExcluded?: boolean;
   };
 };
 
@@ -42,6 +55,13 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
   const [userId, setUserId] = useState("");
   const [reviews, setReviews] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
+
+  const toTitleCase = (str: string = "") =>
+    str
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
 
   const handleSaveProperty = async () => {
     try {
@@ -205,66 +225,9 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
 
       <section className={styles.Gallery}>
         <div className={styles.images}>
-          <img
-            className={styles.image}
-            src="/web16-2@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web18-3@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web21-1@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web19-1@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web17-1@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web20-1@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web16-2@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web18-3@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web21-1@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web19-1@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web17-1@2x.png"
-            alt="Gallery Image"
-          />
-          <img
-            className={styles.image}
-            src="/web20-1@2x.png"
-            alt="Gallery Image"
-          />
+          {property.images.map((url, idx) => (
+            <img className={styles.image} key={idx} src={url} alt={url} />
+          ))}
         </div>
       </section>
 
@@ -274,24 +237,31 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
             <div className={styles.heading}>Description</div>
             <div className={styles.describe}>
               <b>
-                {property.availability_status}
-                <br />
-                {property.balconies
-                  ? `${property.balconies} Balconies`
-                  : null}{" "}
-                |{" "}
-                {property.bathrooms ? `${property.bathrooms} Bathrooms` : null}{" "}
-                | {`${property.floors} Floors`}
-                <br />
-                {property.description}
+                -{" "}
+                {property.availabilityStatus && (
+                  <>
+                    {property.availabilityStatus}
+                    <br />
+                  </>
+                )}
+                -{" "}
+                {property.balconies !== undefined &&
+                  `${property.balconies} ${
+                    property.balconies === 1 ? "Balcony" : "Balconies"
+                  } `}
+                {property.bathrooms !== undefined &&
+                  `| ${property.bathrooms} ${
+                    property.bathrooms === 1 ? "Bathroom" : "Bathrooms"
+                  } `}
+                {property.floors &&
+                  `| ${property.floors} ${
+                    +property.floors === 1 ? "Floor" : "Floors"
+                  }`}
+                {property.price !== undefined &&
+                  ` | ₹${property.price.toLocaleString("en-IN")}`}
+                <br />- {property.description}
               </b>
               <br />
-              Welcome to our luxurious two-bedroom apartment, ideally situated
-              in downtown's vibrant core. Boasting modern amenities,
-              breathtaking city views facing east, and proximity to key
-              landmarks such as Central Park and renowned dining spots. Perfect
-              for discerning urbanites, offering convenience, culture, and a
-              coveted lifestyle at your doorstep.
             </div>
           </section>
 
@@ -368,18 +338,38 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
               </div>
             </div>
           </section>
-        </div>
-        <div className={styles.right}>
+
           <PriceHistoryChart />
+
+          {/* {property.amenities?.length > 0 && (
+            <section className={styles.FacilitiesAmenities}>
+              <div className={styles.heading}>Facilities and Amenities</div>
+              <div className={styles.gridContainer}>
+                {property.amenities.map((amenity, index) => {
+                  return (
+                    <div key={index} className={styles.gridItem}>
+                      <div className={styles.facilityamenity}>{amenity}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )} */}
+        </div>
+
+        <div className={styles.right}>
           <ContactForm
             userId={userId}
             phone={property.Propreiter_contact}
             propertyId={property._id}
           />
-          <div className={styles.right1}>
-            <ReviewForm propertyId={property._id} />
-          </div>
+
+          <ReviewForm propertyId={property._id} />
         </div>
+      </section>
+
+      <section className={styles.ReviewPage}>
+        <ReviewPage reviewsProperty={reviews} />
       </section>
 
       <section className={styles.Location}>
@@ -391,22 +381,22 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
             alt="Map Icon"
           />
           <div className={styles.location}>
-            Address : {property.city} {property.location}
+            Address : {toTitleCase(property.address)}
             <br />
-            Landmark : {property.landmark}
+            City : {toTitleCase(property.city)}
+            <br />
+            Landmark : {toTitleCase(property.landmark || "")}
           </div>
         </div>
+
         <iframe
           className={styles.map}
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.3882263594105!2d88.34073987534423!3d22.56457877949738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02779ff7e5b9af%3A0x1d1b1884bdbbbd79!2sEden%20Gardens!5e0!3m2!1sen!2sin!4v1723799966301!5m2!1sen!2sin"
+          src={`https://www.google.com/maps?q=${encodeURIComponent(
+            `${property.landmark || ""} ${property.city}`
+          )}&output=embed`}
           allowFullScreen
           loading="lazy"
         ></iframe>
-      </section>
-
-      {/* Add Review Page Section */}
-      <section className={styles.ReviewPage}>
-        <ReviewPage reviewsProperty={reviews} />
       </section>
     </>
   );

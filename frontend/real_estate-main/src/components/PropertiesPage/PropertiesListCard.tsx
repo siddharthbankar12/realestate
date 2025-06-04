@@ -4,43 +4,40 @@ import { Box, Button, Divider, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const PropertiesListCard = ({ property }) => {
+  console.log(property);
   const imageProperty =
     "https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
 
   const navigate = useNavigate();
-  // const [bhk, setbhk] = useState();
+
   const {
+    Bhk,
+    type,
+    title,
     address,
     city,
+    bathrooms,
+    balconies,
+    amenities = [],
+    other_rooms = {},
+    verification,
+    propertyType,
+    propertyOptions,
     price,
     area,
-    title,
-    propertyOptions,
-    propertyType,
-    Bhk,
-    verification,
+    images,
   } = property;
+
+  const amenityList =
+    amenities.length > 0 ? amenities.join(", ") : "basic utilities";
+  const otherRooms = Object.entries(other_rooms)
+    .filter(([_, value]) => value)
+    .map(([key]) => key.replace(/([A-Z])/g, " $1").toLowerCase())
+    .join(", ");
 
   const handleCardClick = () => {
     navigate(`/property-details-page/${property._id}`, { state: { property } });
   };
-  // useEffect(() => {
-  //   if (area < 750) {
-  //     setbhk(1);
-  //   } else if (area >= 750 && area < 1500) {
-  //     setbhk(2);
-  //   } else if (area >= 1500 && area < 2500) {
-  //     setbhk(3);
-  //   } else if (area >= 2500 && area < 4000) {
-  //     setbhk(4);
-  //   } else if (area >= 4000 && area < 5400) {
-  //     setbhk(5);
-  //   } else if (area >= 5400 && area < 7000) {
-  //     setbhk(6);
-  //   } else if (area >= 7000) {
-  //     setbhk(7);
-  //   }
-  // }, [area]);
 
   return (
     <>
@@ -70,11 +67,7 @@ const PropertiesListCard = ({ property }) => {
         ) : null}
 
         <img
-          src={
-            imageProperty === null
-              ? "https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              : imageProperty
-          }
+          src={images.length < 1 ? imageProperty : images[0]}
           alt="propertyTemp"
           style={{
             borderRadius: 8,
@@ -249,16 +242,15 @@ const PropertiesListCard = ({ property }) => {
                 mr: 4,
               }}
             >
-              Amazing {Bhk} bedroom{" "}
-              {Bhk > 3 ? (Bhk > 5 ? Bhk - 2 : Bhk - 1) : Bhk} bathroom{" "}
-              {propertyType} in {title} located in {address}, {city}, .
-              Utilities include Cable, High Speed Fiber Internet, Electricity,
-              Water Tank and Complete Power Backup and Gas also have{" "}
-              {Bhk > 3 ? (Bhk > 5 ? Bhk - 2 : Bhk - 1) : Bhk} Balcony, {Bhk}{" "}
-              Wardrobe, {Bhk + 1} Fan, in a pet-friendly society. All Rooms are
-              spacious and properly ventilated. Construction Quality is also
-              High End with High Quality Fittings.
+              {`Amazing ${Bhk}-bedroom, ${bathrooms}-bathroom ${type} in ${title}, located at ${address}, ${city}.`}
+              {` This property offers essential utilities such as ${amenityList}, electricity, water tank, and complete power backup.`}
+              {` It features ${balconies} balcony${balconies > 1 ? "ies" : ""}${
+                Bhk ? `, ${Bhk} wardrobe${Bhk > 1 ? "s" : ""}` : ""
+              }, all within a pet-friendly society.`}
+              {otherRooms ? ` Additional rooms include: ${otherRooms}.` : ""}
+              {` All rooms are spacious and well-ventilated. The construction quality is high-end with premium fittings.`}
             </Typography>
+
             <Divider sx={{ mt: 2, background: "rgba(0,0,0,0.15)" }} />
             <Box sx={{ mt: 0.5, display: "flex", justifyContent: "flex-end" }}>
               <Button

@@ -11,7 +11,7 @@ const propertySchema = new mongoose.Schema({
   landmark: { type: String },
 
   price: { type: Number, required: true },
-  bhk: { type: Number },
+  Bhk: { type: Number },
   bathrooms: { type: Number },
   balconies: { type: Number },
   area: { type: Number },

@@ -74,8 +74,8 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ propertyId }) => {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.heading}>Leave a Review</h2>
       <div className={styles.reviewFormContainer}>
+        <h2 className={styles.heading}>Leave a Review</h2>
         <form onSubmit={handleSubmit} className={styles.reviewForm}>
           <input
             type="text"

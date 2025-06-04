@@ -16,7 +16,7 @@ interface Property {
   address: string;
   amenities: string[];
   area: number;
-  availability_status: string;
+  availabilityStatus: string;
   balconies: number;
   bathrooms: number;
   city: string;

@@ -98,7 +98,7 @@ const StaffDashboard = () => {
       const response = await fetch(
         `http://localhost:8000/api/staff/appointment/confirmed/${appointmentId}`,
         {
-          method: "GET",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
