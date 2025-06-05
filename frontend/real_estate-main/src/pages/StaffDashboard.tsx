@@ -9,6 +9,7 @@ import StaffManagedAppointments from "./StaffManagedAppointments";
 import StaffVerifyProperties from "./StaffVerifyProperties";
 import { toast } from "react-toastify";
 import StaffManagedUsers from "./StaffManagedUsers";
+import StaffAppointLogDetails from "./StaffAppointLogDetails";
 
 const StaffDashboard = () => {
   const [selectedOption, setSelectedOption] = useState("profile");
@@ -68,6 +69,38 @@ const StaffDashboard = () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const [appointmentsRes, propertiesRes] = await Promise.all([
+        fetch("http://localhost:8000/api/appointments", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }),
+        fetch("http://localhost:8000/api/property/verification"),
+      ]);
+
+      if (!appointmentsRes.ok || !propertiesRes.ok) {
+        throw new Error("Failed to fetch data.");
+      }
+
+      const appointmentsData = await appointmentsRes.json();
+      const propertiesData = await propertiesRes.json();
+
+      console.log(propertiesData);
+
+      if (appointmentsData.success)
+        setAppointments(appointmentsData.appointments);
+      if (propertiesData?.success)
+        setProperties(propertiesData.property_verify);
+    } catch (err) {
+      toast.error("Failed to fetch data. Please try again.");
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -151,9 +184,41 @@ const StaffDashboard = () => {
           a._id === appointmentId ? { ...a, status: "Cancelled" } : a
         )
       );
+      fetchData();
       toast.success("Appointment cancelled successfully");
     } catch (error) {
       console.error("Error cancelling appointment:", error);
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+
+  const handleAcceptAppointment = async (id: string) => {
+    const staffId = staffData?._id;
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/staff/appointment/accept/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ staffId }),
+        }
+      );
+
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        toast.error(result.error || "Failed to accept appointment");
+        return;
+      }
+
+      setAppointments((prev) =>
+        prev.map((a) => (a._id === id ? { ...a, status: "Accepted" } : a))
+      );
+      fetchData();
+      toast.success("Appointment accepted successfully");
+    } catch (error) {
+      console.error("Error accepting appointment:", error);
       toast.error("Something went wrong. Please try again.");
     }
   };
@@ -162,42 +227,6 @@ const StaffDashboard = () => {
     localStorage.removeItem("authToken");
     navigate("/staff-login");
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [appointmentsRes, propertiesRes] = await Promise.all([
-          fetch("http://localhost:8000/api/appointments", {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-            },
-          }),
-          fetch("http://localhost:8000/api/property/verification"),
-        ]);
-
-        if (!appointmentsRes.ok || !propertiesRes.ok) {
-          throw new Error("Failed to fetch data.");
-        }
-
-        const appointmentsData = await appointmentsRes.json();
-        const propertiesData = await propertiesRes.json();
-
-        console.log(propertiesData);
-
-        if (appointmentsData.success)
-          setAppointments(appointmentsData.appointments);
-        if (propertiesData?.success)
-          setProperties(propertiesData.property_verify);
-      } catch (err) {
-        toast.error("Failed to fetch data. Please try again.");
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const renderContent = () => {
     switch (selectedOption) {
@@ -213,6 +242,7 @@ const StaffDashboard = () => {
             error={error}
             handleConfirmedAppointment={handleConfirmedAppointment}
             handleCancelAppointment={handleCancelAppointment}
+            handleAcceptAppointment={handleAcceptAppointment}
           />
         );
       case "properties":
@@ -236,6 +266,7 @@ const StaffDashboard = () => {
   useEffect(() => {
     fetchStaffData();
     fetchUserDetails();
+    fetchData();
   }, [navigate]);
 
   return (

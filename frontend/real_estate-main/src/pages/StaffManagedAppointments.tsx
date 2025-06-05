@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./StaffManagedAppointments.module.css";
 import { FaTrash } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 interface Appointment {
   _id: string;
@@ -12,6 +13,9 @@ interface Appointment {
   createdAt: string;
   updatedAt: string;
   isGuest: boolean;
+  staffId?: string;
+  userId?: string;
+  log?: string;
 }
 
 interface StaffManagedAppointmentsProps {
@@ -20,6 +24,8 @@ interface StaffManagedAppointmentsProps {
   error: string | null;
   handleConfirmedAppointment: (id: String) => void;
   handleCancelAppointment: (id: string) => void;
+  handleAcceptAppointment: (id: string) => void;
+  handleUpdateLog: (id: string, log: string) => void;
 }
 
 const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
@@ -28,11 +34,16 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
   error,
   handleConfirmedAppointment,
   handleCancelAppointment,
+  handleAcceptAppointment,
 }) => {
+  const navigate = useNavigate();
+
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedStaff, setSelectedStaff] = useState<any | null>(null);
+  const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
 
   const handleUserClick = (user: any) => {
     setSelectedUser(user);
@@ -106,6 +117,7 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
                   <th>Email</th>
                   <th>Phone</th>
                   <th>Status</th>
+                  <th>Managed By</th>
                   <th>Created</th>
                   <th>Updated</th>
                   <th>Type</th>
@@ -113,7 +125,7 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
                 </tr>
               </thead>
               <tbody>
-                {filteredAppointments.map((a) => (
+                {filteredAppointments.reverse().map((a) => (
                   <tr key={a._id}>
                     <td>
                       {`${a.firstName || ""} ${a.lastName || ""}`.trim() ||
@@ -128,12 +140,29 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
                             ? styles.pending
                             : a.status.toLowerCase() === "cancelled"
                             ? styles.cancelled
-                            : styles.confirmed
+                            : styles.accepted
                         }`}
                       >
                         {a.status}
                       </span>
                     </td>
+
+                    <td className={styles.APManageStaff}>
+                      {a.staffId ? (
+                        <p
+                          onClick={() => {
+                            setSelectedStaff(a.staffId);
+                            setIsStaffModalOpen(true);
+                          }}
+                          className={styles.userDetailsBtn}
+                        >
+                          {a.staffId.staffId}
+                        </p>
+                      ) : (
+                        "—"
+                      )}
+                    </td>
+
                     <td>{new Date(a.createdAt).toLocaleString()}</td>
                     <td>{new Date(a.updatedAt).toLocaleString()}</td>
                     <td>
@@ -151,22 +180,29 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
 
                     <td>
                       {a.status.toLowerCase() === "pending" ? (
-                        <>
+                        <div className={styles.statusBTNs}>
                           <button
-                            onClick={() => handleConfirmedAppointment(a._id)}
-                            className={styles.ConfirmedBtn}
-                            title="Confirmed"
+                            onClick={() => handleAcceptAppointment(a._id)}
+                            className={styles.AcceptBtn}
                           >
-                            Confirmed
+                            Accept
                           </button>
                           <button
                             onClick={() => handleCancelAppointment(a._id)}
                             className={styles.CancelBtn}
-                            title="Cancel"
                           >
-                            Cancel
+                            Reject
                           </button>
-                        </>
+                        </div>
+                      ) : a.status.toLowerCase() === "accepted" ? (
+                        <button
+                          className={styles.LogBTNs}
+                          onClick={() =>
+                            navigate(`/staff/appointments/${a._id}/logs`)
+                          }
+                        >
+                          Logs
+                        </button>
                       ) : (
                         "-"
                       )}
@@ -202,6 +238,37 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
                       </p>
                       <p>
                         <strong>Address:</strong> {selectedUser.address}
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {isStaffModalOpen && selectedStaff && (
+                  <div className={styles.modalOverlay}>
+                    <div className={styles.modalContent}>
+                      <button
+                        className={styles.closeModalBtn}
+                        onClick={() => {
+                          setIsStaffModalOpen(false);
+                          setSelectedStaff(null);
+                        }}
+                      >
+                        ×
+                      </button>
+                      <h2>Staff Details</h2>
+                      <p>
+                        <p>
+                          <strong>Staff ID :</strong> {selectedStaff.staffId}
+                        </p>
+                        <strong>Full Name :</strong> {selectedStaff.fullName}
+                      </p>
+                      <p>
+                        <strong>Email :</strong> {selectedStaff.email}
+                      </p>
+                      <p>
+                        <strong>Phone :</strong> {selectedStaff.phoneNumber}
+                      </p>
+                      <p>
+                        <strong>Role :</strong> {selectedStaff.role}
                       </p>
                     </div>
                   </div>

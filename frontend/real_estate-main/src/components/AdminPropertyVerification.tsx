@@ -47,7 +47,7 @@ const VerifyPropertiesForm: React.FC<VerifyPropertiesFormProps> = ({
       ) : properties.length === 0 ? (
         <p className={styles.message}>No properties pending verification.</p>
       ) : (
-        properties.map((property) => (
+        properties.reverse().map((property) => (
           <div key={property._id} className={styles.card}>
             <div className={styles.titleRow}>
               <h2 className={styles.title}>{property.title}</h2>

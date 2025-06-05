@@ -88,7 +88,7 @@ const StaffManagedUsers: React.FC<StaffManagedUsersProps> = ({
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((user, idx) => (
+            {filteredUsers.reverse().map((user, idx) => (
               <tr key={user._id}>
                 <td>{idx + 1}</td>
                 <td>

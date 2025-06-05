@@ -1,9 +1,10 @@
 .containerStaff {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   padding: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  margin-top: 90px;
+  justify-content: center;
+  margin-top: 70px;
 }
 
 .card {
@@ -15,7 +16,9 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  width: 550px;
+  width: 100%;
+  max-width: 550px;
+  flex: 1 1 350px;
 }
 
 .titleRow {

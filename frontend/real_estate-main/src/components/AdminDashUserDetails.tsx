@@ -74,7 +74,7 @@ const AdminDashUserDetails: React.FC<AdminProfileProps> = ({
     setSearchQuery(e.target.value);
   };
 
-  const filteredUsers = users.filter((user) => {
+  const filteredUsers = [...users].reverse().filter((user) => {
     const query = searchQuery.toLowerCase();
     const matchesQuery =
       user.firstName.toLowerCase().includes(query) ||

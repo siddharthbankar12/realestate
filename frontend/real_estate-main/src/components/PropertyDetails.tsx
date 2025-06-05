@@ -192,8 +192,9 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
                 <i className="fa-solid fa-ruler-combined"></i> {property.area}{" "}
                 Sqft. | <i className="fas fa-bed"></i> {property.Bhk} BHK |{" "}
                 <i className="fa-solid fa-indian-rupee-sign"></i>{" "}
-                {property.price}| <i className="fas fa-home"></i>{" "}
-                {property.type} | {property.status} | {property.purpose}
+                {property.price} | <i className="fas fa-home"></i>{" "}
+                {property.type} | {toTitleCase(property.status)} |{" "}
+                {property.purpose}
               </div>
             </div>
             <div className={styles.ratingANDsave}>

@@ -82,7 +82,7 @@ const AdminReviews: React.FC<AdminReviewsProps> = ({ reviews }) => {
           </tr>
         </thead>
         <tbody>
-          {flattenedReviews.map((review) => (
+          {flattenedReviews.reverse().map((review) => (
             <tr key={review._id}>
               <td className={styles.reviewer}>
                 <BiUserCircle className={styles.avatar} />
@@ -96,7 +96,7 @@ const AdminReviews: React.FC<AdminReviewsProps> = ({ reviews }) => {
                   onClick={() => setSelectedProperty(review.property)}
                   style={{ textAlign: "left" }}
                 >
-                  {review.property.title}
+                  {review.property?.title}
                 </p>
               </td>
             </tr>

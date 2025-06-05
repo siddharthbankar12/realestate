@@ -45,7 +45,7 @@ const AdminList: React.FC<Props> = ({
             </tr>
           </thead>
           <tbody>
-            {admins.map((admin) => (
+            {admins.reverse().map((admin) => (
               <tr key={admin._id}>
                 <td>{admin.adminId}</td>
                 <td>{admin.buyersId?.length ?? 0}</td>

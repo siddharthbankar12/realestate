@@ -31,7 +31,7 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
   const [searchTerm, setSearchTerm] = useState("");
 
   // Filter appointments based on selected status and search term
-  const filteredAppointments = appointments.filter((a) => {
+  const filteredAppointments = [...appointments].reverse().filter((a) => {
     const fullName = `${a.firstName} ${a.lastName}`.toLowerCase();
     const email = a.email.toLowerCase();
     const phone = a.phoneNumber.toLowerCase();

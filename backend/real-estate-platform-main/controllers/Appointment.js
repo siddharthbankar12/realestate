@@ -81,7 +81,9 @@ router.post("/appointments/user", authenticate, async (req, res) => {
 // Get appointments - Always fetch all appointments
 router.get("/appointments", authenticate, async (req, res) => {
   try {
-    const appointments = await Appointments.find().populate("userId");
+    const appointments = await Appointments.find()
+      .populate("userId")
+      .populate("staffId");
 
     return res.status(200).json({
       success: true,

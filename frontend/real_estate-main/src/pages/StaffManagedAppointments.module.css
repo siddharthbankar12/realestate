@@ -97,13 +97,16 @@
   background-color: #e74c3c;
 }
 
+.accepted {
+  color: black;
+}
+
 .ConfirmedBtn {
   cursor: pointer;
   color: #24a459;
   background-image: none;
   background-color: transparent;
   border: 1px solid black;
-  margin-bottom: 8px;
 }
 
 .ConfirmedBtn:hover {
@@ -121,6 +124,43 @@
 .CancelBtn:hover {
   background-color: #e74c3c;
   color: white;
+}
+
+.AcceptBtn {
+  cursor: pointer;
+  color: #bb8e06;
+  background-image: none;
+  background-color: transparent;
+  border: 1px solid black;
+}
+.AcceptBtn:hover {
+  background-color: #f39c12;
+  color: white;
+}
+
+.LogBTNs {
+  cursor: pointer;
+  color: black;
+  background-image: none;
+  background-color: transparent;
+  border: 1px solid black;
+}
+.LogBTNs:hover {
+  background-color: white;
+  color: black;
+}
+
+.ConfirmedBtn,
+.AcceptBtn,
+.CancelBtn {
+  padding: 3px;
+  width: 100%;
+}
+
+.statusBTNs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .modalOverlay {
@@ -162,4 +202,5 @@
   text-decoration: underline;
   color: darkblue;
   cursor: pointer;
+  padding: 0;
 }

@@ -114,7 +114,7 @@ const StaffManagement = () => {
           </tr>
         </thead>
         <tbody>
-          {staffList.map((staff) => (
+          {staffList.reverse().map((staff) => (
             <tr key={staff._id}>
               <td>{staff.staffId}</td>
               <td>{staff.fullName}</td>

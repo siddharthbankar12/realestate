@@ -65,24 +65,6 @@ const staffSchema = new mongoose.Schema(
         },
       },
     ],
-
-    callLogs: [
-      {
-        userId: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-        date: {
-          type: Date,
-          default: Date.now,
-        },
-        callType: {
-          type: String,
-          enum: ["incoming", "outgoing"],
-        },
-        notes: String,
-      },
-    ],
   },
   {
     timestamps: true,

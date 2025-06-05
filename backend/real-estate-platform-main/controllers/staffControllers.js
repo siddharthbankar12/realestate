@@ -323,6 +323,81 @@ staffRouter.put("/appointment/Cancelled/:appointmentId", async (req, res) => {
   }
 });
 
+// accept appointment by staff
+staffRouter.put("/appointment/accept/:appointmentId", async (req, res) => {
+  try {
+    const { appointmentId } = req.params;
+    const { staffId } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ error: "Invalid appointment ID" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(staffId)) {
+      return res.status(400).json({ error: "Invalid staff ID" });
+    }
+
+    const appointment = await Appointment.findById(appointmentId);
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    const staff = await Staff.findById(staffId);
+    if (!staff) {
+      return res.status(404).json({ error: "Staff not found" });
+    }
+
+    appointment.status = "Accepted";
+    appointment.staffId = staffId;
+    await appointment.save();
+
+    staff.appointmentsHandled.push({
+      appointmentId: appointment._id,
+      date: new Date(),
+      status: "Accepted",
+    });
+    await staff.save();
+
+    res.json({
+      success: true,
+      message: "Appointment accepted successfully",
+      appointment,
+    });
+  } catch (error) {
+    console.error("Error accepting appointment:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// get single appointment detail fo staff
+staffRouter.get("/get-appointment/:appointmentId/details", async (req, res) => {
+  try {
+    const { appointmentId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ error: "Invalid appointment ID" });
+    }
+
+    const appointment = await Appointment.findById(appointmentId)
+      .populate("userId")
+      .populate("staffId")
+      .lean();
+
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    res.json({
+      success: true,
+      message: "Appointment details fetched successfully",
+      appointmentDetails: appointment,
+    });
+  } catch (error) {
+    console.error("Error fetching appointment details:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // fetch all user data for staff
 staffRouter.get("/users-details", async (req, res) => {
   try {
