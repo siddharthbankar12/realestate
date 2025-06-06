@@ -1,5 +1,42 @@
 const mongoose = require("mongoose");
 
+const UpdateLogSchema = new mongoose.Schema(
+  {
+    status: {
+      type: String,
+      enum: [
+        "Pending",
+        "Accepted",
+        "Scheduled",
+        "In Progress",
+        "Completed",
+        "Cancelled",
+        "No-show",
+      ],
+      required: true,
+    },
+    appointmentType: {
+      type: String,
+      enum: ["Site Visit", "Consultation", "Document Collection", "Other"],
+    },
+    staffId: {
+      type: String,
+    },
+    followUpDate: {
+      type: Date,
+    },
+    note: {
+      type: String,
+      required: true,
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { _id: false }
+);
+
 const AppointmentSchema = new mongoose.Schema(
   {
     firstName: {
@@ -36,12 +73,21 @@ const AppointmentSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Pending", "Accepted", "Confirmed", "Cancelled"],
+      enum: [
+        "Pending",
+        "Accepted",
+        "Scheduled",
+        "In Progress",
+        "Completed",
+        "Cancelled",
+        "No-show",
+      ],
       default: "Pending",
     },
+    appointmentUpdates: [UpdateLogSchema],
   },
   {
-    timestamps: true, // adds createdAt and updatedAt
+    timestamps: true,
   }
 );
 

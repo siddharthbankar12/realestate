@@ -14,6 +14,7 @@ import AdminList from "../components/AdminList";
 import AdminProfile from "../components/AdminProfile";
 import AdminDashUserDetails from "../components/AdminDashUserDetails";
 import StaffManagement from "../components/StaffManagement";
+import AdminEnquiries from "../components/AdminEnquiries";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const AdminDashboard = () => {
   const [properties, setProperties] = useState<any[]>([]);
   const [admins, setAdmins] = useState<any[]>([]);
   const [reviews, setReviews] = useState<any[]>([]);
+  const [enquiries, setEnquiries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,66 +44,72 @@ const AdminDashboard = () => {
     }
   }, []);
 
-  console.log(adminProfile);
+  const fetchData = async () => {
+    try {
+      const [
+        appointmentsRes,
+        propertiesRes,
+        reviewsRes,
+        enquiriesRes,
+        adminsRes,
+      ] = await Promise.all([
+        fetch("http://localhost:8000/api/appointments", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }),
+        fetch("http://localhost:8000/api/property/verification"),
+        fetch("http://localhost:8000/api/reviews/get-all-reviews"),
+        fetch("http://localhost:8000/api/enquiry/get-all-enquiry"),
+        fetch("http://localhost:8000/api/admin", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }),
+      ]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [appointmentsRes, propertiesRes, reviewsRes, adminsRes] =
-          await Promise.all([
-            fetch("http://localhost:8000/api/appointments", {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              },
-            }),
-            fetch("http://localhost:8000/api/property/verification"),
-            fetch("http://localhost:8000/api/reviews/get-all-reviews"),
-            fetch("http://localhost:8000/api/admin", {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-              },
-            }),
-          ]);
-
-        if (
-          !appointmentsRes.ok ||
-          !propertiesRes.ok ||
-          !reviewsRes.ok ||
-          !adminsRes.ok
-        ) {
-          throw new Error("Failed to fetch data.");
-        }
-
-        const appointmentsData = await appointmentsRes.json();
-        const propertiesData = await propertiesRes.json();
-        const reviewsData = await reviewsRes.json();
-        const adminsData = await adminsRes.json();
-
-        console.log(propertiesData);
-
-        if (appointmentsData.success) {
-          setAppointments(appointmentsData.appointments);
-        }
-        if (propertiesData.success) {
-          setProperties(propertiesData.property_verify);
-        }
-        if (adminsData.success) {
-          setAdmins(adminsData.data);
-        }
-
-        if (reviewsData.success) {
-          setReviews(reviewsData.reviews);
-        }
-      } catch (err) {
-        toast.error("Failed to fetch data. Please try again.");
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
+      if (
+        !appointmentsRes.ok ||
+        !propertiesRes.ok ||
+        !reviewsRes.ok ||
+        !enquiriesRes.ok ||
+        !adminsRes.ok
+      ) {
+        throw new Error("Failed to fetch data.");
       }
-    };
 
-    fetchData();
-  }, []);
+      const appointmentsData = await appointmentsRes.json();
+      const propertiesData = await propertiesRes.json();
+      const reviewsData = await reviewsRes.json();
+      const enquiriesData = await enquiriesRes.json();
+      const adminsData = await adminsRes.json();
+
+      console.log(propertiesData);
+
+      if (appointmentsData.success) {
+        setAppointments(appointmentsData.appointments);
+      }
+      if (propertiesData.success) {
+        setProperties(propertiesData.property_verify);
+      }
+      if (adminsData.success) {
+        setAdmins(adminsData.data);
+      }
+      if (reviewsData.success) {
+        setReviews(reviewsData.reviews);
+      }
+      if (enquiriesData.success) {
+        setEnquiries(enquiriesData.enquiries);
+      }
+    } catch (err) {
+      toast.error("Failed to fetch data. Please try again.");
+      setError((err as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  console.log(adminProfile);
 
   const handleRemoveAppointment = async (id: string) => {
     try {
@@ -226,6 +234,37 @@ const AdminDashboard = () => {
     setShowModal(true);
   };
 
+  const handleDeleteEnquiry = async (enquiryId: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/enquiry/${enquiryId}/delete`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        toast.success("Enquiry deleted successfully");
+
+        setEnquiries((prev) => prev.filter((e) => e._id !== enquiryId));
+      } else {
+        toast.error(data.message || "Failed to delete enquiry");
+      }
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting enquiry:", error);
+      toast.error("An error occurred while deleting the enquiry");
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [navigate]);
+
+  console.log(enquiries);
+
   return (
     <div style={{ backgroundColor: "#f5f7fa" }}>
       <div style={{ padding: "20px 0" }}>
@@ -266,6 +305,12 @@ const AdminDashboard = () => {
               <AdminReviews
                 reviews={reviews || []}
                 adminId={adminProfile?.adminId}
+              />
+            )}
+            {activeSection === "enquiries" && (
+              <AdminEnquiries
+                enquiries={enquiries}
+                onDeleteEnquiry={handleDeleteEnquiry}
               />
             )}
             {activeSection === "adminsList" && (

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./StaffManagedAppointments.module.css";
-import { FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 interface Appointment {
@@ -21,6 +20,7 @@ interface Appointment {
 interface StaffManagedAppointmentsProps {
   appointments: Appointment[];
   loading: boolean;
+  staffId: String;
   error: string | null;
   handleConfirmedAppointment: (id: String) => void;
   handleCancelAppointment: (id: string) => void;
@@ -31,13 +31,13 @@ interface StaffManagedAppointmentsProps {
 const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
   appointments,
   loading,
+  staffId,
   error,
-  handleConfirmedAppointment,
   handleCancelAppointment,
   handleAcceptAppointment,
 }) => {
   const navigate = useNavigate();
-
+  console.log(staffId);
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -103,7 +103,10 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
               >
                 <option value="All">All</option>
                 <option value="Pending">Pending</option>
-                <option value="Confirmed">Confirmed</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
                 <option value="Cancelled">Cancelled</option>
               </select>
             </div>
@@ -134,17 +137,7 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
                     <td>{a.email || "N/A"}</td>
                     <td>{a.phoneNumber || "N/A"}</td>
                     <td>
-                      <span
-                        className={`${styles.status} ${
-                          a.status.toLowerCase() === "pending"
-                            ? styles.pending
-                            : a.status.toLowerCase() === "cancelled"
-                            ? styles.cancelled
-                            : styles.accepted
-                        }`}
-                      >
-                        {a.status}
-                      </span>
+                      <span className={styles.status}>{a.status}</span>
                     </td>
 
                     <td className={styles.APManageStaff}>
@@ -194,11 +187,13 @@ const StaffManagedAppointments: React.FC<StaffManagedAppointmentsProps> = ({
                             Reject
                           </button>
                         </div>
-                      ) : a.status.toLowerCase() === "accepted" ? (
+                      ) : a.status.toLowerCase() !== "cancelled" ? (
                         <button
                           className={styles.LogBTNs}
                           onClick={() =>
-                            navigate(`/staff/appointments/${a._id}/logs`)
+                            navigate(
+                              `/staff/${staffId}/appointments/${a._id}/logs`
+                            )
                           }
                         >
                           Logs

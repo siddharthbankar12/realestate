@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import styles from "./StaffAppointLogDetails.module.css";
+import { toast } from "react-toastify";
 
 interface User {
   firstName: string;
@@ -21,6 +22,14 @@ interface Staff {
   role: string;
 }
 
+interface AppointmentUpdate {
+  status: string;
+  note: string;
+  appointmentType: string;
+  followUpDate?: string;
+  updatedAt: string;
+}
+
 interface Appointment {
   _id: string;
   firstName: string;
@@ -31,80 +40,117 @@ interface Appointment {
   createdAt: string;
   updatedAt: string;
   isGuest: boolean;
-  log?: string;
+  latestUpdate?: AppointmentUpdate;
   userId?: User;
   staffId?: Staff;
 }
 
 const StaffAppointLogDetails: React.FC = () => {
   const navigate = useNavigate();
-  const { appointmentId } = useParams();
+  const { staffId, appointmentId } = useParams();
   const [appointment, setAppointment] = useState<Appointment | null>(null);
-  const [logInput, setLogInput] = useState("");
+
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [updateList, setUpdateList] = useState<AppointmentUpdate[]>([]);
 
-  useEffect(() => {
-    const fetchAppointment = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8000/api/staff/get-appointment/${appointmentId}/details`
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [note, setNote] = useState("");
+  const [appointmentType, setAppointmentType] = useState("");
+  const [followUpDate, setFollowUpDate] = useState("");
+
+  const fetchAppointment = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8000/api/staff/get-appointment/${appointmentId}/details`
+      );
+      if (!response.ok) throw new Error();
+      const data = await response.json();
+      const appt = data.appointmentDetails;
+      setAppointment(appt);
+      setStatus(appt.latestUpdate?.status || appt.status || "");
+      setNote(appt.latestUpdate?.note || "");
+      setAppointmentType(appt.latestUpdate?.appointmentType || "");
+      setFollowUpDate(appt.latestUpdate?.followUpDate?.split("T")[0] || "");
+    } catch {
+      toast.error("Unable to fetch appointment details.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchAppointmentLogs = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/staff/appointment/${appointmentId}/logs`
+      );
+      if (response.data.success) {
+        const sortedUpdates = response.data.updates.sort(
+          (a: AppointmentUpdate, b: AppointmentUpdate) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
         );
-        if (!response.ok) throw new Error("Failed to fetch");
-        const data = await response.json();
-        setAppointment(data.appointmentDetails);
-        setLogInput(data.appointmentDetails.log || "");
-        setStatus(data.appointmentDetails.status || "");
-      } catch (err) {
-        setError("Unable to fetch appointment details.");
-      } finally {
-        setLoading(false);
+        setUpdateList(sortedUpdates);
       }
-    };
-
-    fetchAppointment();
-  }, [appointmentId]);
+    } catch (error) {
+      toast.error("Failed to fetch appointment update logs.");
+    }
+  };
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
-      await axios.put(
-        `http://localhost:8000/api/staff/update-appointment/${appointmentId}`,
+      const response = await fetch(
+        `http://localhost:8000/api/staff/appointment/${appointmentId}/update-log`,
         {
-          log: logInput,
-          status,
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status,
+            note,
+            appointmentType,
+            followUpDate,
+            staffId,
+          }),
         }
       );
-      alert("Appointment updated successfully!");
-    } catch (err) {
-      alert("Failed to update appointment.");
+
+      if (!response.ok) throw new Error();
+      toast.success("Appointment update saved successfully!");
+      setShowAddForm(false);
+      fetchAppointment();
+      fetchAppointmentLogs();
+    } catch {
+      toast.error("Failed to update appointment.");
     }
   };
+
+  useEffect(() => {
+    fetchAppointment();
+    fetchAppointmentLogs();
+  }, [appointmentId]);
 
   return (
     <div className={styles.pageWrapper}>
       <Navbar />
-
       <div className={styles.container}>
         <div className={styles.headerRow}>
           <button
-            onClick={() => {
-              navigate("/staff-dashboard");
-            }}
+            onClick={() => navigate("/staff-dashboard")}
             className={styles.backButton}
           >
             Back
           </button>
         </div>
-        <h2 className={styles.heading}>Appointment Log Details</h2>
+        <h2 className={styles.heading}>Appointment Details</h2>
 
         {loading ? (
           <p className={styles.loading}>Loading...</p>
-        ) : error ? (
-          <p className={styles.error}>{error}</p>
         ) : appointment ? (
           <div className={styles.flexLayout}>
+            {/* Left: Appointment Info */}
             <div className={styles.detailsTableWrapper}>
               <table className={styles.detailsTable}>
                 <tbody>
@@ -211,6 +257,77 @@ const StaffAppointLogDetails: React.FC = () => {
             </div>
 
             <div className={styles.formWrapper}>
+              <h3 className={styles.formHeading}>Appointment Updates</h3>
+              {appointment.status !== "Completed" && (
+                <button
+                  onClick={() => {
+                    setShowAddForm(true);
+                    setStatus("");
+                    setNote("");
+                    setAppointmentType("");
+                    setFollowUpDate("");
+                  }}
+                  className={styles.submitButton}
+                >
+                  + Add Update
+                </button>
+              )}
+              {updateList.length > 0 ? (
+                <ul className={styles.updateList}>
+                  {updateList.map((update, index) => (
+                    <li key={index} className={styles.updateItem}>
+                      <div>
+                        <strong>Status :</strong> {update.status}
+                      </div>
+                      <div>
+                        <strong>Managed By :</strong> {update?.staffId}
+                      </div>
+                      <div>
+                        <strong>Type :</strong> {update.appointmentType}
+                      </div>
+
+                      {update.followUpDate && (
+                        <div>
+                          <strong>Follow-up Date :</strong>{" "}
+                          {new Date(update.followUpDate).toLocaleDateString()}
+                        </div>
+                      )}
+                      <div>
+                        <strong>Updated At :</strong>{" "}
+                        {new Date(update.updatedAt).toLocaleString()}
+                      </div>
+                      <div>
+                        <strong>Note :</strong> {update.note}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No updates added yet.</p>
+              )}
+            </div>
+          </div>
+        ) : (
+          <p>No appointment found.</p>
+        )}
+
+        {showAddForm && (
+          <div
+            className={styles.popupOverlay}
+            onClick={() => setShowAddForm(false)}
+          >
+            <div
+              className={styles.popupForm}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                className={styles.closeButton}
+                onClick={() => setShowAddForm(false)}
+                type="button"
+              >
+                ×
+              </button>
+
               <h3 className={styles.formHeading}>Appointment Activity Log</h3>
               <form onSubmit={handleUpdate}>
                 <div className={styles.formGroup}>
@@ -219,6 +336,9 @@ const StaffAppointLogDetails: React.FC = () => {
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                   >
+                    <option value="" disabled>
+                      -- Select Appointment Status --
+                    </option>
                     <option value="Pending">Pending</option>
                     <option value="Scheduled">Scheduled</option>
                     <option value="In Progress">In Progress</option>
@@ -230,7 +350,14 @@ const StaffAppointLogDetails: React.FC = () => {
 
                 <div className={styles.formGroup}>
                   <label>Appointment Type</label>
-                  <select>
+                  <select
+                    value={appointmentType}
+                    onChange={(e) => setAppointmentType(e.target.value)}
+                    required
+                  >
+                    <option value="" disabled>
+                      -- Select Appointment Type --
+                    </option>
                     <option value="Site Visit">Site Visit</option>
                     <option value="Consultation">Consultation</option>
                     <option value="Document Collection">
@@ -242,15 +369,19 @@ const StaffAppointLogDetails: React.FC = () => {
 
                 <div className={styles.formGroup}>
                   <label>Next Follow-up Date</label>
-                  <input type="date" />
+                  <input
+                    type="date"
+                    value={followUpDate}
+                    onChange={(e) => setFollowUpDate(e.target.value)}
+                  />
                 </div>
 
                 <div className={styles.formGroup}>
                   <label>Internal Notes / Log</label>
                   <textarea
                     rows={5}
-                    value={logInput}
-                    onChange={(e) => setLogInput(e.target.value)}
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
                     placeholder="Describe client discussion, visit notes, pending docs, follow-up steps, etc."
                   />
                 </div>
@@ -261,8 +392,6 @@ const StaffAppointLogDetails: React.FC = () => {
               </form>
             </div>
           </div>
-        ) : (
-          <p>No appointment found.</p>
         )}
       </div>
     </div>

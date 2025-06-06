@@ -7,7 +7,7 @@
 }
 
 .sidebar {
-  width: 250px;
+  width: 220px;
   background-color: #1f2937; /* dark gray */
   color: #fff;
   display: flex;
@@ -15,7 +15,7 @@
   padding: 2rem 1rem;
   gap: 1rem;
   position: sticky;
-  top: 0;
+  top: 90px;
   height: 80vh;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   border-top-right-radius: 20px;
@@ -58,7 +58,7 @@
 
 .content {
   flex: 1;
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
   overflow-y: auto;
 }
 

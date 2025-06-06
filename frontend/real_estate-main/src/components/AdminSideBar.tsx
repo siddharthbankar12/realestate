@@ -40,7 +40,7 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({
         }`}
         onClick={() => handleSectionChange("appointments")}
       >
-        Appointments
+        Appointments Management
       </div>
       <div
         className={`${styles.sidebarText} ${
@@ -59,6 +59,14 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({
         onClick={() => handleSectionChange("reviews")}
       >
         Reviews Management
+      </div>
+      <div
+        className={`${styles.sidebarText} ${
+          activeSection === "enquiries" ? styles.activeSidebarText : ""
+        }`}
+        onClick={() => handleSectionChange("enquiries")}
+      >
+        Enquiries Management
       </div>
       <div
         className={`${styles.sidebarText} ${

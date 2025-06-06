@@ -80,38 +80,9 @@
 .status {
   padding: 6px 12px;
   border-radius: 6px;
-  color: white;
+  color: black;
   font-size: 13px;
   font-weight: 500;
-}
-
-.pending {
-  background-color: #f39c12;
-}
-
-.confirmed {
-  background-color: #2ecc71;
-}
-
-.cancelled {
-  background-color: #e74c3c;
-}
-
-.accepted {
-  color: black;
-}
-
-.ConfirmedBtn {
-  cursor: pointer;
-  color: #24a459;
-  background-image: none;
-  background-color: transparent;
-  border: 1px solid black;
-}
-
-.ConfirmedBtn:hover {
-  background-color: #2ecc71;
-  color: white;
 }
 
 .CancelBtn {

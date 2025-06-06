@@ -398,6 +398,99 @@ staffRouter.get("/get-appointment/:appointmentId/details", async (req, res) => {
   }
 });
 
+// update latest appointment log by staff
+staffRouter.put("/appointment/:appointmentId/update-log", async (req, res) => {
+  try {
+    const { appointmentId } = req.params;
+    const { status, note, appointmentType, followUpDate, staffId } = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ error: "Invalid appointment ID" });
+    }
+
+    const appointment = await Appointment.findById(appointmentId);
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    if (status) {
+      appointment.status = status;
+    }
+
+    const newLog = {
+      status,
+      note,
+      staffId,
+      appointmentType,
+      followUpDate: followUpDate ? new Date(followUpDate) : undefined,
+      updatedAt: new Date(),
+    };
+
+    appointment.appointmentUpdates.push(newLog);
+    await appointment.save();
+
+    if (staffId) {
+      const staff = await Staff.findOne({ staffId });
+
+      if (staff) {
+        const existingIndex = staff.appointmentsHandled.findIndex(
+          (item) => item.appointmentId.toString() === appointmentId
+        );
+
+        if (existingIndex !== -1) {
+          staff.appointmentsHandled[existingIndex].status = status;
+          staff.appointmentsHandled[existingIndex].date = new Date();
+        } else {
+          staff.appointmentsHandled.push({
+            appointmentId,
+            status,
+            date: new Date(),
+          });
+        }
+
+        await staff.save();
+      }
+    }
+
+    res.json({
+      success: true,
+      message: "Appointment update log saved successfully",
+      latestUpdate: newLog,
+    });
+  } catch (error) {
+    console.error("Error updating appointment log:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Fetch all logs for a specific appointment
+staffRouter.get("/appointment/:appointmentId/logs", async (req, res) => {
+  try {
+    const { appointmentId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ error: "Invalid appointment ID" });
+    }
+
+    const appointment = await Appointment.findById(appointmentId)
+      .select("appointmentUpdates")
+      .populate("staffId");
+
+    if (!appointment) {
+      return res.status(404).json({ error: "Appointment not found" });
+    }
+
+    res.json({
+      success: true,
+      appointmentId,
+      updates: appointment.appointmentUpdates,
+    });
+  } catch (error) {
+    console.error("Error fetching appointment logs:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // fetch all user data for staff
 staffRouter.get("/users-details", async (req, res) => {
   try {

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "../components/AdminAppointment.module.css";
 import { FaTrash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa"; // for "Details" icon
+import Modal from "react-modal";
 
 interface Appointment {
   _id: string;
@@ -12,6 +14,15 @@ interface Appointment {
   createdAt: string;
   updatedAt: string;
   isGuest: boolean;
+  appointmentUpdates: any[];
+  staffId?: {
+    staffId: string;
+    fullName: string;
+    phoneNumber: string;
+    email: string;
+    role: string;
+  };
+  userId?: any;
 }
 
 interface AdminAppointmentProps {
@@ -29,8 +40,11 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
 }) => {
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [showStaffModal, setShowStaffModal] = useState(false);
+  const [selectedStaff, setSelectedStaff] = useState<any>(null);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [selectedUpdates, setSelectedUpdates] = useState<any[]>([]);
 
-  // Filter appointments based on selected status and search term
   const filteredAppointments = [...appointments].reverse().filter((a) => {
     const fullName = `${a.firstName} ${a.lastName}`.toLowerCase();
     const email = a.email.toLowerCase();
@@ -45,6 +59,16 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
         phone.includes(searchTermLower))
     );
   });
+
+  const openStaffModal = (staff: any) => {
+    setSelectedStaff(staff);
+    setShowStaffModal(true);
+  };
+
+  const openUpdateModal = (updates: any[]) => {
+    setSelectedUpdates(updates);
+    setShowUpdateModal(true);
+  };
 
   return (
     <div className={styles.container}>
@@ -70,9 +94,12 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
                 className={styles.dropdown}
               >
                 <option value="all">All</option>
-                <option value="pending">Pending</option>
-                <option value="confirmed">Confirmed</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="Pending">Pending</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
               </select>
             </div>
           </div>
@@ -85,8 +112,8 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
                   <th>Email</th>
                   <th>Phone</th>
                   <th>Status</th>
-                  <th>Created</th>
-                  <th>Updated</th>
+                  <th>Managed By</th>
+                  <th>Updated / Created</th>
                   <th>Type</th>
                   <th>Action</th>
                 </tr>
@@ -101,22 +128,31 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
                     <td>{a.email || "N/A"}</td>
                     <td>{a.phoneNumber || "N/A"}</td>
                     <td>
-                      <span
-                        className={`${styles.status} ${
-                          a.status.toLowerCase() === "pending"
-                            ? styles.pending
-                            : a.status.toLowerCase() === "cancelled"
-                            ? styles.cancelled
-                            : styles.confirmed
-                        }`}
-                      >
-                        {a.status}
-                      </span>
+                      <span className={styles.status}>{a.status}</span>
                     </td>
-                    <td>{new Date(a.createdAt).toLocaleString()}</td>
-                    <td>{new Date(a.updatedAt).toLocaleString()}</td>
+                    <td>
+                      <button
+                        className={styles.linkBtn}
+                        onClick={() => openStaffModal(a.staffId)}
+                        disabled={!a.staffId}
+                      >
+                        {a.staffId?.staffId || "N/A"}
+                      </button>
+                    </td>
+                    <td>
+                      {new Date(a.updatedAt).toLocaleString()}
+                      <hr />
+                      {new Date(a.createdAt).toLocaleString()}
+                    </td>
                     <td>{a.isGuest ? "Guest" : "User"}</td>
                     <td>
+                      <p
+                        onClick={() => openUpdateModal(a.appointmentUpdates)}
+                        className={styles.detailsBtn}
+                        title="Details"
+                      >
+                        <FaEye />
+                      </p>
                       <button
                         onClick={() => handleRemoveAppointment(a._id)}
                         className={styles.deleteBtn}
@@ -136,6 +172,94 @@ const AdminAppointment: React.FC<AdminAppointmentProps> = ({
           )}
         </div>
       )}
+
+      {/* Staff Modal */}
+      <Modal
+        isOpen={showStaffModal}
+        onRequestClose={() => setShowStaffModal(false)}
+        className={styles.modal}
+        overlayClassName={styles.overlay}
+      >
+        {selectedStaff ? (
+          <>
+            <h2>Staff Details</h2>
+            <p>
+              <strong>ID:</strong> {selectedStaff.staffId}
+            </p>
+            <p>
+              <strong>Name:</strong> {selectedStaff.fullName}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedStaff.email}
+            </p>
+            <p>
+              <strong>Phone:</strong> {selectedStaff.phoneNumber}
+            </p>
+            <p>
+              <strong>Role:</strong> {selectedStaff.role}
+            </p>
+          </>
+        ) : (
+          <p>No staff data available.</p>
+        )}
+        <button
+          onClick={() => setShowStaffModal(false)}
+          className={styles.closeBtn}
+        >
+          Close
+        </button>
+      </Modal>
+
+      {/* Appointment Updates Modal */}
+      <Modal
+        isOpen={showUpdateModal}
+        onRequestClose={() => setShowUpdateModal(false)}
+        className={styles.largeModal}
+        overlayClassName={styles.overlay}
+      >
+        <div className={styles.modalHeader}>
+          <h2>Appointment Updates</h2>
+          <button
+            onClick={() => setShowUpdateModal(false)}
+            className={styles.closeBtn}
+          >
+            X
+          </button>
+        </div>
+
+        {selectedUpdates?.length > 0 ? (
+          <div className={styles.tableContainer}>
+            <table className={styles.updateTable}>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Status</th>
+                  <th>Type</th>
+                  <th>Note</th>
+                  <th>Staff ID</th>
+                  <th>Follow-up Date</th>
+                  <th>Updated At</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedUpdates.reverse().map((log, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{log.status}</td>
+                    <td>{log.appointmentType}</td>
+                    <td>{log.note}</td>
+                    <td>{log.staffId}</td>
+                    <td>{new Date(log.followUpDate).toLocaleDateString()}</td>
+                    <td>{new Date(log.updatedAt).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p>No updates found.</p>
+        )}
+      </Modal>
     </div>
   );
 };

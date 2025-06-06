@@ -64,7 +64,7 @@
 .status {
   padding: 6px 12px;
   border-radius: 6px;
-  color: white;
+  color: black;
   font-size: 13px;
   font-weight: 500;
 }
@@ -106,4 +106,104 @@
 
 .deleteBtn:hover {
   background-color: transparent;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  margin: auto;
+  position: relative;
+}
+
+.largeModal {
+  background: white;
+  width: 90vw;
+  height: 75vh;
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.closeBtn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.linkBtn {
+  background: none;
+  color: #007bff;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.linkBtn:hover {
+  background-color: transparent;
+}
+
+.detailsBtn {
+  background: transparent;
+  color: black;
+  padding: 5px 8px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 0;
+}
+
+.updateList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.updateItem {
+  border-bottom: 1px solid #ccc;
+  padding: 8px 0;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.updateTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.updateTable th,
+.updateTable td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.updateTable th {
+  background-color: #f2f2f2;
 }

@@ -125,39 +125,6 @@ const StaffDashboard = () => {
     }
   };
 
-  const handleConfirmedAppointment = async (appointmentId: string) => {
-    const staffId = staffData?._id;
-    try {
-      const response = await fetch(
-        `http://localhost:8000/api/staff/appointment/confirmed/${appointmentId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ staffId }),
-        }
-      );
-
-      const result = await response.json();
-
-      if (!response.ok || !result.success) {
-        toast.error(result.error || "Failed to confirm appointment");
-        return;
-      }
-
-      setAppointments((prev) =>
-        prev.map((a) =>
-          a._id === appointmentId ? { ...a, status: "Confirmed" } : a
-        )
-      );
-      toast.success("Appointment confirmed successfully");
-    } catch (error) {
-      console.error("Error confirming appointment:", error);
-      toast.error("Something went wrong. Please try again.");
-    }
-  };
-
   const handleCancelAppointment = async (appointmentId: string) => {
     const staffId = staffData?._id;
     try {
@@ -237,10 +204,10 @@ const StaffDashboard = () => {
       case "appointments":
         return (
           <StaffManagedAppointments
+            staffId={staffData.staffId}
             appointments={appointments}
             loading={loading}
             error={error}
-            handleConfirmedAppointment={handleConfirmedAppointment}
             handleCancelAppointment={handleCancelAppointment}
             handleAcceptAppointment={handleAcceptAppointment}
           />

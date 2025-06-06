@@ -1,0 +1,105 @@
+.enquiryContainer {
+  padding: 20px;
+}
+
+.enquiryTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.enquiryTable th,
+.enquiryTable td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.guestUser {
+  text-decoration: underline;
+  color: #007bff;
+  cursor: pointer;
+}
+.enquiryTable th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+.propertyLink {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin: 0;
+}
+
+.deleteBtn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.deleteBtn:hover {
+  background-color: #c0392b;
+}
+
+.popupOverlay {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
+.popupContainer {
+  width: 30%;
+  height: 60%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.closeButton {
+  background-color: #666;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 90px;
+}
+
+.closeButton:hover {
+  background-color: #444;
+}
+
+.detailTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.detailTable td {
+  padding: 8px 10px 8px 20px;
+  border: 1px solid #3b3b3b;
+  vertical-align: top;
+}
+
+.detailTable td:first-child {
+  font-weight: bold;
+  width: 40%;
+  color: #333;
+}

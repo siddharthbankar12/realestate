@@ -185,7 +185,7 @@ function App() {
         <Route path="/staff-login" element={<StaffLogin />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
         <Route
-          path="/staff/appointments/:appointmentId/logs"
+          path="/staff/:staffId/appointments/:appointmentId/logs"
           element={<StaffAppointLogDetails />}
         />
       </Routes>
