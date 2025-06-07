@@ -32,6 +32,8 @@ import UserNotifications from "./pages/UserNotifications";
 import StaffLogin from "./pages/StaffLogin";
 import StaffDashboard from "./pages/StaffDashboard";
 import StaffAppointLogDetails from "./pages/StaffAppointLogDetails";
+import StaffPerformanceCategories from './components/StaffPerformanceCategories';
+
 
 function App() {
   const action = useNavigationType();
@@ -184,6 +186,8 @@ function App() {
 
         <Route path="/staff-login" element={<StaffLogin />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
+        <Route path="/staff-performance" element={<StaffPerformanceCategories />} />
+
         <Route
           path="/staff/:staffId/appointments/:appointmentId/logs"
           element={<StaffAppointLogDetails />}
