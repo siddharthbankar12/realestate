@@ -1,0 +1,180 @@
+.staff-performance-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .performance-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .performance-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .performance-header p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .tier-card {
+    background: white;
+    border-radius: 12px;
+    border: 3px solid transparent;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .tier-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .tier-card.selected {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  .tier-header {
+    padding: 1.5rem;
+    text-align: center;
+    color: #333;
+    position: relative;
+  }
+  
+  .tier-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .tier-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .tier-content {
+    padding: 1.5rem;
+  }
+  
+  .tier-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .tier-details {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+  }
+  
+  .criteria-section,
+  .benefits-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .criteria-section h4,
+  .benefits-section h4 {
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .criteria-section ul,
+  .benefits-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .criteria-section li,
+  .benefits-section li {
+    padding: 0.3rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  
+  .criteria-section li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  .benefits-section li:before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: #ffc107;
+    font-weight: bold;
+  }
+  
+  .performance-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  
+  .stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-card h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: block;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .staff-performance-container {
+      padding: 1rem;
+    }
+    
+    .performance-header h1 {
+      font-size: 2rem;
+    }
+    
+    .tiers-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .tier-card {
+      margin-bottom: 1rem;
+    }
+    
+    .performance-stats {
+      grid-template-columns: 1fr;
+    }
+  }
