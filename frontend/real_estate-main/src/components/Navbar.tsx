@@ -53,6 +53,9 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [searchCity, setSearchCity] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
+  const [isServicesMobileDropdownOpen, setIsServicesMobileDropdownOpen] =
+    useState(false);
 
   const onLOGOTextClick = useCallback(() => {
     navigate("/");
@@ -65,6 +68,11 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
 
   const onPostPropertyClick = useCallback(() => {
     navigate("/rent");
+    setIsMobileMenuOpen(false);
+  }, [navigate]);
+
+  const onServicesClick = useCallback(() => {
+    navigate("/services");
     setIsMobileMenuOpen(false);
   }, [navigate]);
 
@@ -180,7 +188,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         className={`${styles.navitem} ${styles.logo}`}
         onClick={onLOGOTextClick}
       >
-        <img src="../logo.png" alt="Logo" className={styles.logo1} />
+        <img src="/logo.png" alt="Logo" className={styles.logo1} />
       </div>
 
       <NavSearch />
@@ -195,6 +203,28 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
         <div className={styles.navitem} onClick={onPostPropertyClick}>
           Post Property
         </div>
+
+        <div
+          className={styles.servicesWrapper}
+          onMouseEnter={() => setIsServicesDropdownOpen(true)}
+          onMouseLeave={() => setIsServicesDropdownOpen(false)}
+        >
+          <div className={styles.navitem}>Services</div>
+          {isServicesDropdownOpen && (
+            <div className={styles.dropdownMenu}>
+              <div onClick={() => navigate("/services/title-search")}>
+                Property Title Search
+              </div>
+              <div onClick={() => navigate("/services/pre-purchase")}>
+                Pre-Purchase Assistance
+              </div>
+              <div onClick={() => navigate("/services/post-purchase")}>
+                Post-Purchase Services
+              </div>
+            </div>
+          )}
+        </div>
+
         <div
           className={styles.navitem}
           onClick={() => {
@@ -233,6 +263,53 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
           <div onClick={onSellTextClick}>For Buyers</div>
           <div onClick={onRentTextClick}>For Tenants</div>
           <div onClick={onPostPropertyClick}>Post Property</div>
+          <div>
+            <div
+              onClick={() =>
+                setIsServicesMobileDropdownOpen(!isServicesMobileDropdownOpen)
+              }
+              style={{ cursor: "pointer" }}
+            >
+              Services {isServicesMobileDropdownOpen ? "▲" : "▼"}
+            </div>
+
+            {isServicesMobileDropdownOpen && (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "5px",
+                  marginTop: "6px",
+                }}
+              >
+                <div
+                  onClick={() => {
+                    navigate("/services/title-search");
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Property Title Search
+                </div>
+                <div
+                  onClick={() => {
+                    navigate("/services/pre-purchase");
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Pre-Purchase Assistance
+                </div>
+                <div
+                  onClick={() => {
+                    navigate("/services/post-purchase");
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  Post-Purchase Services
+                </div>
+              </div>
+            )}
+          </div>
+
           <div
             onClick={() => {
               setIsMobileMenuOpen(false);
@@ -249,7 +326,7 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
             Insights
           </div>
 
-          {/* 👇 Sidebar options after "Insights" */}
+          {/*  Sidebar options after "Insights" */}
           {isLoggedIn && (
             <>
               <div onClick={() => navigate("/user-profile")}>

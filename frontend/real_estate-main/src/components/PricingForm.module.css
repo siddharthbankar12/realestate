@@ -3,36 +3,45 @@
   flex-direction: column;
   gap: 10px;
   border: 1px solid #ccc;
-  padding: 40px 20px 60px 20px; /* Added extra padding at the bottom */
+  padding: 40px 20px 60px 20px;
   border-radius: 10px;
-  position: relative; /* Ensure positioning context for absolute children */
+  position: relative;
   width: 800px;
 }
 
 .twoColumnLayout {
   display: grid;
-  grid-template-columns: 1fr 1fr; 
-  gap: 10px; 
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 h2 {
   color: #2c3e50;
-  margin-top: 10px; /* Added margin to create gap between back button and header */
+  margin-top: 10px;
 }
 
-.priceDetails, .checkboxGroup, .amenitiesDetails, .proprietorDetails {
+.priceDetails,
+.checkboxGroup,
+.amenitiesDetails,
+.proprietorDetails {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.priceDetailsName, .checkboxGroup label, .amenitiesDetailsName, .proprietorDetailsName {
+.priceDetailsName,
+.checkboxGroup label,
+.amenitiesDetailsName,
+.proprietorDetailsName {
   color: #34495e;
   font-weight: bold;
 }
 
-.priceDetailsInput input, .amenitiesDetailsInput textarea, .proprietorNameInput input, 
-.proprietorEmailInput input, .proprietorContactInput input {
+.priceDetailsInput input,
+.amenitiesDetailsInput textarea,
+.proprietorNameInput input,
+.proprietorEmailInput input,
+.proprietorContactInput input {
   border-radius: 5px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -42,7 +51,7 @@ h2 {
 }
 
 .amenitiesDetailsInput textarea {
-  height: auto; /* Adjust height for textarea */
+  height: auto;
 }
 
 .checkboxGroup {
@@ -60,8 +69,8 @@ h2 {
 .checkboxGroup input[type="checkbox"] {
   width: auto;
   height: auto;
-  margin-right: 5px; /* Adjust margin for alignment */
-  vertical-align: middle; 
+  margin-right: 5px;
+  vertical-align: middle;
 }
 
 .proprietorDetails {
@@ -70,7 +79,9 @@ h2 {
   gap: 10px;
 }
 
-.proprietorNameInput input, .proprietorEmailInput input, .proprietorContactInput input {
+.proprietorNameInput input,
+.proprietorEmailInput input,
+.proprietorContactInput input {
   border-radius: 5px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -80,8 +91,8 @@ h2 {
 
 .buttons {
   display: flex;
-  justify-content: space-between; /* Aligns buttons to left and right */
-  margin-top: 20px; /* Space above the buttons */
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .backButton {
@@ -91,7 +102,7 @@ h2 {
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
-  cursor: pointer; 
+  cursor: pointer;
   transition: background-color 0.3s;
 }
 
@@ -106,7 +117,7 @@ h2 {
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
-  cursor: pointer; 
+  cursor: pointer;
   transition: background-color 0.3s;
 }
 
@@ -146,3 +157,37 @@ h2 {
   margin-right: 8px;
 }
 
+/* loading  */
+
+.loaderContainer {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}

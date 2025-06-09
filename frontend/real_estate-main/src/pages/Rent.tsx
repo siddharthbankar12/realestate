@@ -72,7 +72,7 @@ const Rent: React.FC = () => {
     construction: "",
   });
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
-
+  const [loading, setLoading] = useState(false);
   const route = useNavigate();
 
   const nextStep = () => setStep((prevStep) => prevStep + 1);
@@ -103,7 +103,7 @@ const Rent: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setLoading(true);
     const combinedFormData = new FormData();
 
     const updatedFormData = {
@@ -148,6 +148,8 @@ const Rent: React.FC = () => {
     } catch (error) {
       console.error("Error uploading property or images:", error);
       toast.error("Failed to list property.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -231,6 +233,7 @@ const Rent: React.FC = () => {
                 handleInputChange={handleInputChange}
                 prevStep={prevStep}
                 handleSubmit={handleSubmit}
+                loading={loading}
               />
             )}
           </main>

@@ -165,7 +165,10 @@ const Properties = (props) => {
               <FiltersSection />
             </Grid>
             <Grid item md={8.3}>
-              <SearchSection searchCity={c} filterproperty={properties} />
+              <SearchSection
+                searchCity={c}
+                filterproperty={properties.reverse()}
+              />
             </Grid>
           </Grid>
         </Container>

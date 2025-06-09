@@ -1,0 +1,244 @@
+.heroSection {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("/public/web7-1@2x.png") center/cover no-repeat;
+  color: #fff;
+  padding: 80px 20px;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.heroContent h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.heroContent p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.heroButton {
+  padding: 12px 28px;
+  font-size: 1rem;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.servicesSection {
+  padding: 60px 20px;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.serviceCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.serviceCard h3 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.serviceIcon {
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.serviceCard ul {
+  list-style: none;
+  padding: 0;
+}
+
+.serviceCard li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.serviceCard li svg {
+  margin-right: 8px;
+  color: green;
+}
+
+.highlightsSection {
+  padding: 50px 20px;
+  background: #fff;
+  text-align: center;
+}
+
+.highlightsSection h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+}
+
+.highlightsSection ul {
+  list-style: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.highlightsSection li {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.contactSection {
+  padding: 50px 20px;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+}
+
+.contactDetails p {
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.ctaButton {
+  margin-top: 20px;
+  padding: 12px 26px;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalContent {
+  background: #fff;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 550px;
+  width: 90%;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 14px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #555;
+  padding: 2px 10px;
+}
+
+.modalClose:hover {
+  background-color: red;
+  color: white;
+  border-radius: 90px;
+}
+
+.modalTitle {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.formGroup input,
+.formGroup textarea {
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border 0.3s;
+  margin: 0;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submitButton {
+  background-color: #007bff;
+  color: #fff;
+  padding: 14px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}

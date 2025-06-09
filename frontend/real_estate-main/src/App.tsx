@@ -32,8 +32,11 @@ import UserNotifications from "./pages/UserNotifications";
 import StaffLogin from "./pages/StaffLogin";
 import StaffDashboard from "./pages/StaffDashboard";
 import StaffAppointLogDetails from "./pages/StaffAppointLogDetails";
-import StaffPerformanceCategories from './components/StaffPerformanceCategories';
+import StaffPerformanceCategories from "./components/StaffPerformanceCategories";
 
+import TitleSearchServices from "./components/TitleSearchServices";
+import PrePurchaseServices from "./components/PrePurchaseServices";
+import PostPurchaseServices from "./components/PostPurchaseServices";
 
 function App() {
   const action = useNavigationType();
@@ -137,10 +140,24 @@ function App() {
 
   return (
     <>
-      {" "}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/insights" element={<CardLayout />} />
+
+        {/* services */}
+        <Route
+          path="/services/title-search"
+          element={<TitleSearchServices />}
+        />
+        <Route
+          path="/services/pre-purchase"
+          element={<PrePurchaseServices />}
+        />
+        <Route
+          path="/services/post-purchase"
+          element={<PostPurchaseServices />}
+        />
+
         <Route path="/aboutus" element={<AboutUs />} />
         <Route
           path="/property-explore-page"
@@ -183,11 +200,12 @@ function App() {
         <Route path="/properties" element={<Properties />} />
         <Route path="/properties/sell" element={<PropertiesSell />} />
         <Route path="/properties/rent" element={<PropertiesRent />} />
-
         <Route path="/staff-login" element={<StaffLogin />} />
         <Route path="/staff-dashboard" element={<StaffDashboard />} />
-        <Route path="/staff-performance" element={<StaffPerformanceCategories />} />
-
+        <Route
+          path="/staff-performance"
+          element={<StaffPerformanceCategories />}
+        />
         <Route
           path="/staff/:staffId/appointments/:appointmentId/logs"
           element={<StaffAppointLogDetails />}

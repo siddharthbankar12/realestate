@@ -18,8 +18,7 @@ import SearchBar from "../components/SearchBar";
 import AppointmentForm from "../components/AppointmentForm";
 import { useSelector } from "react-redux";
 import RecentSearch from "../components/RecentSearch";
-import StaffPerformanceCategories from '../components/StaffPerformanceCategories';
-
+import StaffPerformanceCategories from "../components/StaffPerformanceCategories";
 
 const HomePage: FunctionComponent = () => {
   const [firstName, setFirstName] = useState("");
@@ -198,8 +197,8 @@ const HomePage: FunctionComponent = () => {
           />
         </div>
       </div>
-            {/* Add Staff Performance Categories here - before Articles and Footer */}
-      <StaffPerformanceCategories />
+      {/* Add Staff Performance Categories here - before Articles and Footer */}
+      {/* <StaffPerformanceCategories /> */}
       <Articles />
       <Footer />
       {isFormVisible && (

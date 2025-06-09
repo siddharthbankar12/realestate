@@ -10,6 +10,7 @@ interface PricingFormProps {
   ) => void;
   prevStep: () => void;
   handleSubmit: (e: React.FormEvent) => void;
+  loading: boolean;
 }
 
 const PricingForm: React.FC<PricingFormProps> = ({
@@ -17,9 +18,9 @@ const PricingForm: React.FC<PricingFormProps> = ({
   handleInputChange,
   prevStep,
   handleSubmit,
+  loading,
 }) => {
   const validateForm = () => {
-    // Check if required fields are filled
     if (
       !formData.price ||
       !formData.proprietorName ||
@@ -181,10 +182,17 @@ const PricingForm: React.FC<PricingFormProps> = ({
         type="submit"
         className={styles.submitButton}
         onClick={handleFormSubmit}
+        disabled={loading}
       >
         Submit
       </button>
       {/* </div> */}
+      {loading && (
+        <div className={styles.loaderContainer}>
+          <div className={styles.spinner}></div>
+          <span className={styles.loadingText}>Please wait, submitting...</span>
+        </div>
+      )}
     </div>
   );
 };
