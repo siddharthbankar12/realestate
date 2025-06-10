@@ -10,6 +10,7 @@ import StaffVerifyProperties from "./StaffVerifyProperties";
 import { toast } from "react-toastify";
 import StaffManagedUsers from "./StaffManagedUsers";
 import StaffAppointLogDetails from "./StaffAppointLogDetails";
+import StaffTitleSearch from "./StaffTitleSearch";
 
 const StaffDashboard = () => {
   const [selectedOption, setSelectedOption] = useState("profile");
@@ -20,12 +21,14 @@ const StaffDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [appointments, setAppointments] = useState<any[]>([]);
+  const [titleSearchRequest, SetTitleSearchRequest] = useState<any[]>([]);
 
   const menuOptions = [
     { key: "profile", label: "Staff Profile" },
     { key: "usersDetails", label: "Users Details" },
     { key: "appointments", label: "Manage Appointments" },
     { key: "properties", label: "Verify Properties" },
+    { key: "title-search", label: "Title Search Request" },
     { key: "logout", label: "Logout" },
   ];
 
@@ -74,14 +77,16 @@ const StaffDashboard = () => {
 
   const fetchData = async () => {
     try {
-      const [appointmentsRes, propertiesRes] = await Promise.all([
-        fetch("http://localhost:8000/api/appointments", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        }),
-        fetch("http://localhost:8000/api/property/verification"),
-      ]);
+      const [appointmentsRes, propertiesRes, titleSearchRes] =
+        await Promise.all([
+          fetch("http://localhost:8000/api/appointments", {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            },
+          }),
+          fetch("http://localhost:8000/api/property/verification"),
+          fetch("http://localhost:8000/api/title-search/list"),
+        ]);
 
       if (!appointmentsRes.ok || !propertiesRes.ok) {
         throw new Error("Failed to fetch data.");
@@ -89,6 +94,7 @@ const StaffDashboard = () => {
 
       const appointmentsData = await appointmentsRes.json();
       const propertiesData = await propertiesRes.json();
+      const titleSearchData = await titleSearchRes.json();
 
       console.log(propertiesData);
 
@@ -96,6 +102,8 @@ const StaffDashboard = () => {
         setAppointments(appointmentsData.appointments);
       if (propertiesData?.success)
         setProperties(propertiesData.property_verify);
+      if (titleSearchData?.success)
+        SetTitleSearchRequest(titleSearchData.allRequests);
     } catch (err) {
       toast.error("Failed to fetch data. Please try again.");
       setError((err as Error).message);
@@ -221,6 +229,8 @@ const StaffDashboard = () => {
             handleAcceptProperty={handleAcceptProperty}
           />
         );
+      case "title-search":
+        return <StaffTitleSearch titleSearchRequest={titleSearchRequest} />;
 
       case "logout":
         handleLogout();

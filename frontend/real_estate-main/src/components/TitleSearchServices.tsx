@@ -8,14 +8,24 @@ import {
 } from "react-icons/fa";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { toast } from "react-toastify";
 
 const TitleSearchServices = () => {
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submittedRequestId, setSubmittedRequestId] = useState<string | null>(
+    null
+  );
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    propertyAddress: "",
+    PropertyCity: "",
+    PropertyState: "",
     propertyType: "",
+    PropertyRegistrationNumber: "",
+    ContactFullName: "",
+    ContactEmail: "",
+    ContactPhone: "",
+    ContactNotes: "",
   });
 
   const handleChange = (
@@ -26,17 +36,72 @@ const TitleSearchServices = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted form:", formData);
+    setLoading(true);
+    try {
+      const response = await fetch(
+        "http://localhost:8000/api/title-search/create-request",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-    setShowModal(false);
+      if (response.ok) {
+        const result = await response.json();
+        toast.success("Request submitted successfully!");
+        setSubmittedRequestId(result.requestId);
+        setShowModal(false);
+        setFormData({
+          propertyAddress: "",
+          PropertyCity: "",
+          PropertyState: "",
+          propertyType: "",
+          PropertyRegistrationNumber: "",
+          ContactFullName: "",
+          ContactEmail: "",
+          ContactPhone: "",
+          ContactNotes: "",
+        });
+      } else {
+        const errorData = await response.json();
+        toast.error(
+          `Submission failed: ${errorData.message || "Server error"}`
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <Navbar />
+
       <div className={styles.container}>
+        {submittedRequestId && (
+          <div className={styles.requestIdBox}>
+            ✅ <strong>Your Request ID :</strong> {submittedRequestId}
+            <p>Please save this for future reference.</p>
+            <button
+              className={styles.modalCloseBtn}
+              onClick={() => {
+                setShowModal(false);
+                setSubmittedRequestId(null);
+              }}
+            >
+              X
+            </button>
+          </div>
+        )}
+
         <header className={styles.headerSection}>
           <h1 className={styles.title}>🔍 Property Title Search Services</h1>
           <p className={styles.subtitle}>
@@ -111,28 +176,27 @@ const TitleSearchServices = () => {
           <div className={styles.modal}>
             <h2>🔐 Request Title Search</h2>
             <form className={styles.formTwoColumn} onSubmit={handleSubmit}>
-              {/* LEFT - Property Details */}
               <div className={styles.formLeft}>
                 <h3>Property Details</h3>
                 <input
                   type="text"
-                  name="address"
+                  name="propertyAddress"
                   placeholder="Property Address"
-                  value={formData.address}
+                  value={formData.propertyAddress}
                   onChange={handleChange}
                   required
                 />
                 <input
                   type="text"
-                  name="city"
+                  name="PropertyCity"
                   placeholder="City"
-                  value={formData.city}
+                  value={formData.PropertyCity}
                   onChange={handleChange}
                   required
                 />
                 <select
-                  name="state"
-                  value={formData.state}
+                  name="PropertyState"
+                  value={formData.PropertyState}
                   onChange={handleChange}
                   required
                 >
@@ -141,18 +205,22 @@ const TitleSearchServices = () => {
                   <option value="Karnataka">Karnataka</option>
                   <option value="Delhi">Delhi</option>
                 </select>
-                <input
-                  type="text"
+                <select
                   name="propertyType"
-                  placeholder="Property Type (Residential / Commercial / Land)"
                   value={formData.propertyType}
                   onChange={handleChange}
-                />
+                  required
+                >
+                  <option value="">Select Property Type</option>
+                  <option value="Residential">Residential</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="Land">Land</option>
+                </select>
                 <input
                   type="text"
-                  name="registrationNumber"
+                  name="PropertyRegistrationNumber"
                   placeholder="Registration Number (Optional)"
-                  value={formData.registrationNumber}
+                  value={formData.PropertyRegistrationNumber}
                   onChange={handleChange}
                 />
               </div>
@@ -160,7 +228,20 @@ const TitleSearchServices = () => {
               {/* RIGHT - Contact Info */}
               <button
                 className={styles.closeButton}
-                onClick={() => setShowModal(false)}
+                onClick={() => {
+                  setShowModal(false);
+                  setFormData({
+                    propertyAddress: "",
+                    PropertyCity: "",
+                    PropertyState: "",
+                    propertyType: "",
+                    PropertyRegistrationNumber: "",
+                    ContactFullName: "",
+                    ContactEmail: "",
+                    ContactPhone: "",
+                    ContactNotes: "",
+                  });
+                }}
                 aria-label="Close modal"
               >
                 &times;
@@ -170,42 +251,47 @@ const TitleSearchServices = () => {
                 <h3>Your Contact Info</h3>
                 <input
                   type="text"
-                  name="name"
+                  name="ContactFullName"
                   placeholder="Full Name"
-                  value={formData.name}
+                  value={formData.ContactFullName}
                   onChange={handleChange}
                   required
                 />
                 <input
                   type="email"
-                  name="email"
+                  name="ContactEmail"
                   placeholder="Email"
-                  value={formData.email}
+                  value={formData.ContactEmail}
                   onChange={handleChange}
                   required
                 />
                 <input
                   type="tel"
-                  name="phone"
+                  name="ContactPhone"
                   placeholder="Phone Number"
-                  value={formData.phone}
+                  value={formData.ContactPhone}
                   onChange={handleChange}
                   required
                 />
                 <textarea
-                  name="notes"
+                  name="ContactNotes"
                   placeholder="Any additional notes"
-                  value={formData.notes}
+                  value={formData.ContactNotes}
                   onChange={handleChange}
                 />
-                <button type="submit" className={styles.submitBtn}>
-                  Submit Request
+                <button
+                  type="submit"
+                  className={styles.submitBtn}
+                  disabled={loading}
+                >
+                  {loading ? "Submitting..." : "Submit Request"}
                 </button>
               </div>
             </form>
           </div>
         </div>
       )}
+
       <Footer />
     </>
   );

@@ -86,8 +86,7 @@ const PropertiesListSection = ({ searchQuery, filterproperty }) => {
     filterproperty,
   ]);
 
-  // console.log(properties);
-  // console.log(propertyType);
+  const propertiesReverse = [...properties].reverse();
 
   return (
     <Box sx={{ mb: 5 }}>
@@ -100,14 +99,14 @@ const PropertiesListSection = ({ searchQuery, filterproperty }) => {
           fontFamily: "Open Sans",
         }}
       >
-        {properties.length} results | Property for {searchQuery.type} in{" "}
+        {propertiesReverse.length} results | Property for {searchQuery.type} in{" "}
         {city.address === undefined ? "India" : city.address}
       </Typography>
 
       {isPropertyLoading ? (
         <CircularProgress />
       ) : (
-        properties.map(
+        propertiesReverse.map(
           (property) => (
             console.log(property),
             (

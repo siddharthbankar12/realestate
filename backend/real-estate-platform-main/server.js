@@ -16,6 +16,7 @@ const propertyImageRoutes = require("./controllers/propertyImageRoutes");
 const testimonialRoutes = require("./controllers/testimonialRoutes");
 const emailVerification = require("./controllers/emailVerification");
 const Appointment = require("./controllers/Appointment");
+const TitleSearch = require("./controllers/titleSearch.js");
 const PropertyReviewRouter = require("./controllers/PropertyReviewsControllers.js");
 
 require("dotenv").config();
@@ -48,6 +49,7 @@ app.use("/api", Appointment);
 app.use("/api/staff", staffRouter);
 app.use("/api/reviews", PropertyReviewRouter);
 app.use("/api/enquiry", EnquiryRouter);
+app.use("/api/title-search", TitleSearch);
 
 // Static file access
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

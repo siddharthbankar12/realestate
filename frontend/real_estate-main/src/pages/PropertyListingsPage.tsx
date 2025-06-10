@@ -127,7 +127,7 @@ const PropertyListingsPage: FunctionComponent = () => {
                 gap: "20px",
               }}
             >
-              {properties.map((property) => {
+              {properties.reverse().map((property) => {
                 const price = property.price ?? 0;
                 const bhk = property.Bhk ?? property.bhk ?? 0;
                 const propArea = property.area ?? 0;

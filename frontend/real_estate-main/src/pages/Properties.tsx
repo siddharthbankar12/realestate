@@ -57,9 +57,6 @@ ScrollTop.propTypes = {
 };
 
 const Properties = (props) => {
-  //   console.log("properprops");
-  //   console.log(props);
-  //   const [searchQuery, setsearchQuery] = useState(props);
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
