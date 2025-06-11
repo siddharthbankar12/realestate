@@ -1,47 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StaffPerformanceCategories.css';
 
 const StaffPerformanceCategories = () => {
   const [selectedTier, setSelectedTier] = useState(null);
+  const [performanceTiers, setPerformanceTiers] = useState([]);
+  const [stats, setStats] = useState({
+    totalStaff: 0,
+    averageScore: 0,
+    topPerformers: 0
+  });
 
-  const performanceTiers = [
-    {
-      id: 'diamond',
-      name: 'Diamond',
-      color: '#B9F2FF',
-      icon: '💎',
-      description: 'Exceptional performance - Top 5% of staff',
-      criteria: ['Exceeds all targets by 25%+', 'Leadership qualities', 'Innovation contributor'],
-      benefits: ['Highest bonus tier', 'Priority training', 'Leadership opportunities']
-    },
-    {
-      id: 'platinum',
-      name: 'Platinum',
-      color: '#E5E4E2',
-      icon: '🏆',
-      description: 'Outstanding performance - Top 15% of staff',
-      criteria: ['Exceeds targets by 15-25%', 'Mentors others', 'Consistent excellence'],
-      benefits: ['Premium bonus', 'Advanced training', 'Project leadership']
-    },
-    {
-      id: 'gold',
-      name: 'Gold',
-      color: '#FFD700',
-      icon: '🥇',
-      description: 'Excellent performance - Top 35% of staff',
-      criteria: ['Meets all targets', 'Team collaboration', 'Quality work delivery'],
-      benefits: ['Standard bonus', 'Skill development', 'Recognition awards']
-    },
-    {
-      id: 'silver',
-      name: 'Silver',
-      color: '#C0C0C0',
-      icon: '🥈',
-      description: 'Good performance - Meets expectations',
-      criteria: ['Meets most targets', 'Reliable performance', 'Team participation'],
-      benefits: ['Base bonus', 'Training opportunities', 'Performance support']
-    }
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [tiersRes, statsRes] = await Promise.all([
+          fetch('http://localhost:8000/api/staff/performance-tiers'),
+          fetch('http://localhost:8000/api/staff/performance-stats')
+        ]);
+
+        const tiersData = await tiersRes.json();
+        const statsData = await statsRes.json();
+
+        setPerformanceTiers(tiersData);
+        setStats(statsData);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="staff-performance-container">
@@ -62,10 +50,10 @@ const StaffPerformanceCategories = () => {
               <span className="tier-icon">{tier.icon}</span>
               <h2 className="tier-name">{tier.name}</h2>
             </div>
-            
+
             <div className="tier-content">
               <p className="tier-description">{tier.description}</p>
-              
+
               {selectedTier === tier.id && (
                 <div className="tier-details">
                   <div className="criteria-section">
@@ -76,7 +64,7 @@ const StaffPerformanceCategories = () => {
                       ))}
                     </ul>
                   </div>
-                  
+
                   <div className="benefits-section">
                     <h4>Benefits & Rewards:</h4>
                     <ul>
@@ -95,15 +83,15 @@ const StaffPerformanceCategories = () => {
       <div className="performance-stats">
         <div className="stat-card">
           <h3>Total Staff Evaluated</h3>
-          <span className="stat-number">1,247</span>
+          <span className="stat-number">{stats.totalStaff}</span>
         </div>
         <div className="stat-card">
           <h3>Average Performance Score</h3>
-          <span className="stat-number">8.2/10</span>
+          <span className="stat-number">{stats.averageScore}/10</span>
         </div>
         <div className="stat-card">
           <h3>Top Performers</h3>
-          <span className="stat-number">248</span>
+          <span className="stat-number">{stats.topPerformers}</span>
         </div>
       </div>
     </div>
