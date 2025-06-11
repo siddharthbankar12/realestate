@@ -18,6 +18,7 @@ const emailVerification = require("./controllers/emailVerification");
 const Appointment = require("./controllers/Appointment");
 const TitleSearch = require("./controllers/titleSearch.js");
 const PropertyReviewRouter = require("./controllers/PropertyReviewsControllers.js");
+const staffRoutes = require('./routes/staffRoutes');
 
 require("dotenv").config();
 const mongoDB = require("./db");
@@ -50,6 +51,7 @@ app.use("/api/staff", staffRouter);
 app.use("/api/reviews", PropertyReviewRouter);
 app.use("/api/enquiry", EnquiryRouter);
 app.use("/api/title-search", TitleSearch);
+app.use('/api/staff', staffRoutes);
 
 // Static file access
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
