@@ -12,6 +12,7 @@ import StaffManagedUsers from "./StaffManagedUsers";
 import StaffAppointLogDetails from "./StaffAppointLogDetails";
 import StaffTitleSearch from "./StaffTitleSearch";
 import StaffPrePurchaseProVer from "./StaffPrePurchaseProVer";
+import StaffSalesTargetManagement from "./StaffSalesTargetManagement";
 
 const StaffDashboard = () => {
   const [selectedOption, setSelectedOption] = useState("profile");
@@ -24,6 +25,8 @@ const StaffDashboard = () => {
   const [appointments, setAppointments] = useState<any[]>([]);
   const [titleSearchRequest, SetTitleSearchRequest] = useState<any[]>([]);
   const [prePurchaseRequest, SetPrePurchaseRequest] = useState<any[]>([]);
+  const [employees, setEmployees] = useState<any[]>([]);
+  const [salesTargets, setSalesTargets] = useState<any[]>([]);
 
   const menuOptions = [
     { key: "profile", label: "Staff Profile" },
@@ -34,6 +37,9 @@ const StaffDashboard = () => {
     {
       key: "pre-purchase-property-verification",
       label: "Pre Purchase Property Request",
+    },
+    { key : "sales-target-management",
+      label : "Sales and Target Management",
     },
     { key: "logout", label: "Logout" },
   ];
@@ -80,6 +86,87 @@ const StaffDashboard = () => {
       console.log(error);
     }
   };
+
+   const fetchSalesData = async () => {
+  try {
+    const [employeesRes, salesTargetsRes] = await Promise.all([
+      fetch("http://localhost:8000/api/staff/employees", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      }),
+      fetch("http://localhost:8000/api/staff/sales-targets", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      }),
+    ]);
+
+    if (employeesRes.ok) {
+      const employeesData = await employeesRes.json();
+      if (employeesData.success) {
+        setEmployees(employeesData.employees);
+      }
+    }
+
+    if (salesTargetsRes.ok) {
+      const salesTargetsData = await salesTargetsRes.json();
+      if (salesTargetsData.success) {
+        setSalesTargets(salesTargetsData.salesTargets);
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching sales data:", error);
+  }
+};
+
+const handleCreateTarget = async (targetData: any) => {
+  try {
+    const response = await fetch("http://localhost:8000/api/staff/sales-targets", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+      body: JSON.stringify(targetData),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      setSalesTargets([...salesTargets, result.salesTarget]);
+      return Promise.resolve();
+    } else {
+      return Promise.reject(new Error(result.error));
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const handleUpdateTarget = async (targetId: string, updateData: any) => {
+  try {
+    const response = await fetch(`http://localhost:8000/api/staff/sales-targets/${targetId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+      },
+      body: JSON.stringify(updateData),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      setSalesTargets(salesTargets.map(target => 
+        target._id === targetId ? result.salesTarget : target
+      ));
+      return Promise.resolve();
+    } else {
+      return Promise.reject(new Error(result.error));
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
   const fetchData = async () => {
     try {
@@ -248,7 +335,15 @@ const StaffDashboard = () => {
         return (
           <StaffPrePurchaseProVer prePurchaseRequest={prePurchaseRequest} />
         );
-
+        case "sales-target-management":
+  return (
+    <StaffSalesTargetManagement
+      // employees={employees}
+      // salesTargets={salesTargets}
+      // onCreateTarget={handleCreateTarget}
+      // onUpdateTarget={handleUpdateTarget}
+    />
+  )
       case "logout":
         handleLogout();
         return null;
@@ -257,10 +352,14 @@ const StaffDashboard = () => {
     }
   };
 
+ 
+
+
   useEffect(() => {
     fetchStaffData();
     fetchUserDetails();
     fetchData();
+    fetchSalesData();
   }, [navigate]);
 
   return (

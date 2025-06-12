@@ -507,4 +507,269 @@ staffRouter.get("/users-details", async (req, res) => {
   }
 });
 
+// ==================== SALES TARGET MANAGEMENT ROUTES ====================
+
+// Get all employees (staff members) for sales target management
+staffRouter.get("/employees", authenticate, async (req, res) => {
+  try {
+    const employees = await Staff.find().select("-password");
+    
+    res.json({
+      success: true,
+      message: "Employees fetched successfully",
+      employees: employees
+    });
+  } catch (error) {
+    console.error("Error fetching employees:", error);
+    res.status(500).json({ error: "Failed to fetch employees" });
+  }
+});
+
+// Get all sales targets
+staffRouter.get("/sales-targets", authenticate, async (req, res) => {
+  try {
+    // For now, we'll store sales targets in the Staff model
+    // You might want to create a separate SalesTarget model later
+    const staff = await Staff.find().select("salesTargets fullName staffId");
+    
+    // Extract all sales targets from all staff members
+    let allSalesTargets = [];
+    staff.forEach(member => {
+      if (member.salesTargets && member.salesTargets.length > 0) {
+        member.salesTargets.forEach(target => {
+          allSalesTargets.push({
+            ...target.toObject(),
+            employeeName: member.fullName,
+            employeeStaffId: member.staffId,
+            _id: target._id
+          });
+        });
+      }
+    });
+
+    res.json({
+      success: true,
+      message: "Sales targets fetched successfully",
+      salesTargets: allSalesTargets
+    });
+  } catch (error) {
+    console.error("Error fetching sales targets:", error);
+    res.status(500).json({ error: "Failed to fetch sales targets" });
+  }
+});
+
+// Create a new sales target
+staffRouter.post("/sales-targets", authenticate, async (req, res) => {
+  try {
+    const { employeeId, targetAmount, targetPeriod, targetType, deadline, description } = req.body;
+
+    if (!employeeId || !targetAmount || !targetPeriod || !targetType || !deadline) {
+      return res.status(400).json({ error: "All required fields must be provided" });
+    }
+
+    const staff = await Staff.findById(employeeId);
+    if (!staff) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+
+    // Initialize salesTargets array if it doesn't exist
+    if (!staff.salesTargets) {
+      staff.salesTargets = [];
+    }
+
+    const newTarget = {
+      targetAmount: parseFloat(targetAmount),
+      targetPeriod,
+      targetType,
+      deadline: new Date(deadline),
+      description: description || "",
+      achievedAmount: 0,
+      status: "active",
+      createdAt: new Date()
+    };
+
+    staff.salesTargets.push(newTarget);
+    await staff.save();
+
+    // Get the created target with its ID
+    const createdTarget = staff.salesTargets[staff.salesTargets.length - 1];
+
+    res.json({
+      success: true,
+      message: "Sales target created successfully",
+      salesTarget: {
+        ...createdTarget.toObject(),
+        employeeName: staff.fullName,
+        employeeStaffId: staff.staffId
+      }
+    });
+  } catch (error) {
+    console.error("Error creating sales target:", error);
+    res.status(500).json({ error: "Failed to create sales target" });
+  }
+});
+
+// Update a sales target
+staffRouter.put("/sales-targets/:targetId", authenticate, async (req, res) => {
+  try {
+    const { targetId } = req.params;
+    const updateData = req.body;
+
+    // Find the staff member who has this target
+    const staff = await Staff.findOne({ "salesTargets._id": targetId });
+    
+    if (!staff) {
+      return res.status(404).json({ error: "Sales target not found" });
+    }
+
+    // Find and update the specific target
+    const targetIndex = staff.salesTargets.findIndex(target => target._id.toString() === targetId);
+    
+    if (targetIndex === -1) {
+      return res.status(404).json({ error: "Sales target not found" });
+    }
+
+    // Update the target fields
+    Object.keys(updateData).forEach(key => {
+      if (key === 'deadline' && updateData[key]) {
+        staff.salesTargets[targetIndex][key] = new Date(updateData[key]);
+      } else if (key === 'targetAmount' || key === 'achievedAmount') {
+        staff.salesTargets[targetIndex][key] = parseFloat(updateData[key]);
+      } else if (updateData[key] !== undefined) {
+        staff.salesTargets[targetIndex][key] = updateData[key];
+      }
+    });
+
+    staff.salesTargets[targetIndex].updatedAt = new Date();
+    await staff.save();
+
+    res.json({
+      success: true,
+      message: "Sales target updated successfully",
+      salesTarget: {
+        ...staff.salesTargets[targetIndex].toObject(),
+        employeeName: staff.fullName,
+        employeeStaffId: staff.staffId
+      }
+    });
+  } catch (error) {
+    console.error("Error updating sales target:", error);
+    res.status(500).json({ error: "Failed to update sales target" });
+  }
+});
+
+// Delete a sales target
+staffRouter.delete("/sales-targets/:targetId", authenticate, async (req, res) => {
+  try {
+    const { targetId } = req.params;
+
+    // Find the staff member who has this target
+    const staff = await Staff.findOne({ "salesTargets._id": targetId });
+    
+    if (!staff) {
+      return res.status(404).json({ error: "Sales target not found" });
+    }
+
+    // Remove the target
+    staff.salesTargets = staff.salesTargets.filter(target => target._id.toString() !== targetId);
+    await staff.save();
+
+    res.json({
+      success: true,
+      message: "Sales target deleted successfully"
+    });
+  } catch (error) {
+    console.error("Error deleting sales target:", error);
+    res.status(500).json({ error: "Failed to delete sales target" });
+  }
+});
+
+// Get sales targets for a specific employee
+staffRouter.get("/sales-targets/employee/:employeeId", authenticate, async (req, res) => {
+  try {
+    const { employeeId } = req.params;
+
+    const staff = await Staff.findById(employeeId).select("salesTargets fullName staffId");
+    
+    if (!staff) {
+      return res.status(404).json({ error: "Employee not found" });
+    }
+
+    const salesTargets = staff.salesTargets || [];
+    const targetsWithEmployeeInfo = salesTargets.map(target => ({
+      ...target.toObject(),
+      employeeName: staff.fullName,
+      employeeStaffId: staff.staffId
+    }));
+
+    res.json({
+      success: true,
+      message: "Employee sales targets fetched successfully",
+      salesTargets: targetsWithEmployeeInfo
+    });
+  } catch (error) {
+    console.error("Error fetching employee sales targets:", error);
+    res.status(500).json({ error: "Failed to fetch employee sales targets" });
+  }
+});
+
+// Update sales progress/achievement
+staffRouter.put("/sales-targets/:targetId/progress", authenticate, async (req, res) => {
+  try {
+    const { targetId } = req.params;
+    const { achievedAmount, notes } = req.body;
+
+    if (achievedAmount === undefined) {
+      return res.status(400).json({ error: "Achieved amount is required" });
+    }
+
+    // Find the staff member who has this target
+    const staff = await Staff.findOne({ "salesTargets._id": targetId });
+    
+    if (!staff) {
+      return res.status(404).json({ error: "Sales target not found" });
+    }
+
+    // Find and update the specific target
+    const targetIndex = staff.salesTargets.findIndex(target => target._id.toString() === targetId);
+    
+    if (targetIndex === -1) {
+      return res.status(404).json({ error: "Sales target not found" });
+    }
+
+    staff.salesTargets[targetIndex].achievedAmount = parseFloat(achievedAmount);
+    if (notes) {
+      staff.salesTargets[targetIndex].notes = notes;
+    }
+
+    // Update status based on achievement
+    const target = staff.salesTargets[targetIndex];
+    const achievementPercentage = (target.achievedAmount / target.targetAmount) * 100;
+    
+    if (achievementPercentage >= 100) {
+      target.status = "completed";
+    } else if (new Date() > target.deadline) {
+      target.status = "overdue";
+    } else {
+      target.status = "active";
+    }
+
+    target.updatedAt = new Date();
+    await staff.save();
+
+    res.json({
+      success: true,
+      message: "Sales progress updated successfully",
+      salesTarget: {
+        ...staff.salesTargets[targetIndex].toObject(),
+        employeeName: staff.fullName,
+        employeeStaffId: staff.staffId
+      }
+    });
+  } catch (error) {
+    console.error("Error updating sales progress:", error);
+    res.status(500).json({ error: "Failed to update sales progress" });
+  }
+});
+
 module.exports = staffRouter;
