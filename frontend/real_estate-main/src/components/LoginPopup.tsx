@@ -15,8 +15,8 @@ const LoginPopup: FunctionComponent<LoginPopupProps> = ({
   onSwitchToRegister,
   onLoginSuccess,
 }) => {
-  const [emailOrPhone, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailOrPhone, setEmail] = useState("user@gmail.com");
+  const [password, setPassword] = useState("a");
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
