@@ -116,23 +116,27 @@ const SimilarProperties: FunctionComponent = () => {
     setShowAll(true);
   };
 
+  const listProperty = [...properties].reverse();
+
   return (
     <section className={styles.SimilarProperties}>
       <div className={styles.heading}>Similar Properties</div>
       <div className={styles.similarlistings}>
-        {properties
-          .slice(0, showAll ? properties.length : 4)
+        {listProperty
+          .slice(0, showAll ? listProperty.length : 4)
           .map((property) => (
             <Link
               key={property._id}
-              to={`/property-details-page/${property._id}`} // Fixed string interpolation with backticks
-              className={styles.linkWrapper} // Add any necessary styles for the Link
+              to={`/property-details-page/${property._id}`}
+              className={styles.linkWrapper}
             >
               <PropertyCard
                 title={property.title}
                 city={property.city}
-                price={property.price.toString()} // Ensure price is converted to string if necessary
-                area={property.area.toString()} // Ensure area is converted to string if necessary
+                price={property.price.toString()}
+                area={property.area.toString()}
+                bhk={property.Bhk}
+                imageUrl={property?.images[0]}
               />
             </Link>
           ))}

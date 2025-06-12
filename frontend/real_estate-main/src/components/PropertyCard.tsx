@@ -18,14 +18,18 @@ const PropertyCard: FunctionComponent<PropertyCardType> = ({
   city,
   price,
   area,
-  imageUrl = "/try3.jpg", // Default image URL
+  imageUrl,
   className = "",
   bhk,
   onPropertyCardContainerClick,
 }) => {
   return (
     <div className={[styles.propertyCard, className].join(" ")}>
-      <img className={styles.image} alt={title} src={imageUrl} />
+      <img
+        className={styles.image}
+        alt={title}
+        src={imageUrl ? imageUrl : "/try3.jpg"}
+      />
       <div className={styles.information}>
         <div className={styles.TitleContainer}>
           <div className={styles.title}>{title}</div>
