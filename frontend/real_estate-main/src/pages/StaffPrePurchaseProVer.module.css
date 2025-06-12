@@ -1,0 +1,65 @@
+.container {
+  padding: 30px;
+  background-color: #f4f7fb;
+  min-height: 100vh;
+  margin-top: 90px;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: bold;
+  color: #003366;
+  margin-bottom: 20px;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  width: 300px;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  background: white;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.table thead {
+  background-color: #003366;
+  color: white;
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.table td {
+  text-align: center;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f5f9;
+  cursor: pointer;
+}
+
+.table td {
+  color: #333;
+}

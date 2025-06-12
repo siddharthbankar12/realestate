@@ -24,6 +24,7 @@ const mongoDB = require("./db");
 const cors = require("cors");
 const path = require("path");
 const EnquiryRouter = require("./controllers/EnquiryControllers.js");
+const PrePurchaseProVerRouter = require("./controllers/PrePurchasePropertyVerification.js");
 
 const port = process.env.PORT || 8000;
 
@@ -50,6 +51,7 @@ app.use("/api/staff", staffRouter);
 app.use("/api/reviews", PropertyReviewRouter);
 app.use("/api/enquiry", EnquiryRouter);
 app.use("/api/title-search", TitleSearch);
+app.use("/api/Pre-Purchase-Property-Verification", PrePurchaseProVerRouter);
 
 // Static file access
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

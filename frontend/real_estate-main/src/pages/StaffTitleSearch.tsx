@@ -1,10 +1,31 @@
 import React, { useState } from "react";
 import styles from "./StaffTitleSearch.module.css";
 
-const StaffTitleSearch = ({ titleSearchRequest }) => {
+type TitleSearchRequest = {
+  _id: string;
+  propertyType: "Residential" | "Commercial" | "Land";
+  PropertyCity: string;
+  PropertyState: string;
+  propertyAddress: string;
+  PropertyRegistrationNumber?: string;
+  createdAt: string;
+  ContactFullName: string;
+  ContactEmail: string;
+  ContactPhone: string;
+  ContactNotes?: string;
+};
+
+interface StaffTitleSearchProps {
+  titleSearchRequest: TitleSearchRequest[];
+}
+
+const StaffTitleSearch: React.FC<StaffTitleSearchProps> = ({
+  titleSearchRequest,
+}) => {
   const [filterType, setFilterType] = useState("All");
   const [searchId, setSearchId] = useState("");
-  const [selectedContact, setSelectedContact] = useState(null);
+  const [selectedContact, setSelectedContact] =
+    useState<TitleSearchRequest | null>(null);
 
   const filteredRequests = titleSearchRequest
     .filter((request) =>
@@ -12,8 +33,7 @@ const StaffTitleSearch = ({ titleSearchRequest }) => {
     )
     .filter((request) =>
       searchId.trim() === "" ? true : request._id.includes(searchId.trim())
-    )
-    .reverse();
+    );
 
   return (
     <div className={styles.container}>

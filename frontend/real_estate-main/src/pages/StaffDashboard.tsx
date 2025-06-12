@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import StaffManagedUsers from "./StaffManagedUsers";
 import StaffAppointLogDetails from "./StaffAppointLogDetails";
 import StaffTitleSearch from "./StaffTitleSearch";
+import StaffPrePurchaseProVer from "./StaffPrePurchaseProVer";
 
 const StaffDashboard = () => {
   const [selectedOption, setSelectedOption] = useState("profile");
@@ -22,6 +23,7 @@ const StaffDashboard = () => {
   const [error, setError] = useState<string | null>(null);
   const [appointments, setAppointments] = useState<any[]>([]);
   const [titleSearchRequest, SetTitleSearchRequest] = useState<any[]>([]);
+  const [prePurchaseRequest, SetPrePurchaseRequest] = useState<any[]>([]);
 
   const menuOptions = [
     { key: "profile", label: "Staff Profile" },
@@ -29,6 +31,10 @@ const StaffDashboard = () => {
     { key: "appointments", label: "Manage Appointments" },
     { key: "properties", label: "Verify Properties" },
     { key: "title-search", label: "Title Search Request" },
+    {
+      key: "pre-purchase-property-verification",
+      label: "Pre Purchase Property Request",
+    },
     { key: "logout", label: "Logout" },
   ];
 
@@ -77,7 +83,7 @@ const StaffDashboard = () => {
 
   const fetchData = async () => {
     try {
-      const [appointmentsRes, propertiesRes, titleSearchRes] =
+      const [appointmentsRes, propertiesRes, titleSearchRes, prePurchaseRes] =
         await Promise.all([
           fetch("http://localhost:8000/api/appointments", {
             headers: {
@@ -86,6 +92,9 @@ const StaffDashboard = () => {
           }),
           fetch("http://localhost:8000/api/property/verification"),
           fetch("http://localhost:8000/api/title-search/list"),
+          fetch(
+            "http://localhost:8000/api/Pre-Purchase-Property-Verification/list"
+          ),
         ]);
 
       if (!appointmentsRes.ok || !propertiesRes.ok) {
@@ -95,6 +104,7 @@ const StaffDashboard = () => {
       const appointmentsData = await appointmentsRes.json();
       const propertiesData = await propertiesRes.json();
       const titleSearchData = await titleSearchRes.json();
+      const prePurchaseData = await prePurchaseRes.json();
 
       console.log(propertiesData);
 
@@ -104,6 +114,8 @@ const StaffDashboard = () => {
         setProperties(propertiesData.property_verify);
       if (titleSearchData?.success)
         SetTitleSearchRequest(titleSearchData.allRequests);
+      if (prePurchaseData?.success)
+        SetPrePurchaseRequest(prePurchaseData.allRequests);
     } catch (err) {
       toast.error("Failed to fetch data. Please try again.");
       setError((err as Error).message);
@@ -231,6 +243,11 @@ const StaffDashboard = () => {
         );
       case "title-search":
         return <StaffTitleSearch titleSearchRequest={titleSearchRequest} />;
+
+      case "pre-purchase-property-verification":
+        return (
+          <StaffPrePurchaseProVer prePurchaseRequest={prePurchaseRequest} />
+        );
 
       case "logout":
         handleLogout();
