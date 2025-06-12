@@ -18,7 +18,7 @@ const emailVerification = require("./controllers/emailVerification");
 const Appointment = require("./controllers/Appointment");
 const TitleSearch = require("./controllers/titleSearch.js");
 const PropertyReviewRouter = require("./controllers/PropertyReviewsControllers.js");
-const staffRoutes = require('./routes/staffRoutes');
+// const staffRoutes = require("./routes/staffRoutes");
 
 require("dotenv").config();
 const mongoDB = require("./db");
@@ -30,9 +30,8 @@ const PrePurchaseProVerRouter = require("./controllers/PrePurchasePropertyVerifi
 const port = process.env.PORT || 8000;
 
 mongoDB();
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
 
-// JSON Parsing Middleware
 app.use(express.json());
 
 // API Routes
@@ -52,11 +51,9 @@ app.use("/api/staff", staffRouter);
 app.use("/api/reviews", PropertyReviewRouter);
 app.use("/api/enquiry", EnquiryRouter);
 app.use("/api/title-search", TitleSearch);
-<<<<<<< HEAD
 app.use("/api/Pre-Purchase-Property-Verification", PrePurchaseProVerRouter);
-=======
-app.use('/api/staff', staffRoutes);
->>>>>>> cec15a1cec06094fd58ad2b7e0465ed09741291e
+
+// app.use("/api/staff", staffRoutes);
 
 // Static file access
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
