@@ -175,7 +175,7 @@ textarea {
 
 textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 100px;
 }
 
 .submitBtn {
@@ -242,4 +242,62 @@ textarea {
 .modalCloseBtn:hover {
   background: red;
   color: white;
+}
+
+.customFileBox {
+  border: 2px dashed #aaa;
+  padding: 0 10px;
+  border-radius: 6px;
+  background-color: #fafafa;
+  cursor: pointer;
+  min-height: 45px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.3s;
+}
+
+.customFileBox:hover {
+  border-color: #007bff;
+}
+
+.fileChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex: 1;
+}
+
+.fileChip {
+  background-color: #e1f5fe;
+  color: #0077b6;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.removeChip {
+  border: none;
+  background: transparent;
+  color: #ff5252;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+button {
+  padding: 0;
+}
+
+button:hover {
+  background-color: transparent;
 }

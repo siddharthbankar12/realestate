@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./TitleSearchServices.module.css";
 import {
   FaCheckCircle,
@@ -10,12 +10,14 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { toast } from "react-toastify";
 
-const TitleSearchServices = () => {
+const TitleSearchServices: React.FC = () => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submittedRequestId, setSubmittedRequestId] = useState<string | null>(
     null
   );
+
   const [formData, setFormData] = useState({
     propertyAddress: "",
     PropertyCity: "",
@@ -26,56 +28,85 @@ const TitleSearchServices = () => {
     ContactEmail: "",
     ContactPhone: "",
     ContactNotes: "",
+    Documents: [] as File[],
   });
+
+  const handleRemoveFile = (index: number) => {
+    const updatedFiles = [...formData.Documents];
+    updatedFiles.splice(index, 1);
+    setFormData({ ...formData, Documents: updatedFiles });
+  };
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "Documents" && e.target instanceof HTMLInputElement) {
+      const files = Array.from(e.target.files || []);
+      const newFiles = files.filter(
+        (file) =>
+          !formData.Documents.some(
+            (existingFile) =>
+              existingFile.name === file.name && existingFile.size === file.size
+          )
+      );
+      setFormData({
+        ...formData,
+        Documents: [...formData.Documents, ...newFiles],
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+
     try {
+      const data = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        if (key === "Documents") {
+          (value as File[]).forEach((file) => data.append("Documents", file));
+        } else {
+          data.append(key, value);
+        }
+      });
+
       const response = await fetch(
         "http://localhost:8000/api/title-search/create-request",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+          body: data,
         }
       );
 
-      if (response.ok) {
-        const result = await response.json();
-        toast.success("Request submitted successfully!");
-        setSubmittedRequestId(result.requestId);
-        setShowModal(false);
-        setFormData({
-          propertyAddress: "",
-          PropertyCity: "",
-          PropertyState: "",
-          propertyType: "",
-          PropertyRegistrationNumber: "",
-          ContactFullName: "",
-          ContactEmail: "",
-          ContactPhone: "",
-          ContactNotes: "",
-        });
-      } else {
-        const errorData = await response.json();
-        toast.error(
-          `Submission failed: ${errorData.message || "Server error"}`
-        );
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.message || "Something went wrong.");
       }
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error("Network error. Please try again.");
+
+      const result = await response.json();
+      toast.success("Request submitted successfully!");
+      setSubmittedRequestId(result.requestId);
+      setShowModal(false);
+      setFormData({
+        propertyAddress: "",
+        PropertyCity: "",
+        PropertyState: "",
+        propertyType: "",
+        PropertyRegistrationNumber: "",
+        ContactFullName: "",
+        ContactEmail: "",
+        ContactPhone: "",
+        ContactNotes: "",
+        Documents: [],
+      });
+    } catch (err: any) {
+      toast.error(`Error: ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -88,12 +119,11 @@ const TitleSearchServices = () => {
       <div className={styles.container}>
         {submittedRequestId && (
           <div className={styles.requestIdBox}>
-            ✅ <strong>Your Request ID :</strong> {submittedRequestId}
+            ✅ <strong>Your Request ID:</strong> {submittedRequestId}
             <p>Please save this for future reference.</p>
             <button
               className={styles.modalCloseBtn}
               onClick={() => {
-                setShowModal(false);
                 setSubmittedRequestId(null);
               }}
             >
@@ -111,42 +141,40 @@ const TitleSearchServices = () => {
         </header>
 
         <section className={styles.gridSection}>
-          <section className={styles.gridSection}>
-            <div className={styles.card}>
-              <FaFileAlt className={styles.icon} />
-              <h2>What’s Included</h2>
-              <ul>
-                <li>✅ Title Ownership History</li>
-                <li>✅ Encumbrance & Mortgage Check</li>
-                <li>✅ Dispute & Litigation Check</li>
-                <li>✅ Chain of Title Verification</li>
-                <li>✅ Final Legal Opinion Report</li>
-              </ul>
-            </div>
+          <div className={styles.card}>
+            <FaFileAlt className={styles.icon} />
+            <h2>What’s Included</h2>
+            <ul>
+              <li>✅ Title Ownership History</li>
+              <li>✅ Encumbrance & Mortgage Check</li>
+              <li>✅ Dispute & Litigation Check</li>
+              <li>✅ Chain of Title Verification</li>
+              <li>✅ Final Legal Opinion Report</li>
+            </ul>
+          </div>
 
-            <div className={styles.card}>
-              <FaBalanceScale className={styles.icon} />
-              <h2>Why Choose Us</h2>
-              <ul>
-                <li>✔ Experienced Real Estate Lawyers</li>
-                <li>✔ Pan-India Coverage</li>
-                <li>✔ 100% Confidentiality</li>
-                <li>✔ Fast Turnaround – 5 Days</li>
-                <li>✔ 24/7 Support</li>
-              </ul>
-            </div>
+          <div className={styles.card}>
+            <FaBalanceScale className={styles.icon} />
+            <h2>Why Choose Us</h2>
+            <ul>
+              <li>✔ Experienced Real Estate Lawyers</li>
+              <li>✔ Pan-India Coverage</li>
+              <li>✔ 100% Confidentiality</li>
+              <li>✔ Fast Turnaround – 5 Days</li>
+              <li>✔ 24/7 Support</li>
+            </ul>
+          </div>
 
-            <div className={styles.card}>
-              <FaStar className={styles.icon} />
-              <h2>Service Plans</h2>
-              <ul>
-                <li>🏠 Residential Property – ₹1999</li>
-                <li>🏢 Commercial Property – ₹2999</li>
-                <li>🌳 Land/Plot – ₹3499</li>
-                <li>🧾 Custom Legal Opinion – On Request</li>
-              </ul>
-            </div>
-          </section>
+          <div className={styles.card}>
+            <FaStar className={styles.icon} />
+            <h2>Service Plans</h2>
+            <ul>
+              <li>🏠 Residential Property – ₹1999</li>
+              <li>🏢 Commercial Property – ₹2999</li>
+              <li>🌳 Land/Plot – ₹3499</li>
+              <li>🧾 Custom Legal Opinion – On Request</li>
+            </ul>
+          </div>
         </section>
 
         <section className={styles.testimonials}>
@@ -176,6 +204,16 @@ const TitleSearchServices = () => {
           <div className={styles.modal}>
             <h2>🔐 Request Title Search</h2>
             <form className={styles.formTwoColumn} onSubmit={handleSubmit}>
+              <button
+                type="button"
+                className={styles.closeButton}
+                onClick={() => {
+                  setShowModal(false);
+                }}
+              >
+                &times;
+              </button>
+
               <div className={styles.formLeft}>
                 <h3>Property Details</h3>
                 <input
@@ -223,29 +261,42 @@ const TitleSearchServices = () => {
                   value={formData.PropertyRegistrationNumber}
                   onChange={handleChange}
                 />
+                <label
+                  className={styles.customFileBox}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  {formData.Documents.length === 0 ? (
+                    <span>📁 Click to upload documents</span>
+                  ) : (
+                    <div className={styles.fileChips}>
+                      {formData.Documents.map((file, index) => (
+                        <div key={index} className={styles.fileChip}>
+                          {file.name}
+                          <button
+                            type="button"
+                            className={styles.removeChip}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveFile(index);
+                            }}
+                          >
+                            x
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    name="Documents"
+                    accept=".pdf, image/*"
+                    onChange={handleChange}
+                    multiple
+                    hidden
+                  />
+                </label>
               </div>
-
-              {/* RIGHT - Contact Info */}
-              <button
-                className={styles.closeButton}
-                onClick={() => {
-                  setShowModal(false);
-                  setFormData({
-                    propertyAddress: "",
-                    PropertyCity: "",
-                    PropertyState: "",
-                    propertyType: "",
-                    PropertyRegistrationNumber: "",
-                    ContactFullName: "",
-                    ContactEmail: "",
-                    ContactPhone: "",
-                    ContactNotes: "",
-                  });
-                }}
-                aria-label="Close modal"
-              >
-                &times;
-              </button>
 
               <div className={styles.formRight}>
                 <h3>Your Contact Info</h3>

@@ -3,7 +3,8 @@
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin: 90px 20px;
+  margin-top: 90px;
+  overflow-x: auto;
 }
 
 .statusFilter {

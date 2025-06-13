@@ -10,6 +10,12 @@ const TitleSearchRequestSchema = new mongoose.Schema({
   propertyType: { type: String, required: true },
   PropertyRegistrationNumber: { type: String },
   ContactNotes: { type: String },
+  propertyDocuments: [
+    {
+      url: { type: String },
+      public_id: { type: String },
+    },
+  ],
   createdAt: { type: Date, default: Date.now },
 });
 
@@ -17,4 +23,5 @@ const TitleSearchRequest = mongoose.model(
   "TitleSearchRequest",
   TitleSearchRequestSchema
 );
+
 module.exports = TitleSearchRequest;

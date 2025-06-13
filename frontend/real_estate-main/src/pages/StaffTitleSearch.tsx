@@ -13,6 +13,10 @@ type TitleSearchRequest = {
   ContactEmail: string;
   ContactPhone: string;
   ContactNotes?: string;
+  propertyDocuments: {
+    url: string;
+    public_id: string;
+  }[];
 };
 
 interface StaffTitleSearchProps {
@@ -22,6 +26,9 @@ interface StaffTitleSearchProps {
 const StaffTitleSearch: React.FC<StaffTitleSearchProps> = ({
   titleSearchRequest,
 }) => {
+  const [modalType, setModalType] = useState<"contact" | "documents" | null>(
+    null
+  );
   const [filterType, setFilterType] = useState("All");
   const [searchId, setSearchId] = useState("");
   const [selectedContact, setSelectedContact] =
@@ -70,9 +77,11 @@ const StaffTitleSearch: React.FC<StaffTitleSearchProps> = ({
             <th>Address</th>
             <th>Reg. No</th>
             <th>Requested On</th>
-            <th>Contact </th>
+            <th>Contact</th>
+            <th>Documents</th>
           </tr>
         </thead>
+
         <tbody>
           {filteredRequests.map((request) => (
             <tr key={request._id}>
@@ -86,22 +95,45 @@ const StaffTitleSearch: React.FC<StaffTitleSearchProps> = ({
               <td>
                 <button
                   className={styles.viewBtn}
-                  onClick={() => setSelectedContact(request)}
+                  onClick={() => {
+                    setSelectedContact(request);
+                    setModalType("contact");
+                  }}
                 >
                   View Contact
                 </button>
+              </td>
+              <td>
+                {request.propertyDocuments &&
+                request.propertyDocuments.length > 0 ? (
+                  <button
+                    className={styles.viewBtn}
+                    onClick={() => {
+                      setSelectedContact(request);
+                      setModalType("documents");
+                    }}
+                  >
+                    View Documents
+                  </button>
+                ) : (
+                  "-"
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {selectedContact && (
+      {/* Contact Modal */}
+      {selectedContact && modalType === "contact" && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
             <button
               className={styles.closeBtn}
-              onClick={() => setSelectedContact(null)}
+              onClick={() => {
+                setSelectedContact(null);
+                setModalType(null);
+              }}
             >
               &times;
             </button>
@@ -120,6 +152,42 @@ const StaffTitleSearch: React.FC<StaffTitleSearchProps> = ({
                 <strong>Notes:</strong> {selectedContact.ContactNotes}
               </p>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Documents Modal */}
+      {selectedContact && modalType === "documents" && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <button
+              className={styles.closeBtn}
+              onClick={() => {
+                setSelectedContact(null);
+                setModalType(null);
+              }}
+            >
+              &times;
+            </button>
+            <h3>📂 Uploaded Documents</h3>
+            <div className={styles.documentFlex}>
+              {selectedContact.propertyDocuments.map((doc, index) => {
+                const fileName = `Document_${index + 1}`;
+                return (
+                  <div key={index} className={styles.documentItem}>
+                    <p style={{ padding: 0, margin: 0 }}>{fileName}</p>
+                    <a
+                      href={doc.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.viewLink}
+                    >
+                      🔍 View
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
