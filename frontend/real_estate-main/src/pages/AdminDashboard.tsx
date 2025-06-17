@@ -15,6 +15,7 @@ import AdminProfile from "../components/AdminProfile";
 import AdminDashUserDetails from "../components/AdminDashUserDetails";
 import StaffManagement from "../components/StaffManagement";
 import AdminEnquiries from "../components/AdminEnquiries";
+import StaffPerformanceCategories  from "../components/StaffPerformanceCategories";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -323,6 +324,8 @@ const AdminDashboard = () => {
               />
             )}
             {activeSection === "staffManagement" && <StaffManagement />}
+            {activeSection === "staffPerformance" && <StaffPerformanceCategories />}
+
           </div>
           <Modal show={showModal} handleClose={handleCloseModal} />
         </div>
