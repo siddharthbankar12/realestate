@@ -221,6 +221,9 @@ const Navbar: FunctionComponent<NavbarProps> = () => {
               <div onClick={() => navigate("/services/post-purchase")}>
                 Post-Purchase Services
               </div>
+              <div onClick={() => navigate("/services/contractors")}>
+                Contractors
+              </div>
             </div>
           )}
         </div>

@@ -22,9 +22,7 @@ const getAllContractors = async (req, res) => {
 const getVerifiedContractors = async (req, res) => {
   try {
     const filter = {};
-    if (req.query.verified === "true") {
-      filter.verified = true;
-    }
+    filter.verified = true;
     const contractors = await Contractor.find(filter);
     res.status(200).json(contractors);
   } catch (error) {
