@@ -1,4 +1,4 @@
-const Contractor = require("../models/Contractor");
+const Contractor = require("../models/Contractor.js");
 
 // Create a new contractor
 const createContractor = async (req, res) => {
@@ -110,5 +110,5 @@ module.exports = {
   deleteContractor,
   addPortfolioProject,
   verifyContractor,
-  getAllContractors
+  getAllContractors,
 };

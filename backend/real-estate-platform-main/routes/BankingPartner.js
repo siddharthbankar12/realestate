@@ -6,8 +6,8 @@ const {
   getLoanOptionsForProperty,
   createBankingPartner,
   updateBankingPartner,
-  deleteBankingPartner
-} = require("../controllers/bankingPartnerController");
+  deleteBankingPartner,
+} = require("../controllers/BankingPartner.js");
 
 // Public routes - accessible to all users
 
@@ -79,34 +79,36 @@ router.get("/search/by-product", (req, res) => {
 router.get("/search/by-location", async (req, res) => {
   try {
     const { city } = req.query;
-    
+
     if (!city) {
       return res.status(400).json({
         success: false,
-        message: "City parameter is required"
+        message: "City parameter is required",
       });
     }
 
     const BankingPartner = require("../models/BankingPartner");
-    
+
     const partners = await BankingPartner.find({
       isActive: true,
       $or: [
         { "contactDetails.city": { $regex: city, $options: "i" } },
-        { "branchLocations.city": { $regex: city, $options: "i" } }
-      ]
-    }).select("bankName bankCode contactDetails rating logo website branchLocations");
+        { "branchLocations.city": { $regex: city, $options: "i" } },
+      ],
+    }).select(
+      "bankName bankCode contactDetails rating logo website branchLocations"
+    );
 
     res.status(200).json({
       success: true,
       data: partners,
-      count: partners.length
+      count: partners.length,
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Error searching banking partners by location",
-      error: error.message
+      error: error.message,
     });
   }
 });
@@ -120,33 +122,36 @@ router.get("/compare/:propertyId", async (req, res) => {
   try {
     const { propertyId } = req.params;
     const { bankIds } = req.query; // Comma-separated bank IDs
-    
+
     if (!bankIds) {
       return res.status(400).json({
         success: false,
-        message: "Bank IDs are required for comparison"
+        message: "Bank IDs are required for comparison",
       });
     }
 
     const BankingPartner = require("../models/BankingPartner");
     const Property = require("../models/property");
-    
+
     const property = await Property.findById(propertyId);
     if (!property) {
       return res.status(404).json({
         success: false,
-        message: "Property not found"
+        message: "Property not found",
       });
     }
 
     const bankIdArray = bankIds.split(",");
     const banks = await BankingPartner.find({
       _id: { $in: bankIdArray },
-      isActive: true
+      isActive: true,
     });
 
     // Use the same logic as getLoanOptionsForProperty but for specific banks
-    const { calculatePropertyScore, findOptimalLoanOffers } = require("../controllers/bankingPartnerController");
+    const {
+      calculatePropertyScore,
+      findOptimalLoanOffers,
+    } = require("../controllers/bankingPartnerController");
     const propertyScore = calculatePropertyScore(property);
     const loanOffers = findOptimalLoanOffers(property, banks, propertyScore);
 
@@ -156,16 +161,16 @@ router.get("/compare/:propertyId", async (req, res) => {
         id: property._id,
         title: property.title,
         price: property.price,
-        propertyScore: propertyScore
+        propertyScore: propertyScore,
       },
       comparison: loanOffers,
-      comparisonDate: new Date()
+      comparisonDate: new Date(),
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Error comparing loan offers",
-      error: error.message
+      error: error.message,
     });
   }
 });
@@ -178,26 +183,27 @@ router.get("/compare/:propertyId", async (req, res) => {
 router.get("/emi-calculator", (req, res) => {
   try {
     const { principal, rate, tenure } = req.query;
-    
+
     if (!principal || !rate || !tenure) {
       return res.status(400).json({
         success: false,
-        message: "Principal, rate, and tenure are required"
+        message: "Principal, rate, and tenure are required",
       });
     }
 
     const calculateEMI = (p, r, t) => {
       const monthlyRate = r / (12 * 100);
       const numberOfPayments = t * 12;
-      const emi = (p * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) / 
-                  (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
+      const emi =
+        (p * monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments)) /
+        (Math.pow(1 + monthlyRate, numberOfPayments) - 1);
       return Math.round(emi);
     };
 
     const p = parseFloat(principal);
     const r = parseFloat(rate);
     const t = parseFloat(tenure);
-    
+
     const emi = calculateEMI(p, r, t);
     const totalAmount = emi * t * 12;
     const totalInterest = totalAmount - p;
@@ -216,15 +222,15 @@ router.get("/emi-calculator", (req, res) => {
           totalPayments: t * 12,
           principalAmount: p,
           interestAmount: Math.round(totalInterest),
-          totalPayable: Math.round(totalAmount)
-        }
-      }
+          totalPayable: Math.round(totalAmount),
+        },
+      },
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Error calculating EMI",
-      error: error.message
+      error: error.message,
     });
   }
 });
@@ -237,30 +243,32 @@ router.get("/emi-calculator", (req, res) => {
 router.get("/statistics", async (req, res) => {
   try {
     const BankingPartner = require("../models/BankingPartner");
-    
+
     const stats = await BankingPartner.aggregate([
       {
         $group: {
           _id: null,
           totalPartners: { $sum: 1 },
           activePartners: {
-            $sum: { $cond: [{ $eq: ["$isActive", true] }, 1, 0] }
+            $sum: { $cond: [{ $eq: ["$isActive", true] }, 1, 0] },
           },
           averageRating: { $avg: "$rating" },
           partnershipTypes: {
-            $push: "$partnershipDetails.partnershipType"
+            $push: "$partnershipDetails.partnershipType",
           },
           totalLoanProducts: {
-            $sum: { $size: "$loanProducts" }
-          }
-        }
+            $sum: { $size: "$loanProducts" },
+          },
+        },
       },
       {
         $project: {
           _id: 0,
           totalPartners: 1,
           activePartners: 1,
-          inactivePartners: { $subtract: ["$totalPartners", "$activePartners"] },
+          inactivePartners: {
+            $subtract: ["$totalPartners", "$activePartners"],
+          },
           averageRating: { $round: ["$averageRating", 2] },
           totalLoanProducts: 1,
           partnershipDistribution: {
@@ -274,16 +282,16 @@ router.get("/statistics", async (req, res) => {
                     $size: {
                       $filter: {
                         input: "$partnershipTypes",
-                        cond: { $eq: ["$this", "$type"] }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+                        cond: { $eq: ["$this", "$type"] },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     ]);
 
     // Get product type statistics
@@ -294,8 +302,8 @@ router.get("/statistics", async (req, res) => {
           _id: "$loanProducts.productType",
           count: { $sum: 1 },
           avgInterestRate: { $avg: "$loanProducts.interestRate.min" },
-          maxLoanAmount: { $max: "$loanProducts.loanAmount.max" }
-        }
+          maxLoanAmount: { $max: "$loanProducts.loanAmount.max" },
+        },
       },
       {
         $project: {
@@ -303,22 +311,22 @@ router.get("/statistics", async (req, res) => {
           count: 1,
           avgInterestRate: { $round: ["$avgInterestRate", 2] },
           maxLoanAmount: 1,
-          _id: 0
-        }
-      }
+          _id: 0,
+        },
+      },
     ]);
 
     res.status(200).json({
       success: true,
       generalStats: stats[0] || {},
       productTypeStats: productStats,
-      generatedAt: new Date()
+      generatedAt: new Date(),
     });
   } catch (error) {
     res.status(500).json({
       success: false,
       message: "Error fetching statistics",
-      error: error.message
+      error: error.message,
     });
   }
 });
