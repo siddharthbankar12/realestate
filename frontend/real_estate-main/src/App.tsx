@@ -37,7 +37,7 @@ import StaffPerformanceCategories from "./components/StaffPerformanceCategories"
 import TitleSearchServices from "./components/TitleSearchServices";
 import PrePurchaseServices from "./components/PrePurchaseServices";
 import PostPurchaseServices from "./components/PostPurchaseServices";
-
+import Contractor from "./components/Services/Contractor"
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -156,6 +156,10 @@ function App() {
         <Route
           path="/services/post-purchase"
           element={<PostPurchaseServices />}
+        />
+        <Route
+          path="/services/contractors"
+          element={<Contractor />}
         />
 
         <Route path="/aboutus" element={<AboutUs />} />
