@@ -19,6 +19,7 @@ const Appointment = require("./controllers/Appointment");
 const TitleSearch = require("./controllers/titleSearch.js");
 const PropertyReviewRouter = require("./controllers/PropertyReviewsControllers.js");
 // const staffRoutes = require("./routes/staffRoutes");
+const contractorRoutes= require("./routes/contractorRoutes.js")
 
 require("dotenv").config();
 const mongoDB = require("./db");
@@ -42,6 +43,7 @@ app.use("/api/admin/login", AdminRouter);
 app.use("/api/admin/update", AdminUpdateRouter);
 app.use("/api/admin/users-details", AdminDashUsersDetail);
 app.use("/api/admin", adminSignupRouter);
+app.use("/api/contractor",contractorRoutes)
 app.use("/api", propertyRoutes);
 app.use("/api", propertyImageRoutes);
 app.use("/api/testimonials", testimonialRoutes);
