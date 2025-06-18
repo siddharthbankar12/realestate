@@ -89,6 +89,8 @@ const Properties = (props) => {
       if (Array.isArray(result) && result.length === 0) {
         toast.warn("No properties found. Try another city.");
       } else {
+        console.log("yes");
+        console.log(result);
         setProperties(result);
       }
     } catch (error) {

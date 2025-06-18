@@ -18,6 +18,7 @@ const emailVerification = require("./controllers/emailVerification");
 const Appointment = require("./controllers/Appointment");
 const TitleSearch = require("./controllers/titleSearch.js");
 const PropertyReviewRouter = require("./controllers/PropertyReviewsControllers.js");
+const BankingPartnerRouter = require("./routes/BankingPartner.js");
 // const staffRoutes = require("./routes/staffRoutes");
 const contractorRoutes= require("./routes/contractorRoutes.js")
 
@@ -54,6 +55,7 @@ app.use("/api/reviews", PropertyReviewRouter);
 app.use("/api/enquiry", EnquiryRouter);
 app.use("/api/title-search", TitleSearch);
 app.use("/api/Pre-Purchase-Property-Verification", PrePurchaseProVerRouter);
+app.use('/api/banking-partners', BankingPartnerRouter);
 
 // app.use("/api/staff", staffRoutes);
 
