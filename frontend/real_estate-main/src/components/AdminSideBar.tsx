@@ -85,8 +85,9 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({
         Staff Management
       </div>
       <div
-        className={`${styles.sidebarText} ${activeSection === "staffPerformance" ? styles.activeSidebarText : ""
-          }`}
+        className={`${styles.sidebarText} ${
+          activeSection === "staffPerformance" ? styles.activeSidebarText : ""
+        }`}
         onClick={() => handleSectionChange("staffPerformance")}
       >
         Staff Performance
