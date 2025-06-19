@@ -6,11 +6,8 @@ const {
   getLoanOptionsForProperty,
   createBankingPartner,
   updateBankingPartner,
-<<<<<<< HEAD
-  deleteBankingPartner
-=======
+
   deleteBankingPartner,
->>>>>>> 67577a86a1d44c806b6b4e98bf5782bc54a69ade
 } = require("../controllers/BankingPartner.js");
 
 // Public routes - accessible to all users

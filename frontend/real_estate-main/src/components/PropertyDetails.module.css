@@ -22,6 +22,10 @@
   font-family: var(--font-montserrat);
 }
 
+.saveProBtn {
+  padding: 10px;
+}
+
 .Description,
 .FacilitiesAmenities,
 .Location {
@@ -198,7 +202,6 @@ i {
   width: 100%;
   border: none;
 }
-
 
 .bankingSection {
   max-height: 400px; /* adjust height as needed */

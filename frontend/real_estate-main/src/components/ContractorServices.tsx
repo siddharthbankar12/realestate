@@ -9,8 +9,8 @@ import {
   FaEnvelope,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import Navbar from "../Navbar";
-import Footer from "../Footer";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const ContractorServices: React.FC = () => {
   return (
@@ -29,7 +29,8 @@ const ContractorServices: React.FC = () => {
             <FaHardHat className={styles.icon} />
             <h2>Civil Work</h2>
             <p>
-              Expert support for structural repairs, tiling, plastering, and home expansion.
+              Expert support for structural repairs, tiling, plastering, and
+              home expansion.
             </p>
           </div>
 
@@ -37,7 +38,8 @@ const ContractorServices: React.FC = () => {
             <FaDraftingCompass className={styles.icon} />
             <h2>Interior Renovation</h2>
             <p>
-              Skilled professionals for carpentry, painting, plumbing, and design upgrades.
+              Skilled professionals for carpentry, painting, plumbing, and
+              design upgrades.
             </p>
           </div>
 
@@ -45,7 +47,8 @@ const ContractorServices: React.FC = () => {
             <FaWrench className={styles.icon} />
             <h2>On-Demand Repairs</h2>
             <p>
-              Quick fixes for leakages, electric faults, and minor construction defects.
+              Quick fixes for leakages, electric faults, and minor construction
+              defects.
             </p>
           </div>
 
@@ -53,7 +56,8 @@ const ContractorServices: React.FC = () => {
             <FaRegClock className={styles.icon} />
             <h2>Time-Bound Delivery</h2>
             <p>
-              All work delivered within committed timelines by verified contractors.
+              All work delivered within committed timelines by verified
+              contractors.
             </p>
           </div>
         </section>

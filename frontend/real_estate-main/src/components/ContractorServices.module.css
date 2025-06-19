@@ -14,6 +14,7 @@
   padding: 2rem;
   font-family: "Segoe UI", sans-serif;
   color: var(--text-dark);
+  margin-top: 90px;
 }
 
 .heroSection {
@@ -24,7 +25,11 @@
 .heading {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(to right, var(--primary-start), var(--primary-end));
+  background: linear-gradient(
+    to right,
+    var(--primary-start),
+    var(--primary-end)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 0.5rem;
@@ -114,7 +119,11 @@
 .cta {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(to right, var(--primary-start), var(--primary-end));
+  background: linear-gradient(
+    to right,
+    var(--primary-start),
+    var(--primary-end)
+  );
   color: #fff;
   border: none;
   border-radius: 9999px;
