@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 export type PropertyDetailsType = {
   className?: string;
   property: {
+    _id: string;
     user_id?: string;
     title: string;
     description: string;
@@ -55,6 +56,11 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
   const [userId, setUserId] = useState("");
   const [reviews, setReviews] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
+  const [loanOffers, setLoanOffers] = useState([]);
+  const [loadingLoanOffers, setLoadingLoanOffers] = useState(false);
+  const [selectedLoanAmount, setSelectedLoanAmount] = useState("");
+  const [monthlyIncome, setMonthlyIncome] = useState("");
+  const [showAllOffers, setShowAllOffers] = useState(false);
 
   const toTitleCase = (str: string = "") =>
     str
@@ -129,6 +135,40 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
     }
   };
 
+  const fetchLoanOffers = async () => {
+    if (!property._id) return;
+    
+    setLoadingLoanOffers(true);
+    try {
+      let url = `http://localhost:8000/api/banking-partners/loan-options/${property._id}`;
+      const params = new URLSearchParams();
+      
+      if (selectedLoanAmount) {
+        params.append('loanAmount', selectedLoanAmount);
+      }
+      if (monthlyIncome) {
+        params.append('monthlyIncome', monthlyIncome);
+      }
+      
+      if (params.toString()) {
+        url += `?${params.toString()}`;
+      }
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (response.ok) {
+        setLoanOffers(data.loanOffers || []);
+      } else {
+        console.error("Error fetching loan offers:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching loan offers", error);
+    } finally {
+      setLoadingLoanOffers(false);
+    }
+  };
+
   const getAverageRating = (reviews) => {
     if (reviews.length === 0) return 0;
     const total = reviews.reduce((sum, r) => sum + r.rating, 0);
@@ -144,7 +184,8 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
       setUserId(decoded._id);
     }
     fetchReviews();
-  }, [token]);
+    fetchLoanOffers();
+  }, [token, property._id]);
 
   useEffect(() => {
     const checkIfSaved = async () => {
@@ -174,6 +215,20 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
 
     checkIfSaved();
   }, [userId, property._id]);
+
+  const handleLoanFilterChange = () => {
+    fetchLoanOffers();
+  };
+
+  const formatCurrency = (amount) => {
+    if (amount >= 10000000) {
+      return `₹${(amount / 10000000).toFixed(1)}Cr`;
+    } else if (amount >= 100000) {
+      return `₹${(amount / 100000).toFixed(1)}L`;
+    } else {
+      return `₹${amount.toLocaleString('en-IN')}`;
+    }
+  };
 
   return (
     <>
@@ -341,30 +396,183 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
           </section>
 
           <PriceHistoryChart />
-
-          {/* {property.amenities?.length > 0 && (
-            <section className={styles.FacilitiesAmenities}>
-              <div className={styles.heading}>Facilities and Amenities</div>
-              <div className={styles.gridContainer}>
-                {property.amenities.map((amenity, index) => {
-                  return (
-                    <div key={index} className={styles.gridItem}>
-                      <div className={styles.facilityamenity}>{amenity}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          )} */}
         </div>
 
         <div className={styles.right}>
+          {/* Banking Partners Section with Scrollable Loan Offers */}
+          <section className={styles.bankingSection} style={{ marginBottom: '20px', padding: '20px', border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#f9f9f9', marginTop: '20px' , minHeight:'900px' }}>
+            <div className={styles.heading} style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '15px' }}>
+              🏦 Loan Options Available
+            </div>
+            
+            {/* Loan Filter Inputs */}
+            <div style={{ marginBottom: '15px' }}>
+              <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+                <input
+                  type="number"
+                  placeholder="Desired loan amount"
+                  value={selectedLoanAmount}
+                  onChange={(e) => setSelectedLoanAmount(e.target.value)}
+                  style={{ 
+                    flex: 1, 
+                    padding: '8px', 
+                    border: '1px solid #ccc', 
+                    borderRadius: '4px',
+                    fontSize: '14px'
+                  }}
+                />
+                <input
+                  type="number"
+                  placeholder="Monthly income"
+                  value={monthlyIncome}
+                  onChange={(e) => setMonthlyIncome(e.target.value)}
+                  style={{ 
+                    flex: 1, 
+                    padding: '8px', 
+                    border: '1px solid #ccc', 
+                    borderRadius: '4px',
+                    fontSize: '14px'
+                  }}
+                />
+              </div>
+              <button
+                onClick={handleLoanFilterChange}
+                style={{
+                  width: '100%',
+                  padding: '8px',
+                  backgroundColor: '#007bff',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '14px'
+                }}
+              >
+                Get Personalized Offers
+              </button>
+            </div>
+
+            {loadingLoanOffers ? (
+              <div style={{ textAlign: 'center', padding: '20px' }}>
+                <div>Loading loan offers...</div>
+              </div>
+            ) : loanOffers.length > 0 ? (
+              <div>
+                <div style={{ fontSize: '14px', color: '#666', marginBottom: '10px' }}>
+                  {loanOffers.length} loan offers available
+                </div>
+                
+                {/* Scrollable container for loan offers */}
+                <div style={{ 
+                  maxHeight: '800px', 
+                  overflowY: 'auto',
+                  paddingRight: '5px'
+                }}>
+                  {loanOffers.map((offer, index) => (
+                    <div key={index} style={{ 
+                      marginBottom: '15px', 
+                      padding: '15px', 
+                      border: '1px solid #e0e0e0', 
+                      borderRadius: '6px',
+                      backgroundColor: 'white'
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                        <div style={{ fontWeight: 'bold', fontSize: '16px' }}>
+                          {offer.bankName}
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                          <span style={{ color: '#ffa500' }}>★</span>
+                          <span style={{ fontSize: '14px' }}>{offer.bankRating}/5</span>
+                        </div>
+                      </div>
+                      
+                      <div style={{ fontSize: '14px', color: '#666', marginBottom: '8px' }}>
+                        {offer.productName} - {offer.productType.replace('_', ' ').toUpperCase()}
+                      </div>
+                      
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
+                        <div>
+                          <div style={{ fontSize: '12px', color: '#888' }}>Max Loan Amount</div>
+                          <div style={{ fontWeight: 'bold', color: '#28a745' }}>
+                            {formatCurrency(offer.maxLoanAmount)}
+                          </div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: '12px', color: '#888' }}>Interest Rate</div>
+                          <div style={{ fontWeight: 'bold', color: '#007bff' }}>
+                            {offer.interestRate}% p.a.
+                          </div>
+                        </div>
+                      </div>
+
+                      {offer.emiOptions && offer.emiOptions.length > 0 && (
+                        <div style={{ marginBottom: '10px' }}>
+                          <div style={{ fontSize: '12px', color: '#888', marginBottom: '5px' }}>EMI Options</div>
+                          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                            {offer.emiOptions.slice(0, 3).map((emi, emiIndex) => (
+                              <div key={emiIndex} style={{ 
+                                fontSize: '12px', 
+                                padding: '4px 8px', 
+                                backgroundColor: '#f0f8ff', 
+                                borderRadius: '4px',
+                                border: '1px solid #cce7ff'
+                              }}>
+                                {emi.tenure}yr: {formatCurrency(emi.emi)}/mo
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {offer.processingFee > 0 && (
+                        <div style={{ fontSize: '12px', color: '#666' }}>
+                          Processing Fee: {formatCurrency(offer.processingFee)}
+                        </div>
+                      )}
+
+                      {offer.specialOffers && offer.specialOffers.length > 0 && (
+                        <div style={{ 
+                          marginTop: '8px', 
+                          padding: '6px 8px', 
+                          backgroundColor: '#fff3cd', 
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          color: '#856404'
+                        }}>
+                          🎉 {offer.specialOffers[0].offerName}: {offer.specialOffers[0].description}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div style={{ textAlign: 'center', padding: '20px', color: '#666' }}>
+                <div>🏦</div>
+                <div style={{ marginTop: '8px', fontSize: '14px' }}>
+                  No loan offers available for this property at the moment.
+                </div>
+              </div>
+            )}
+          </section>
+        </div>
+      </section>
+
+      {/* Review and Contact sections side by side */}
+      <section style={{ 
+        display: 'flex', 
+        gap: '20px', 
+        margin: '20px 0',
+        alignItems: 'flex-start'
+      }}>
+        <div style={{ flex: 1 }}>
           <ContactForm
             userId={userId}
             phone={property.Propreiter_contact}
             propertyId={property._id}
           />
-
+        </div>
+        <div style={{ flex: 1 }}>
           <ReviewForm propertyId={property._id} />
         </div>
       </section>

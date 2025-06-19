@@ -1,0 +1,112 @@
+.bankCard {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 300px;
+  min-width: 280px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+}
+
+.bankCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.bankLogo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.bankLogo img {
+  width: 80px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 4px;
+  background: white;
+  padding: 5px;
+  border: 1px solid #f3f4f6;
+}
+
+.placeholderLogo {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.bankInfo {
+  text-align: center;
+}
+
+.bankName {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 8px 0;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.stars {
+  color: #fbbf24;
+  font-size: 16px;
+}
+
+.ratingValue {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.loanInfo {
+  margin-bottom: 16px;
+}
+
+.products {
+  color: #374151;
+  font-size: 14px;
+  margin: 0 0 4px 0;
+  font-weight: 500;
+}
+
+.interestRate {
+  color: #059669;
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.viewButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.viewButton:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  transform: translateY(-1px);
+}

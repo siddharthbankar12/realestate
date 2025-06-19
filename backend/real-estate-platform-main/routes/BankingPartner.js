@@ -7,7 +7,7 @@ const {
   createBankingPartner,
   updateBankingPartner,
   deleteBankingPartner
-} = require("../controllers/bankingPartnerController");
+} = require("../controllers/BankingPartner.js");
 
 // Public routes - accessible to all users
 

@@ -198,3 +198,20 @@ i {
   width: 100%;
   border: none;
 }
+
+
+.bankingSection {
+  max-height: 400px; /* adjust height as needed */
+  overflow-y: auto;
+}
+
+/* Sit ContactForm and ReviewForm side by side */
+.formContainer {
+  display: flex;
+  gap: 20px;
+}
+
+/* Ensure each form stretches equally */
+.formContainer :global(form) {
+  flex: 1;
+}

@@ -16,6 +16,7 @@ import ReviewForm from "../components/ReviewForm";
 import PropertyTypeCarousel from "../components/PropertyTypeCarousel";
 import SearchBar from "../components/SearchBar";
 import AppointmentForm from "../components/AppointmentForm";
+import BankingPartnersSection from "../components/BankingPartnersSection";
 import { useSelector } from "react-redux";
 import RecentSearch from "../components/RecentSearch";
 import StaffPerformanceCategories from "../components/StaffPerformanceCategories";
@@ -148,6 +149,10 @@ const HomePage: FunctionComponent = () => {
           ))}
         </div>
       </section>
+      
+      {/* Banking Partners Section - Added between Popular Properties and Popular Builders */}
+      <BankingPartnersSection />
+      
       <section className={styles.popularBuilders}>
         <div className={styles.heading}>POPULAR BUILDERS</div>
         <div className={styles.listings}>
