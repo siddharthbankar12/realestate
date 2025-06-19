@@ -37,6 +37,7 @@ import StaffPerformanceCategories from "./components/StaffPerformanceCategories"
 import TitleSearchServices from "./components/TitleSearchServices";
 import PrePurchaseServices from "./components/PrePurchaseServices";
 import PostPurchaseServices from "./components/PostPurchaseServices";
+import ContractorDetails from "./components/ContractorDetails";
 import ContractorServices from "./components/ContractorServices";
 
 function App() {
@@ -159,6 +160,10 @@ function App() {
           element={<PostPurchaseServices />}
         />
         <Route path="/services/contractors" element={<ContractorServices />} />
+        <Route
+          path="/services/contractors/:id"
+          element={<ContractorDetails />}
+        />
 
         <Route path="/aboutus" element={<AboutUs />} />
         <Route
