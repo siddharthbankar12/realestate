@@ -1,0 +1,107 @@
+.container {
+  padding: 1rem;
+}
+
+.message {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.error {
+  color: red;
+  text-align: center;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background-color: #f9f9f9;
+}
+
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.5rem;
+}
+
+.status {
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+.verified {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.infoGroup {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  grid-column: span 2;
+}
+
+.portfolioList {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+
+.imageGallery {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.imageGallery img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.acceptBtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.rejectBtn {
+  background-color: #f44336;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
