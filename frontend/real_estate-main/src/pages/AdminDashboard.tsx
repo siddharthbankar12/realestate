@@ -94,6 +94,7 @@ const AdminDashboard = () => {
       const enquiriesData = await enquiriesRes.json();
       const adminsData = await adminsRes.json();
       const contractorsData = await contractorsRes.json();
+      console.log("All Contractors Data:", contractorsData); // Debug log
       console.log(propertiesData);
 
       if (appointmentsData.success) {
@@ -111,8 +112,15 @@ const AdminDashboard = () => {
       if (enquiriesData.success) {
         setEnquiries(enquiriesData.enquiries);
       }
-      if (contractorsData.success) {
+
+      if (Array.isArray(contractorsData)) {
+        setContractors(contractorsData);
+      } else if (contractorsData.success) {
         setContractors(contractorsData.contractors);
+      } else if (contractorsData.data) {
+        setContractors(contractorsData.data);
+      } else {
+        setContractors([]);
       }
     } catch (err) {
       toast.error("Failed to fetch data. Please try again.");
@@ -275,7 +283,7 @@ const AdminDashboard = () => {
   const handleAcceptContractor = async (id: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/contractors/${id}/verify`,
+        `http://localhost:8000/api/contractor/verify/${id}`,
         {
           method: "PUT",
           headers: {
@@ -284,7 +292,7 @@ const AdminDashboard = () => {
         }
       );
       const result = await response.json();
-      if (!result.success || !response.ok) {
+      if ( !response.ok) {
         alert("Accepting contractor failed, please try later");
         return;
       }
@@ -301,16 +309,16 @@ const AdminDashboard = () => {
   const handleRejectContractor = async (id: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/contractors/${id}/reject`,
+        `http://localhost:8000/api/contractor/${id}`,
         {
-          method: "PUT",
+          method: "DELETE",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         }
       );
       const result = await response.json();
-      if (!result.success || !response.ok) {
+      if ( !response.ok) {
         alert("Rejecting contractor failed, please try later");
         return;
       }
@@ -391,7 +399,7 @@ const AdminDashboard = () => {
             {activeSection === "staffPerformance" && (
               <StaffPerformanceCategories />
             )}
-           
+
             {activeSection === "contractorVerification" && (
               <AdminContractorVerification
                 contractors={contractors}
