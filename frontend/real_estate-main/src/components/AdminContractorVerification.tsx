@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./AdminContractorVerification.module.css";
 
@@ -41,21 +41,50 @@ const AdminContractorVerification: React.FC<ContractorVerificationProps> = ({
   handleRejectContractor,
 }) => {
   const navigate = useNavigate();
-  
+  const [filter, setFilter] = useState<"all" | "verified" | "pending">("all");
+
+  const filteredContractors = contractors
+    .filter((contractor) =>
+      filter === "all"
+        ? true
+        : filter === "verified"
+        ? contractor.verified
+        : !contractor.verified
+    )
+    .reverse();
+
   return (
     <div className={styles.container}>
+      <div className={styles.filterContainer}>
+        <button
+          onClick={() => setFilter("all")}
+          className={`${styles.filterBtn} ${filter === "all" ? styles.active : ""}`}
+        >
+          All
+        </button>
+        <button
+          onClick={() => setFilter("verified")}
+          className={`${styles.filterBtn} ${filter === "verified" ? styles.active : ""}`}
+        >
+          Verified
+        </button>
+        <button
+          onClick={() => setFilter("pending")}
+          className={`${styles.filterBtn} ${filter === "pending" ? styles.active : ""}`}
+        >
+          Pending
+        </button>
+      </div>
+
       {loading ? (
         <p className={styles.message}>Loading contractors...</p>
       ) : error ? (
         <p className={styles.error}>{error}</p>
-      ) : contractors.length === 0 ? (
-        <p className={styles.message}>No contractors pending verification.</p>
+      ) : filteredContractors.length === 0 ? (
+        <p className={styles.message}>No contractors found for this filter.</p>
       ) : (
-        contractors.reverse().map((contractor) => (
-          <div
-            key={contractor._id}
-            className={styles.contractorCard}
-          >
+        filteredContractors.map((contractor) => (
+          <div key={contractor._id} className={styles.contractorCard}>
             <div className={styles.cardContent}>
               <div className={styles.titleRow}>
                 <h2 className={styles.title}>{contractor.name}</h2>
@@ -67,12 +96,14 @@ const AdminContractorVerification: React.FC<ContractorVerificationProps> = ({
                   {contractor.verified ? "Verified" : "Pending"}
                 </span>
               </div>
-                  <button
-                  className={styles.viewDetailsBtn}
-                  onClick={() => navigate(`/services/contractors/${contractor._id}`)}
-                >
-                  View Details
-                </button>
+
+              <button
+                className={styles.viewDetailsBtn}
+                onClick={() => navigate(`/services/contractors/${contractor._id}`)}
+              >
+                View Details
+              </button>
+
               <div className={styles.infoGroup}>
                 <span className={styles.label}>Service Type:</span>
                 <span className={`${styles.value} ${styles.serviceType}`}>
@@ -92,10 +123,9 @@ const AdminContractorVerification: React.FC<ContractorVerificationProps> = ({
                   {new Date(contractor.createdAt).toLocaleString()}
                 </span>
 
-                <span className={styles.label}>
-                  Portfolio Projects 
-                </span>
+                <span className={styles.label}>Portfolio Projects</span>
                 {contractor.portfolio.length}
+
                 {contractor.portfolio.length > 0 ? (
                   <ul className={styles.portfolioList}>
                     {contractor.portfolio.slice(0, 2).map((work, i) => (
@@ -106,17 +136,18 @@ const AdminContractorVerification: React.FC<ContractorVerificationProps> = ({
                             {work.description}
                           </div>
                           <div className={styles.portfolioMeta}>
-                            Location: {work.location} • Completed: {new Date(work.completedOn).toLocaleDateString()}
+                            Location: {work.location} • Completed:{" "}
+                            {new Date(work.completedOn).toLocaleDateString()}
                           </div>
                         </div>
                         <div className={styles.imageGallery}>
                           {work.images.slice(0, 3).map((img, j) => (
-                            <img 
-                              key={j} 
-                              src={img} 
+                            <img
+                              key={j}
+                              src={img}
                               alt={`${work.title} - Portfolio Work`}
                               onError={(e) => {
-                                (e.target as HTMLImageElement).style.display = 'none';
+                                (e.target as HTMLImageElement).style.display = "none";
                               }}
                             />
                           ))}
@@ -128,11 +159,6 @@ const AdminContractorVerification: React.FC<ContractorVerificationProps> = ({
                         </div>
                       </li>
                     ))}
-                    {/* {contractor.portfolio.length > 2 && (
-                      <li className={styles.moreProjects}>
-                        +{contractor.portfolio.length - 2} more projects
-                      </li>
-                    )} */}
                   </ul>
                 ) : (
                   <p className={styles.message}>No portfolio items provided</p>
@@ -140,8 +166,6 @@ const AdminContractorVerification: React.FC<ContractorVerificationProps> = ({
               </div>
 
               <div className={styles.buttonsContainer}>
-                
-                
                 {!contractor.verified && (
                   <div className={styles.adminActions}>
                     <button
