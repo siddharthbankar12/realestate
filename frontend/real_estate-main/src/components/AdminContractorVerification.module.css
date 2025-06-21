@@ -10,6 +10,83 @@
   align-items: start;
 }
 
+.filterContainer {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 2rem;
+  z-index: 10;
+}
+
+.filterBtn {
+  padding: 0.75rem 2rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 2rem;
+  background: white;
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+  text-align: center;
+}
+
+.filterBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.filterBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e1;
+  color: #374151;
+}
+
+.filterBtn:hover::before {
+  left: 100%;
+}
+
+.filterBtn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+  box-shadow: 0 8px 15px -3px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+.filterBtn.active:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  box-shadow: 0 12px 20px -5px rgba(102, 126, 234, 0.5);
+}
+
+.filterBtn:active {
+  transform: translateY(0);
+}
+
+.filterBtn:focus {
+  outline: 3px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 2px;
+}
+
 .message {
   font-size: 1.3rem;
   text-align: center;
@@ -47,7 +124,7 @@
   position: relative;
   overflow: hidden;
   height: fit-content;
-max-height: 850px;
+  max-height: 850px;
 }
 
 .contractorCard::before {
@@ -346,6 +423,19 @@ max-height: 850px;
     grid-template-columns: 1fr;
   }
   
+  .filterContainer {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    position: static;
+  }
+  
+  .filterBtn {
+    min-width: auto;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
   .contractorCard {
     padding: 1.5rem;
   }
@@ -409,6 +499,16 @@ max-height: 850px;
     padding: 0.5rem;
   }
   
+  .filterContainer {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .filterBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
   .contractorCard {
     padding: 1rem;
     border-radius: 1rem;
@@ -455,7 +555,7 @@ max-height: 850px;
 
 /* Print Styles */
 @media print {
-  .buttonsContainer {
+  .buttonsContainer, .filterContainer {
     display: none;
   }
   
