@@ -1,5 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./AdminContractorVerification.module.css";
+
+type ServiceType = "Civil" | "Electrical" | "Plumbing" | 
+                  "Full Construction" | "Interior" | "Other";
 
 interface PreviousWork {
   title: string;
@@ -15,7 +19,7 @@ interface Contractor {
   phone: string;
   email: string;
   location: string;
-  serviceType: string;
+  serviceType: ServiceType;
   verified: boolean;
   portfolio: PreviousWork[];
   createdAt: string;
@@ -36,6 +40,8 @@ const AdminContractorVerification: React.FC<ContractorVerificationProps> = ({
   handleAcceptContractor,
   handleRejectContractor,
 }) => {
+  const navigate = useNavigate();
+  
   return (
     <div className={styles.container}>
       {loading ? (
@@ -46,70 +52,114 @@ const AdminContractorVerification: React.FC<ContractorVerificationProps> = ({
         <p className={styles.message}>No contractors pending verification.</p>
       ) : (
         contractors.reverse().map((contractor) => (
-          <div key={contractor._id} className={styles.card}>
-            <div className={styles.titleRow}>
-              <h2 className={styles.title}>{contractor.name}</h2>
-              <span
-                className={`${styles.status} ${
-                  contractor.verified
-                    ? styles.verified
-                    : styles.pending
-                }`}
-              >
-                {contractor.verified ? "Verified" : "Pending"}
-              </span>
-            </div>
-
-            <div className={styles.infoGroup}>
-              <span className={styles.label}>Service Type:</span>
-              <span className={styles.value}>{contractor.serviceType}</span>
-
-              <span className={styles.label}>Contact:</span>
-              <span className={styles.value}>
-                {contractor.email} | {contractor.phone}
-              </span>
-
-              <span className={styles.label}>Location:</span>
-              <span className={styles.value}>{contractor.location}</span>
-
-              <span className={styles.label}>Joined:</span>
-              <span className={styles.value}>
-                {new Date(contractor.createdAt).toLocaleString()}
-              </span>
-
-              <span className={styles.label}>Portfolio:</span>
-              <ul className={styles.portfolioList}>
-                {contractor.portfolio.map((work, i) => (
-                  <li key={i}>
-                    <strong>{work.title}</strong> - {work.description} <br />
-                    Location: {work.location}, Completed:{" "}
-                    {new Date(work.completedOn).toLocaleDateString()}
-                    <div className={styles.imageGallery}>
-                      {work.images.map((img, j) => (
-                        <img key={j} src={img} alt="Portfolio Work" />
-                      ))}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {!contractor.verified && (
-              <div className={styles.buttons}>
-                <button
-                  className={styles.acceptBtn}
-                  onClick={() => handleAcceptContractor(contractor._id)}
+          <div
+            key={contractor._id}
+            className={styles.contractorCard}
+          >
+            <div className={styles.cardContent}>
+              <div className={styles.titleRow}>
+                <h2 className={styles.title}>{contractor.name}</h2>
+                <span
+                  className={`${styles.status} ${
+                    contractor.verified ? styles.verified : styles.pending
+                  }`}
                 >
-                  Accept
-                </button>
-                <button
-                  className={styles.rejectBtn}
-                  onClick={() => handleRejectContractor(contractor._id)}
-                >
-                  Reject
-                </button>
+                  {contractor.verified ? "Verified" : "Pending"}
+                </span>
               </div>
-            )}
+                  <button
+                  className={styles.viewDetailsBtn}
+                  onClick={() => navigate(`/services/contractors/${contractor._id}`)}
+                >
+                  View Details
+                </button>
+              <div className={styles.infoGroup}>
+                <span className={styles.label}>Service Type:</span>
+                <span className={`${styles.value} ${styles.serviceType}`}>
+                  {contractor.serviceType}
+                </span>
+
+                <span className={styles.label}>Contact:</span>
+                <span className={styles.value}>
+                  {contractor.email} | {contractor.phone}
+                </span>
+
+                <span className={styles.label}>Location:</span>
+                <span className={styles.value}>{contractor.location}</span>
+
+                <span className={styles.label}>Joined:</span>
+                <span className={styles.value}>
+                  {new Date(contractor.createdAt).toLocaleString()}
+                </span>
+
+                <span className={styles.label}>
+                  Portfolio Projects 
+                </span>
+                {contractor.portfolio.length}
+                {contractor.portfolio.length > 0 ? (
+                  <ul className={styles.portfolioList}>
+                    {contractor.portfolio.slice(0, 2).map((work, i) => (
+                      <li key={i}>
+                        <div className={styles.portfolioContent}>
+                          <strong>{work.title}</strong>
+                          <div className={styles.portfolioDescription}>
+                            {work.description}
+                          </div>
+                          <div className={styles.portfolioMeta}>
+                            Location: {work.location} • Completed: {new Date(work.completedOn).toLocaleDateString()}
+                          </div>
+                        </div>
+                        <div className={styles.imageGallery}>
+                          {work.images.slice(0, 3).map((img, j) => (
+                            <img 
+                              key={j} 
+                              src={img} 
+                              alt={`${work.title} - Portfolio Work`}
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none';
+                              }}
+                            />
+                          ))}
+                          {work.images.length > 3 && (
+                            <div className={styles.moreImages}>
+                              +{work.images.length - 3} more
+                            </div>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                    {/* {contractor.portfolio.length > 2 && (
+                      <li className={styles.moreProjects}>
+                        +{contractor.portfolio.length - 2} more projects
+                      </li>
+                    )} */}
+                  </ul>
+                ) : (
+                  <p className={styles.message}>No portfolio items provided</p>
+                )}
+              </div>
+
+              <div className={styles.buttonsContainer}>
+                
+                
+                {!contractor.verified && (
+                  <div className={styles.adminActions}>
+                    <button
+                      className={styles.acceptBtn}
+                      onClick={() => handleAcceptContractor(contractor._id)}
+                    >
+                      Verify
+                    </button>
+                    <button
+                      className={styles.rejectBtn}
+                      onClick={() => handleRejectContractor(contractor._id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         ))
       )}
