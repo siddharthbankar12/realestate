@@ -662,4 +662,159 @@ body {
     padding: 0.6rem 1.2rem;
   }
 }
+/* Fixed positioning for Add Contractor button */
 
+.addContractorHeader {
+  display: flex;
+  justify-content: flex-end;
+  margin: 40px 0 30px 0; /* Increased top margin to avoid navbar overlap */
+  padding: 0 20px;
+  position: relative;
+  z-index: 5; /* Reduced z-index to avoid conflicts */
+  clear: both; /* Ensure it clears any floating elements */
+}
+
+.addContractorButton {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  text-transform: none; /* Remove uppercase to make it more readable */
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+  min-width: 180px;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.addContractorButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.4s ease;
+}
+
+.addContractorButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5a6ce8, #6d42a0);
+}
+
+.addContractorButton:hover::before {
+  left: 100%;
+}
+
+.addContractorButton:active {
+  transform: translateY(0px);
+  transition: transform 0.1s;
+}
+
+.plusIcon {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.addContractorButton:hover .plusIcon {
+  transform: rotate(180deg);
+}
+
+.formContainer {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin: 20px 20px 40px 20px;
+  border: 1px solid #e5e7eb;
+  position: relative;
+  animation: slideDown 0.4s ease-out;
+}
+
+.formContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 16px 16px 0 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 1000px;
+  }
+}
+
+/* Ensure proper spacing from navbar */
+.wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  padding-top: 1rem; /* Reduced top padding since we added margin to button */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .addContractorHeader {
+    justify-content: center;
+    padding: 0 15px;
+    margin: 30px 0 20px 0;
+  }
+  
+  .addContractorButton {
+    padding: 12px 18px;
+    font-size: 14px;
+    min-width: 160px;
+  }
+  
+  .formContainer {
+    margin: 15px 15px 30px 15px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .addContractorHeader {
+    padding: 0 10px;
+    margin: 25px 0 15px 0;
+  }
+  
+  .addContractorButton {
+    padding: 10px 15px;
+    font-size: 13px;
+    min-width: 140px;
+    gap: 6px;
+  }
+  
+  .plusIcon {
+    font-size: 12px;
+  }
+  
+  .formContainer {
+    margin: 10px 10px 20px 10px;
+    padding: 15px;
+  }
+}

@@ -1,0 +1,610 @@
+.formContainer {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  position: relative;
+}
+
+.formContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+}
+
+.formContainer h2 {
+  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+  color: white;
+  margin: 0;
+  padding: 2rem 3rem;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.formContainer h2::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.contractorForm {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background: white;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.formGroup label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 16px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 2px;
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  padding: 1rem 1.25rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #f8fafc;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+/* FIXED: Better visibility for select dropdown */
+.formGroup select {
+  background: white;
+  color: #1e293b;
+  font-weight: 600;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23475569' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 1rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 3rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* FIXED: Ensure select options are visible */
+.formGroup select option {
+  background: white;
+  color: #1e293b;
+  font-weight: 500;
+  padding: 0.5rem;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  border-color: #4f46e5;
+  background: white;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+  transform: translateY(-2px);
+}
+
+.formGroup input:hover,
+.formGroup select:hover,
+.formGroup textarea:hover {
+  border-color: #cbd5e1;
+  background: white;
+}
+
+/* FIXED: Specific hover state for select */
+.formGroup select:hover {
+  border-color: #4f46e5;
+  background: white;
+}
+
+.formGroup textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+.portfolioSection {
+  border-top: 3px solid #f1f5f9;
+  padding-top: 2rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.portfolioSection::before {
+  content: '';
+  position: absolute;
+  top: -1.5px;
+  left: 0;
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 2px;
+}
+
+.portfolioSection h3 {
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.portfolioSection h3::before {
+  content: '📁';
+  font-size: 1.25rem;
+}
+
+.portfolioEntry {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  border: 2px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.portfolioEntry::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+.portfolioEntry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e1;
+}
+
+.portfolioHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.portfolioHeader h4 {
+  color: #1e293b;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.portfolioHeader h4::before {
+  content: '🏗️';
+  font-size: 1rem;
+}
+
+.filePreview {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 2px dashed #cbd5e1;
+}
+
+.imageItem {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid #c7d2fe;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: #3730a3;
+}
+
+.imageItem:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.15);
+}
+
+.imageNote {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: #f1f5f9;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+  font-weight: 500;
+}
+
+.removeImageButton {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.removeImageButton:hover {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
+}
+
+.addButton {
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  color: #4338ca;
+  border: 2px solid #c7d2fe;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  align-self: flex-start;
+}
+
+.addButton:hover {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(79, 70, 229, 0.2);
+}
+
+.addButton::before {
+  content: '➕';
+  font-size: 1rem;
+}
+
+.removeButton {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  color: #dc2626;
+  border: 2px solid #fecaca;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.removeButton:hover {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 3px solid #f1f5f9;
+  position: relative;
+}
+
+.formActions::before {
+  content: '';
+  position: absolute;
+  top: -1.5px;
+  right: 0;
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 2px;
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.submitButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.submitButton:hover::before {
+  left: 100%;
+}
+
+.submitButton:hover {
+  background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(79, 70, 229, 0.4);
+}
+
+.submitButton:active {
+  transform: translateY(0);
+}
+
+.submitButton:disabled {
+  background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.cancelButton {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #64748b;
+  border: 2px solid #cbd5e1;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cancelButton:hover {
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(100, 116, 139, 0.2);
+  color: #475569;
+}
+
+.cancelButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* FIXED: Custom file input styling with better visibility */
+.formGroup input[type="file"] {
+  position: relative;
+  background: white;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #475569;
+  font-weight: 500;
+}
+
+.formGroup input[type="file"]:hover {
+  border-color: #4f46e5;
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  color: #4338ca;
+}
+
+.formGroup input[type="file"]:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .formContainer {
+    margin: 1rem;
+    border-radius: 16px;
+  }
+  
+  .formContainer h2 {
+    padding: 1.5rem 2rem;
+    font-size: 1.5rem;
+  }
+  
+  .contractorForm {
+    padding: 2rem 1.5rem;
+    gap: 1.5rem;
+  }
+  
+  .portfolioEntry {
+    padding: 1.5rem;
+  }
+  
+  .portfolioHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .formActions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .submitButton,
+  .cancelButton {
+    width: 100%;
+  }
+  
+  .filePreview {
+    gap: 0.5rem;
+  }
+  
+  .imageItem {
+    flex:1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .formContainer {
+    margin: 0.5rem;
+  }
+  
+  .formContainer h2 {
+    padding: 1rem 1.5rem;
+    font-size: 1.25rem;
+  }
+  
+  .contractorForm {
+    padding: 1.5rem 1rem;
+  }
+  
+  .portfolioEntry {
+    padding: 1rem;
+  }
+  
+  .formGroup input,
+  .formGroup select,
+  .formGroup textarea {
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .addButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Loading states */
+.submitButton[disabled] {
+  position: relative;
+}
+
+.submitButton[disabled]::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Enhanced focus styles for accessibility */
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus,
+.submitButton:focus,
+.cancelButton:focus,
+.addButton:focus,
+.removeButton:focus {
+  outline: 3px solid rgba(79, 70, 229, 0.5);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: all 0.2s ease;
+}
+
+/* Custom scrollbar for textarea */
+.formGroup textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.formGroup textarea::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.formGroup textarea::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.formGroup textarea::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
