@@ -360,14 +360,14 @@ const AddContractorForm: React.FC<AddContractorFormProps> = ({ onContractorAdded
         </div>
 
         <div className={styles.formActions}>
-          <button
+          {/* <button
             type="button"
             className={styles.cancelButton}
-            onClick={() => navigate("/admin-dashboard")}
+            onClick={() => navigate(-1)}
             disabled={isSubmitting}
           >
             Cancel
-          </button>
+          </button> */}
           <button
             type="submit"
             className={styles.submitButton}
