@@ -32,43 +32,36 @@ const HomePage: FunctionComponent = () => {
   const recentSearchCities = useSelector(
     (state: any) => state.search.recentSearchCities
   );
+  const [backgroundImage, setBackgroundImage] = useState("");
 
-  // const navigate = useNavigate();
+  useEffect(() => {
+    async function fetchBackgroundImage() {
+      try {
+        const userLocation = { city: "New York" };
 
-  // const handleSubmit = async (event: React.FormEvent) => {
-  //   event.preventDefault();
+        const apiKey = "your_google_api_key";
+        const searchEngineId = "your_search_engine_id";
+        const query = `${userLocation.city} construction buildings`;
 
-  //   const apiUrl = "http://localhost:8000/api/appointments";
+        const response = await fetch(
+          `https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${searchEngineId}&q=${query}&searchType=image`
+        );
 
-  //   try {
-  //     const response = await fetch(apiUrl, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         firstName,
-  //         lastName,
-  //         email,
-  //         phone,
-  //       }),
-  //     });
+        if (!response.ok) {
+          throw new Error("Failed to fetch background image.");
+        }
 
-  //     if (response.ok) {
-  //       alert("Appointment booked successfully!");
-  //       setFirstName("");
-  //       setLastName("");
-  //       setEmail("");
-  //       setPhone("");
-  //       setIsFormVisible(false);
-  //     } else {
-  //       throw new Error("Failed to book appointment.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error booking appointment:", error);
-  //     alert("Failed to book appointment. Please try again.");
-  //   }
-  // };
+        const data = await response.json();
+        if (data.items && data.items.length > 0) {
+          setBackgroundImage(data.items[0].link);
+        }
+      } catch (error) {
+        console.error("Error fetching background image:", error);
+      }
+    }
+
+    fetchBackgroundImage();
+  }, []);
 
   const fetchProperties = async (query: string = "") => {
     try {
@@ -122,11 +115,16 @@ const HomePage: FunctionComponent = () => {
         onLoginClick={() => setIsLoginPopupVisible(true)}
         onSearch={fetchProperties}
       />
-      <div className={styles.hero}>
+
+      <div
+        className={styles.hero}
+        style={{ backgroundImage: `url(${backgroundImage || "./bg.jpg"})` }}
+      >
         <div className={styles.search}>
           <SearchBar />
         </div>
       </div>
+
       <RecentSearch />
       <PropertyTypeCarousel />
       <section className={styles.popularProperties}>
@@ -149,10 +147,10 @@ const HomePage: FunctionComponent = () => {
           ))}
         </div>
       </section>
-      
+
       {/* Banking Partners Section - Added between Popular Properties and Popular Builders */}
       <BankingPartnersSection />
-      
+
       <section className={styles.popularBuilders}>
         <div className={styles.heading}>POPULAR BUILDERS</div>
         <div className={styles.listings}>
