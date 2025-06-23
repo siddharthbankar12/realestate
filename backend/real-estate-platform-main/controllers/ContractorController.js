@@ -168,16 +168,120 @@ const getContractorById = async (req, res) => {
 // Update contractor details
 const updateContractor = async (req, res) => {
   try {
+    const contractorId = req.params.id;
+    // Basic fields
+    const { name, phone, email, location, serviceType } = req.body;
+
+    // 1) Start building update payload
+    const update = { name, phone, email, location, serviceType };
+
+    // 2) Parse portfolio text entries (mirrors create logic)
+    let portfolio = [];
+    if (Array.isArray(req.body.portfolio)) {
+      portfolio = req.body.portfolio.map((p) => ({
+        title: p.title,
+        description: p.description,
+        completedOn: p.completedOn,
+        location: p.location,
+        images: Array.isArray(p.existingImages)
+          ? [...p.existingImages]
+          : p.existingImages
+          ? [p.existingImages]
+          : [],
+      }));
+    } else {
+      const map = {};
+      Object.keys(req.body).forEach((key) => {
+        const m = key.match(/^portfolio\[(\d+)\]\[(\w+)\]$/);
+        if (!m) return;
+        const [_, idx, field] = m;
+        map[idx] = map[idx] || { images: [] };
+        if (field === "existingImages") {
+          const val = req.body[key];
+          map[idx].images.push(...(Array.isArray(val) ? val : [val]));
+        } else {
+          map[idx][field] = req.body[key];
+        }
+      });
+      portfolio = Object.values(map).map((p) => ({
+        title: p.title,
+        description: p.description,
+        completedOn: p.completedOn,
+        location: p.location,
+        images: p.images,
+      }));
+    }
+
+    // 3) Group any newly uploaded files by portfolio index
+    const filesByIndex = {};
+    (req.files || []).forEach((file) => {
+      const m = file.fieldname.match(/^portfolio\[(\d+)\]\[images\]$/);
+      if (!m) return;
+      const idx = m[1];
+      filesByIndex[idx] = filesByIndex[idx] || [];
+      filesByIndex[idx].push(file);
+    });
+
+    // 4) Upload new images and merge into portfolio entries
+    await Promise.all(
+      Object.entries(filesByIndex).map(async ([idx, files]) => {
+        // ensure entry exists
+        portfolio[idx] = portfolio[idx] || {
+          title: "",
+          description: "",
+          completedOn: "",
+          location: "",
+          images: [],
+        };
+
+        const newUrls = await Promise.all(
+          files.map(async (file) => {
+            const tmp = path.join(
+              os.tmpdir(),
+              `${Date.now()}-${file.originalname}`
+            );
+            try {
+              await fs.writeFile(tmp, file.buffer);
+              const resp = await uploadOnCloudinary(tmp, {
+                folder: "contractors",
+              });
+              return resp?.url || null;
+            } finally {
+              await fs.unlink(tmp).catch(() => {});
+            }
+          })
+        );
+        portfolio[idx].images.push(...newUrls.filter((u) => u));
+      })
+    );
+
+    // 5) Filter out any entries missing required fields or images
+    update.portfolio = portfolio.filter(
+      (p) =>
+        p.title &&
+        p.description &&
+        p.completedOn &&
+        p.location &&
+        Array.isArray(p.images) &&
+        p.images.length > 0
+    );
+
+    // 6) Perform the update
     const updated = await Contractor.findByIdAndUpdate(
-      req.params.id,
-      req.body,
+      contractorId,
+      update,
       { new: true }
     );
-    if (!updated)
-      return res.status(404).json({ error: "Contractor not found" });
-    res.status(200).json(updated);
-  } catch (error) {
-    res.status(400).json({ error: "Failed to update contractor" });
+    if (!updated) {
+      return res.status(404).json({ success: false, message: "Not found" });
+    }
+
+    res.json({ success: true, contractor: updated });
+  } catch (err) {
+    console.error("updateContractor failed:", err);
+    res
+      .status(500)
+      .json({ success: false, message: "Update failed", error: err.message });
   }
 };
 

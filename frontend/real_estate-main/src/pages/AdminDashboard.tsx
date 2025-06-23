@@ -209,7 +209,7 @@ const AdminDashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("activeSection");
-
+    localStorage.removeItem("role");
     toast.success("Logged out successfully!");
 
     navigate("/admin-login");
