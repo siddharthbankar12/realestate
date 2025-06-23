@@ -39,7 +39,7 @@ import PrePurchaseServices from "./components/PrePurchaseServices";
 import PostPurchaseServices from "./components/PostPurchaseServices";
 import ContractorDetails from "./components/ContractorDetails";
 import ContractorServices from "./components/ContractorServices";
-
+import UpdateContractorPage from "./components/UpdateContractorPage";
 function App() {
   const action = useNavigationType();
   const location = useLocation();
@@ -164,6 +164,7 @@ function App() {
           path="/services/contractors/:id"
           element={<ContractorDetails />}
         />
+      <Route path="/services/contractors/:id/edit" element={<UpdateContractorPage />} />
 
         <Route path="/aboutus" element={<AboutUs />} />
         <Route

@@ -30,7 +30,7 @@ router.get("/:id", getContractorById); // View specific contractor
 
 // 🔐 Admin-only routes
 router.post("/", upload.any(), createContractor); // Add contractor
-router.put("/:id", updateContractor); // Update contractor
+router.put("/:id",  upload.any(),updateContractor); // Update contractor
 router.delete("/:id", deleteContractor); // Delete contractor
 router.put("/verify/:id", verifyContractor); // Verify contractor
 router.post("/:id/portfolio", addPortfolioProject); //add project

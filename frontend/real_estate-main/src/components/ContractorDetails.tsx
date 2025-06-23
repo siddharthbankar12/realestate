@@ -28,6 +28,8 @@ const ContractorDetails: React.FC = () => {
   const [contractor, setContractor] = useState<Contractor | null>(null);
   const navigate = useNavigate();
 
+  const isAdmin = localStorage.getItem("role") === "admin"; // 👈 Check admin
+
   useEffect(() => {
     async function fetchContractor() {
       try {
@@ -77,6 +79,18 @@ const ContractorDetails: React.FC = () => {
 
         {contractor.verified && (
           <p className={styles.verified}>Verified Contractor</p>
+        )}
+
+        {/* ✅ Only show edit button to admin */}
+        {isAdmin && (
+          <button
+            className={styles.updateButton}
+            onClick={() =>
+              navigate(`/services/contractors/${contractor._id}/edit`)
+            }
+          >
+            Update Contractor
+          </button>
         )}
 
         <h2 className={styles.subheading}>Portfolio Projects</h2>
