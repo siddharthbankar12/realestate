@@ -88,6 +88,7 @@ AdminUpdateRouter.put("/", async (request, response) => {
 // GET all users if adminId is valid
 AdminDashUsersDetail.get("/", async (req, res) => {
   const { adminId } = req.query;
+  console.log("Request Query:", req.query);
 
   try {
     if (!adminId) {
