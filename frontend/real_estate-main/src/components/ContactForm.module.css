@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4vw 8vw;
+
   box-sizing: border-box;
   text-align: center;
 }
@@ -15,7 +15,7 @@
   background-color: #fff;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.168);
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.168);
   margin: 0 auto;
   text-align: center;
 }

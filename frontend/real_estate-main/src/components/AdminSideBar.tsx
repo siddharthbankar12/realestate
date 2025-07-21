@@ -92,6 +92,14 @@ const AdminSideBar: React.FC<AdminSideBarProps> = ({
       >
         Staff Performance
       </div>
+      <div
+        className={`${styles.sidebarText} ${
+          activeSection === "contractorVerification" ? styles.activeSidebarText : ""
+        }`}
+        onClick={() => handleSectionChange("contractorVerification")}
+      >
+        Contractor Verification
+      </div>
 
       <button onClick={handleLogout} className={styles.logoutButton}>
         Logout

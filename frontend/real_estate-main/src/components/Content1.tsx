@@ -32,6 +32,7 @@ const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
       const token = response.data.token;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       localStorage.setItem("authToken", token);
+      localStorage.setItem("role", "admin");
       toast.success("Login Successful");
       navigate("/admin-dashboard");
     } catch (error) {

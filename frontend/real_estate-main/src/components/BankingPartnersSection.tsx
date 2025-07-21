@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
-import BankCard from './BankCard';
-import styles from './BankingPartnersSection.module.css';
+import React, { useState, useEffect, useRef } from "react";
+import BankCard from "./BankCard";
+import styles from "./BankingPartnersSection.module.css";
 
 const BankingPartnersSection = () => {
-
-
-type Bank = {
-  _id: string;
-  bankName: string;
-  logo: string;
-  rating: number;
-  loanProducts: { productType: string }[];
-  interestRate: number;
-};
-
+  type Bank = {
+    _id: string;
+    bankName: string;
+    logo: string;
+    rating: number;
+    loanProducts: { productType: string }[];
+    interestRate: number;
+  };
 
   const [banks, setBanks] = useState<Bank[]>([]);
   const [loading, setLoading] = useState(false);
@@ -25,146 +22,166 @@ type Bank = {
     setLoading(true);
     try {
       const baseURL = import.meta.env.VITE_BACKEND_URL;
-      const response = await fetch(`${baseURL}/api/banking-partners?limit=20&isActive=true`);
+      const response = await fetch(
+        `${baseURL}/api/banking-partners?limit=20&isActive=true`
+      );
       if (!response.ok) {
-        throw new Error('Failed to fetch banking partners');
+        throw new Error("Failed to fetch banking partners");
       }
       const result = await response.json();
-    //   setBanks(result.data || []);
-    setBanks([
+      //   setBanks(result.data || []);
+      setBanks([
         {
-          _id: '1',
-          bankName: 'HDFC Bank',
-          logo: '🏦',
+          _id: "1",
+          bankName: "HDFC Bank",
+          logo: "🏦",
           rating: 4.5,
-          loanProducts: [{ productType: 'home_loan' }, { productType: 'personal_loan' }],
-          interestRate: 8.5
+          loanProducts: [
+            { productType: "home_loan" },
+            { productType: "personal_loan" },
+          ],
+          interestRate: 8.5,
         },
         {
-          _id: '2',
-          bankName: 'ICICI Bank',
-          logo: 'https://logos-world.net/wp-content/uploads/2021/02/ICICI-Bank-Logo.png',
+          _id: "2",
+          bankName: "ICICI Bank",
+          logo: "https://logos-world.net/wp-content/uploads/2021/02/ICICI-Bank-Logo.png",
           rating: 4.3,
-          loanProducts: [{ productType: 'home_loan' }, { productType: 'car_loan' }],
-          interestRate: 8.7
+          loanProducts: [
+            { productType: "home_loan" },
+            { productType: "car_loan" },
+          ],
+          interestRate: 8.7,
         },
         {
-          _id: '3',
-          bankName: 'State Bank of India',
-          logo: 'https://www.sbi.co.in/documents/16012/1400784/logo.png',
+          _id: "3",
+          bankName: "State Bank of India",
+          logo: "https://www.sbi.co.in/documents/16012/1400784/logo.png",
           rating: 4.2,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.4
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.4,
         },
         {
-          _id: '4',
-          bankName: 'Axis Bank',
-          logo: 'https://www.axisbank.com/images/default-source/revamp_new/bank-logos/axis-bank-logo.png',
+          _id: "4",
+          bankName: "Axis Bank",
+          logo: "https://www.axisbank.com/images/default-source/revamp_new/bank-logos/axis-bank-logo.png",
           rating: 4.4,
-          loanProducts: [{ productType: 'home_loan' }, { productType: 'personal_loan' }],
-          interestRate: 8.6
+          loanProducts: [
+            { productType: "home_loan" },
+            { productType: "personal_loan" },
+          ],
+          interestRate: 8.6,
         },
         {
-          _id: '5',
-          bankName: 'Kotak Mahindra Bank',
-          logo: 'https://www.kotak.com/content/dam/Kotak/investor-relation/Financial-result/Kotak-logo.png',
+          _id: "5",
+          bankName: "Kotak Mahindra Bank",
+          logo: "https://www.kotak.com/content/dam/Kotak/investor-relation/Financial-result/Kotak-logo.png",
           rating: 4.3,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.8
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.8,
         },
         {
-          _id: '6',
-          bankName: 'Punjab National Bank',
-          logo: 'https://www.pnbindia.in/images/logos/pnb-logo.png',
+          _id: "6",
+          bankName: "Punjab National Bank",
+          logo: "https://www.pnbindia.in/images/logos/pnb-logo.png",
           rating: 4.1,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.3
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.3,
         },
         {
-          _id: '7',
-          bankName: 'Bank of Baroda',
-          logo: 'https://www.bankofbaroda.in/-/media/Project/BOB/CountryWebsites/India/Bob-Logo-Tagline.png',
+          _id: "7",
+          bankName: "Bank of Baroda",
+          logo: "https://www.bankofbaroda.in/-/media/Project/BOB/CountryWebsites/India/Bob-Logo-Tagline.png",
           rating: 4.0,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.2
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.2,
         },
         {
-          _id: '8',
-          bankName: 'Canara Bank',
-          logo: 'https://canarabank.com/images/canara-bank-logo.png',
+          _id: "8",
+          bankName: "Canara Bank",
+          logo: "https://canarabank.com/images/canara-bank-logo.png",
           rating: 4.1,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.1
-        }
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.1,
+        },
       ]);
     } catch (error) {
-      console.error('Error fetching banking partners:', error);
+      console.error("Error fetching banking partners:", error);
       // Fallback demo data
       setBanks([
         {
-          _id: '1',
-          bankName: 'HDFC Bank',
-          logo: 'https://logos-world.net/wp-content/uploads/2020/12/HDFC-Bank-Logo.png',
+          _id: "1",
+          bankName: "HDFC Bank",
+          logo: "https://logos-world.net/wp-content/uploads/2020/12/HDFC-Bank-Logo.png",
           rating: 4.5,
-          loanProducts: [{ productType: 'home_loan' }, { productType: 'personal_loan' }],
-          interestRate: 8.5
+          loanProducts: [
+            { productType: "home_loan" },
+            { productType: "personal_loan" },
+          ],
+          interestRate: 8.5,
         },
         {
-          _id: '2',
-          bankName: 'ICICI Bank',
-          logo: 'https://logos-world.net/wp-content/uploads/2021/02/ICICI-Bank-Logo.png',
+          _id: "2",
+          bankName: "ICICI Bank",
+          logo: "https://logos-world.net/wp-content/uploads/2021/02/ICICI-Bank-Logo.png",
           rating: 4.3,
-          loanProducts: [{ productType: 'home_loan' }, { productType: 'car_loan' }],
-          interestRate: 8.7
+          loanProducts: [
+            { productType: "home_loan" },
+            { productType: "car_loan" },
+          ],
+          interestRate: 8.7,
         },
         {
-          _id: '3',
-          bankName: 'State Bank of India',
-          logo: 'https://www.sbi.co.in/documents/16012/1400784/logo.png',
+          _id: "3",
+          bankName: "State Bank of India",
+          logo: "https://www.sbi.co.in/documents/16012/1400784/logo.png",
           rating: 4.2,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.4
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.4,
         },
         {
-          _id: '4',
-          bankName: 'Axis Bank',
-          logo: 'https://www.axisbank.com/images/default-source/revamp_new/bank-logos/axis-bank-logo.png',
+          _id: "4",
+          bankName: "Axis Bank",
+          logo: "https://www.axisbank.com/images/default-source/revamp_new/bank-logos/axis-bank-logo.png",
           rating: 4.4,
-          loanProducts: [{ productType: 'home_loan' }, { productType: 'personal_loan' }],
-          interestRate: 8.6
+          loanProducts: [
+            { productType: "home_loan" },
+            { productType: "personal_loan" },
+          ],
+          interestRate: 8.6,
         },
         {
-          _id: '5',
-          bankName: 'Kotak Mahindra Bank',
-          logo: 'https://www.kotak.com/content/dam/Kotak/investor-relation/Financial-result/Kotak-logo.png',
+          _id: "5",
+          bankName: "Kotak Mahindra Bank",
+          logo: "https://www.kotak.com/content/dam/Kotak/investor-relation/Financial-result/Kotak-logo.png",
           rating: 4.3,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.8
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.8,
         },
         {
-          _id: '6',
-          bankName: 'Punjab National Bank',
-          logo: 'https://www.pnbindia.in/images/logos/pnb-logo.png',
+          _id: "6",
+          bankName: "Punjab National Bank",
+          logo: "https://www.pnbindia.in/images/logos/pnb-logo.png",
           rating: 4.1,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.3
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.3,
         },
         {
-          _id: '7',
-          bankName: 'Bank of Baroda',
-          logo: 'https://www.bankofbaroda.in/-/media/Project/BOB/CountryWebsites/India/Bob-Logo-Tagline.png',
+          _id: "7",
+          bankName: "Bank of Baroda",
+          logo: "https://www.bankofbaroda.in/-/media/Project/BOB/CountryWebsites/India/Bob-Logo-Tagline.png",
           rating: 4.0,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.2
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.2,
         },
         {
-          _id: '8',
-          bankName: 'Canara Bank',
-          logo: 'https://canarabank.com/images/canara-bank-logo.png',
+          _id: "8",
+          bankName: "Canara Bank",
+          logo: "https://canarabank.com/images/canara-bank-logo.png",
           rating: 4.1,
-          loanProducts: [{ productType: 'home_loan' }],
-          interestRate: 8.1
-        }
+          loanProducts: [{ productType: "home_loan" }],
+          interestRate: 8.1,
+        },
       ]);
     } finally {
       setLoading(false);
@@ -206,16 +223,18 @@ type Bank = {
     <section className={styles.bankingPartnersSection}>
       <div className={styles.heading}>BANKING PARTNERS</div>
       <div className={styles.carouselContainer}>
-        <button 
-          className={`${styles.navButton} ${styles.prevButton}`}
-          onClick={handlePrev}
-          disabled={currentIndex === 0}
-        >
-          &#8249;
-        </button>
-        
+        <div>
+          <button
+            className={`${styles.navButton} ${styles.prevButton}`}
+            onClick={handlePrev}
+            disabled={currentIndex === 0}
+          >
+            &#8249;
+          </button>
+        </div>
+
         <div className={styles.carouselWrapper}>
-          <div 
+          <div
             className={styles.carousel}
             ref={containerRef}
             style={{
@@ -229,27 +248,34 @@ type Bank = {
                   logo={bank.logo}
                   rating={bank.rating || 4.0}
                   loanProducts={bank.loanProducts?.length || 0}
-                  interestRate={getMinInterestRate(bank.loanProducts).toFixed(1)}
+                  interestRate={getMinInterestRate(bank.loanProducts).toFixed(
+                    1
+                  )}
                 />
               </div>
             ))}
           </div>
         </div>
-        
-        <button 
-          className={`${styles.navButton} ${styles.nextButton}`}
-          onClick={handleNext}
-          disabled={currentIndex + cardsPerView >= banks.length}
-        >
-          &#8250;
-        </button>
+        <div>
+          <button
+            className={`${styles.navButton} ${styles.nextButton}`}
+            onClick={handleNext}
+            disabled={currentIndex + cardsPerView >= banks.length}
+          >
+            &#8250;
+          </button>
+        </div>
       </div>
-      
+
       <div className={styles.indicators}>
-        {Array.from({ length: Math.max(0, banks.length - cardsPerView + 1) }).map((_, index) => (
+        {Array.from({
+          length: Math.max(0, banks.length - cardsPerView + 1),
+        }).map((_, index) => (
           <button
             key={index}
-            className={`${styles.indicator} ${index === currentIndex ? styles.active : ''}`}
+            className={`${styles.indicator} ${
+              index === currentIndex ? styles.active : ""
+            }`}
             onClick={() => setCurrentIndex(index)}
           />
         ))}

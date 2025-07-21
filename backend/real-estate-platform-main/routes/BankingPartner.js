@@ -6,7 +6,8 @@ const {
   getLoanOptionsForProperty,
   createBankingPartner,
   updateBankingPartner,
-  deleteBankingPartner
+
+  deleteBankingPartner,
 } = require("../controllers/BankingPartner.js");
 
 // Public routes - accessible to all users

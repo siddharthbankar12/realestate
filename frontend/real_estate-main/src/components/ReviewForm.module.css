@@ -1,23 +1,20 @@
 /* Styles for ReviewForm */
-.reviewFormContainer {
-  border-radius: 8px;
-
-  width: 100%;
-
-  width: 100%;
-
-  margin: 0 auto;
-}
 
 .container {
   padding: 2vw 4vw;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.168);
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.168);
   border-radius: 12px;
+  height: 100%;
+}
+
+.reviewFormContainer {
+  border-radius: 8px;
+  margin: 0 auto;
 }
 
 .heading {
   text-align: center;
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: 500;
   margin-bottom: 1em;
   color: #000;
@@ -39,11 +36,13 @@
   font-size: 1em;
   width: 100%;
   margin: 0;
+  width: 250px;
 }
 
 .textarea {
   resize: vertical;
   min-height: 100px;
+  height: 180px;
 }
 
 .submitButton {
