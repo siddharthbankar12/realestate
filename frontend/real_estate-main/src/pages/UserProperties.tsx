@@ -31,8 +31,9 @@ const UserProperties: FunctionComponent = () => {
 
   const fetchProperties = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/property-user/${email}`,
+        `${baseURL}/api/property-user/${email}`,
         {
           method: "GET",
           headers: {

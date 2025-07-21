@@ -12,7 +12,8 @@ interface ModalProps {
 
 const Modal = ({ show, handleClose }: ModalProps) => {
   const [AddAdmin, setAddAdmin] = React.useState({ adminId: "", password: "" });
-  const baseUrl = "http://localhost:8000/api/admin/signup";
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
+  const baseUrl = `${baseURL}/api/admin/signup`;
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

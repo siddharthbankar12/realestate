@@ -19,7 +19,8 @@ const StaffManagement = () => {
 
   const fetchStaff = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/staff/all", {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      const res = await axios.get(`${baseURL}/api/staff/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStaffList(res.data);
@@ -52,7 +53,8 @@ const StaffManagement = () => {
     }
 
     try {
-      await axios.post("http://localhost:8000/api/staff/signup", form, {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      await axios.post(`${baseURL}/api/staff/signup`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Staff created successfully!");
@@ -74,7 +76,8 @@ const StaffManagement = () => {
     if (!window.confirm("Are you sure you want to delete this staff?")) return;
 
     try {
-      await axios.delete(`http://localhost:8000/api/staff/${id}`, {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      await axios.delete(`${baseURL}/api/staff/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Staff deleted successfully.");

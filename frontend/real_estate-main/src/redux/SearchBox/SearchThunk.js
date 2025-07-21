@@ -1,6 +1,7 @@
 export const searchSuggestionsThunk = async (url, searchTerm, thunkAPI) => {
   try {
-    const response = await fetch(`http://localhost:8000/api/allproperty`);
+    const baseURL = import.meta.env.VITE_BACKEND_URL;
+    const response = await fetch(`${baseURL}/api/allproperty`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

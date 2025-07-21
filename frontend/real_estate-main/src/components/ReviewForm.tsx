@@ -41,8 +41,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({ propertyId }) => {
     }
 
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        "http://localhost:8000/api/reviews/add-property-review",
+        `${baseURL}/api/reviews/add-property-review`,
         {
           method: "POST",
           headers: {

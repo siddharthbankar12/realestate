@@ -72,7 +72,9 @@ const HomePage: FunctionComponent = () => {
 
   const fetchProperties = async (query: string = "") => {
     try {
-      const response = await fetch(`http://localhost:8000/api/allproperty`, {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      // console.log(baseURL);
+      const response = await fetch(`${baseURL}/api/allproperty`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

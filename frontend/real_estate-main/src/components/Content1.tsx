@@ -11,7 +11,8 @@ export type ContentType = {
 
 const Content: FunctionComponent<ContentType> = ({ className = "" }) => {
   const navigate = useNavigate();
-  const baseUrl = "http://localhost:8000/api/admin/login";
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
+  const baseUrl = `${baseURL}/api/admin/login`;
 
   const [loginCredentials, setLoginCredentials] = useState({
     adminId: "admin1",

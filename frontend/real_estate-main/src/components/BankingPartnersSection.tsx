@@ -24,7 +24,8 @@ type Bank = {
   const fetchBankingPartners = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8000/api/banking-partners?limit=20&isActive=true');
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      const response = await fetch(`${baseURL}/api/banking-partners?limit=20&isActive=true`);
       if (!response.ok) {
         throw new Error('Failed to fetch banking partners');
       }

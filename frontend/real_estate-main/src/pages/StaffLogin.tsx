@@ -11,7 +11,8 @@ export type contentType = {
 
 const StaffLogin: FunctionComponent<contentType> = ({ className = "" }) => {
   const navigate = useNavigate();
-  const baseUrl = "http://localhost:8000/api/staff/login";
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
+  const baseUrl = `${baseURL}/api/staff/login`;
 
   const [loginCredentials, setLoginCredentials] = useState({
     staffId: "basil1749703918492",

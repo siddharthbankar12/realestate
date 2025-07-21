@@ -44,8 +44,9 @@ const UserPreviouslySaved: FunctionComponent = () => {
       if (!userId) return;
 
       try {
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
         const res = await fetch(
-          `http://localhost:8000/api/user-update/${userId}/saved-properties`
+          `${baseURL}/api/user-update/${userId}/saved-properties`
         );
         const data = await res.json();
         setSavedProperties(data.saveProperties || []);
@@ -59,8 +60,9 @@ const UserPreviouslySaved: FunctionComponent = () => {
 
   const handleRemove = async (propertyId: string) => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const res = await fetch(
-        `http://localhost:8000/api/user-update/${userId}/remove-saved-property/${propertyId}`,
+        `${baseURL}/api/user-update/${userId}/remove-saved-property/${propertyId}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },

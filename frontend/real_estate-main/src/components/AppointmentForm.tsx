@@ -31,10 +31,10 @@ const AppointmentForm: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
+    const baseURL = import.meta.env.VITE_BACKEND_URL;
     const apiUrl = token
-      ? "http://localhost:8000/api/appointments/user" // For logged-in users
-      : "http://localhost:8000/api/appointments/admin"; // For guests
+      ? `${baseURL}/api/appointments/user` // For logged-in users
+      : `${baseURL}/api/appointments/admin`; // For guests
 
     try {
       const response = await fetch(apiUrl, {
