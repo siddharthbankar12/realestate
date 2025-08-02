@@ -46,7 +46,8 @@ const ContactForm: FunctionComponent<ContactFormProps> = ({
         propertyId,
       };
 
-      const response = await fetch("http://localhost:8000/api/enquiry/create", {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      const response = await fetch(`${baseURL}/api/enquiry/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

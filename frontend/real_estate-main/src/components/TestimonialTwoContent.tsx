@@ -21,7 +21,8 @@ const TestimonialTwoContent: FunctionComponent<TestimonialTwoContentType> = ({
 
   const fetchTestimonials = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/testimonials");
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      const res = await axios.get(`${baseURL}/api/testimonials`);
       setTestimonials(res.data);
     } catch (error) {
       console.error("Error fetching testimonials:", error);

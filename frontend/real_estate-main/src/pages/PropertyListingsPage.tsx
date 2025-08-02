@@ -53,8 +53,9 @@ const PropertyListingsPage: FunctionComponent = () => {
           params.append("verified", "true");
         }
 
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
         const response = await fetch(
-          `http://localhost:8000/api/property?${params.toString()}`,
+          `${baseURL}/api/property?${params.toString()}`,
           {
             method: "GET",
             headers: {

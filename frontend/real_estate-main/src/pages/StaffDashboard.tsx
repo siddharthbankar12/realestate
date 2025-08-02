@@ -63,8 +63,9 @@ const StaffDashboard = () => {
 
   const fetchUserDetails = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        "http://localhost:8000/api/staff/users-details",
+        `${baseURL}/api/staff/users-details`,
         {
           method: "GET",
           headers: {
@@ -87,13 +88,14 @@ const StaffDashboard = () => {
 
   const fetchSalesData = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const [employeesRes, salesTargetsRes] = await Promise.all([
-        fetch("http://localhost:8000/api/staff/employees", {
+        fetch(`${baseURL}/api/staff/employees`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         }),
-        fetch("http://localhost:8000/api/staff/sales-targets", {
+        fetch(`${baseURL}/api/staff/sales-targets`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
@@ -120,8 +122,9 @@ const StaffDashboard = () => {
 
   const handleCreateTarget = async (targetData: any) => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        "http://localhost:8000/api/staff/sales-targets",
+        `${baseURL}/api/staff/sales-targets`,
         {
           method: "POST",
           headers: {
@@ -146,8 +149,9 @@ const StaffDashboard = () => {
 
   const handleUpdateTarget = async (targetId: string, updateData: any) => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/staff/sales-targets/${targetId}`,
+        `${baseURL}/api/staff/sales-targets/${targetId}`,
         {
           method: "PUT",
           headers: {
@@ -176,17 +180,18 @@ const StaffDashboard = () => {
 
   const fetchData = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const [appointmentsRes, propertiesRes, titleSearchRes, prePurchaseRes] =
         await Promise.all([
-          fetch("http://localhost:8000/api/appointments", {
+          fetch(`${baseURL}/api/appointments`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("authToken")}`,
             },
           }),
-          fetch("http://localhost:8000/api/property/verification"),
-          fetch("http://localhost:8000/api/title-search/list"),
+          fetch(`${baseURL}/api/property/verification`),
+          fetch(`${baseURL}/api/title-search/list`),
           fetch(
-            "http://localhost:8000/api/Pre-Purchase-Property-Verification/list"
+            `${baseURL}/api/Pre-Purchase-Property-Verification/list`
           ),
         ]);
 
@@ -220,8 +225,9 @@ const StaffDashboard = () => {
   const handleAcceptProperty = async (id: string) => {
     let staffId = staffData._id;
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/staff/property/${id}/accept/${staffId}`,
+        `${baseURL}/api/staff/property/${id}/accept/${staffId}`,
         { method: "PUT" }
       );
       const result = await response.json();
@@ -241,8 +247,9 @@ const StaffDashboard = () => {
   const handleCancelAppointment = async (appointmentId: string) => {
     const staffId = staffData?._id;
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/staff/appointment/cancelled/${appointmentId}`,
+        `${baseURL}/api/staff/appointment/cancelled/${appointmentId}`,
         {
           method: "PUT",
           headers: {
@@ -275,8 +282,9 @@ const StaffDashboard = () => {
   const handleAcceptAppointment = async (id: string) => {
     const staffId = staffData?._id;
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/staff/appointment/accept/${id}`,
+        `${baseURL}/api/staff/appointment/accept/${id}`,
         {
           method: "PUT",
           headers: {

@@ -48,6 +48,7 @@ const AdminDashboard = () => {
 
   const fetchData = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const [
         appointmentsRes,
         propertiesRes,
@@ -56,15 +57,15 @@ const AdminDashboard = () => {
         adminsRes,
         contractorsRes,
       ] = await Promise.all([
-        fetch("http://localhost:8000/api/appointments", {
+        fetch(`${baseURL}/api/appointments`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         }),
-        fetch("http://localhost:8000/api/property/verification"),
-        fetch("http://localhost:8000/api/reviews/get-all-reviews"),
-        fetch("http://localhost:8000/api/enquiry/get-all-enquiry"),
-        fetch("http://localhost:8000/api/admin", {
+        fetch(`${baseURL}/api/property/verification`),
+        fetch(`${baseURL}/api/reviews/get-all-reviews`),
+        fetch(`${baseURL}/api/enquiry/get-all-enquiry`),
+        fetch(`${baseURL}/api/admin`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
@@ -139,8 +140,9 @@ const AdminDashboard = () => {
         throw new Error("No authorization token found");
       }
 
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/appointments/${id}`,
+        `${baseURL}/api/appointments/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -168,8 +170,9 @@ const AdminDashboard = () => {
 
   const handleAcceptProperty = async (id: string) => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/property/${id}/accept`,
+        `${baseURL}/api/property/${id}/accept`,
         { method: "PUT" }
       );
       const result = await response.json();
@@ -188,8 +191,9 @@ const AdminDashboard = () => {
 
   const handleRejectProperty = async (id: string) => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/property/${id}/reject`,
+        `${baseURL}/api/property/${id}/reject`,
         { method: "PUT" }
       );
       const result = await response.json();
@@ -209,7 +213,7 @@ const AdminDashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("activeSection");
-
+    localStorage.removeItem("role");
     toast.success("Logged out successfully!");
 
     navigate("/admin-login");
@@ -217,8 +221,9 @@ const AdminDashboard = () => {
 
   const handleRemoveAdmin = async (adminId: string) => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/admin/${adminId}`,
+        `${baseURL}/api/admin/${adminId}`,
         {
           method: "DELETE",
           headers: {
@@ -257,8 +262,9 @@ const AdminDashboard = () => {
 
   const handleDeleteEnquiry = async (enquiryId: string) => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/enquiry/${enquiryId}/delete`,
+        `${baseURL}/api/enquiry/${enquiryId}/delete`,
         {
           method: "DELETE",
         }

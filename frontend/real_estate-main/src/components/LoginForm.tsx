@@ -12,7 +12,8 @@ export type LoginFormType = {
 
 const LoginForm: FunctionComponent<LoginFormType> = ({ className = "" }) => {
   const navigate = useNavigate();
-  const baseUrl = "http://localhost:8000/api/login";
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
+  const baseUrl = `${baseURL}/api/login`;
   const [loginCredentials, setLoginCredentials] = useState({
     emailOrPhone: "",
     password: "",

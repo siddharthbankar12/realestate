@@ -61,8 +61,9 @@ const StaffAppointLogDetails: React.FC = () => {
 
   const fetchAppointment = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/staff/get-appointment/${appointmentId}/details`
+        `${baseURL}/api/staff/get-appointment/${appointmentId}/details`
       );
       if (!response.ok) throw new Error();
       const data = await response.json();
@@ -81,8 +82,9 @@ const StaffAppointLogDetails: React.FC = () => {
 
   const fetchAppointmentLogs = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await axios.get(
-        `http://localhost:8000/api/staff/appointment/${appointmentId}/logs`
+        `${baseURL}/api/staff/appointment/${appointmentId}/logs`
       );
       if (response.data.success) {
         const sortedUpdates = response.data.updates.sort(
@@ -100,8 +102,9 @@ const StaffAppointLogDetails: React.FC = () => {
     e.preventDefault();
 
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/staff/appointment/${appointmentId}/update-log`,
+        `${baseURL}/api/staff/appointment/${appointmentId}/update-log`,
         {
           method: "PUT",
           headers: {

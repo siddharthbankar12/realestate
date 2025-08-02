@@ -151,8 +151,9 @@ const UserProfile: React.FC = () => {
 
       try {
         // Send FormData to the backend
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
         const response = await fetch(
-          `http://localhost:8000/api/user-update/${userId}`,
+          `${baseURL}/api/user-update/${userId}`,
           {
             method: "PUT",
             headers: {

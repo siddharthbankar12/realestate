@@ -6,11 +6,13 @@ import {
   FaWrench,
   FaRegClock,
   FaMapMarkerAlt,
+  FaPlus,
 } from "react-icons/fa";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AddContractorForm from "./AddContractorForm"; // Import the form component
 
 interface PortfolioItem {
   title: string;
@@ -32,12 +34,14 @@ interface Contractor {
 const ContractorServices: React.FC = () => {
   const [contractors, setContractors] = useState<Contractor[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showAddContractorForm, setShowAddContractorForm] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchContractors = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/contractor/verified");
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
+        const res = await axios.get(`${baseURL}/api/contractor/verified`);
         setContractors(res.data);
       } catch (error) {
         console.error("Error fetching contractors", error);
@@ -49,10 +53,45 @@ const ContractorServices: React.FC = () => {
     fetchContractors();
   }, []);
 
+  // Function to handle form submission success
+  const handleContractorAdded = () => {
+    setShowAddContractorForm(false);
+    // Refetch contractors to update the list
+    const fetchContractors = async () => {
+      try {
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
+        const res = await axios.get(`${baseURL}/api/contractor/verified`);
+        setContractors(res.data);
+      } catch (error) {
+        console.error("Error fetching contractors", error);
+      }
+    };
+    fetchContractors();
+  };
+
   return (
     <>
       <Navbar />
+      <div style={{ height: '30px' }}></div>
       <div className={styles.wrapper}>
+        {/* Add Contractor Button */}
+        <div className={styles.addContractorHeader}>
+          <button 
+            className={styles.addContractorButton}
+            onClick={() => setShowAddContractorForm(!showAddContractorForm)}
+          >
+            <FaPlus className={styles.plusIcon} />
+            {showAddContractorForm ? "Cancel" : "Add New Contractor"}
+          </button>
+        </div>
+
+        {/* Add Contractor Form */}
+        {showAddContractorForm && (
+          <div className={styles.formContainer}>
+            <AddContractorForm onContractorAdded={handleContractorAdded} />
+          </div>
+        )}
+
         <section className={styles.heroSection}>
           <h1 className={styles.heading}>Verified Contractor Services</h1>
           <p className={styles.tagline}>

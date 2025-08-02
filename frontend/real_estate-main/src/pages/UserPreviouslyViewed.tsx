@@ -49,8 +49,9 @@ const UserPreviouslyViewed: FunctionComponent = () => {
         const userId = decoded?._id;
         if (!userId) throw new Error("User ID not found in token");
 
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
         const res = await fetch(
-          `http://localhost:8000/api/user-update/previous-view`,
+          `${baseURL}/api/user-update/previous-view`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

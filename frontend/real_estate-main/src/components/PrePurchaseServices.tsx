@@ -26,8 +26,9 @@ const PrePurchaseServices = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        "http://localhost:8000/api/Pre-Purchase-Property-Verification/create-enquiry",
+        `${baseURL}/api/Pre-Purchase-Property-Verification/create-enquiry`,
         {
           method: "POST",
           headers: {

@@ -19,8 +19,9 @@ const UserPastSearches: FunctionComponent = () => {
       if (token) {
         const decoded = jwtDecode(token);
         try {
+          const baseURL = import.meta.env.VITE_BACKEND_URL;
           const response = await axios.get(
-            `http://localhost:8000/api/user-update/${decoded._id}/past-searches`
+            `${baseURL}/api/user-update/${decoded._id}/past-searches`
           );
           setSearches(response.data);
         } catch (err) {

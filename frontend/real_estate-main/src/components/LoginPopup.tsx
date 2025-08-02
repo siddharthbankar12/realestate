@@ -26,7 +26,8 @@ const LoginPopup: FunctionComponent<LoginPopupProps> = ({
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/users/login", {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      const response = await fetch(`${baseURL}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

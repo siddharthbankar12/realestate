@@ -16,7 +16,8 @@ const RecentSearch = () => {
 
   const getUserSearchHistory = async (search_text, userId) => {
     try {
-      await axios.post("http://localhost:8000/api/user-update/search-history", {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      await axios.post(`${baseURL}/api/user-update/search-history`, {
         search_text,
         userId,
       });

@@ -43,8 +43,9 @@ const StaffProfile: React.FC<{
 
   const handleSave = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await axios.put(
-        `http://localhost:8000/api/staff/update-detail/${staff._id}`,
+        `${baseURL}/api/staff/update-detail/${staff._id}`,
         {
           fullName: editedStaff?.fullName,
           email: editedStaff?.email,
@@ -71,8 +72,9 @@ const StaffProfile: React.FC<{
       return toast.warn("Please fill both password fields.");
     }
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       await axios.put(
-        `http://localhost:8000/api/staff/${staff._id}/change-password`,
+        `${baseURL}/api/staff/${staff._id}/change-password`,
         { oldPassword, newPassword },
         {
           headers: {

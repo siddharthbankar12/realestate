@@ -36,7 +36,8 @@ const FormContainer: FunctionComponent<FormContainerType> = ({
       formData;
 
     try {
-      await axios.post("http://localhost:8000/api/users", {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      await axios.post(`${baseURL}/api/users`, {
         firstName,
         lastName,
         phoneNumber,

@@ -44,6 +44,7 @@ const PropertiesListSection = ({ searchQuery, filterproperty }) => {
     searchQuery.type = "House";
   }
   useEffect(() => {
+    const baseURL = import.meta.env.VITE_BACKEND_URL;
     const filters = {
       noOfBedrooms,
       minPrice,
@@ -60,7 +61,7 @@ const PropertiesListSection = ({ searchQuery, filterproperty }) => {
       furnitureType,
       purchaseType,
       searchproperties: filterproperty,
-      url: `http://localhost:8000/api/propertyPurpose?query=${searchQuery.type}`,
+      url: `${baseURL}/api/propertyPurpose?query=${searchQuery.type}`,
       reraApproved,
     };
 

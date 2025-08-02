@@ -36,8 +36,9 @@ const BuilderPropertyCard: FunctionComponent<PropertyCardType> = ({
 
   const handleBuyNowClick = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/property/${pid}/sold`,
+        `${baseURL}/api/property/${pid}/sold`,
         {
           method: "PATCH",
           headers: {

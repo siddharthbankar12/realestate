@@ -44,7 +44,8 @@ const RegisterPopup: FunctionComponent<RegisterPopupProps> = ({
     };
 
     try {
-      const response = await fetch("http://localhost:8000/api/users/newuser", {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      const response = await fetch(`${baseURL}/api/users/newuser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

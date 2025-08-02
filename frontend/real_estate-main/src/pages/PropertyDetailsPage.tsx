@@ -62,8 +62,9 @@ const PropertyDetailsPage: FunctionComponent = () => {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
         const response = await fetch(
-          `http://localhost:8000/api/property/${property_id}`
+          `${baseURL}/api/property/${property_id}`
         );
 
         if (!response.ok) {
@@ -71,10 +72,11 @@ const PropertyDetailsPage: FunctionComponent = () => {
         }
 
         const result = await response.json();
+        console.log(result);
         setProperty(result.property);
 
         if (decoded._id && property_id) {
-          await fetch(`http://localhost:8000/api/user-update/previous-view/`, {
+          await fetch(`${baseURL}/api/user-update/previous-view/`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

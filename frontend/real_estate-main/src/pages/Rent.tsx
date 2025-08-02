@@ -133,8 +133,9 @@ const Rent: React.FC = () => {
     });
 
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await axios.post(
-        "http://localhost:8000/api/property",
+        `${baseURL}/api/property`,
         combinedFormData,
         {
           headers: {

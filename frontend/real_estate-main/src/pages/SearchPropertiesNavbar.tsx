@@ -68,8 +68,9 @@ const Properties = (props) => {
     try {
       const selectedCity = city === "All" ? "" : city;
 
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        `http://localhost:8000/api/property?city=${encodeURIComponent(
+        `${baseURL}/api/property?city=${encodeURIComponent(
           selectedCity
         )}&query=${encodeURIComponent(query)}`,
         {

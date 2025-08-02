@@ -76,8 +76,9 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
         return;
       }
 
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        "http://localhost:8000/api/user-update/save-property",
+        `${baseURL}/api/user-update/save-property`,
         {
           method: "POST",
           headers: {
@@ -111,8 +112,9 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
 
   const fetchReviews = async () => {
     try {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        "http://localhost:8000/api/reviews/single-property-reviews",
+        `${baseURL}/api/reviews/single-property-reviews`,
         {
           method: "POST",
           headers: {
@@ -140,7 +142,8 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
 
     setLoadingLoanOffers(true);
     try {
-      let url = `http://localhost:8000/api/banking-partners/loan-options/${property._id}`;
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      let url = `${baseURL}/api/banking-partners/loan-options/${property._id}`;
       const params = new URLSearchParams();
 
       if (selectedLoanAmount) {
@@ -192,8 +195,9 @@ const PropertyDetails: FunctionComponent<PropertyDetailsType> = ({
       if (!userId || !property?._id) return;
 
       try {
+        const baseURL = import.meta.env.VITE_BACKEND_URL;
         const response = await fetch(
-          "http://localhost:8000/api/user-update/is-property-saved",
+          `${baseURL}/api/user-update/is-property-saved`,
           {
             method: "POST",
             headers: {

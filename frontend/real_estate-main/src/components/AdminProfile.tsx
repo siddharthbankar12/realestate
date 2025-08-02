@@ -29,7 +29,8 @@ const AdminProfile: React.FC<AdminProfileProps> = ({ adminProfile }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/api/admin/update", {
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
+      const response = await fetch(`${baseURL}/api/admin/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

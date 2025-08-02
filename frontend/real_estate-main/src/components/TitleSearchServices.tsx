@@ -76,8 +76,9 @@ const TitleSearchServices: React.FC = () => {
         }
       });
 
+      const baseURL = import.meta.env.VITE_BACKEND_URL;
       const response = await fetch(
-        "http://localhost:8000/api/title-search/create-request",
+        `${baseURL}/api/title-search/create-request`,
         {
           method: "POST",
           body: data,
